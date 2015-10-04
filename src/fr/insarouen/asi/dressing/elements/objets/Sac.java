@@ -6,12 +6,11 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console; 
+import java.io.Console;
 import fr.insarouen.asi.dressing.elements.TypeSac;
 
-public class Sac{
+public class Sac {
 
     TypeSac typeS;
-    
 
 }

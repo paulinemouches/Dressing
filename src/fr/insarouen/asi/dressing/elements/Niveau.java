@@ -1,3 +1,6 @@
 package fr.insarouen.asi.dressing.elements;
 
-public enum Niveau {HAUT,BAS,HAUTBAS};
+public enum Niveau {
+
+    HAUT, BAS, HAUTBAS
+};

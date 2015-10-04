@@ -6,11 +6,11 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console; 
+import java.io.Console;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
-public class Chaussures{
+
+public class Chaussures {
 
     TypeChaussures typeC;
-    
 
 }
