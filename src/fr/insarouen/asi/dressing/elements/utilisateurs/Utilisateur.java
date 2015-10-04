@@ -59,11 +59,13 @@ public class Utilisateur {
         this.signeUtilisateur = signeUtilisateur;
     }
 
-public void ajouterUtilisateur() throws SQLException{
+public Utilisateur ajouterUtilisateur() throws SQLException{
+    Utilisateur nouvelUtilisateur ;
     Statement st = Initialisation.getC().createStatement();
     Scanner sc = new Scanner(System.in);
     System.out.println("Entrez votre nom");
     String nom = sc.nextLine();
+    nouvelUtilisateur  =  new Utilisateur(nom, 'Pauline', 21, 168, CouleurCheveux.Brun, 'Jaune', Signe.A);
    st.executeUpdate("INSERT INTO PERSONNE(nom, prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ('"+nom+"', 'Pauline', 21, 168, 'Brun', 'Jaune', 'A')");
 }
 }

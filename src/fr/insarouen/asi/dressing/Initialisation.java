@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.io.Console;
 import java.sql.*;
 import org.postgresql.Driver;
+import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 
 public class Initialisation {
 
@@ -24,7 +25,18 @@ public class Initialisation {
         return c;
     }
     
+    public void menu(){
+         System.out.println("tapez 1 pour entrer un nouvel utilisateur");
+    }
     
+    public void lancer(){
+        menu();
+        Scanner sc = new Scanner(System.in);
+        if(sc.nextInt()==1){
+            ajouterUtilisateur();
+        }
+        
+    }
 
     public static void main(String[] args) {
         try {
@@ -33,6 +45,7 @@ public class Initialisation {
 
             System.out.println("Connecté à la base ");
             System.out.println();
+           
 
             c.close();
         } catch (ClassNotFoundException | SQLException e) {
