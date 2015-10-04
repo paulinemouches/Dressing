@@ -1,5 +1,6 @@
 package fr.insarouen.asi.dressing.elements.utilisateurs;
 
+import fr.insarouen.asi.dressing.Initialisation;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -58,12 +59,11 @@ public class Utilisateur {
         this.signeUtilisateur = signeUtilisateur;
     }
 
-public Utilisateur ajouterUtilisateur(){
+public void ajouterUtilisateur() throws SQLException{
+    Statement st = Initialisation.getC().createStatement();
     Scanner sc = new Scanner(System.in);
     System.out.println("Entrez votre nom");
-            String nom = sc.nextLine();
-            Statement st=("");
-            
-    
+    String nom = sc.nextLine();
+   st.executeUpdate("INSERT INTO PERSONNE(nom, prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ('"+nom+"', 'Pauline', 21, 168, 'Brun', 'Jaune', 'A')");
 }
 }
