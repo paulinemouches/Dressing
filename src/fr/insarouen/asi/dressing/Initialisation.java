@@ -20,6 +20,12 @@ public class Initialisation {
     public Initialisation() {
     }
 
+    public static Connection getC() {
+        return c;
+    }
+    
+    
+
     public static void main(String[] args) {
         try {
             Class.forName("org.postgresql.Driver");
