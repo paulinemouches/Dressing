@@ -26,59 +26,68 @@ public class Initialisation {
     public static Connection getC() {
         return c;
     }
-    
-    public static void menu(){
-         System.out.println("tapez 1 pour entrer un nouvel utilisateur");
+
+    public static void menu() {
+        System.out.println("tapez 1 pour entrer un nouvel utilisateur");
+        System.out.println("tapez 2 pour supprimer utilisateur");
     }
-    
-    
-    public static void connexion(){
+
+    public static void connexion() {
         String nomBase;
-       String nomUtilisateur;
-       String mdp;
-       Scanner sc = new Scanner(System.in);
+        String nomUtilisateur;
+        String mdp;
+        Scanner sc = new Scanner(System.in);
         System.out.println("Nom de la base ?");
-       nomBase =sc.nextLine();
-       System.out.println("Utilisateur?");
-       nomUtilisateur =sc.nextLine();
-       System.out.println("mdp ?");
-       mdp =sc.nextLine();
-                try {
+        nomBase = sc.next();
+        System.out.println("Utilisateur?");
+        nomUtilisateur = sc.next();
+        System.out.println("mdp ?");
+        mdp = sc.next();
+        try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + nomBase, nomUtilisateur, mdp);
 
             System.out.println("Connecté à la base ");
             System.out.println();
-           
 
-            
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
-    
-    public static void lancer() throws SQLException{
+
+    public static void lancer() throws SQLException {
         menu();
         Scanner sc = new Scanner(System.in);
-        if(sc.nextInt()==1){
-            Utilisateur user = new Utilisateur();
-            user.ajouterUtilisateur();
-        }
-        
+            switch (sc.nextInt()) {
+                case 1:
+                    Utilisateur user1 = new Utilisateur();
+                    user1.ajouterUtilisateur();
+                    break;
+                case 2:
+                    Utilisateur user2 = new Utilisateur();
+                    user2.supprimerUtilisateur();
+                    break;
+                default:
+                    System.out.println("deconnection");
+                    c.close();
+            }
+
     }
 
     public static void main(String[] args) {
-        try{
-          connexion();
-          lancer();
-          DAO<Utilisateur> utilisateurDao = new UtilisateurDAO();
-          for (int i =1;i<3;i++){
-             System.out.println(utilisateurDao.find(i));
-          }
-          c.close();
-    }catch(SQLException e){
-System.out.println("erreurmain");
-    }
+        try {
+            connexion();
+            lancer();
+            DAO<Utilisateur> utilisateurDao = new UtilisateurDAO();
+            for (int i = 1; i < 9; i++) {
+                if (utilisateurDao.find(i).getNom() != null) {
+                    System.out.println(utilisateurDao.find(i));
+                }
+            }
+            c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
