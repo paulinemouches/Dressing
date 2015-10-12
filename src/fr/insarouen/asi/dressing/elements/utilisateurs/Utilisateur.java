@@ -103,7 +103,7 @@ public class Utilisateur {
     }
 
     
-    public Utilisateur ajouterUtilisateur() throws SQLException {
+    public boolean ajouterUtilisateur() throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez votre nom");
         String nom = sc.nextLine();
@@ -137,22 +137,32 @@ public class Utilisateur {
         u.setSigneUtilisateur(signe);
         UtilisateurDAO nouvelUtilisateur = new UtilisateurDAO();
         nouvelUtilisateur.create(u);
-        return u;
+        return true;
     }
 
-    public void supprimerUtilisateur() throws SQLException {
+    public boolean supprimerUtilisateur() throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Id utilisateur a supprimer ?");
         int id = sc.nextInt();
         UtilisateurDAO uASupprimer = new UtilisateurDAO();
         if (uASupprimer.find(id) != null) {
-            uASupprimer.delete(uASupprimer.find(id));    
+            uASupprimer.delete(uASupprimer.find(id));  
+            return true;
         }
-    }
-    
+        else{
+        return false;
+        }
+        }
+
     @Override
     public String toString() {
         return "Utilisateur{" + "nom=" + nom + ", prenom=" + prenom + ", id=" + id + ", age=" + age + ", taille=" + taille + ", couleurPreferee=" + couleurPreferee + ", couleurCheveux=" + couleurCheveux + ", signeUtilisateur=" + signeUtilisateur + '}';
     }
+    
+    
+    
+    }
+    
 
-}
+
+

@@ -14,11 +14,11 @@ public abstract class DAO<T> {
     
     public abstract T find(int id)throws SQLException;
     
-    public abstract T create(T obj) throws SQLException;
+    public abstract boolean create(T obj) throws SQLException;
     
-    public abstract T update(T obj);
+    public abstract boolean update(T obj);
     
-    public abstract void delete(T obj) throws SQLException;
+    public abstract boolean delete(T obj) throws SQLException;
     
 }
     

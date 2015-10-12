@@ -22,7 +22,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     public UtilisateurDAO(){}
     
     @Override
-    public  Utilisateur create(Utilisateur obj) {
+    public  boolean create(Utilisateur obj) {
         try{
             int id =0;
         Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
@@ -46,17 +46,18 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         }catch(SQLException e){
              e.printStackTrace();
         }
-                return obj;
+                return true;
     }
     
     
     @Override
-     public  Utilisateur update (Utilisateur obj){ return null;} // inutile car pas de fonctionnalité permettant de modifier un utilisateur
+     public  boolean update (Utilisateur obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un utilisateur
     
     @Override
-    public  void delete(Utilisateur obj) throws SQLException{
+    public  boolean delete(Utilisateur obj) throws SQLException{
     Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             st.executeUpdate("DELETE  FROM PERSONNE WHERE idPers ="+obj.getId()); 
+            return true;
     }
     
     @Override

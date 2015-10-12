@@ -12,6 +12,7 @@ import org.postgresql.Driver;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
 import fr.insarouen.asi.dressing.dao.DAO;
+import fr.insarouen.asi.dressing.elements.objets.Sac;
 
 public class Initialisation {
 
@@ -27,9 +28,15 @@ public class Initialisation {
         return c;
     }
 
-    public static void menu() {
+    public static void menuGeneral() {
         System.out.println("tapez 1 pour entrer un nouvel utilisateur");
-        System.out.println("tapez 2 pour supprimer utilisateur");
+        System.out.println("tapez 2 pour supprimer  un utilisateur");
+        System.out.println("tapez 3 pour accéder à un dressing existant");
+    }
+    
+    public static void menuDressing(int id){
+        System.out.println("tapez 1 pour entrer un nouveau sac");
+        System.out.println("tapez 2 pour supprimer  un sac");
     }
 
     public static void connexion() {
@@ -57,21 +64,36 @@ public class Initialisation {
     }
 
     public static void lancer() throws SQLException {
-        menu();
+        menuGeneral();
         Scanner sc = new Scanner(System.in);
-            switch (sc.nextInt()) {
-                case 1:
-                    Utilisateur user1 = new Utilisateur();
-                    user1.ajouterUtilisateur();
-                    break;
-                case 2:
-                    Utilisateur user2 = new Utilisateur();
-                    user2.supprimerUtilisateur();
-                    break;
-                default:
-                    System.out.println("deconnection");
-                    c.close();
-            }
+        switch (sc.nextInt()) {
+            case 1:
+                Utilisateur user1 = new Utilisateur();
+                boolean buser1 = user1.ajouterUtilisateur();
+                break;
+            case 2:
+                Utilisateur user2 = new Utilisateur();
+                boolean buser2 = user2.supprimerUtilisateur();
+                break;
+            case 3:
+                Scanner scId= new Scanner(System.in);
+                System.out.println("Votre id d'utilisateur ?");
+                int idDressing = scId.nextInt();
+                 menuDressing(idDressing);
+                 Scanner scDressing= new Scanner(System.in);
+                 switch(sc.nextInt()){
+                     case 1 :
+                         Sac sac1=new Sac();
+                         boolean bsac1 = sac1.ajouterSac(idDressing);
+                         break;
+                     default:
+                 }
+                 
+                break;
+            default:
+                System.out.println("deconnection");
+                c.close();
+        }
 
     }
 
