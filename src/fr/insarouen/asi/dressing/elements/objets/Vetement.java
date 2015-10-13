@@ -25,15 +25,15 @@ public class Vetement {
     private boolean sale;
     
     /* Constructeurs */
-    public Vetement(int idV, String coupe, String type, String matiere, int couche) {
+    public Vetement(int idV, String coupe, String type, String matiere){
         this.idV = idV;
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
-        this.couche = couche;
         this.sale = false;
-        // Comment fait-on pour signes ?? 
-        // Et pour Niveau ? 
+        this.niveau = determinerNiveau(type);
+        // Fonction pour avoir le signe automatiquement en fonction du type de vêtement ! 
+        // Fonction pour avoir la couche automatiquement en fonction du type ! 
     }
     
     public Vetement() {
@@ -73,5 +73,35 @@ public class Vetement {
     }
     
     // Des fonctions à ajouter !! 
+    public String determinerNiveau(String typeVetement){
+        String resultat="";
+        switch(typeVetement){
+            case "TeeShirt": resultat="HAUT";
+                break;
+            case "Chemisier": resultat="HAUT";
+                break;
+            case "Pull": resultat="HAUT";
+                break;
+            case "Veste": resultat="HAUT";
+                break;
+            case "Manteau": resultat="HAUT";
+                break;
+            case "Combinaison": resultat="HAUTBAS";
+                break;
+            case "Jogging": resultat="BAS";
+                break;
+            case "Jupe": resultat="BAS";
+                break;
+            case "Pantalon": resultat="BAS";
+                break;
+            case "Pantacourt": resultat="BAS";
+                break;
+            case "Short": resultat="BAS";
+                break;
+            case "Robe": resultat="HAUTBAS";
+                break;
+        }
+        return resultat; 
+    }
 
 }
