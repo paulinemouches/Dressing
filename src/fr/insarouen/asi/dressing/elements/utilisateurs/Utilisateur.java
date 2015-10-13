@@ -104,6 +104,7 @@ public class Utilisateur {
 
     
     public boolean ajouterUtilisateur() throws SQLException {
+        // Attention à gérer les exceptions !!!! 
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez votre nom");
         String nom = sc.nextLine();
