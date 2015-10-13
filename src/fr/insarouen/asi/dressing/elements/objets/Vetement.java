@@ -72,6 +72,6 @@ public class Vetement {
         return sale;
     }
     
-    
+    // Des fonctions à ajouter !! 
 
 }
