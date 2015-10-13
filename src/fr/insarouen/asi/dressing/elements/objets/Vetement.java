@@ -71,6 +71,40 @@ public class Vetement {
     public boolean isSale() {
         return sale;
     }
+
+    public void setIdV(int idV) {
+        this.idV = idV;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
+    public void setSignes(String[] signes) {
+        this.signes = signes;
+    }
+
+    public void setCoupe(String coupe) {
+        this.coupe = coupe;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
+
+    public void setCouche(int couche) {
+        this.couche = couche;
+    }
+
+    public void setSale(boolean sale) {
+        this.sale = sale;
+    }
+    
+    
     
     // Des fonctions à ajouter !! 
     public String determinerNiveau(String typeVetement){
