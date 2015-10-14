@@ -32,6 +32,7 @@ public class Vetement {
         this.matiere = matiere;
         this.sale = false;
         this.niveau = determinerNiveau(type);
+        this.couche= determinerCouche(type);
         // Fonction pour avoir le signe automatiquement en fonction du type de vêtement ! 
         // Fonction pour avoir la couche automatiquement en fonction du type ! 
     }
@@ -105,9 +106,80 @@ public class Vetement {
     }
     
     
+   
+    public String[] determinerSignes(String coupeVetement){
+        String resultat[]={};
+        switch (coupeVetement){
+            case "Cintre": 
+                resultat[1]="H";
+                resultat[2]="8";
+                resultat[3]="V";
+                resultat[4]="X";
+                resultat[5]="A";
+                break;
+            case "HautDroit": 
+                resultat[1]="H";
+                resultat[2]="O";
+                resultat[3]="A";
+                break;
+            case "Large": 
+                resultat[1]="V";
+                resultat[2]="X";
+                resultat[3]="O";
+                resultat[4]="8";
+                break;
+            case "PantalonDroit": 
+                resultat[1]="H";
+                resultat[2]="8";
+                resultat[3]="O";
+                resultat[4]="X";
+                resultat[5]="A";
+                break;
+            case "Slim": 
+                resultat[1]="H";
+                resultat[2]="V";
+                resultat[3]="X";
+                resultat[4]="A";
+                break;
+            case "Evase": 
+                resultat[1]="O";
+                resultat[2]="8";
+                break;
+            case "Baggy": 
+                resultat[1]="V";
+                resultat[2]="8";
+                resultat[3]="O";
+                break;
+            case "Long": 
+                resultat[1]="H";
+                resultat[2]="8";
+                resultat[3]="O";
+                resultat[4]="X";
+                resultat[5]="A";
+                resultat[6]="V";
+                break;
+            case "Court": 
+                resultat[1]="H";
+                resultat[2]="8";
+                resultat[3]="V";
+                break;
+        }
+        return resultat;
+    } 
     
-    // Des fonctions à ajouter !! 
-    public String determinerNiveau(String typeVetement){
+    public int determinerCouche(String typeVetement){
+        int resultat=0;
+        switch(typeVetement){
+            case "Veste": resultat=2;
+                break;
+            case "Manteau": resultat=2;
+                break;
+            default : resultat=1;
+        }
+        return resultat; 
+    }
+    
+     public String determinerNiveau(String typeVetement){
         String resultat="";
         switch(typeVetement){
             case "TeeShirt": resultat="HAUT";
@@ -137,5 +209,7 @@ public class Vetement {
         }
         return resultat; 
     }
+     
+        
 
 }
