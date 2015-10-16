@@ -6,20 +6,21 @@
 package fr.insarouen.asi.dressing.dao.concret;
 
 import fr.insarouen.asi.dressing.dao.DAO;
-import fr.insarouen.asi.dressing.elements.objets.Sac;
+import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.Initialisation;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 /**
  *
  * @author pauline
  */
-public class SacDAO extends DAO<Sac> {
-    
+public class ChaussuresDAO extends DAO<Chaussures> {
+     
     @Override
-     public  boolean create(Sac obj) {
+     public  boolean create(Chaussures obj) {
         try{
             int id =0;
         Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
@@ -29,10 +30,10 @@ public class SacDAO extends DAO<Sac> {
                           id = res.getInt(1) +1;
         }
          System.out.println(id);
-         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
+         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec) VALUES ("+id+",?,?,?)");
        prepare.setInt(1,  obj.getIdDressing());
          prepare.setString(2,  obj.getCouleur()); 
-        prepare.setString(3,  obj.getTypeS());
+        prepare.setString(3,  obj.getTypeC());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
 
@@ -43,28 +44,24 @@ public class SacDAO extends DAO<Sac> {
     }
     
  @Override
-     public  boolean update (Sac obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
+     public  boolean update (Chaussures obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
      
          @Override
-    public  boolean delete(Sac obj) throws SQLException{
+    public  boolean delete(Chaussures obj) throws SQLException{
     Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            st.executeUpdate("DELETE  FROM SAC WHERE idObjet ="+obj.getIdObjet()); 
+            st.executeUpdate("DELETE  FROM CHAUSSURE WHERE idObjet ="+obj.getIdObjet()); 
             return true;
     }
     
         @Override
-    public Sac  find(int id) throws SQLException{
+    public Chaussures  find(int id) throws SQLException{
         
-       Sac s = new Sac();
-            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
+       Chaussures c = new Chaussures();
+            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM CHAUSSURE WHERE idObjet = "+id);
             
             if(res.first()){
-                s = new Sac(id,res.getInt("idDressing"),res.getString("couleur"),res.getString("types"));
+                c = new Chaussures(id,res.getInt("idDressing"),res.getString("couleur"),res.getString("typec"));
            }
-return s;
-    }
-     
-     
-     
-    
+return c;
+    }  
 }

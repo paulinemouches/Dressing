@@ -17,11 +17,11 @@ public class Sac {
     private int idDressing;
     private int idObjet;
 
-    public Sac(int idObjet, int idDressing,String typeS, String couleur) {
+    public Sac(int idObjet, int idDressing, String typeS, String couleur) {
         this.typeS = typeS;
         this.couleur = couleur;
-        this.idObjet=idObjet;
-        this.idDressing =idDressing;
+        this.idObjet = idObjet;
+        this.idDressing = idDressing;
     }
 
     public Sac() {
@@ -47,7 +47,6 @@ public class Sac {
         this.idObjet = idObjet;
     }
 
-    
     public void setTypeS(String typeS) {
         this.typeS = typeS;
     }
@@ -59,24 +58,54 @@ public class Sac {
     public void setIdDressing(int idDressing) {
         this.idDressing = idDressing;
     }
-    
- public boolean ajouterSac(int idDressing){
+
+    public Sac menuAjouterSacTxt() {
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("Entrez le type de sac");
         String typeS = sc.nextLine();
-        
+
         System.out.println("Entrez la couleur du sac");
         String couleur = sc.nextLine();
-        
+
         Sac s = new Sac();
-        System.out.println("creer sac");
-        s.setIdDressing(idDressing);
         s.setTypeS(typeS);
         s.setCouleur(couleur);
+        return s;
+    }
+
+    public boolean ajouterSac(int idDressing) throws SQLException {
+
+        Sac s = menuAjouterSacTxt();
+        s.setIdDressing(idDressing);
         SacDAO nouveauSac = new SacDAO();
         nouveauSac.create(s);
         return true;
- }
+    }
+
+    public boolean supprimerSac() throws SQLException {
+        SacDAO sacASupprimer = new SacDAO();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("entrez l'id du sac à supprimer");
+        int id = sc.nextInt();
+        if (sacASupprimer.find(id) != null) {
+            sacASupprimer.delete(sacASupprimer.find(id));
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    
+    public Sac trouverSac(int id) throws SQLException{
+        SacDAO s = new SacDAO();
+       return s.find(id);   
+    }
+
+    @Override
+    public String toString() {
+        return "Sac{" + "typeS=" + typeS + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+    }
 
 }
