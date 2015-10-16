@@ -13,6 +13,9 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Initialisation {
@@ -49,21 +52,22 @@ public class Initialisation {
         String nomBase;
         String nomUtilisateur;
         String mdp;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Nom de la base ?");
-        nomBase = sc.next();
-        System.out.println("Utilisateur?");
-        nomUtilisateur = sc.next();
-        System.out.println("mdp ?");
-        mdp = sc.next();
-        try {
+        try{
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                System.out.println("Nom de la base ?");
+                nomBase=reader.readLine();
+                System.out.println("Utilisateur?");
+                nomUtilisateur=reader.readLine();
+                System.out.println("mdp ?");
+                mdp=reader.readLine();
+            }
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + nomBase, nomUtilisateur, mdp);
 
             System.out.println("Connecté à la base ");
             System.out.println();
 
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException | IOException e) {
             e.printStackTrace();
         }
 
