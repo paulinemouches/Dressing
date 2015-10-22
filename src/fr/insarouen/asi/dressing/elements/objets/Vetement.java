@@ -12,29 +12,35 @@ import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
 import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
+import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 
 public class Vetement {
 
-    private int idV;
+    private int idObjet;
+    private int idDressing;
     private String niveau;
     private String[] signes;
     private String coupe;
     private String type;
     private String matiere;
+    private String fils;
+    private String couleur;
     private int couche;
     private boolean sale;
+    // Il manque la couleur !! 
     
     /* Constructeurs */
-    public Vetement(int idV, String coupe, String type, String matiere){
-        this.idV = idV;
+    public Vetement(int idV,int idDressing, String couleur, String coupe, String type, String matiere, String[] signes, int couche, String niveau){
+        this.idObjet = idV;
+        this.idDressing = idDressing;
+        this.couleur= couleur;
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
         this.sale = false;
-        this.niveau = determinerNiveau(type);
-        this.couche= determinerCouche(type);
-        // Fonction pour avoir le signe automatiquement en fonction du type de vêtement ! 
-        // Fonction pour avoir la couche automatiquement en fonction du type ! 
+        this.niveau = niveau;
+        this.couche= couche;
+        this.signes = signes;
     }
     
     public Vetement() {
@@ -42,8 +48,18 @@ public class Vetement {
     
     /* Les méthodes */ 
     public int getIdV() {
-        return idV;
+        return idObjet;
     }
+
+    public String getCouleur() {
+        return couleur;
+    }
+    
+
+    public int getIdDressing() {
+        return idDressing;
+    }
+    
 
     public String getNiveau() {
         return niveau;
@@ -68,13 +84,21 @@ public class Vetement {
     public int getCouche() {
         return couche;
     }
+    
+    public String getFils() {
+        return fils;
+    }
 
     public boolean isSale() {
         return sale;
     }
 
     public void setIdV(int idV) {
-        this.idV = idV;
+        this.idObjet = idV;
+    }
+
+    public void setIdDressing(int idDressing) {
+        this.idDressing = idDressing;
     }
 
     public void setNiveau(String niveau) {
@@ -104,59 +128,67 @@ public class Vetement {
     public void setSale(boolean sale) {
         this.sale = sale;
     }
+
+    public void setFils(String fils) {
+        this.fils = fils;
+    }
+
+    public void setCouleur(String couleur) {
+        this.couleur = couleur;
+    }
     
     
    
     public String[] determinerSignes(String coupeVetement){
-        String resultat[]={};
+        String resultat[]=new String[6];
         switch (coupeVetement){
             case "Cintre": 
-                resultat[1]="H";
-                resultat[2]="8";
-                resultat[3]="V";
-                resultat[4]="X";
-                resultat[5]="A";
-                break;
-            case "HautDroit": 
-                resultat[1]="H";
-                resultat[2]="O";
-                resultat[3]="A";
-                break;
-            case "Large": 
-                resultat[1]="V";
-                resultat[2]="X";
-                resultat[3]="O";
-                resultat[4]="8";
-                break;
-            case "PantalonDroit": 
-                resultat[1]="H";
-                resultat[2]="8";
-                resultat[3]="O";
-                resultat[4]="X";
-                resultat[5]="A";
-                break;
-            case "Slim": 
-                resultat[1]="H";
+                resultat[0]="H";
+                resultat[1]="8";
                 resultat[2]="V";
                 resultat[3]="X";
                 resultat[4]="A";
                 break;
-            case "Evase": 
+            case "HautDroit": 
+                resultat[0]="H";
                 resultat[1]="O";
-                resultat[2]="8";
+                resultat[2]="A";
+                break;
+            case "Large": 
+                resultat[0]="V";
+                resultat[1]="X";
+                resultat[2]="O";
+                resultat[3]="8";
+                break;
+            case "PantalonDroit": 
+                resultat[0]="H";
+                resultat[1]="8";
+                resultat[2]="O";
+                resultat[3]="X";
+                resultat[4]="A";
+                break;
+            case "Slim": 
+                resultat[0]="H";
+                resultat[1]="V";
+                resultat[2]="X";
+                resultat[3]="A";
+                break;
+            case "Evase": 
+                resultat[0]="O";
+                resultat[1]="8";
                 break;
             case "Baggy": 
-                resultat[1]="V";
-                resultat[2]="8";
-                resultat[3]="O";
+                resultat[0]="V";
+                resultat[1]="8";
+                resultat[1]="O";
                 break;
             case "Long": 
-                resultat[1]="H";
-                resultat[2]="8";
-                resultat[3]="O";
-                resultat[4]="X";
-                resultat[5]="A";
-                resultat[6]="V";
+                resultat[0]="H";
+                resultat[1]="8";
+                resultat[2]="O";
+                resultat[3]="X";
+                resultat[4]="A";
+                resultat[5]="V";
                 break;
             case "Court": 
                 resultat[1]="H";
@@ -179,37 +211,96 @@ public class Vetement {
         return resultat; 
     }
     
-     public String determinerNiveau(String typeVetement){
-        String resultat="";
+    public String determinerFils(String typeVetement){
+        String resultat;
         switch(typeVetement){
-            case "TeeShirt": resultat="HAUT";
+            case "TeeShirt": resultat="Haut";
                 break;
-            case "Chemisier": resultat="HAUT";
+            case "Chemisier": resultat="Haut";
                 break;
-            case "Pull": resultat="HAUT";
+            case "Pull": resultat="Haut";
                 break;
-            case "Veste": resultat="HAUT";
+            case "Veste": resultat="Haut";
                 break;
-            case "Manteau": resultat="HAUT";
+            case "Manteau": resultat="Haut";
                 break;
-            case "Combinaison": resultat="HAUTBAS";
+            case "Jogging": resultat="Pantalon";
                 break;
-            case "Jogging": resultat="BAS";
+            case "Pantalon": resultat="Pantalon";
                 break;
-            case "Jupe": resultat="BAS";
+            case "Pantacourt": resultat="Pantalon";
                 break;
-            case "Pantalon": resultat="BAS";
-                break;
-            case "Pantacourt": resultat="BAS";
-                break;
-            case "Short": resultat="BAS";
-                break;
-            case "Robe": resultat="HAUTBAS";
-                break;
+            default : resultat="Autre";
         }
+        return resultat;
+    }
+    
+     public String determinerNiveau(String fils, String typeVetement){
+        String resultat="";
+        if (fils.equals("Haut")){
+            resultat="Haut";
+        }else if (fils.equals("Pantalon")){
+            resultat="Bas";
+        }else{
+                switch(typeVetement){
+                case "Combinaison": resultat="Haut-Bas";
+                    break;
+                case "Jupe": resultat="Bas";
+                    break;
+                case "Short": resultat="Bas";
+                    break;
+                case "Robe": resultat="Haut-Bas";
+                    break;
+            }
+        }
+        
         return resultat; 
     }
      
+     
+     public Vetement menuAjouterVetementTxt() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez le type de vêtement : ");
+        String type = sc.nextLine();
         
+        System.out.println("Entrez la matière : ");
+        String matiere = sc.nextLine();
+        
+        System.out.println("Entrez la coupe : ");
+        String coupe = sc.nextLine();
+        
+        System.out.println("Entrez la couleur : ");
+        String couleur = sc.nextLine();
+        
+        String signes[]= determinerSignes(coupe);
+        
+        String fils = determinerFils(type);
+       
+        String niveau = determinerNiveau(fils, type);
+        
+        int couche = determinerCouche(type); 
+        
+        Vetement v = new Vetement();
+        v.setCouleur(couleur);
+        v.setCouche(couche);
+        v.setCoupe(coupe);
+        v.setMatiere(matiere);
+        v.setNiveau(niveau);
+        v.setSale(false);
+        v.setSignes(signes);
+        v.setType(type);
+        v.setFils(fils);
+        return v;
+    }
+     
+     public boolean ajouterVetement(int idDressing) throws SQLException {
+        // Attention à gérer les exceptions !!! 
+        Vetement v = menuAjouterVetementTxt();
+        v.setIdDressing(idDressing);
+        
+        VetementDAO nouveauVetement = new VetementDAO();
+        nouveauVetement.create(v);
+        return true;
+     }   
 
 }
