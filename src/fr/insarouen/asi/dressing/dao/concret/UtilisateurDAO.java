@@ -31,7 +31,6 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
          while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
                           id = res.getInt(1) +1;
         }
-         System.out.println(id);
          PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO PERSONNE(idPers,nom,prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ("+id+",?,?,?,?,?,?,?)");
         prepare.setString(1,  obj.getNom()); 
         prepare.setString(2,  obj.getPrenom());

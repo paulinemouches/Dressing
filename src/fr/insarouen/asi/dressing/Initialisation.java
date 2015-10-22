@@ -13,6 +13,7 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
+import fr.insarouen.asi.dressing.elements.objets.Vetement;
 
 
 public class Initialisation {
@@ -42,7 +43,8 @@ public class Initialisation {
         System.out.println("tapez 4 pour entrer des nouvelles chaussures");
         System.out.println("tapez 5 pour supprimer  des chaussures");
         System.out.println("tapez 6 pour afficher vos chaussures");
-                System.out.println("tapez 7 pour revenir au menu precedent");
+        System.out.println("tapez 7 pour entrer un nouveau vetement");
+                System.out.println("tapez 8 pour revenir au menu precedent");
     }
 
     public static void connexion() {
@@ -121,6 +123,11 @@ public class Initialisation {
                 }
                 break;
             case 7:
+                Vetement v1 = new Vetement();
+                boolean b = v1.ajouterVetement(idDressing);
+                explorerDressing(idDressing);;
+                break;
+            case 8:
                 lancer();
                 break;
             default:
