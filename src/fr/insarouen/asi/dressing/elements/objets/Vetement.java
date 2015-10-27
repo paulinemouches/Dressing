@@ -16,16 +16,16 @@ import fr.insarouen.asi.dressing.elements.CoupeVetement;
 public class Vetement {
 
     private int idV;
-    private String niveau;
+    private Niveau niveau;
     private String[] signes;
-    private String coupe;
-    private String type;
-    private String matiere;
+    private CoupeVetement coupe;
+    private TypeVetement type;
+    private Matiere matiere;
     private int couche;
     private boolean sale;
     
     /* Constructeurs */
-    public Vetement(int idV, String coupe, String type, String matiere){
+    public Vetement(int idV, CoupeVetement coupe, TypeVetement type, Matiere matiere){
         this.idV = idV;
         this.coupe = coupe;
         this.type = type;
@@ -45,7 +45,7 @@ public class Vetement {
         return idV;
     }
 
-    public String getNiveau() {
+    public Niveau getNiveau() {
         return niveau;
     }
 
@@ -53,15 +53,15 @@ public class Vetement {
         return signes;
     }
 
-    public String getCoupe() {
+    public CoupeVetement getCoupe() {
         return coupe;
     }
 
-    public String getType() {
+    public TypeVetement getType() {
         return type;
     }
 
-    public String getMatiere() {
+    public Matiere getMatiere() {
         return matiere;
     }
 
@@ -77,7 +77,7 @@ public class Vetement {
         this.idV = idV;
     }
 
-    public void setNiveau(String niveau) {
+    public void setNiveau(Niveau niveau) {
         this.niveau = niveau;
     }
 
@@ -85,15 +85,15 @@ public class Vetement {
         this.signes = signes;
     }
 
-    public void setCoupe(String coupe) {
+    public void setCoupe(CoupeVetement coupe) {
         this.coupe = coupe;
     }
 
-    public void setType(String type) {
+    public void setType(TypeVetement type) {
         this.type = type;
     }
 
-    public void setMatiere(String matiere) {
+    public void setMatiere(Matiere matiere) {
         this.matiere = matiere;
     }
 
@@ -107,50 +107,45 @@ public class Vetement {
     
     
    
-    public String[] determinerSignes(String coupeVetement){
+    public String[] determinerSignes(CoupeVetement coupeVetement){
         String resultat[]={};
         switch (coupeVetement){
-            case "Cintre": 
+            case cintre: 
                 resultat[1]="H";
                 resultat[2]="8";
                 resultat[3]="V";
                 resultat[4]="X";
                 resultat[5]="A";
                 break;
-            case "HautDroit": 
-                resultat[1]="H";
-                resultat[2]="O";
-                resultat[3]="A";
-                break;
-            case "Large": 
+            case large: 
                 resultat[1]="V";
                 resultat[2]="X";
                 resultat[3]="O";
                 resultat[4]="8";
                 break;
-            case "PantalonDroit": 
+            case droit: 
                 resultat[1]="H";
                 resultat[2]="8";
                 resultat[3]="O";
                 resultat[4]="X";
                 resultat[5]="A";
                 break;
-            case "Slim": 
+            case slim: 
                 resultat[1]="H";
                 resultat[2]="V";
                 resultat[3]="X";
                 resultat[4]="A";
                 break;
-            case "Evase": 
+            case evase: 
                 resultat[1]="O";
                 resultat[2]="8";
                 break;
-            case "Baggy": 
+            case baggy: 
                 resultat[1]="V";
                 resultat[2]="8";
                 resultat[3]="O";
                 break;
-            case "Long": 
+            case longue: 
                 resultat[1]="H";
                 resultat[2]="8";
                 resultat[3]="O";
@@ -158,7 +153,7 @@ public class Vetement {
                 resultat[5]="A";
                 resultat[6]="V";
                 break;
-            case "Court": 
+            case court: 
                 resultat[1]="H";
                 resultat[2]="8";
                 resultat[3]="V";
@@ -167,44 +162,44 @@ public class Vetement {
         return resultat;
     } 
     
-    public int determinerCouche(String typeVetement){
+    public int determinerCouche(TypeVetement typeVetement){
         int resultat=0;
         switch(typeVetement){
-            case "Veste": resultat=2;
+            case veste: resultat=2;
                 break;
-            case "Manteau": resultat=2;
+            case manteau: resultat=2;
                 break;
             default : resultat=1;
         }
         return resultat; 
     }
     
-     public String determinerNiveau(String typeVetement){
-        String resultat="";
+     public Niveau determinerNiveau(TypeVetement typeVetement){
+       Niveau resultat = null;
         switch(typeVetement){
-            case "TeeShirt": resultat="HAUT";
+            case teeshirt : resultat= Niveau.haut;
                 break;
-            case "Chemisier": resultat="HAUT";
+            case chemisier: resultat=Niveau.haut;
                 break;
-            case "Pull": resultat="HAUT";
+            case pull: resultat=Niveau.haut;
                 break;
-            case "Veste": resultat="HAUT";
+            case veste: resultat=Niveau.haut;
                 break;
-            case "Manteau": resultat="HAUT";
+            case manteau: resultat=Niveau.haut;
                 break;
-            case "Combinaison": resultat="HAUTBAS";
+            case combinaison: resultat=Niveau.hautbas;
                 break;
-            case "Jogging": resultat="BAS";
+            case jogging: resultat=Niveau.bas;
                 break;
-            case "Jupe": resultat="BAS";
+            case jupe: resultat=Niveau.bas;
                 break;
-            case "Pantalon": resultat="BAS";
+            case pantalon: resultat=Niveau.bas;
                 break;
-            case "Pantacourt": resultat="BAS";
+            case pantacourt: resultat=Niveau.bas;
                 break;
-            case "Short": resultat="BAS";
+            case shorts: resultat=Niveau.bas;
                 break;
-            case "Robe": resultat="HAUTBAS";
+            case robe: resultat=Niveau.hautbas;
                 break;
         }
         return resultat; 
