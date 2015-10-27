@@ -12,7 +12,7 @@ import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
 
 public class Chaussures {
 
-    String typeC;
+   TypeChaussures typeC;
     private String couleur;
     private int idDressing;
     private int idObjet;
@@ -20,14 +20,14 @@ public class Chaussures {
     public Chaussures() {
     }
 
-    public Chaussures(int idObjet,int idDressing,  String typeC, String couleur) {
+    public Chaussures(int idObjet,int idDressing,  TypeChaussures typeC, String couleur) {
         this.typeC = typeC;
         this.couleur = couleur;
         this.idDressing = idDressing;
         this.idObjet = idObjet;
     }
 
-    public String getTypeC() {
+    public TypeChaussures getTypeC() {
         return typeC;
     }
 
@@ -43,7 +43,7 @@ public class Chaussures {
         return idObjet;
     }
 
-    public void setTypeC(String typeC) {
+    public void setTypeC(TypeChaussures typeC) {
         this.typeC = typeC;
     }
 
@@ -64,7 +64,7 @@ public class Chaussures {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de chaussures");
-        String typeC = sc.nextLine();
+        TypeChaussures typeC = TypeChaussures.get(sc.nextLine());
 
         System.out.println("Entrez la couleur des chaussures");
         String couleur = sc.nextLine();
@@ -106,7 +106,7 @@ public class Chaussures {
     
     @Override
     public String toString() {
-        return "Chaussures{" + "typeC=" + typeC + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+        return "Chaussures{" + "typeC=" + typeC.name() + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
     }
 
 }

@@ -12,12 +12,12 @@ import fr.insarouen.asi.dressing.dao.concret.SacDAO;
 
 public class Sac {
 
-    private String typeS;
+    private TypeSac typeS;
     private String couleur;
     private int idDressing;
     private int idObjet;
 
-    public Sac(int idObjet, int idDressing, String typeS, String couleur) {
+    public Sac(int idObjet, int idDressing, TypeSac typeS, String couleur) {
         this.typeS = typeS;
         this.couleur = couleur;
         this.idObjet = idObjet;
@@ -27,7 +27,7 @@ public class Sac {
     public Sac() {
     }
 
-    public String getTypeS() {
+    public TypeSac getTypeS() {
         return typeS;
     }
 
@@ -47,7 +47,7 @@ public class Sac {
         this.idObjet = idObjet;
     }
 
-    public void setTypeS(String typeS) {
+    public void setTypeS(TypeSac typeS) {
         this.typeS = typeS;
     }
 
@@ -63,7 +63,7 @@ public class Sac {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de sac");
-        String typeS = sc.nextLine();
+        TypeSac typeS = TypeSac.get(sc.nextLine());
 
         System.out.println("Entrez la couleur du sac");
         String couleur = sc.nextLine();
@@ -105,7 +105,7 @@ public class Sac {
 
     @Override
     public String toString() {
-        return "Sac{" + "typeS=" + typeS + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+        return "Sac{" + "typeS=" + typeS .name()+ ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
     }
 
 }

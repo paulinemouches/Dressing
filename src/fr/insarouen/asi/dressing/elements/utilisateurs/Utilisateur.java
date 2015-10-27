@@ -20,10 +20,10 @@ public class Utilisateur {
     private int age;
     private int taille;
     private String couleurPreferee;
-    private String couleurCheveux;
+    private CouleurCheveux couleurCheveux;
     private String signeUtilisateur;
 
-    public Utilisateur(int id, String nom, String prenom, int age, int taille, String couleurPreferee, String couleurCheveux, String signeUtilisateur) {
+    public Utilisateur(int id, String nom, String prenom, int age, int taille, String couleurPreferee, CouleurCheveux couleurCheveux, String signeUtilisateur) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -65,7 +65,7 @@ public class Utilisateur {
         this.couleurPreferee = couleurPreferee;
     }
 
-    public void setCouleurCheveux(String couleurCheveux) {
+    public void setCouleurCheveux(CouleurCheveux couleurCheveux) {
         this.couleurCheveux = couleurCheveux;
     }
 
@@ -94,7 +94,7 @@ public class Utilisateur {
         return couleurPreferee;
     }
 
-    public String getCouleurCheveux() {
+    public CouleurCheveux getCouleurCheveux() {
         return couleurCheveux;
     }
 
@@ -119,7 +119,7 @@ public class Utilisateur {
         int taille = Integer.parseInt(sc.nextLine());
         
         System.out.println("Entrez couleur de cheveux ");
-        String couleurC = sc.nextLine(); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
+        CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine().toLowerCase()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
         
         System.out.println("Entrez votre couleur preferee");
         String couleurP = sc.nextLine();
