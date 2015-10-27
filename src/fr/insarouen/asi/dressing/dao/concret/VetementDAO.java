@@ -28,7 +28,42 @@ public class VetementDAO extends DAO<Vetement>{
 
     @Override
     public boolean create(Vetement obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            int id =0;
+            Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            st.executeQuery("SELECT MAX(idObjet) FROM CONTENU");   
+            ResultSet res = st.getResultSet(); 
+            while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
+                          id = res.getInt(1) +1;
+            }
+            PreparedStatement prepare;
+            switch(obj.getFils()){
+                case "Haut": 
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO HAUT(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typeh,coupeh) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    break;
+                case "Pantalon":
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO PANTALON(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typep,coupep) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    break;
+                default :
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO AUTRE(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typea,coupea) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    break;
+            }
+            
+            prepare.setInt(1, obj.getIdDressing()); 
+            prepare.setString(2, obj.getCouleur());
+            prepare.setString(3, obj.getMatiere().name());
+            prepare.setInt(4, obj.getCouche());
+            prepare.setString(5, obj.getNiveau().name());
+            prepare.setBoolean(6, obj.isSale());
+            prepare.setString(7, obj.getType().name());
+            prepare.setString(8, obj.getCoupe().name());
+            prepare.executeUpdate();
+            //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override

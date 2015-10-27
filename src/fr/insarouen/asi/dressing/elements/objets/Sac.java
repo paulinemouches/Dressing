@@ -63,7 +63,7 @@ public class Sac {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de sac");
-        TypeSac typeS = TypeSac.get(sc.nextLine());
+        TypeSac typeS = TypeSac.get(sc.nextLine().toLowerCase());
 
         System.out.println("Entrez la couleur du sac");
         String couleur = sc.nextLine();
