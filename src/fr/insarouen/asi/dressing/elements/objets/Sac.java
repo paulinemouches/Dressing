@@ -63,7 +63,7 @@ public class Sac {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de sac");
-        TypeSac typeS = TypeSac.get(sc.nextLine().toLowerCase());
+        TypeSac typeS = TypeSac.get(((String)sc.nextLine()).trim());
 
         System.out.println("Entrez la couleur du sac");
         String couleur = sc.nextLine();
@@ -77,6 +77,7 @@ public class Sac {
     public boolean ajouterSac(int idDressing) throws SQLException {
 
         Sac s = menuAjouterSacTxt();
+        System.out.println(s.toString());
         s.setIdDressing(idDressing);
         SacDAO nouveauSac = new SacDAO();
         nouveauSac.create(s);
@@ -100,12 +101,13 @@ public class Sac {
     
     public Sac trouverSac(int id) throws SQLException{
         SacDAO s = new SacDAO();
+        System.out.println("trouver"+s.find(id).toString());
        return s.find(id);   
     }
 
     @Override
     public String toString() {
-        return "Sac{" + "typeS=" + typeS .name()+ ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+        return "Sac{" + "typeS=" +typeS + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
     }
 
 }
