@@ -2,7 +2,7 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum Niveau {
 
-    haut, bas, hautbas;
+    Haut, Bas, Hautbas;
     
                public static Niveau get(String saisie){
         for(Niveau n :  values()){

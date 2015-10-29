@@ -149,54 +149,54 @@ public class Vetement {
    
 
     public String[] determinerSignes(CoupeVetement coupeVetement){
-        String resultat[]={};
+        String resultat[]=new String[6];
         switch (coupeVetement){
-            case cintre: 
+            case Cintre: 
                 resultat[1]="H";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 resultat[3]="V";
                 resultat[4]="X";
                 resultat[5]="A";
                 break;
-            case large: 
+            case Large: 
                 resultat[1]="V";
                 resultat[2]="X";
                 resultat[3]="O";
-                resultat[4]="8";
+                resultat[4]="Huit";
                 break;
-            case droit: 
+            case Droit: 
                 resultat[1]="H";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 resultat[3]="O";
                 resultat[4]="X";
                 resultat[5]="A";
                 break;
-            case slim: 
+            case Slim: 
                 resultat[1]="H";
                 resultat[2]="V";
                 resultat[3]="X";
                 resultat[4]="A";
                 break;
-            case evase: 
+            case Evase: 
                 resultat[1]="O";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 break;
-            case baggy: 
+            case Baggy: 
                 resultat[1]="V";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 resultat[3]="O";
                 break;
-            case longue: 
+            case Longue: 
                 resultat[1]="H";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 resultat[3]="O";
                 resultat[4]="X";
                 resultat[5]="A";
                 resultat[6]="V";
                 break;
-            case court: 
+            case Court: 
                 resultat[1]="H";
-                resultat[2]="8";
+                resultat[2]="Huit";
                 resultat[3]="V";
                 break;
         }
@@ -206,9 +206,9 @@ public class Vetement {
     public int determinerCouche(TypeVetement typeVetement){
         int resultat=0;
         switch(typeVetement){
-            case veste: resultat=2;
+            case Veste: resultat=2;
                 break;
-            case manteau: resultat=2;
+            case Manteau: resultat=2;
                 break;
             default : resultat=1;
         }
@@ -216,52 +216,25 @@ public class Vetement {
     }
     
 
-    /*  public Niveau determinerNiveau(TypeVetement typeVetement){
-       Niveau resultat = null;
-        switch(typeVetement){
-            case teeshirt : resultat= Niveau.haut;
-                break;
-            case chemisier: resultat=Niveau.haut;
-                break;
-            case pull: resultat=Niveau.haut;
-                break;
-            case veste: resultat=Niveau.haut;
-                break;
-            case manteau: resultat=Niveau.haut;
-                break;
-            case combinaison: resultat=Niveau.hautbas;
-                break;
-            case jogging: resultat=Niveau.bas;
-                break;
-            case jupe: resultat=Niveau.bas;
-                break;
-            case pantalon: resultat=Niveau.bas;
-                break;
-            case pantacourt: resultat=Niveau.bas;
-                break;
-            case shorts: resultat=Niveau.bas;
-                break;
-            case robe: resultat=Niveau.hautbas;*/
-
     
     public String determinerFils(TypeVetement typeVetement){
         String resultat;
         switch(typeVetement){
-            case teeshirt: resultat="Haut";
+            case Teeshirt: resultat="Haut";
                 break;
-            case chemisier: resultat="Haut";
+            case Chemisier: resultat="Haut";
                 break;
-            case pull: resultat="Haut";
+            case Pull: resultat="Haut";
                 break;
-            case veste: resultat="Haut";
+            case Veste: resultat="Haut";
                 break;
-            case manteau: resultat="Haut";
+            case Manteau: resultat="Haut";
                 break;
-            case jogging: resultat="Pantalon";
+            case Jogging: resultat="Pantalon";
                 break;
-            case pantalon: resultat="Pantalon";
+            case Pantalon: resultat="Pantalon";
                 break;
-            case pantacourt: resultat="Pantalon";
+            case Pantacourt: resultat="Pantalon";
                 break;
             default : resultat="Autre";
         }
@@ -271,18 +244,18 @@ public class Vetement {
      public Niveau determinerNiveau(String fils, TypeVetement typeVetement){
         Niveau resultat=null;
         if (fils.equals("Haut")){
-            resultat=Niveau.haut;
+            resultat=Niveau.Haut;
         }else if (fils.equals("Pantalon")){
-            resultat=Niveau.bas;
+            resultat=Niveau.Bas;
         }else{
                 switch(typeVetement){
-                case combinaison: resultat=Niveau.hautbas;
+                case Combinaison: resultat=Niveau.Hautbas;
                     break;
-                case jupe: resultat=Niveau.bas;
+                case Jupe: resultat=Niveau.Bas;
                     break;
-                case shorts: resultat=Niveau.bas;
+                case Short: resultat=Niveau.Bas;
                     break;
-                case robe: resultat=Niveau.hautbas;
+                case Robe: resultat=Niveau.Hautbas;
                     break;
             }
         }

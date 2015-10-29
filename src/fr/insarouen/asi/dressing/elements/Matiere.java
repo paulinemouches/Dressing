@@ -2,7 +2,7 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum Matiere {
 
-    laine, lin, coton, jean;
+    Laine,Coton,Jean,Lin,Velours,Cuir,Dentelle,Daim, Satin,Paillete;
         
            public static Matiere get(String saisie){
         for(Matiere m :  values()){

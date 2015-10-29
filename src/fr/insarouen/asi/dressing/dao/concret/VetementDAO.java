@@ -8,6 +8,9 @@ package fr.insarouen.asi.dressing.dao.concret;
 import fr.insarouen.asi.dressing.dao.DAO;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.Initialisation;
+import fr.insarouen.asi.dressing.elements.TypeVetement;
+import fr.insarouen.asi.dressing.elements.CoupeVetement;
+import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +26,33 @@ public class VetementDAO extends DAO<Vetement>{
 
     @Override
     public Vetement find(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Vetement v = new Vetement();
+        Statement stH =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        stH.executeQuery("SELECT * FROM HAUT WHERE idObjet = "+id);
+        ResultSet resH = stH.getResultSet();
+        
+        Statement stP =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        stP.executeQuery("SELECT * FROM PANTALON WHERE idObjet = "+id);
+        ResultSet resP = stP.getResultSet();
+        
+        Statement stA =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        stA.executeQuery("SELECT * FROM AUTRE WHERE idObjet = "+id);
+        ResultSet resA = stA.getResultSet();
+        
+        if(resH.first()){
+            String fils = v.determinerFils(TypeVetement.get(resH.getString("typeH")));
+            v = new Vetement(id,resH.getInt("idDress"), resH.getString("couleur"), CoupeVetement.get(resH.getString("coupeH")), TypeVetement.get(resH.getString("typeH")), Matiere.get(resH.getString("matiere")), v.determinerSignes( CoupeVetement.get(resH.getString("coupeH"))),v.determinerCouche(TypeVetement.get(resH.getString("typeH"))), v.determinerNiveau(fils,TypeVetement.get(resH.getString("typeH"))));
+        }else if(resP.first()){
+            String fils = v.determinerFils(TypeVetement.get(resP.getString("typeP")));
+            v = new Vetement(id,resP.getInt("idDress"), resP.getString("couleur"), CoupeVetement.get(resP.getString("coupeP")), TypeVetement.get(resP.getString("typeP")), Matiere.get(resP.getString("matiere")), v.determinerSignes( CoupeVetement.get(resP.getString("coupeP"))),v.determinerCouche(TypeVetement.get(resH.getString("typeP"))), v.determinerNiveau(fils,TypeVetement.get(resP.getString("typeP"))));
+        }else if (resA.first()){
+            String fils = v.determinerFils(TypeVetement.get(resA.getString("typeA")));
+            v = new Vetement(id,resA.getInt("idDress"), resA.getString("couleur"), CoupeVetement.get(resA.getString("coupeA")), TypeVetement.get(resA.getString("typeA")), Matiere.get(resA.getString("matiere")), v.determinerSignes( CoupeVetement.get(resA.getString("coupeA"))),v.determinerCouche(TypeVetement.get(resA.getString("typeA"))), v.determinerNiveau(fils,TypeVetement.get(resA.getString("typeA"))));
+        }
+         
+            
+        
+        return v;
     }
 
     @Override
@@ -66,6 +95,7 @@ public class VetementDAO extends DAO<Vetement>{
         return true;
     }
 
+    // inutile car pas de fonctionnalité permettant de modifier un utilisateur
     @Override
     public boolean update(Vetement obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -73,7 +103,9 @@ public class VetementDAO extends DAO<Vetement>{
 
     @Override
     public boolean delete(Vetement obj) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            st.executeUpdate("DELETE  FROM CONTENU WHERE idObjet ="+obj.getIdV()); 
+            return true;
     }
     
     

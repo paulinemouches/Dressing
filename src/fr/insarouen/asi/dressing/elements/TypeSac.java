@@ -2,7 +2,7 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum TypeSac {
 
-    sacados, sacamain, pochette;
+    Sacados, Sacamain, Pochette;
     
            public static TypeSac get(String saisie){
         for(TypeSac ts :  values()){

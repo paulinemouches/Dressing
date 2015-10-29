@@ -1,7 +1,7 @@
 package fr.insarouen.asi.dressing.elements;
 
 public enum CouleurCheveux {
-    blond, brun, roux, chatain;
+    Blond, Brun, Roux, Chatain;
     
    public static CouleurCheveux get(String saisie){
         for( CouleurCheveux c :  values()){

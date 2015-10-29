@@ -2,7 +2,7 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum TypeVetement {
 
-    teeshirt, chemisier, pull, veste, manteau, pantalon, pantacourt, jogging, jupe,shorts, robe, combinaison;
+    Teeshirt, Chemisier, Pull, Veste, Manteau, Pantalon, Pantacourt, Jogging, Jupe,Short, Robe, Combinaison;
     
                    public static TypeVetement get(String saisie){
         for(TypeVetement n :  values()){
