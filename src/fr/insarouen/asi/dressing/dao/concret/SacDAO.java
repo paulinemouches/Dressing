@@ -60,7 +60,8 @@ public class SacDAO extends DAO<Sac> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
             
             if(res.first()){
-                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("types")),res.getString("couleur"));
+                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),res.getString("couleur"));
+                System.out.println("find dao"+res.getString("typeS"));
            }
 return s;
     }
