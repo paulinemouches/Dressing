@@ -49,9 +49,6 @@ public class VetementDAO extends DAO<Vetement>{
             String fils = v.determinerFils(TypeVetement.get(resA.getString("typeA")));
             v = new Vetement(id,resA.getInt("idDress"), resA.getString("couleur"), CoupeVetement.get(resA.getString("coupeA")), TypeVetement.get(resA.getString("typeA")), Matiere.get(resA.getString("matiere")), v.determinerSignes( CoupeVetement.get(resA.getString("coupeA"))),v.determinerCouche(TypeVetement.get(resA.getString("typeA"))), v.determinerNiveau(fils,TypeVetement.get(resA.getString("typeA"))));
         }
-         
-            
-        
         return v;
     }
 
