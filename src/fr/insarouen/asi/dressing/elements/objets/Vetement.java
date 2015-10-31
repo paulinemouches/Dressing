@@ -52,7 +52,20 @@ public class Vetement {
     public Vetement() {
     }
 
-    /* Les méthodes */
+        /* Les méthodes */
+    public ArrayList<Integer> getHauts() {
+        return hauts;
+    }
+
+    public ArrayList<Integer> getBas() {
+        return bas;
+    }
+
+
+    public ArrayList<Integer> getHautsbas() {
+        return hautsbas;
+    }
+
     public int getIdV() {
         return idObjet;
     }
