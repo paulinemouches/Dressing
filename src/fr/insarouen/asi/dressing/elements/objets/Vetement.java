@@ -1,5 +1,6 @@
 package fr.insarouen.asi.dressing.elements.objets;
 
+import fr.insarouen.asi.dressing.Initialisation;
 import java.sql.SQLException;
 import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
@@ -7,6 +8,8 @@ import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Vetement {
@@ -138,6 +141,19 @@ public class Vetement {
         this.couleur = couleur;
     }
 
+    public String determinerSaison(Vetement v){
+        try{
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT saison  FROM MATIERE_SAISON  WHERE matiere = "+v.getMatiere());
+        ResultSet res = st.getResultSet();
+        return res.getString("saison");
+        }
+        catch(SQLException e){
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
     public String[] determinerSignes(CoupeVetement coupeVetement) {
         String resultat[] = new String[6];
         switch (coupeVetement) {
