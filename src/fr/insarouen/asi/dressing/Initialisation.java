@@ -162,9 +162,10 @@ public class Initialisation {
     public static void main(String[] args) {
         try {
             connexion();
-            Couleurs coul = new Couleurs();
-            int entier = coul.recupererValeurAssociee(2,1);
-            System.out.println("la couleur associee a 1 est :"+entier);
+            //test couleurs
+            //Couleurs coul = new Couleurs();
+           // int entier = coul.recupererValeurAssociee(2,1);
+           // System.out.println("la couleur associee a 1 est :"+entier);
             lancer();
             c.close();
         } catch (SQLException e) {

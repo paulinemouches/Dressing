@@ -1,23 +1,18 @@
 package fr.insarouen.asi.dressing.elements.objets;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
-import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
+import java.util.ArrayList;
 
 public class Vetement {
 
     private int idObjet;
-    private int idDressing; 
+    private int idDressing;
     private Niveau niveau;
     private String[] signes;
     private CoupeVetement coupe;
@@ -28,28 +23,33 @@ public class Vetement {
     private String couleur;
     private int couche;
     private boolean sale;
+    private ArrayList<Integer> hauts;
+    private ArrayList<Integer> bas;
+    private ArrayList<Integer> hautsbas;
+
     // Il manque la couleur !! 
-    
     /* Constructeurs */
-
-
-    public Vetement(int idV,int idDressing, String couleur, CoupeVetement coupe,TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau){
+    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) {
         this.idObjet = idV;
         this.idDressing = idDressing;
-        this.couleur= couleur;
+        this.couleur = couleur;
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
         this.sale = false;
         this.niveau = niveau;
-        this.couche= couche;
+        this.couche = couche;
         this.signes = signes;
+        hauts = new ArrayList<Integer>();
+        bas = new ArrayList<Integer>();
+        hautsbas = new ArrayList<Integer>();
+        ajouterVetementDansListe();
     }
-    
+
     public Vetement() {
     }
-    
-    /* Les méthodes */ 
+
+    /* Les méthodes */
     public int getIdV() {
         return idObjet;
     }
@@ -58,18 +58,13 @@ public class Vetement {
         return niveau;
     }
 
-    
-
     public String getCouleur() {
         return couleur;
     }
-    
 
     public int getIdDressing() {
         return idDressing;
     }
-    
-
 
     public String[] getSignes() {
         return signes;
@@ -90,7 +85,7 @@ public class Vetement {
     public int getCouche() {
         return couche;
     }
-    
+
     public String getFils() {
         return fils;
     }
@@ -142,150 +137,162 @@ public class Vetement {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
-    
-    
-       
-    
-   
 
-    public String[] determinerSignes(CoupeVetement coupeVetement){
-        String resultat[]=new String[6];
-        switch (coupeVetement){
-            case Cintre: 
-                resultat[1]="H";
-                resultat[2]="Huit";
-                resultat[3]="V";
-                resultat[4]="X";
-                resultat[5]="A";
+    public String[] determinerSignes(CoupeVetement coupeVetement) {
+        String resultat[] = new String[6];
+        switch (coupeVetement) {
+            case Cintre:
+                resultat[1] = "H";
+                resultat[2] = "Huit";
+                resultat[3] = "V";
+                resultat[4] = "X";
+                resultat[5] = "A";
                 break;
-            case Large: 
-                resultat[1]="V";
-                resultat[2]="X";
-                resultat[3]="O";
-                resultat[4]="Huit";
+            case Large:
+                resultat[1] = "V";
+                resultat[2] = "X";
+                resultat[3] = "O";
+                resultat[4] = "Huit";
                 break;
-            case Droit: 
-                resultat[1]="H";
-                resultat[2]="Huit";
-                resultat[3]="O";
-                resultat[4]="X";
-                resultat[5]="A";
+            case Droit:
+                resultat[1] = "H";
+                resultat[2] = "Huit";
+                resultat[3] = "O";
+                resultat[4] = "X";
+                resultat[5] = "A";
                 break;
-            case Slim: 
-                resultat[1]="H";
-                resultat[2]="V";
-                resultat[3]="X";
-                resultat[4]="A";
+            case Slim:
+                resultat[1] = "H";
+                resultat[2] = "V";
+                resultat[3] = "X";
+                resultat[4] = "A";
                 break;
-            case Evase: 
-                resultat[1]="O";
-                resultat[2]="Huit";
+            case Evase:
+                resultat[1] = "O";
+                resultat[2] = "Huit";
                 break;
-            case Baggy: 
-                resultat[1]="V";
-                resultat[2]="Huit";
-                resultat[3]="O";
+            case Baggy:
+                resultat[1] = "V";
+                resultat[2] = "Huit";
+                resultat[3] = "O";
                 break;
-            case Longue: 
-                resultat[1]="H";
-                resultat[2]="Huit";
-                resultat[3]="O";
-                resultat[4]="X";
-                resultat[5]="A";
-                resultat[6]="V";
+            case Longue:
+                resultat[1] = "H";
+                resultat[2] = "Huit";
+                resultat[3] = "O";
+                resultat[4] = "X";
+                resultat[5] = "A";
+                resultat[6] = "V";
                 break;
-            case Court: 
-                resultat[1]="H";
-                resultat[2]="Huit";
-                resultat[3]="V";
+            case Court:
+                resultat[1] = "H";
+                resultat[2] = "Huit";
+                resultat[3] = "V";
                 break;
         }
         return resultat;
-    } 
-    
-    public int determinerCouche(TypeVetement typeVetement){
-        int resultat=0;
-        switch(typeVetement){
-            case Veste: resultat=2;
-                break;
-            case Manteau: resultat=2;
-                break;
-            default : resultat=1;
-        }
-        return resultat; 
     }
-    
 
-    
-    public String determinerFils(TypeVetement typeVetement){
+    public int determinerCouche(TypeVetement typeVetement) {
+        int resultat = 0;
+        switch (typeVetement) {
+            case Veste:
+                resultat = 2;
+                break;
+            case Manteau:
+                resultat = 2;
+                break;
+            default:
+                resultat = 1;
+        }
+        return resultat;
+    }
+
+    public String determinerFils(TypeVetement typeVetement) {
         String resultat;
-        switch(typeVetement){
-            case Teeshirt: resultat="Haut";
+        switch (typeVetement) {
+            case Teeshirt:
+                resultat = "Haut";
                 break;
-            case Chemisier: resultat="Haut";
+            case Chemisier:
+                resultat = "Haut";
                 break;
-            case Pull: resultat="Haut";
+            case Pull:
+                resultat = "Haut";
                 break;
-            case Veste: resultat="Haut";
+            case Veste:
+                resultat = "Haut";
                 break;
-            case Manteau: resultat="Haut";
+            case Manteau:
+                resultat = "Haut";
                 break;
-            case Jogging: resultat="Pantalon";
+            case Jogging:
+                resultat = "Pantalon";
                 break;
-            case Pantalon: resultat="Pantalon";
+            case Pantalon:
+                resultat = "Pantalon";
                 break;
-            case Pantacourt: resultat="Pantalon";
+            case Pantacourt:
+                resultat = "Pantalon";
                 break;
-            default : resultat="Autre";
+            default:
+                resultat = "Autre";
         }
         return resultat;
     }
-    
-     public Niveau determinerNiveau(String fils, TypeVetement typeVetement){
-        Niveau resultat=null;
-        if (fils.equals("Haut")){
-            resultat=Niveau.Haut;
-        }else if (fils.equals("Pantalon")){
-            resultat=Niveau.Bas;
-        }else{
-                switch(typeVetement){
-                case Combinaison: resultat=Niveau.Hautbas;
-                    break;
-                case Jupe: resultat=Niveau.Bas;
-                    break;
-                case Short: resultat=Niveau.Bas;
-                    break;
-                case Robe: resultat=Niveau.Hautbas;
-                    break;
+
+    public Niveau determinerNiveau(String fils, TypeVetement typeVetement) {
+        Niveau resultat = null;
+        if (fils.equals("Haut")) {
+            resultat = Niveau.Haut;
+        }
+        else {
+            if (fils.equals("Pantalon")) {
+                resultat = Niveau.Bas;
+            }
+            else {
+                switch (typeVetement) {
+                    case Combinaison:
+                        resultat = Niveau.Hautbas;
+                        break;
+                    case Jupe:
+                        resultat = Niveau.Bas;
+                        break;
+                    case Short:
+                        resultat = Niveau.Bas;
+                        break;
+                    case Robe:
+                        resultat = Niveau.Hautbas;
+                        break;
+                }
             }
         }
-        
-        return resultat; 
+
+        return resultat;
     }
-     
-     
-     public Vetement menuAjouterVetementTxt() {
+
+    public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le type de vêtement : ");
         TypeVetement type = TypeVetement.get(sc.nextLine().toLowerCase());
-        
+
         System.out.println("Entrez la matière : ");
-        Matiere matiere =Matiere.get(sc.nextLine().toLowerCase());
-        
+        Matiere matiere = Matiere.get(sc.nextLine().toLowerCase());
+
         System.out.println("Entrez la coupe : ");
         CoupeVetement coupe = CoupeVetement.get(sc.nextLine().toLowerCase());
-        
+
         System.out.println("Entrez la couleur : ");
         String couleur = sc.nextLine();
-        
-        String signes[]= determinerSignes(coupe);
-        
+
+        String signes[] = determinerSignes(coupe);
+
         String fils = determinerFils(type);
-       
+
         Niveau niveau = determinerNiveau(fils, type);
-        
-        int couche = determinerCouche(type); 
-        
+
+        int couche = determinerCouche(type);
+
         Vetement v = new Vetement();
         v.setCouleur(couleur);
         v.setCouche(couche);
@@ -298,15 +305,28 @@ public class Vetement {
         v.setFils(fils);
         return v;
     }
-     
-     public boolean ajouterVetement(int idDressing) throws SQLException {
+
+    public boolean ajouterVetement(int idDressing) throws SQLException {
         // Attention à gérer les exceptions !!! 
         Vetement v = menuAjouterVetementTxt();
         v.setIdDressing(idDressing);
-        
+
         VetementDAO nouveauVetement = new VetementDAO();
         nouveauVetement.create(v);
         return true;
-     }   
+    }
 
+    public void ajouterVetementDansListe() {
+        switch (this.determinerNiveau(determinerFils(this.getType()), this.getType())) {
+            case Haut:
+                hauts.add(this.getIdV());
+                break;
+            case Bas:
+                bas.add(this.getIdV());
+                break;
+            case Hautbas:
+                hautsbas.add(this.getIdV());
+                break;
+        }
+    }
 }
