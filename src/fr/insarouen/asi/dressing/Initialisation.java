@@ -14,6 +14,7 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
+import fr.insarouen.asi.dressing.elements.Couleurs;
 
 
 public class Initialisation {
@@ -161,6 +162,9 @@ public class Initialisation {
     public static void main(String[] args) {
         try {
             connexion();
+            Couleurs coul = new Couleurs();
+            int entier = coul.recupererValeurAssociee(2,1);
+            System.out.println("la couleur associee a 1 est :"+entier);
             lancer();
             c.close();
         } catch (SQLException e) {
