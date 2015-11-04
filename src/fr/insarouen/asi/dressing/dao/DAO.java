@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public abstract class DAO<T> {
     
-    public abstract T find(int id)throws SQLException;
+    public  abstract T find(int id)throws SQLException;
     
     public abstract boolean create(T obj) throws SQLException;
     

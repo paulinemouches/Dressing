@@ -42,7 +42,8 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         prepare.setString(6,  obj.getCouleurPreferee());
         prepare.setString(7,  obj.getSigneUtilisateur());
         prepare.executeUpdate();
-        obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
+        //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
+        obj.setId(id);
 
         }catch(SQLException e){
              e.printStackTrace();

@@ -1,20 +1,17 @@
 package fr.insarouen.asi.dressing;
 
+import fr.insarouen.asi.dressing.dao.concret.SacDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console;
-import java.sql.*;
-import org.postgresql.Driver;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
-import fr.insarouen.asi.dressing.elements.Couleurs;
 
 
 public class Initialisation {
@@ -111,13 +108,13 @@ public class Initialisation {
                 explorerDressing(idDressing);
                 break;
             case 6:
-                Statement stc = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                /*Statement stc = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 stc.executeQuery("SELECT idObjet FROM CHAUSSURE");
                 ResultSet resc = stc.getResultSet();
                 while (resc.next()) {
                     Chaussures c =new Chaussures();
                     System.out.println(c.trouverChaussures(resc.getInt(1)));
-                }
+                }*/
                 System.out.println("tapez 1 pour revenir au menu");
                 if (scDressing.nextInt() == 1) {
                     explorerDressing(idDressing);

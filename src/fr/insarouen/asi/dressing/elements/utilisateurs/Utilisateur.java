@@ -119,7 +119,7 @@ public class Utilisateur {
         int taille = Integer.parseInt(sc.nextLine());
         
         System.out.println("Entrez couleur de cheveux ");
-        CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine().toLowerCase()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
+        CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
         
         System.out.println("Entrez votre couleur preferee");
         String couleurP = sc.nextLine();

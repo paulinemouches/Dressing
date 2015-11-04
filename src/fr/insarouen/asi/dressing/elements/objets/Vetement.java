@@ -32,7 +32,7 @@ public class Vetement {
 
     // Il manque la couleur !! 
     /* Constructeurs */
-    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) {
+    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException{
         this.idObjet = idV;
         this.idDressing = idDressing;
         this.couleur = couleur;
@@ -155,20 +155,12 @@ public class Vetement {
     }
 
     public String determinerSaison(Vetement v){
-        try{
-        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("SELECT saison  FROM MATIERE_SAISON  WHERE matiere = "+v.getMatiere());
-        ResultSet res = st.getResultSet();
-        return res.getString("saison");
-        }
-        catch(SQLException e){
-             e.printStackTrace();
-        }
-        return null;
+        return VetementDAO.recupererSaison(v);
     }
     
-    public String[] determinerSignes(CoupeVetement coupeVetement) {
-        String resultat[] = new String[6];
+    public String[] determinerSignes() throws SQLException{
+        /*String resultat[] = new String[6];
+        
         switch (coupeVetement) {
             case Cintre:
                 resultat[1] = "H";
@@ -218,12 +210,12 @@ public class Vetement {
                 resultat[2] = "Huit";
                 resultat[3] = "V";
                 break;
-        }
-        return resultat;
+        }*/
+        return VetementDAO.recupererSignes(this);
     }
 
-    public int determinerCouche(TypeVetement typeVetement) {
-        int resultat = 0;
+    public int determinerCouche() throws SQLException{
+       /* int resultat = 0;
         switch (typeVetement) {
             case Veste:
                 resultat = 2;
@@ -233,8 +225,8 @@ public class Vetement {
                 break;
             default:
                 resultat = 1;
-        }
-        return resultat;
+        }*/
+        return VetementDAO.recupererCouche(this);
     }
 
     public String determinerFils(TypeVetement typeVetement) {
@@ -270,8 +262,8 @@ public class Vetement {
         return resultat;
     }
 
-    public Niveau determinerNiveau(String fils, TypeVetement typeVetement) {
-        Niveau resultat = null;
+    public Niveau determinerNiveau() throws SQLException {
+        /*Niveau resultat = null;
         if (fils.equals("Haut")) {
             resultat = Niveau.Haut;
         }
@@ -295,41 +287,32 @@ public class Vetement {
                         break;
                 }
             }
-        }
+        }*/
 
-        return resultat;
+        return VetementDAO.recupererNiveau(this);
     }
 
     public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le type de vêtement : ");
-        TypeVetement type = TypeVetement.get(sc.nextLine().toLowerCase());
+        TypeVetement type = TypeVetement.get(sc.nextLine());
 
         System.out.println("Entrez la matière : ");
-        Matiere matiere = Matiere.get(sc.nextLine().toLowerCase());
+        Matiere matiere = Matiere.get(sc.nextLine());
 
         System.out.println("Entrez la coupe : ");
-        CoupeVetement coupe = CoupeVetement.get(sc.nextLine().toLowerCase());
+        CoupeVetement coupe = CoupeVetement.get(sc.nextLine());
 
         System.out.println("Entrez la couleur : ");
         String couleur = sc.nextLine();
 
-        String signes[] = determinerSignes(coupe);
-
         String fils = determinerFils(type);
-
-        Niveau niveau = determinerNiveau(fils, type);
-
-        int couche = determinerCouche(type);
 
         Vetement v = new Vetement();
         v.setCouleur(couleur);
-        v.setCouche(couche);
         v.setCoupe(coupe);
         v.setMatiere(matiere);
-        v.setNiveau(niveau);
         v.setSale(false);
-        v.setSignes(signes);
         v.setType(type);
         v.setFils(fils);
         return v;
@@ -342,11 +325,20 @@ public class Vetement {
 
         VetementDAO nouveauVetement = new VetementDAO();
         nouveauVetement.create(v);
+        
+        Niveau niveau = v.determinerNiveau();
+        int couche = v.determinerCouche();
+        String signes[] = v.determinerSignes();
+
+        v.setNiveau(niveau);
+        v.setCouche(couche);
+        v.setSignes(signes);
+        
         return true;
     }
 
-    public void ajouterVetementDansListe() {
-        switch (this.determinerNiveau(determinerFils(this.getType()), this.getType())) {
+    public void ajouterVetementDansListe() throws SQLException {
+        switch (this.determinerNiveau()) {
             case Haut:
                 hauts.add(this.getIdV());
                 break;

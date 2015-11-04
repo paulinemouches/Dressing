@@ -11,11 +11,16 @@ import fr.insarouen.asi.dressing.Initialisation;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.elements.Matiere;
+import fr.insarouen.asi.dressing.elements.Niveau;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Array; 
+import java.util.*;
+
+
 /**
  *
  * @author julie
@@ -27,7 +32,24 @@ public class VetementDAO extends DAO<Vetement>{
     @Override
     public Vetement find(int id) throws SQLException {
         Vetement v = new Vetement();
-        Statement stH =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        String fils="";
+        Statement st= Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        ResultSet res=st.executeQuery("select p.relname from vetement v, pg_class p where v.tableoid=p.oid and v.idobjet="+id);
+        
+        if(res.first()){
+            fils=res.getString("relname");
+        }
+        
+        
+        Statement stat =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        stat.executeQuery("SELECT * FROM "+ fils+" WHERE idObjet = "+id);
+        ResultSet result = stat.getResultSet();
+        
+        if(result.first()){
+            v = new Vetement(id,result.getInt("idDressing"), result.getString("couleur"), CoupeVetement.get(result.getString("coupeH")), TypeVetement.get(result.getString("typeH")), Matiere.get(result.getString("matiere")), v.determinerSignes(),v.determinerCouche(), v.determinerNiveau());
+        }
+        
+        /*Statement stH =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
         stH.executeQuery("SELECT * FROM HAUT WHERE idObjet = "+id);
         ResultSet resH = stH.getResultSet();
         
@@ -48,7 +70,7 @@ public class VetementDAO extends DAO<Vetement>{
         }else if (resA.first()){
             String fils = v.determinerFils(TypeVetement.get(resA.getString("typeA")));
             v = new Vetement(id,resA.getInt("idDress"), resA.getString("couleur"), CoupeVetement.get(resA.getString("coupeA")), TypeVetement.get(resA.getString("typeA")), Matiere.get(resA.getString("matiere")), v.determinerSignes( CoupeVetement.get(resA.getString("coupeA"))),v.determinerCouche(TypeVetement.get(resA.getString("typeA"))), v.determinerNiveau(fils,TypeVetement.get(resA.getString("typeA"))));
-        }
+        }*/
         return v;
     }
 
@@ -62,27 +84,27 @@ public class VetementDAO extends DAO<Vetement>{
             while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
                           id = res.getInt(1) +1;
             }
+            // on attribut cet id à l'objet : 
+            obj.setIdV(id);
             PreparedStatement prepare;
             switch(obj.getFils()){
                 case "Haut": 
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO HAUT(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typeh,coupeh) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO HAUT(idobjet,idDressing,couleur,matiere,sale_propre,typeh,coupeh) VALUES ("+id+",?,?,?,?,?,?)");
                     break;
                 case "Pantalon":
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO PANTALON(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typep,coupep) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO PANTALON(idobjet,idDressing,couleur,matiere,sale_propre,typep,coupep) VALUES ("+id+",?,?,?,?,?,?)");
                     break;
                 default :
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO AUTRE(idobjet,idDressing,couleur,matiere,couche,niveau,sale_propre,typea,coupea) VALUES ("+id+",?,?,?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO AUTRE(idobjet,idDressing,couleur,matiere,sale_propre,typea,coupea) VALUES ("+id+",?,?,?,?,?,?)");
                     break;
             }
             
             prepare.setInt(1, obj.getIdDressing()); 
             prepare.setString(2, obj.getCouleur());
             prepare.setString(3, obj.getMatiere().name());
-            prepare.setInt(4, obj.getCouche());
-            prepare.setString(5, obj.getNiveau().name());
-            prepare.setBoolean(6, obj.isSale());
-            prepare.setString(7, obj.getType().name());
-            prepare.setString(8, obj.getCoupe().name());
+            prepare.setBoolean(4, obj.isSale());
+            prepare.setString(5, obj.getType().name());
+            prepare.setString(6, obj.getCoupe().name());
             prepare.executeUpdate();
             //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
 
@@ -105,5 +127,53 @@ public class VetementDAO extends DAO<Vetement>{
             return true;
     }
     
+    
+    public static Niveau recupererNiveau(Vetement obj) throws SQLException{
+        Niveau resultat=null;
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT niveau FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdV());
+        ResultSet res = st.getResultSet();
+        if(res.first()){
+            resultat = Niveau.get(res.getString("niveau"));
+        }
+        return resultat;
+    }
+    
+    public static int recupererCouche(Vetement obj) throws SQLException{
+        int resultat=0;
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        ResultSet res = st.executeQuery("SELECT couche FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdV());
+        if(res.first()){
+            resultat = res.getInt("couche");
+        }
+        return resultat;
+    }
+    
+    public static String[] recupererSignes(Vetement obj) throws SQLException{
+        String[] resultat= new String[15];
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT c.signe FROM VETEMENT v, CORRESPOND c WHERE v.idobjet=c.idobjet and v.idobjet="+obj.getIdV());   
+        ResultSet res = st.getResultSet();
+        List rowValues = new ArrayList();
+        while (res.next()) {
+            rowValues.add(res.getString(1));
+        }
+        resultat = (String[]) rowValues.toArray(new String[rowValues.size()]);
+        return resultat;
+    }
+    
+    
+    public static String recupererSaison(Vetement v){
+        try{
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT saison  FROM MATIERE_SAISON  WHERE matiere = "+v.getMatiere());
+        ResultSet res = st.getResultSet();
+        return res.getString("saison");
+        }
+        catch(SQLException e){
+             e.printStackTrace();
+        }
+        return null;
+    }
     
 }

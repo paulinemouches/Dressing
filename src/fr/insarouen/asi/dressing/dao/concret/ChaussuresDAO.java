@@ -37,6 +37,8 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         prepare.setString(3,  obj.getTypeC().name());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
+                obj.setIdObjet(id);
+
 
         }catch(SQLException e){
              e.printStackTrace();

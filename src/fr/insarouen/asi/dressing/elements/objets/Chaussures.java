@@ -64,7 +64,7 @@ public class Chaussures {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de chaussures");
-        TypeChaussures typeC = TypeChaussures.get(sc.nextLine().toLowerCase());
+        TypeChaussures typeC = TypeChaussures.get(sc.nextLine());
 
         System.out.println("Entrez la couleur des chaussures");
         String couleur = sc.nextLine();

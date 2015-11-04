@@ -36,7 +36,8 @@ public class SacDAO extends DAO<Sac> {
         prepare.setString(3,  obj.getTypeS().name());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
-
+        obj.setIdObjet(id);
+        
         }catch(SQLException e){
              e.printStackTrace();
         }
@@ -54,7 +55,7 @@ public class SacDAO extends DAO<Sac> {
     }
     
         @Override
-    public Sac  find(int id) throws SQLException{
+    public  Sac  find(int id) throws SQLException{
         
        Sac s = new Sac();
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);

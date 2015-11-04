@@ -99,7 +99,7 @@ public class Sac {
 
     }
     
-    public Sac trouverSac(int id) throws SQLException{
+    public  Sac trouverSac(int id) throws SQLException{
         SacDAO s = new SacDAO();
         System.out.println("trouver"+s.find(id).toString());
        return s.find(id);   
