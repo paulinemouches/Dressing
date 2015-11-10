@@ -70,7 +70,10 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             
             if(res.first()){
                 u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),res.getString("couleurCheveux"),CouleurCheveux.get(res.getString("couleurPreferee")),res.getString("signe"));
-           }
-return u;
+                return u;
+            }else{
+                return null;
+            }
+
     }
 }

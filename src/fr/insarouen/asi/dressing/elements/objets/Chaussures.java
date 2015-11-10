@@ -100,13 +100,13 @@ public class Chaussures {
     }
 
     public Chaussures trouverChaussures(int id) throws SQLException{
-                ChaussuresDAO c = new ChaussuresDAO();
-       return c.find(id);  
+        ChaussuresDAO c = new ChaussuresDAO();
+        return c.find(id);  
     }
     
     @Override
     public String toString() {
-        return "Chaussures{" + "typeC=" + typeC.name() + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+        return "\nChaussures:\n\t" + "\n\tType : " + typeC.name() + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
     }
 
 }

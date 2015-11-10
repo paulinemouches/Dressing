@@ -1,6 +1,8 @@
 package fr.insarouen.asi.dressing;
 
+import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
 import fr.insarouen.asi.dressing.dao.concret.SacDAO;
+import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -29,20 +31,43 @@ public class Initialisation {
     }
 
     public static void menuGeneral() {
+        System.out.println("---------------------------ACCEUIL---------------------------\n");
         System.out.println("tapez 1 pour entrer un nouvel utilisateur");
         System.out.println("tapez 2 pour supprimer  un utilisateur");
         System.out.println("tapez 3 pour accéder à un dressing existant");
+        System.out.println("tapez 4 pour vous déconnecter");
+    }
+    
+        public static void menuDressing(int id) {
+        System.out.println("--------------------------DRESSING--------------------------\n");
+        System.out.println("tapez 1 pour ajouter un nouvel objet au dressing");
+        System.out.println("tapez 2 pour consulter votre dressing");
+        System.out.println("tapez 3 pour supprimer un objet de votre dressing");
+        System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
 
-    public static void menuDressing(int id) {
+    public static void menuAjouterDansDressing(int id) {
+        System.out.println("----------------------------AJOUT----------------------------\n");
         System.out.println("tapez 1 pour entrer un nouveau sac");
-        System.out.println("tapez 2 pour supprimer  un sac");
-        System.out.println("tapez 3 pour afficher vos sac");
-        System.out.println("tapez 4 pour entrer des nouvelles chaussures");
-        System.out.println("tapez 5 pour supprimer  des chaussures");
-        System.out.println("tapez 6 pour afficher vos chaussures");
-        System.out.println("tapez 7 pour entrer un nouveau vetement");
-                System.out.println("tapez 8 pour revenir au menu precedent");
+        System.out.println("tapez 2 pour entrer des nouvelles chaussures");
+        System.out.println("tapez 3 pour entrer un nouveau vetement");
+        System.out.println("tapez 4 pour revenir au menu precedent\n");
+    }
+    
+    public static void menuConsulterDressing(int id) {
+        System.out.println("------------------------CONSULTATION------------------------\n");
+        System.out.println("tapez 1 pour consulter vos sacs");
+        System.out.println("tapez 2 pour consulter vos chaussures");
+        System.out.println("tapez 3 pour consultez vos vetements");
+        System.out.println("tapez 4 pour revenir au menu precedent\n");
+    }
+    
+    public static void menuSupprimerDansDressing(int id) {
+        System.out.println("------------------------SUPPRESSION------------------------\n");
+        System.out.println("tapez 1 pour supprimer un sac");
+        System.out.println("tapez 2 pour supprimer des chaussures");
+        System.out.println("tapez 3 pour supprimer un vetement");
+        System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
 
     public static void connexion() {
@@ -68,69 +93,112 @@ public class Initialisation {
         }
 
     }
-
+    
+    public static void ajouterDansDressing(int id) throws SQLException {
+       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
+        int idDressing = id;
+        menuAjouterDansDressing(idDressing);
+        Scanner scAjout = new Scanner(System.in);
+        switch (scAjout.nextInt()) {
+            case 1:
+                Sac sac = new Sac();
+                boolean bsac = sac.ajouterSac(idDressing);
+                break;
+            case 2 : 
+                Chaussures c = new Chaussures();
+                boolean bc = c.ajouterChaussures(idDressing);
+                break;
+            case 3 :
+                Vetement v = new Vetement();
+                boolean bv = v.ajouterVetement(idDressing);
+                break;
+            case 4 :
+                explorerDressing(idDressing);
+                break;
+            default : 
+                break;
+        }
+    }
+    
+    public static void supprimerDansDressing(int id) throws SQLException {
+       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
+        int idDressing = id;
+        menuSupprimerDansDressing(idDressing);
+        Scanner scSup = new Scanner(System.in);
+        switch (scSup.nextInt()) {
+            case 1:
+                Sac sac = new Sac();
+                boolean bsac = sac.supprimerSac();
+                break;
+            case 2 : 
+                Chaussures c = new Chaussures();
+                boolean bc = c.supprimerChaussures();
+                break;
+            case 3 :
+                Vetement v = new Vetement();
+                boolean bv = v.supprimerVetement();
+                break;
+            case 4 :
+                explorerDressing(idDressing);
+                break;
+            default : 
+                break;
+        }
+    }
+    
+    public static void consulterDressing(int id) throws SQLException {
+       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
+        int idDressing = id;
+        menuConsulterDressing(idDressing);
+        Scanner scCons = new Scanner(System.in);
+        switch (scCons.nextInt()) {
+            case 1:
+                SacDAO.afficherSacs();
+                break;
+            case 2 : 
+                ChaussuresDAO.afficherChaussures();
+                break;
+            case 3 :
+                VetementDAO.afficherVetements();
+                //Vetement.afficherHauts();
+                //Vetement.afficherBas();
+                //Vetement.afficherHautsBas();
+                break;
+            case 4 :
+                explorerDressing(idDressing);
+                break;
+            default : 
+                break; 
+        }
+    }
+    
     public static void explorerDressing(int id) throws SQLException {
+        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
         int idDressing = id;
         menuDressing(idDressing);
         Scanner scDressing = new Scanner(System.in);
         switch (scDressing.nextInt()) {
             case 1:
-                Sac sac1 = new Sac();
-                boolean bsac1 = sac1.ajouterSac(idDressing);
+                ajouterDansDressing(idDressing);
                 explorerDressing(idDressing);
                 break;
             case 2:
-                Sac sac2 = new Sac();
-                boolean bsac2 = sac2.supprimerSac();
+                consulterDressing(idDressing);
                 explorerDressing(idDressing);
                 break;
             case 3:
-                Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                sts.executeQuery("SELECT idObjet FROM Sac");
-                ResultSet ress = sts.getResultSet();
-                while (ress.next()) {
-                    Sac sac = new Sac();
-                    System.out.println(sac.trouverSac(ress.getInt(1)));
-                }
-                System.out.println("tapez 1 pour revenir au menu");
-                if (scDressing.nextInt() == 1) {
-                    explorerDressing(idDressing);
-                }
+                supprimerDansDressing(idDressing);
+                explorerDressing(idDressing);
                 break;
             case 4:
-                Chaussures c1 = new Chaussures();
-                boolean bc1 = c1.ajouterChaussures(idDressing);
-                explorerDressing(idDressing);
-                break;
-            case 5:
-                Chaussures c2 = new Chaussures();
-                boolean bc2 = c2.supprimerChaussures();
-                explorerDressing(idDressing);
-                break;
-            case 6:
-                /*Statement stc = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stc.executeQuery("SELECT idObjet FROM CHAUSSURE");
-                ResultSet resc = stc.getResultSet();
-                while (resc.next()) {
-                    Chaussures c =new Chaussures();
-                    System.out.println(c.trouverChaussures(resc.getInt(1)));
-                }*/
-                System.out.println("tapez 1 pour revenir au menu");
-                if (scDressing.nextInt() == 1) {
-                    explorerDressing(idDressing);
-                }
-                break;
-            case 7:
-                Vetement v1 = new Vetement();
-                boolean b = v1.ajouterVetement(idDressing);
-                explorerDressing(idDressing);;
-                break;
-            case 8:
                 lancer();
                 break;
-            default:
+            default : 
+                break;
         }
     }
+
+   
 
     public static void lancer() throws SQLException {
         menuGeneral();
@@ -139,19 +207,24 @@ public class Initialisation {
             case 1:
                 Utilisateur user1 = new Utilisateur();
                 boolean buser1 = user1.ajouterUtilisateur();
+                menuGeneral();
                 break;
             case 2:
                 Utilisateur user2 = new Utilisateur();
                 boolean buser2 = user2.supprimerUtilisateur();
+                menuGeneral();
                 break;
             case 3:
                 Scanner scId = new Scanner(System.in);
                 System.out.println("Votre id d'utilisateur ?");
                 explorerDressing(scId.nextInt());
+                menuGeneral();
                 break;
-            default:
+            case 4:
                 System.out.println("deconnection");
                 c.close();
+            default :
+                break;
         }
 
     }

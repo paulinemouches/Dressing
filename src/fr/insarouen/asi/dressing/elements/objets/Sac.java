@@ -77,7 +77,6 @@ public class Sac {
     public boolean ajouterSac(int idDressing) throws SQLException {
 
         Sac s = menuAjouterSacTxt();
-        System.out.println(s.toString());
         s.setIdDressing(idDressing);
         SacDAO nouveauSac = new SacDAO();
         nouveauSac.create(s);
@@ -100,14 +99,13 @@ public class Sac {
     }
     
     public  Sac trouverSac(int id) throws SQLException{
-        SacDAO s = new SacDAO();
-        System.out.println("trouver"+s.find(id).toString());
+       SacDAO s = new SacDAO();
        return s.find(id);   
     }
 
     @Override
     public String toString() {
-        return "Sac{" + "typeS=" +typeS + ", couleur=" + couleur + ", idDressing=" + idDressing + ", idObjet=" + idObjet + '}';
+        return "Sac:\n\t" + "\n\tType : " +typeS + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
     }
 
 }

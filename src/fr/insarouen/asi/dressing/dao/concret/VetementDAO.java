@@ -33,6 +33,9 @@ public class VetementDAO extends DAO<Vetement>{
     public Vetement find(int id) throws SQLException {
         Vetement v = new Vetement();
         String fils="";
+        String type="";
+        String coupe="";
+                
         Statement st= Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
         ResultSet res=st.executeQuery("select p.relname from vetement v, pg_class p where v.tableoid=p.oid and v.idobjet="+id);
         
@@ -40,38 +43,38 @@ public class VetementDAO extends DAO<Vetement>{
             fils=res.getString("relname");
         }
         
+        switch(fils){
+            case "haut":
+                type = "typeH"; 
+                coupe= "coupeH";
+                break;
+            case "pantalon":
+                type= "typeP"; 
+                coupe= "coupeP";
+                break;
+            case "autre":
+                type= "typeA"; 
+                coupe= "coupeA";
+                break;
+            default :
+                System.out.println("Erreur : Ce n'est ni un haut, ni un pantalon, ni un autre ... ");
+                return null;
+        }
+        
         
         Statement stat =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
         stat.executeQuery("SELECT * FROM "+ fils+" WHERE idObjet = "+id);
         ResultSet result = stat.getResultSet();
         
+      
         if(result.first()){
-            v = new Vetement(id,result.getInt("idDressing"), result.getString("couleur"), CoupeVetement.get(result.getString("coupeH")), TypeVetement.get(result.getString("typeH")), Matiere.get(result.getString("matiere")), v.determinerSignes(),v.determinerCouche(), v.determinerNiveau());
+            v = new Vetement(id,result.getInt("idDressing"), result.getString("couleur"), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null,result.getInt("couche"), Niveau.get(result.getString("niveau")));
+            v.setSignes(v.determinerSignes());
+            return v;
+        }else{
+            return null;
         }
-        
-        /*Statement stH =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        stH.executeQuery("SELECT * FROM HAUT WHERE idObjet = "+id);
-        ResultSet resH = stH.getResultSet();
-        
-        Statement stP =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        stP.executeQuery("SELECT * FROM PANTALON WHERE idObjet = "+id);
-        ResultSet resP = stP.getResultSet();
-        
-        Statement stA =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        stA.executeQuery("SELECT * FROM AUTRE WHERE idObjet = "+id);
-        ResultSet resA = stA.getResultSet();
-        
-        if(resH.first()){
-            String fils = v.determinerFils(TypeVetement.get(resH.getString("typeH")));
-            v = new Vetement(id,resH.getInt("idDress"), resH.getString("couleur"), CoupeVetement.get(resH.getString("coupeH")), TypeVetement.get(resH.getString("typeH")), Matiere.get(resH.getString("matiere")), v.determinerSignes( CoupeVetement.get(resH.getString("coupeH"))),v.determinerCouche(TypeVetement.get(resH.getString("typeH"))), v.determinerNiveau(fils,TypeVetement.get(resH.getString("typeH"))));
-        }else if(resP.first()){
-            String fils = v.determinerFils(TypeVetement.get(resP.getString("typeP")));
-            v = new Vetement(id,resP.getInt("idDress"), resP.getString("couleur"), CoupeVetement.get(resP.getString("coupeP")), TypeVetement.get(resP.getString("typeP")), Matiere.get(resP.getString("matiere")), v.determinerSignes( CoupeVetement.get(resP.getString("coupeP"))),v.determinerCouche(TypeVetement.get(resH.getString("typeP"))), v.determinerNiveau(fils,TypeVetement.get(resP.getString("typeP"))));
-        }else if (resA.first()){
-            String fils = v.determinerFils(TypeVetement.get(resA.getString("typeA")));
-            v = new Vetement(id,resA.getInt("idDress"), resA.getString("couleur"), CoupeVetement.get(resA.getString("coupeA")), TypeVetement.get(resA.getString("typeA")), Matiere.get(resA.getString("matiere")), v.determinerSignes( CoupeVetement.get(resA.getString("coupeA"))),v.determinerCouche(TypeVetement.get(resA.getString("typeA"))), v.determinerNiveau(fils,TypeVetement.get(resA.getString("typeA"))));
-        }*/
-        return v;
+          
     }
 
     @Override
@@ -174,6 +177,20 @@ public class VetementDAO extends DAO<Vetement>{
              e.printStackTrace();
         }
         return null;
+    }
+    
+    public static void afficherVetements(){
+        try{
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Vetement");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Vetement v = new Vetement();
+                System.out.println((v.trouverVetement(ress.getInt("idobjet"))).toString());
+            }
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
     }
     
 }

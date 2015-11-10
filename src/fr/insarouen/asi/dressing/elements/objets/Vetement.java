@@ -26,9 +26,9 @@ public class Vetement {
     private String couleur;
     private int couche;
     private boolean sale;
-    private ArrayList<Integer> hauts;
-    private ArrayList<Integer> bas;
-    private ArrayList<Integer> hautsbas;
+    public static ArrayList<Vetement> hauts;
+    public static ArrayList<Vetement> bas;
+    public static ArrayList<Vetement> hautsbas;
 
     // Il manque la couleur !! 
     /* Constructeurs */
@@ -43,26 +43,27 @@ public class Vetement {
         this.niveau = niveau;
         this.couche = couche;
         this.signes = signes;
-        hauts = new ArrayList<Integer>();
-        bas = new ArrayList<Integer>();
-        hautsbas = new ArrayList<Integer>();
-        ajouterVetementDansListe();
+        this.fils = determinerFils(type);
+        //hauts = new ArrayList<Vetement>();
+        //bas = new ArrayList<Vetement>();
+        //hautsbas = new ArrayList<Vetement>();
+        //this.ajouterVetementDansListe();
     }
 
     public Vetement() {
     }
 
         /* Les méthodes */
-    public ArrayList<Integer> getHauts() {
+    public ArrayList<Vetement> getHauts() {
         return hauts;
     }
 
-    public ArrayList<Integer> getBas() {
+    public ArrayList<Vetement> getBas() {
         return bas;
     }
 
 
-    public ArrayList<Integer> getHautsbas() {
+    public ArrayList<Vetement> getHautsbas() {
         return hautsbas;
     }
 
@@ -158,77 +159,7 @@ public class Vetement {
         return VetementDAO.recupererSaison(v);
     }
     
-    public String[] determinerSignes() throws SQLException{
-        /*String resultat[] = new String[6];
-        
-        switch (coupeVetement) {
-            case Cintre:
-                resultat[1] = "H";
-                resultat[2] = "Huit";
-                resultat[3] = "V";
-                resultat[4] = "X";
-                resultat[5] = "A";
-                break;
-            case Large:
-                resultat[1] = "V";
-                resultat[2] = "X";
-                resultat[3] = "O";
-                resultat[4] = "Huit";
-                break;
-            case Droit:
-                resultat[1] = "H";
-                resultat[2] = "Huit";
-                resultat[3] = "O";
-                resultat[4] = "X";
-                resultat[5] = "A";
-                break;
-            case Slim:
-                resultat[1] = "H";
-                resultat[2] = "V";
-                resultat[3] = "X";
-                resultat[4] = "A";
-                break;
-            case Evase:
-                resultat[1] = "O";
-                resultat[2] = "Huit";
-                break;
-            case Baggy:
-                resultat[1] = "V";
-                resultat[2] = "Huit";
-                resultat[3] = "O";
-                break;
-            case Longue:
-                resultat[1] = "H";
-                resultat[2] = "Huit";
-                resultat[3] = "O";
-                resultat[4] = "X";
-                resultat[5] = "A";
-                resultat[6] = "V";
-                break;
-            case Court:
-                resultat[1] = "H";
-                resultat[2] = "Huit";
-                resultat[3] = "V";
-                break;
-        }*/
-        return VetementDAO.recupererSignes(this);
-    }
-
-    public int determinerCouche() throws SQLException{
-       /* int resultat = 0;
-        switch (typeVetement) {
-            case Veste:
-                resultat = 2;
-                break;
-            case Manteau:
-                resultat = 2;
-                break;
-            default:
-                resultat = 1;
-        }*/
-        return VetementDAO.recupererCouche(this);
-    }
-
+    
     public String determinerFils(TypeVetement typeVetement) {
         String resultat;
         switch (typeVetement) {
@@ -263,34 +194,17 @@ public class Vetement {
     }
 
     public Niveau determinerNiveau() throws SQLException {
-        /*Niveau resultat = null;
-        if (fils.equals("Haut")) {
-            resultat = Niveau.Haut;
-        }
-        else {
-            if (fils.equals("Pantalon")) {
-                resultat = Niveau.Bas;
-            }
-            else {
-                switch (typeVetement) {
-                    case Combinaison:
-                        resultat = Niveau.Hautbas;
-                        break;
-                    case Jupe:
-                        resultat = Niveau.Bas;
-                        break;
-                    case Short:
-                        resultat = Niveau.Bas;
-                        break;
-                    case Robe:
-                        resultat = Niveau.Hautbas;
-                        break;
-                }
-            }
-        }*/
-
         return VetementDAO.recupererNiveau(this);
     }
+    
+    public String[] determinerSignes() throws SQLException{
+        return VetementDAO.recupererSignes(this);
+    }
+
+    public int determinerCouche() throws SQLException{
+        return VetementDAO.recupererCouche(this);
+    }
+
 
     public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
@@ -334,20 +248,86 @@ public class Vetement {
         v.setCouche(couche);
         v.setSignes(signes);
         
+        //v.ajouterVetementDansListe();
         return true;
+    }
+    
+    public boolean supprimerVetement() throws SQLException {
+        // Attention à gérer les exceptions !!! 
+        VetementDAO vASupprimer = new VetementDAO();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez l'id du vêtement à supprimer");
+        int id = sc.nextInt();
+        if (vASupprimer.find(id) != null) {
+            vASupprimer.delete(vASupprimer.find(id));
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public Vetement trouverVetement(int id) throws SQLException{
+        VetementDAO v = new VetementDAO();
+        return v.find(id);  
     }
 
     public void ajouterVetementDansListe() throws SQLException {
+        System.out.println("v :"+this.toString());
+        System.out.println("niveau :"+(this.determinerNiveau()).toString());
         switch (this.determinerNiveau()) {
             case Haut:
-                hauts.add(this.getIdV());
+                hauts.add(this);
                 break;
             case Bas:
-                bas.add(this.getIdV());
+                bas.add(this);
                 break;
             case Hautbas:
-                hautsbas.add(this.getIdV());
+                hautsbas.add(this);
                 break;
         }
     }
+    
+    public static void afficherHauts() throws SQLException {
+        if (hauts!=null){
+            for (Vetement v : hauts){
+                    System.out.println(v.toString());
+            }
+        }else{
+            System.out.println("Il n'y a pas de hauts");
+        }
+    }
+    
+    public static void afficherBas() throws SQLException {
+        if (bas!=null){
+            for (Vetement v : bas){
+                    System.out.println(v.toString());
+            }
+        }else{
+            System.out.println("Il n'y a pas de bas");
+        }
+    }
+    
+    public static void afficherHautsBas() throws SQLException {
+        if (hautsbas!=null){
+            for (Vetement v : hautsbas){
+                    System.out.println(v.toString());
+            }
+        }else{
+            System.out.println("Il n'y a pas de hauts-bas");
+        }
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder("");
+        s.append("\nVetement : \n\t idObjet : "+ idObjet +"\n\t Type : "+ type+"\n\t Coupe : "+coupe+"\n\t Signes : ");
+   
+	for(String si : signes){
+	    s.append(si.toString()+", ");
+	}
+        s.append("\n\t Matiere : "+matiere+"\n\t Couleur : "+couleur+"\n\t Couche : "+couche+"\n\t Est sale : "+sale);
+	return s.toString();
+    }
 }
+

@@ -23,20 +23,19 @@ public class SacDAO extends DAO<Sac> {
      public  boolean create(Sac obj) {
         try{
             int id =0;
-        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-         st.executeQuery("SELECT MAX(idObjet) FROM Contenu");   
-         ResultSet res = st.getResultSet(); 
-         while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
-                          id = res.getInt(1) +1;
-        }
-         System.out.println(id);
-         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
-       prepare.setInt(1,  obj.getIdDressing());
-         prepare.setString(2,  obj.getCouleur()); 
-        prepare.setString(3,  obj.getTypeS().name());
-        prepare.executeUpdate();
-       // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
-        obj.setIdObjet(id);
+            Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            st.executeQuery("SELECT MAX(idObjet) FROM Contenu");   
+            ResultSet res = st.getResultSet(); 
+            while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
+                id = res.getInt(1) +1;
+            }
+            PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
+            prepare.setInt(1,  obj.getIdDressing());
+            prepare.setString(2,  obj.getCouleur()); 
+            prepare.setString(3,  obj.getTypeS().name());
+            prepare.executeUpdate();
+            // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
+            obj.setIdObjet(id);
         
         }catch(SQLException e){
              e.printStackTrace();
@@ -44,30 +43,45 @@ public class SacDAO extends DAO<Sac> {
                 return true;
     }
     
- @Override
-     public  boolean update (Sac obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
+    @Override
+    public  boolean update (Sac obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
      
-         @Override
+    @Override
     public  boolean delete(Sac obj) throws SQLException{
     Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             st.executeUpdate("DELETE  FROM SAC WHERE idObjet ="+obj.getIdObjet()); 
             return true;
     }
     
-        @Override
+    @Override
     public  Sac  find(int id) throws SQLException{
         
        Sac s = new Sac();
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
-            
+
             if(res.first()){
                 s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),res.getString("couleur"));
-                System.out.println("find dao"+res.getString("typeS"));
-           }
-return s;
+                return s;
+            }else{
+                System.out.println("boudin");
+                return null;
+            }
+
     }
      
-     
+     public static void afficherSacs(){
+        try{
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Sac");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Sac s = new Sac();
+                System.out.println((s.trouverSac(ress.getInt("idobjet"))).toString());
+            }
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+    }
      
     
 }

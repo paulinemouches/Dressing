@@ -23,17 +23,16 @@ public class ChaussuresDAO extends DAO<Chaussures> {
     @Override
      public  boolean create(Chaussures obj) {
         try{
-            int id =0;
+        int id =0;
         Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-         st.executeQuery("SELECT MAX(idObjet) FROM Contenu");   
-         ResultSet res = st.getResultSet(); 
-         while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
-                          id = res.getInt(1) +1;
+        st.executeQuery("SELECT MAX(idObjet) FROM Contenu");   
+        ResultSet res = st.getResultSet(); 
+        while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
+            id = res.getInt(1) +1;
         }
-         System.out.println(id);
-         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec) VALUES ("+id+",?,?,?)");
-       prepare.setInt(1,  obj.getIdDressing());
-         prepare.setString(2,  obj.getCouleur()); 
+        PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec) VALUES ("+id+",?,?,?)");
+        prepare.setInt(1,  obj.getIdDressing());
+        prepare.setString(2,  obj.getCouleur()); 
         prepare.setString(3,  obj.getTypeC().name());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
@@ -64,7 +63,24 @@ public class ChaussuresDAO extends DAO<Chaussures> {
             
             if(res.first()){
                 c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),res.getString("couleur"));
-           }
-return c;
+                return c;
+            }else{
+                return null;
+            }
+
     }  
+    
+    public static void afficherChaussures(){
+        try{
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Chaussure");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Chaussures c = new Chaussures();
+                System.out.println((c.trouverChaussures(ress.getInt("idobjet"))).toString());
+            }
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+    }
 }
