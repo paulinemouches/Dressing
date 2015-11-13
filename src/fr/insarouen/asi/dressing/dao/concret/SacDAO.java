@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 /**
  *
  * @author pauline
@@ -83,5 +84,21 @@ public class SacDAO extends DAO<Sac> {
         }
     }
      
+          public static  HashMap<Integer,Sac> initialiserSacs(){
+        try{
+            HashMap<Integer,Sac>  sacs = new  HashMap<Integer,Sac>();
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Sac");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Sac s = new Sac();
+                sacs.put(ress.getInt("idObjet"),s.trouverSac(ress.getInt("idobjet")));
+            }
+            return sacs;
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+        return null;
+    }
     
 }

@@ -1,14 +1,10 @@
 package fr.insarouen.asi.dressing.elements.objets;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
 import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
+import java.util.HashMap;
 
 public class Chaussures {
 
@@ -16,6 +12,7 @@ public class Chaussures {
     private String couleur;
     private int idDressing;
     private int idObjet;
+    private static HashMap<Integer,Chaussures>  chaussures =  new  HashMap<Integer,Chaussures>();
 
     public Chaussures() {
     }
@@ -27,6 +24,15 @@ public class Chaussures {
         this.idObjet = idObjet;
     }
 
+    public static HashMap<Integer, Chaussures> getChaussures() {
+        return chaussures;
+    }
+
+    public static void setChaussures(HashMap<Integer, Chaussures> chaussures) {
+        Chaussures.chaussures = chaussures;
+    }
+
+    
     public TypeChaussures getTypeC() {
         return typeC;
     }
@@ -60,6 +66,16 @@ public class Chaussures {
     }
     
     
+        public static void afficherChaussures() {
+        if(!chaussures.isEmpty()){
+        for ( Chaussures  c: chaussures.values()) {
+            System.out.println(c.toString());
+        }
+        }
+        else{
+            System.out.println("\nIl n'y a pas de chaussuress");
+        }
+    }
         public Chaussures menuAjouterChaussuresTxt() {
         Scanner sc = new Scanner(System.in);
 
@@ -74,6 +90,9 @@ public class Chaussures {
         c.setCouleur(couleur);
         return c;
     }
+public void ajouterChaussuresDansListe(){
+            chaussures.put(this.getIdObjet(), this);
+}
 
     public boolean ajouterChaussures(int idDressing) throws SQLException {
 
@@ -81,15 +100,23 @@ public class Chaussures {
         c.setIdDressing(idDressing);
         ChaussuresDAO nouvellesChaussures = new ChaussuresDAO();
         nouvellesChaussures.create(c);
+        c.ajouterChaussuresDansListe();
         return true;
     }
-
+    
+public void supprimerChaussuresDansListe(int id){
+            if (chaussures.containsKey(id)) {
+            chaussures.remove(id);
+            System.out.println("Les chaussures sont supprimées");
+        }
+}
     public boolean supprimerChaussures() throws SQLException {
         ChaussuresDAO cASupprimer = new ChaussuresDAO();
         Scanner sc = new Scanner(System.in);
         System.out.println("entrez l'id des chaussures à supprimer");
         int id = sc.nextInt();
         if (cASupprimer.find(id) != null) {
+            cASupprimer.find(id).supprimerChaussuresDansListe(id);
             cASupprimer.delete(cASupprimer.find(id));
             return true;
         }
@@ -98,6 +125,11 @@ public class Chaussures {
         }
 
     }
+    
+    public static void initialiserChaussures(){
+        chaussures = ChaussuresDAO.initChaussures();
+    }
+
 
     public Chaussures trouverChaussures(int id) throws SQLException{
         ChaussuresDAO c = new ChaussuresDAO();

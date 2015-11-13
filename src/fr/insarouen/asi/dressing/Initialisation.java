@@ -153,10 +153,10 @@ public class Initialisation {
         Scanner scCons = new Scanner(System.in);
         switch (scCons.nextInt()) {
             case 1:
-                SacDAO.afficherSacs();
+                Sac.afficherSacs();
                 break;
             case 2 : 
-                ChaussuresDAO.afficherChaussures();
+                Chaussures.afficherChaussures();
                 break;
             case 3 :
                 //VetementDAO.afficherVetements();
@@ -201,6 +201,9 @@ public class Initialisation {
    
 
     public static void lancer() throws SQLException {
+       Chaussures.initialiserChaussures();
+       Sac.initSacs();
+       Vetement.initiVetements();
         menuGeneral();
         Scanner sc = new Scanner(System.in);
         switch (sc.nextInt()) {

@@ -27,13 +27,12 @@ public class Vetement {
     private String couleur;
     private int couche;
     private boolean sale;
-    public static HashMap<Integer,Vetement> hauts = new HashMap<Integer,Vetement>();
-    public static HashMap<Integer,Vetement> bas = new HashMap<Integer,Vetement>();
-    public static HashMap<Integer,Vetement> hautsbas = new HashMap<Integer,Vetement>();
+    public static HashMap<Integer, Vetement> hauts = new HashMap<Integer, Vetement>();
+    public static HashMap<Integer, Vetement> bas = new HashMap<Integer, Vetement>();
+    public static HashMap<Integer, Vetement> hautsbas = new HashMap<Integer, Vetement>();
 
-    
     /* Constructeurs */
-    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException{
+    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
         this.idObjet = idV;
         this.idDressing = idDressing;
         this.couleur = couleur;
@@ -50,17 +49,16 @@ public class Vetement {
     public Vetement() {
     }
 
-        /* Les méthodes */
-    public HashMap<Integer,Vetement> getHauts() {
+    /* Les méthodes */
+    public HashMap<Integer, Vetement> getHauts() {
         return hauts;
     }
 
-    public HashMap<Integer,Vetement> getBas() {
+    public HashMap<Integer, Vetement> getBas() {
         return bas;
     }
 
-
-    public HashMap<Integer,Vetement> getHautsbas() {
+    public HashMap<Integer, Vetement> getHautsbas() {
         return hautsbas;
     }
 
@@ -152,11 +150,10 @@ public class Vetement {
         this.couleur = couleur;
     }
 
-    public String determinerSaison(Vetement v){
+    public String determinerSaison(Vetement v) {
         return VetementDAO.recupererSaison(v);
     }
-    
-    
+
     public String determinerFils(TypeVetement typeVetement) {
         String resultat;
         switch (typeVetement) {
@@ -193,15 +190,14 @@ public class Vetement {
     public Niveau determinerNiveau() throws SQLException {
         return VetementDAO.recupererNiveau(this);
     }
-    
-    public String[] determinerSignes() throws SQLException{
+
+    public String[] determinerSignes() throws SQLException {
         return VetementDAO.recupererSignes(this);
     }
 
-    public int determinerCouche() throws SQLException{
+    public int determinerCouche() throws SQLException {
         return VetementDAO.recupererCouche(this);
     }
-
 
     public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
@@ -236,7 +232,7 @@ public class Vetement {
 
         VetementDAO nouveauVetement = new VetementDAO();
         nouveauVetement.create(v);
-        
+
         Niveau niveau = v.determinerNiveau();
         int couche = v.determinerCouche();
         String signes[] = v.determinerSignes();
@@ -244,11 +240,11 @@ public class Vetement {
         v.setNiveau(niveau);
         v.setCouche(couche);
         v.setSignes(signes);
-        
+
         v.ajouterVetementDansListe();
         return true;
     }
-    
+
     public boolean supprimerVetement() throws SQLException {
         // Attention à gérer les exceptions !!! 
         VetementDAO vASupprimer = new VetementDAO();
@@ -257,86 +253,101 @@ public class Vetement {
         int id = sc.nextInt();
         if (vASupprimer.find(id) != null) {
             vASupprimer.find(id).supprimerVetementDansListe(id);
-            vASupprimer.delete(vASupprimer.find(id)); 
+            vASupprimer.delete(vASupprimer.find(id));
             return true;
         }
         else {
             return false;
         }
     }
-    
-    public Vetement trouverVetement(int id) throws SQLException{
+
+    public Vetement trouverVetement(int id) throws SQLException {
         VetementDAO v = new VetementDAO();
-        return v.find(id);  
+        return v.find(id);
     }
 
     public void ajouterVetementDansListe() throws SQLException {
-        switch (this.determinerNiveau()) {
+        switch (this.getNiveau()) {
             case Haut:
-                hauts.put(this.getIdV(),this);
+                hauts.put(this.getIdV(), this);
                 break;
             case Bas:
-                bas.put(this.getIdV(),this);
+                bas.put(this.getIdV(), this);
                 break;
             case Hautbas:
-                hautsbas.put(this.getIdV(),this);
+                hautsbas.put(this.getIdV(), this);
                 break;
         }
     }
-    
-    public void supprimerVetementDansListe(int id) throws SQLException {
-        if(hauts.containsKey(id)){
+
+    public static void initiVetements() throws SQLException {
+        HashMap<Integer, Vetement> vetements = VetementDAO.initialiserVetements();
+        for (Vetement v : vetements.values()) {
+            v.ajouterVetementDansListe();
+        }
+}
+
+public void supprimerVetementDansListe(int id) throws SQLException {
+        if (hauts.containsKey(id)) {
             hauts.remove(id);
             System.out.println("Le haut est supprimé");
-        }else if (bas.containsKey(id)){
-            bas.remove(id);
-            System.out.println("Le bas est supprimé");
-        }else if (hautsbas.containsKey(id)){
-            hautsbas.remove(id);
-            System.out.println("Le haut-bas est supprimé");
+        }
+        else {
+            if (bas.containsKey(id)) {
+                bas.remove(id);
+                System.out.println("Le bas est supprimé");
+            }
+            else {
+                if (hautsbas.containsKey(id)) {
+                    hautsbas.remove(id);
+                    System.out.println("Le haut-bas est supprimé");
+                }
+            }
         }
     }
-    
+
     public static void afficherHauts() throws SQLException {
-        if (!hauts.isEmpty()){
-            for (Vetement v : hauts.values()){
-                    System.out.println(v.toString());
+        if (!hauts.isEmpty()) {
+            for (Vetement v : hauts.values()) {
+                System.out.println(v.toString());
             }
-        }else{
+        }
+        else {
             System.out.println("\nIl n'y a pas de hauts");
         }
     }
-    
+
     public static void afficherBas() throws SQLException {
-        if (!bas.isEmpty()){
-            for (Vetement v : bas.values()){
-                    System.out.println(v.toString());
+        if (!bas.isEmpty()) {
+            for (Vetement v : bas.values()) {
+                System.out.println(v.toString());
             }
-        }else{
+        }
+        else {
             System.out.println("\nIl n'y a pas de bas");
         }
     }
-    
+
     public static void afficherHautsBas() throws SQLException {
-        if (!hautsbas.isEmpty()){
-            for (Vetement v : hautsbas.values()){
-                    System.out.println(v.toString());
+        if (!hautsbas.isEmpty()) {
+            for (Vetement v : hautsbas.values()) {
+                System.out.println(v.toString());
             }
-        }else{
+        }
+        else {
             System.out.println("\nIl n'y a pas de hauts-bas");
         }
     }
-    
+
     @Override
-    public String toString() {
+        public String toString() {
         StringBuilder s = new StringBuilder("");
-        s.append("\nVetement : \n\t idObjet : "+ idObjet +"\n\t Type : "+ type+"\n\t Coupe : "+coupe+"\n\t Signes : ");
-   
-	for(String si : signes){
-	    s.append(si.toString()+", ");
-	}
-        s.append("\n\t Matiere : "+matiere+"\n\t Couleur : "+couleur+"\n\t Couche : "+couche+"\n\t Est sale : "+sale);
-	return s.toString();
+        s.append("\nVetement : \n\t idObjet : " + idObjet + "\n\t Type : " + type + "\n\t Coupe : " + coupe + "\n\t Signes : ");
+
+        for (String si : signes) {
+            s.append(si.toString() + ", ");
+        }
+        s.append("\n\t Matiere : " + matiere + "\n\t Couleur : " + couleur + "\n\t Couche : " + couche + "\n\t Est sale : " + sale);
+        return s.toString();
     }
 }
-

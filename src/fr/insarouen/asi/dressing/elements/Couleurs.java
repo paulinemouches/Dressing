@@ -91,7 +91,7 @@ public class Couleurs {
         List<List<Integer>> t = new ArrayList<List<Integer>>();
         t = obtenirTableau(valeurDuTableau);
         for (int a = 0; a < t.size(); a++) { // on parcours le tableau correspondant à la valeurDuTableau entrée par l'utilisateur
-            if (t.get(a).get(0) == couleurDesiree) {// on regarde dans le sous tableau de la case 1: si cette valeur correspond à lacouleur désiréé alors
+            if (t.get(a).get(0) == couleurDesiree){// on regarde dans le sous tableau de la case 1: si cette valeur correspond à lacouleur désiréé alors
                 return t.get(a).get(1);// on retourne la couleur associée : cas2 du sous tableau
             }
             else {

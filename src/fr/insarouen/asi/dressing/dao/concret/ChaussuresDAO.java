@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 /**
  *
@@ -82,5 +83,22 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         }catch(SQLException e){
              e.printStackTrace();
         }
+    }
+    
+        public static HashMap<Integer,Chaussures> initChaussures(){
+             HashMap<Integer,Chaussures>  chaussures = new  HashMap<Integer,Chaussures>();
+        try{
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Chaussure");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Chaussures c = new Chaussures();
+                chaussures.put(ress.getInt("idobjet"),c.trouverChaussures(ress.getInt("idobjet")));   
+            }
+            return chaussures;
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+        return null;
     }
 }

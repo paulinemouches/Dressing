@@ -1,14 +1,10 @@
 package fr.insarouen.asi.dressing.elements.objets;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console;
 import fr.insarouen.asi.dressing.elements.TypeSac;
 import fr.insarouen.asi.dressing.dao.concret.SacDAO;
+import java.util.HashMap;
 
 public class Sac {
 
@@ -16,6 +12,7 @@ public class Sac {
     private String couleur;
     private int idDressing;
     private int idObjet;
+    public static HashMap<Integer, Sac> sacs = new HashMap<Integer, Sac>();
 
     public Sac(int idObjet, int idDressing, TypeSac typeS, String couleur) {
         this.typeS = typeS;
@@ -74,13 +71,25 @@ public class Sac {
         return s;
     }
 
+    public void ajouterSacDansListe() {
+        sacs.put(this.getIdObjet(), this);
+    }
+
     public boolean ajouterSac(int idDressing) throws SQLException {
 
         Sac s = menuAjouterSacTxt();
         s.setIdDressing(idDressing);
         SacDAO nouveauSac = new SacDAO();
         nouveauSac.create(s);
+        s.ajouterSacDansListe();
         return true;
+    }
+
+    public void supprimerSacDansListe(int id) throws SQLException {
+        if (sacs.containsKey(id)) {
+            sacs.remove(id);
+            System.out.println("Le sac est supprimé");
+        }
     }
 
     public boolean supprimerSac() throws SQLException {
@@ -89,6 +98,7 @@ public class Sac {
         System.out.println("entrez l'id du sac à supprimer");
         int id = sc.nextInt();
         if (sacASupprimer.find(id) != null) {
+            sacASupprimer.find(id).supprimerSacDansListe(id);
             sacASupprimer.delete(sacASupprimer.find(id));
             return true;
         }
@@ -98,14 +108,29 @@ public class Sac {
 
     }
     
-    public  Sac trouverSac(int id) throws SQLException{
-       SacDAO s = new SacDAO();
-       return s.find(id);   
+    public static void initSacs(){
+        sacs=SacDAO.initialiserSacs();
+    }
+
+    public static void afficherSacs() {
+        if(!sacs.isEmpty()){
+        for (Sac s : sacs.values()) {
+            System.out.println(s.toString());
+        }
+        }
+        else{
+            System.out.println("\nIl n'y a pas de sacs");
+        }
+    }
+
+    public Sac trouverSac(int id) throws SQLException {
+        SacDAO s = new SacDAO();
+        return s.find(id);
     }
 
     @Override
     public String toString() {
-        return "Sac:\n\t" + "\n\tType : " +typeS + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
+        return "Sac:\n\t" + "\n\tType : " + typeS + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
     }
 
 }

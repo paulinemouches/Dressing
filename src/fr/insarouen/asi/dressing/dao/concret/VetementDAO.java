@@ -193,4 +193,21 @@ public class VetementDAO extends DAO<Vetement>{
         }
     }
     
+        public static HashMap<Integer,Vetement> initialiserVetements(){
+        try{
+            HashMap<Integer,Vetement> vetements = new HashMap<Integer,Vetement>();
+            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            sts.executeQuery("SELECT idObjet FROM Vetement");
+            ResultSet ress = sts.getResultSet();
+            while (ress.next()) {
+                Vetement v = new Vetement();
+                vetements.put(ress.getInt("idObjet"),v.trouverVetement(ress.getInt("idobjet")));
+            }
+            return vetements;
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
 }
