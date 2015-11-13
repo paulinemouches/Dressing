@@ -159,10 +159,10 @@ public class Initialisation {
                 ChaussuresDAO.afficherChaussures();
                 break;
             case 3 :
-                VetementDAO.afficherVetements();
-                //Vetement.afficherHauts();
-                //Vetement.afficherBas();
-                //Vetement.afficherHautsBas();
+                //VetementDAO.afficherVetements();
+                Vetement.afficherHauts();
+                Vetement.afficherBas();
+                Vetement.afficherHautsBas();
                 break;
             case 4 :
                 explorerDressing(idDressing);

@@ -10,7 +10,8 @@ import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Vetement {
 
@@ -26,11 +27,11 @@ public class Vetement {
     private String couleur;
     private int couche;
     private boolean sale;
-    public static ArrayList<Vetement> hauts;
-    public static ArrayList<Vetement> bas;
-    public static ArrayList<Vetement> hautsbas;
+    public static HashMap<Integer,Vetement> hauts = new HashMap<Integer,Vetement>();
+    public static HashMap<Integer,Vetement> bas = new HashMap<Integer,Vetement>();
+    public static HashMap<Integer,Vetement> hautsbas = new HashMap<Integer,Vetement>();
 
-    // Il manque la couleur !! 
+    
     /* Constructeurs */
     public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException{
         this.idObjet = idV;
@@ -44,26 +45,22 @@ public class Vetement {
         this.couche = couche;
         this.signes = signes;
         this.fils = determinerFils(type);
-        //hauts = new ArrayList<Vetement>();
-        //bas = new ArrayList<Vetement>();
-        //hautsbas = new ArrayList<Vetement>();
-        //this.ajouterVetementDansListe();
     }
 
     public Vetement() {
     }
 
         /* Les méthodes */
-    public ArrayList<Vetement> getHauts() {
+    public HashMap<Integer,Vetement> getHauts() {
         return hauts;
     }
 
-    public ArrayList<Vetement> getBas() {
+    public HashMap<Integer,Vetement> getBas() {
         return bas;
     }
 
 
-    public ArrayList<Vetement> getHautsbas() {
+    public HashMap<Integer,Vetement> getHautsbas() {
         return hautsbas;
     }
 
@@ -248,7 +245,7 @@ public class Vetement {
         v.setCouche(couche);
         v.setSignes(signes);
         
-        //v.ajouterVetementDansListe();
+        v.ajouterVetementDansListe();
         return true;
     }
     
@@ -259,7 +256,8 @@ public class Vetement {
         System.out.println("Entrez l'id du vêtement à supprimer");
         int id = sc.nextInt();
         if (vASupprimer.find(id) != null) {
-            vASupprimer.delete(vASupprimer.find(id));
+            vASupprimer.find(id).supprimerVetementDansListe(id);
+            vASupprimer.delete(vASupprimer.find(id)); 
             return true;
         }
         else {
@@ -273,48 +271,59 @@ public class Vetement {
     }
 
     public void ajouterVetementDansListe() throws SQLException {
-        System.out.println("v :"+this.toString());
-        System.out.println("niveau :"+(this.determinerNiveau()).toString());
         switch (this.determinerNiveau()) {
             case Haut:
-                hauts.add(this);
+                hauts.put(this.getIdV(),this);
                 break;
             case Bas:
-                bas.add(this);
+                bas.put(this.getIdV(),this);
                 break;
             case Hautbas:
-                hautsbas.add(this);
+                hautsbas.put(this.getIdV(),this);
                 break;
+        }
+    }
+    
+    public void supprimerVetementDansListe(int id) throws SQLException {
+        if(hauts.containsKey(id)){
+            hauts.remove(id);
+            System.out.println("Le haut est supprimé");
+        }else if (bas.containsKey(id)){
+            bas.remove(id);
+            System.out.println("Le bas est supprimé");
+        }else if (hautsbas.containsKey(id)){
+            hautsbas.remove(id);
+            System.out.println("Le haut-bas est supprimé");
         }
     }
     
     public static void afficherHauts() throws SQLException {
-        if (hauts!=null){
-            for (Vetement v : hauts){
+        if (!hauts.isEmpty()){
+            for (Vetement v : hauts.values()){
                     System.out.println(v.toString());
             }
         }else{
-            System.out.println("Il n'y a pas de hauts");
+            System.out.println("\nIl n'y a pas de hauts");
         }
     }
     
     public static void afficherBas() throws SQLException {
-        if (bas!=null){
-            for (Vetement v : bas){
+        if (!bas.isEmpty()){
+            for (Vetement v : bas.values()){
                     System.out.println(v.toString());
             }
         }else{
-            System.out.println("Il n'y a pas de bas");
+            System.out.println("\nIl n'y a pas de bas");
         }
     }
     
     public static void afficherHautsBas() throws SQLException {
-        if (hautsbas!=null){
-            for (Vetement v : hautsbas){
+        if (!hautsbas.isEmpty()){
+            for (Vetement v : hautsbas.values()){
                     System.out.println(v.toString());
             }
         }else{
-            System.out.println("Il n'y a pas de hauts-bas");
+            System.out.println("\nIl n'y a pas de hauts-bas");
         }
     }
     
