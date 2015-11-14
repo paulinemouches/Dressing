@@ -11,6 +11,14 @@ public enum TypeVetement {
         }
         return null;
     }
+    
+    public static TypeVetement getfromInt(int numero){
+        for(TypeVetement n :  values()){
+            if( numero==(n.ordinal()+1))
+                return n;
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

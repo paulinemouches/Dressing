@@ -94,9 +94,12 @@ public class Initialisation {
 
     }
     
-    public static void ajouterDansDressing(int id) throws SQLException {
-       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
-        int idDressing = id;
+    public static void ajouterDansDressing(int id) throws SQLException { 
+        // Recuperation de l'idDressing à partir de l'idée utilisateur
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT MAX(idObjet) FROM CONTENU");   
+        ResultSet res = (st.getResultSet());
+        Integer idDressing = res.getInt("iddressing");
         menuAjouterDansDressing(idDressing);
         Scanner scAjout = new Scanner(System.in);
         switch (scAjout.nextInt()) {

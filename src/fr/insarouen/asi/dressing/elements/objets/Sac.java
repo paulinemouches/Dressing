@@ -9,12 +9,12 @@ import java.util.HashMap;
 public class Sac {
 
     private TypeSac typeS;
-    private String couleur;
+    private int couleur;
     private int idDressing;
     private int idObjet;
     public static HashMap<Integer, Sac> sacs = new HashMap<Integer, Sac>();
 
-    public Sac(int idObjet, int idDressing, TypeSac typeS, String couleur) {
+    public Sac(int idObjet, int idDressing, TypeSac typeS, int couleur) {
         this.typeS = typeS;
         this.couleur = couleur;
         this.idObjet = idObjet;
@@ -28,7 +28,7 @@ public class Sac {
         return typeS;
     }
 
-    public String getCouleur() {
+    public int getCouleur() {
         return couleur;
     }
 
@@ -48,7 +48,7 @@ public class Sac {
         this.typeS = typeS;
     }
 
-    public void setCouleur(String couleur) {
+    public void setCouleur(int couleur) {
         this.couleur = couleur;
     }
 
@@ -60,10 +60,42 @@ public class Sac {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Entrez le type de sac");
-        TypeSac typeS = TypeSac.get(sc.nextLine());
+        System.out.println("1: Sac a dos\t 2: Sac a main\t 3: Pochette");
+        TypeSac typeS = TypeSac.getfromInt(sc.nextInt());
 
         System.out.println("Entrez la couleur du sac");
-        String couleur = sc.nextLine();
+        System.out.println( "1 - bleu\n" +
+                            "2 - bleu clair\n" +
+                            "3 - bleu marine\n" +
+                            "4 - turquoise\n" +
+                            "5 - gris clair\n" +
+                            "6 - argenté\n" +
+                            "7 - gris foncé\n" +
+                            "8 - marron clair\n" +
+                            "9 - marron foncé\n" +
+                            "10 - corail\n" +
+                            "11 - orange\n" +
+                            "12 - bordeau\n" +
+                            "13 - brique\n" +
+                            "14 - rouge\n" +
+                            "15 - rose pale\n" +
+                            "16 - rose fushia\n" +
+                            "17 - rose foncé\n" +
+                            "18 - mauve\n" +
+                            "19 - violet\n" +
+                            "20 - prune\n" +
+                            "21 - blanc\n" +
+                            "22 - jaune moutarde \n" +
+                            "23 - jaune\n" +
+                            "24 - doré\n" +
+                            "25 - noir\n" +
+                            "26 - kaki\n" +
+                            "27 - vert pale\n" +
+                            "28 - vert\n" +
+                            "29 - jean clair\n" +
+                            "30 - jean marine\n" +
+                            "31 - beige");
+        int couleur = sc.nextInt();
 
         Sac s = new Sac();
         s.setTypeS(typeS);

@@ -32,7 +32,7 @@ public class SacDAO extends DAO<Sac> {
             }
             PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
             prepare.setInt(1,  obj.getIdDressing());
-            prepare.setString(2,  obj.getCouleur()); 
+            prepare.setInt(2,  obj.getCouleur()); 
             prepare.setString(3,  obj.getTypeS().name());
             prepare.executeUpdate();
             // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
@@ -61,7 +61,7 @@ public class SacDAO extends DAO<Sac> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
 
             if(res.first()){
-                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),res.getString("couleur"));
+                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),res.getInt("couleur"));
                 return s;
             }else{
                 System.out.println("boudin");

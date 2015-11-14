@@ -20,7 +20,7 @@ public class Couleurs {
     {16, 1, 1, 1, 1, 5, 3, 5, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 1, 1, 3, 5, 1, 1, 1, 4, 5, 5}, {17, 1, 1, 1, 1, 5, 4, 5, 1, 1, 1, 1, 2, 2, 1, 3, 1, 1, 1, 1, 1, 5, 1, 1, 3, 5, 2, 1, 1, 5, 4, 5}, {18, 1, 1, 1, 1, 3, 2, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 3, 5, 1, 1, 1, 4, 5, 5}, {19, 1, 1, 1, 1, 4, 2, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 3, 5, 1, 1, 1, 4, 5, 5}, {20, 1, 2, 2, 1, 5, 4, 5, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 4, 1, 1, 3, 5, 3, 1, 1, 4, 5, 5}, {21, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, 4, 4, 5, 4, 4, 4, 1, 4, 4, 3, 3, 5, 5, 4, 5, 4, 2}, {22, 1, 1, 1, 1, 5, 1, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 2, 5, 3, 1, 1, 5, 5, 2}, {23, 1, 1, 1, 1, 4, 1, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 5, 2, 1, 1, 5, 5, 2},
     {24, 1, 2, 5, 1, 5, 1, 5, 4, 4, 1, 1, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 1, 4, 4, 1, 1, 3, 5, 5}, {25, 5, 5, 5, 5, 5, 4, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 4, 1, 5, 5, 4, 5, 4, 5}, {26, 1, 1, 1, 1, 4, 1, 4, 1, 1, 1, 1, 4, 4, 2, 4, 1, 2, 1, 1, 3, 5, 3, 2, 4, 5, 1, 1, 1, 5, 4, 5}, {27, 1, 1, 1, 1, 5, 2, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 5, 1, 1, 1, 5, 4, 4}, {28, 1, 1, 1, 1, 5, 1, 5, 2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 1, 1, 5, 5, 4}, {29, 3, 5, 5, 5, 5, 5, 5, 1, 1, 5, 4, 4, 4, 5, 5, 4, 5, 4, 4, 4, 5, 5, 5, 3, 5, 5, 5, 5, 1, 1, 5}, {30, 1, 5, 4, 3, 5, 5, 4, 1, 1, 4, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 4, 5, 5, 5, 4, 4, 4, 5, 1, 1, 5}, {31, 5, 4, 5, 4, 3, 4, 4, 5, 5, 5, 3, 5, 5, 4, 4, 5, 5, 5, 5, 5, 2, 2, 2, 5, 5, 5, 4, 4, 5, 5, 1}};
 
-    // listes à 2 dimensions représentant les associations des couelurs exemple pour t1: (noir blanc;orange beige)
+    // listes à 2 dimensions représentant les associations des couleurs exemple pour t1: (noir blanc;orange beige)
     // les couleurs noir et blanc sont reliés par la valeur 1 dans le tableau des couleurs, de meme pour les couleurs orange et beige.
     private List<List<Integer>> t1;
     private List<List<Integer>> t2;
@@ -38,7 +38,7 @@ public class Couleurs {
     }
 
     public void InitTableauxAssociations() {
-        for (int i = 1; i < couleurs.length; i++) { // on parcours toues les lignes du tableau
+        for (int i = 1; i < couleurs.length; i++) { // on parcours toutes les lignes du tableau
             for (int j = 1; j < couleurs.length; j++) {
                 if (j <= i) {            //on parcours que la partie inferieure de la matrice (diagonale + sous la diagonale) car elle est symétrique
                                                // => temps de parcouirs réduit et redondance dans nos tableaux t1,t2,... évitée.      
@@ -87,7 +87,7 @@ public class Couleurs {
 
     public int recupererValeurAssociee(int valeurDuTableau, int couleurDesiree) {
         InitTableauxAssociations();
-        // on entre une couleur et on voudrait savoir qu'elle couleur est associée à celle ci par un note de valeurDuTableau
+        // on entre une couleur et on voudrait savoir qu'elle couleur est associée à celle ci par un notre de valeurDuTableau
         List<List<Integer>> t = new ArrayList<List<Integer>>();
         t = obtenirTableau(valeurDuTableau);
         for (int a = 0; a < t.size(); a++) { // on parcours le tableau correspondant à la valeurDuTableau entrée par l'utilisateur
@@ -104,3 +104,13 @@ public class Couleurs {
         return 0;// si la couleur désirée n'est pas dans le tableau on retourne 0
     }
 }
+// Il y a un truc que je comprend pas trop ici ... En fait si par exemple on appelle recupererValeurAssociee(t5, 14(rouge)}
+// t5 aura une tronche comme ça : t5={....{rouge,noir},{rouge,jean clair},{rouge, jean marine},{rouge,gris foncé} ...} (j'ai mis les noms et pas les numero pour que ce soit plus facile)
+// Et bah récupérerValeurAssociée te renverra toujours noir ... et tu ne mettra donc jamais du rouge avec du gris foncé (si j'ai bien compris le truc) 
+// Et en plus pour moi il y a beaucoup plus simple comme manière de faire : 
+//      Pour moi il n'y a pas besoin de faire les t1, t2,t3, etc. 
+//      Pour recupererValeurAssociée il suffit juste de regarder dans la ligne ou dans la colonne de ta couleur désirée
+//      A chaque fois que tu trouves la valeur "5" (en exemple), tu mets la valeur de la couleur correspondant dans un tableau tmp
+//      Et ensuite tu choisi aléatoirement dans le tableau tmp une couleur que tu renvoie 
+
+// Après j'ai peut être pas tout compris hein je sais pas ... 

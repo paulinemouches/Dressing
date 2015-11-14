@@ -4,10 +4,18 @@ public enum CoupeVetement {
 
     Cintre, Droit, Large,  Slim, Evase, Baggy, Court,Longue;
     
-           public static CoupeVetement get(String saisie){
+    public static CoupeVetement get(String saisie){
         for(CoupeVetement cv :  values()){
             if( saisie.equals(cv.toString()))
                 return cv;
+        }
+        return null;
+    }
+    
+    public static CoupeVetement getfromInt(int numero){
+        for(CoupeVetement c :  values()){
+            if( numero==(c.ordinal()+1))
+                return c;
         }
         return null;
     }

@@ -24,7 +24,7 @@ public class Vetement {
     private Matiere matiere;
 
     private String fils;
-    private String couleur;
+    private int couleur;
     private int couche;
     private boolean sale;
     public static HashMap<Integer, Vetement> hauts = new HashMap<Integer, Vetement>();
@@ -32,7 +32,7 @@ public class Vetement {
     public static HashMap<Integer, Vetement> hautsbas = new HashMap<Integer, Vetement>();
 
     /* Constructeurs */
-    public Vetement(int idV, int idDressing, String couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
+    public Vetement(int idV, int idDressing, int couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
         this.idObjet = idV;
         this.idDressing = idDressing;
         this.couleur = couleur;
@@ -70,7 +70,7 @@ public class Vetement {
         return niveau;
     }
 
-    public String getCouleur() {
+    public int getCouleur() {
         return couleur;
     }
 
@@ -146,7 +146,7 @@ public class Vetement {
         this.fils = fils;
     }
 
-    public void setCouleur(String couleur) {
+    public void setCouleur(int couleur) {
         this.couleur = couleur;
     }
 
@@ -202,16 +202,66 @@ public class Vetement {
     public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le type de vêtement : ");
-        TypeVetement type = TypeVetement.get(sc.nextLine());
+        System.out.println("1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
+        int numero=sc.nextInt();
+        TypeVetement type = TypeVetement.getfromInt(numero);
+        if (type==null){
+            return null; 
+        }
 
         System.out.println("Entrez la matière : ");
-        Matiere matiere = Matiere.get(sc.nextLine());
-
+        System.out.println("1: Laine\t 2: Coton\t 3: Jean\t\t 4: Lin\t\t 5: Velours\t 6: Cuir\t 7: Dentelle\t 8: Daim\t 9: Satin\t 10: Paillette");
+        Matiere matiere = Matiere.getfromInt(sc.nextInt());
+        if (matiere==null){
+            return null; 
+        }
+ 
         System.out.println("Entrez la coupe : ");
-        CoupeVetement coupe = CoupeVetement.get(sc.nextLine());
+        if((numero==1) || (numero==2) || (numero==3) || (numero==4) || (numero==5)){
+         System.out.println("1: Cintré\t 2: Droit\t 3: Large\t");   
+        }else if((numero==6) || (numero==7) || (numero==8)){
+            System.out.println("2: Droit\t 4: Slim\t 5: Evase\t 6: Baggy\t");
+        }else if((numero==9) || (numero==10) || (numero==11) || (numero==12)){
+            System.out.println("7:Court\t 8: Long");
+        }
+        CoupeVetement coupe = CoupeVetement.getfromInt(sc.nextInt());
+        if (coupe==null){
+            return null; 
+        }
 
         System.out.println("Entrez la couleur : ");
-        String couleur = sc.nextLine();
+        System.out.println( "1 - bleu\n" +
+                            "2 - bleu clair\n" +
+                            "3 - bleu marine\n" +
+                            "4 - turquoise\n" +
+                            "5 - gris clair\n" +
+                            "6 - argenté\n" +
+                            "7 - gris foncé\n" +
+                            "8 - marron clair\n" +
+                            "9 - marron foncé\n" +
+                            "10 - corail\n" +
+                            "11 - orange\n" +
+                            "12 - bordeau\n" +
+                            "13 - brique\n" +
+                            "14 - rouge\n" +
+                            "15 - rose pale\n" +
+                            "16 - rose fushia\n" +
+                            "17 - rose foncé\n" +
+                            "18 - mauve\n" +
+                            "19 - violet\n" +
+                            "20 - prune\n" +
+                            "21 - blanc\n" +
+                            "22 - jaune moutarde \n" +
+                            "23 - jaune\n" +
+                            "24 - doré\n" +
+                            "25 - noir\n" +
+                            "26 - kaki\n" +
+                            "27 - vert pale\n" +
+                            "28 - vert\n" +
+                            "29 - jean clair\n" +
+                            "30 - jean marine\n" +
+                            "31 - beige");
+        int couleur = sc.nextInt();
 
         String fils = determinerFils(type);
 

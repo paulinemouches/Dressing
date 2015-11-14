@@ -33,7 +33,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         }
         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec) VALUES ("+id+",?,?,?)");
         prepare.setInt(1,  obj.getIdDressing());
-        prepare.setString(2,  obj.getCouleur()); 
+        prepare.setInt(2,  obj.getCouleur()); 
         prepare.setString(3,  obj.getTypeC().name());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
@@ -63,7 +63,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM CHAUSSURE WHERE idObjet = "+id);
             
             if(res.first()){
-                c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),res.getString("couleur"));
+                c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),res.getInt("couleur"));
                 return c;
             }else{
                 return null;

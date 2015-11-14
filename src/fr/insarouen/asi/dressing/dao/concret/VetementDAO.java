@@ -68,7 +68,7 @@ public class VetementDAO extends DAO<Vetement>{
         
       
         if(result.first()){
-            v = new Vetement(id,result.getInt("idDressing"), result.getString("couleur"), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null,result.getInt("couche"), Niveau.get(result.getString("niveau")));
+            v = new Vetement(id,result.getInt("idDressing"), result.getInt("couleur"), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null,result.getInt("couche"), Niveau.get(result.getString("niveau")));
             v.setSignes(v.determinerSignes());
             return v;
         }else{
@@ -103,7 +103,7 @@ public class VetementDAO extends DAO<Vetement>{
             }
             
             prepare.setInt(1, obj.getIdDressing()); 
-            prepare.setString(2, obj.getCouleur());
+            prepare.setInt(2, obj.getCouleur());
             prepare.setString(3, obj.getMatiere().name());
             prepare.setBoolean(4, obj.isSale());
             prepare.setString(5, obj.getType().name());
