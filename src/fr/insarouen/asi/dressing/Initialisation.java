@@ -1,8 +1,5 @@
 package fr.insarouen.asi.dressing;
 
-import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
-import fr.insarouen.asi.dressing.dao.concret.SacDAO;
-import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -10,11 +7,10 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
-
+import fr.insarouen.asi.dressing.Tenue;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
-
 
 public class Initialisation {
 
@@ -37,13 +33,16 @@ public class Initialisation {
         System.out.println("tapez 3 pour accéder à un dressing existant");
         System.out.println("tapez 4 pour vous déconnecter");
     }
+
+
     
-        public static void menuDressing(int id) {
+    public static void menuDressing(int id) {
         System.out.println("--------------------------DRESSING--------------------------\n");
         System.out.println("tapez 1 pour ajouter un nouvel objet au dressing");
         System.out.println("tapez 2 pour consulter votre dressing");
         System.out.println("tapez 3 pour supprimer un objet de votre dressing");
-        System.out.println("tapez 4 pour revenir au menu precedent\n");
+        System.out.println("tapez 4 pour créer une tenue");
+        System.out.println("tapez 5 pour revenir au menu precedent\n");
     }
 
     public static void menuAjouterDansDressing(int id) {
@@ -53,15 +52,16 @@ public class Initialisation {
         System.out.println("tapez 3 pour entrer un nouveau vetement");
         System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
-    
+
     public static void menuConsulterDressing(int id) {
         System.out.println("------------------------CONSULTATION------------------------\n");
         System.out.println("tapez 1 pour consulter vos sacs");
         System.out.println("tapez 2 pour consulter vos chaussures");
         System.out.println("tapez 3 pour consultez vos vetements");
         System.out.println("tapez 4 pour revenir au menu precedent\n");
+
     }
-    
+
     public static void menuSupprimerDansDressing(int id) {
         System.out.println("------------------------SUPPRESSION------------------------\n");
         System.out.println("tapez 1 pour supprimer un sac");
@@ -93,17 +93,17 @@ public class Initialisation {
         }
 
     }
-    
-    public static void ajouterDansDressing(int id) throws SQLException { 
+
+    public static void ajouterDansDressing(int id) throws SQLException {
         // Recuperation de l'idDressing à partir de l'idée utilisateur
-        Integer idDressing=1;
-        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("select d.iddressing from personne p, dressing d where p.idpers=d.idpers and p.idpers="+id);   
+        Integer idDressing = 1;
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("select d.iddressing from personne p, dressing d where p.idpers=d.idpers and p.idpers=" + id);
         ResultSet res = (st.getResultSet());
-        if(res.first()){
+        if (res.first()) {
             idDressing = res.getInt("iddressing");
         }
-        
+
         menuAjouterDansDressing(idDressing);
         Scanner scAjout = new Scanner(System.in);
         switch (scAjout.nextInt()) {
@@ -111,24 +111,24 @@ public class Initialisation {
                 Sac sac = new Sac();
                 boolean bsac = sac.ajouterSac(idDressing);
                 break;
-            case 2 : 
+            case 2:
                 Chaussures c = new Chaussures();
                 boolean bc = c.ajouterChaussures(idDressing);
                 break;
-            case 3 :
+            case 3:
                 Vetement v = new Vetement();
                 boolean bv = v.ajouterVetement(idDressing);
                 break;
-            case 4 :
+            case 4:
                 explorerDressing(idDressing);
                 break;
-            default : 
+            default:
                 break;
         }
     }
-    
+
     public static void supprimerDansDressing(int id) throws SQLException {
-       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
+        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
         int idDressing = id;
         menuSupprimerDansDressing(idDressing);
         Scanner scSup = new Scanner(System.in);
@@ -137,24 +137,24 @@ public class Initialisation {
                 Sac sac = new Sac();
                 boolean bsac = sac.supprimerSac();
                 break;
-            case 2 : 
+            case 2:
                 Chaussures c = new Chaussures();
                 boolean bc = c.supprimerChaussures();
                 break;
-            case 3 :
+            case 3:
                 Vetement v = new Vetement();
                 boolean bv = v.supprimerVetement();
                 break;
-            case 4 :
+            case 4:
                 explorerDressing(idDressing);
                 break;
-            default : 
+            default:
                 break;
         }
     }
-    
+
     public static void consulterDressing(int id) throws SQLException {
-       // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
+        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
         int idDressing = id;
         menuConsulterDressing(idDressing);
         Scanner scCons = new Scanner(System.in);
@@ -162,23 +162,23 @@ public class Initialisation {
             case 1:
                 Sac.afficherSacs();
                 break;
-            case 2 : 
+            case 2:
                 Chaussures.afficherChaussures();
                 break;
-            case 3 :
+            case 3:
                 //VetementDAO.afficherVetements();
                 Vetement.afficherHauts();
                 Vetement.afficherBas();
                 Vetement.afficherHautsBas();
                 break;
-            case 4 :
+            case 4:
                 explorerDressing(idDressing);
                 break;
-            default : 
-                break; 
+            default:
+                break;
         }
     }
-    
+
     public static void explorerDressing(int id) throws SQLException {
         // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
         int idDressing = id;
@@ -198,19 +198,22 @@ public class Initialisation {
                 explorerDressing(idDressing);
                 break;
             case 4:
+                Tenue t = new Tenue();
+                t.menuCreerTenue();
+                explorerDressing(idDressing);
+                break;
+            case 5:
                 lancer();
                 break;
-            default : 
+            default:
                 break;
         }
     }
 
-   
-
     public static void lancer() throws SQLException {
-       Chaussures.initialiserChaussures();
-       Sac.initSacs();
-       Vetement.initiVetements();
+        Chaussures.initialiserChaussures();
+        Sac.initSacs();
+        Vetement.initiVetements();
         menuGeneral();
         Scanner sc = new Scanner(System.in);
         switch (sc.nextInt()) {
@@ -233,7 +236,7 @@ public class Initialisation {
             case 4:
                 System.out.println("deconnection");
                 c.close();
-            default :
+            default:
                 break;
         }
 
@@ -244,8 +247,8 @@ public class Initialisation {
             connexion();
             //test couleurs
             //Couleurs coul = new Couleurs();
-           // int entier = coul.recupererValeurAssociee(2,1);
-           // System.out.println("la couleur associee a 1 est :"+entier);
+            // int entier = coul.recupererValeurAssociee(2,1);
+            // System.out.println("la couleur associee a 1 est :"+entier);
             lancer();
             c.close();
         } catch (SQLException e) {

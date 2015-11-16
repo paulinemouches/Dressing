@@ -4,12 +4,13 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
 import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import java.util.HashMap;
 
 public class Chaussures {
 
    TypeChaussures typeC;
-    private int couleur;
+    private Couleur  couleur;
     private int idDressing;
     private int idObjet;
     private static HashMap<Integer,Chaussures>  chaussures =  new  HashMap<Integer,Chaussures>();
@@ -17,7 +18,7 @@ public class Chaussures {
     public Chaussures() {
     }
 
-    public Chaussures(int idObjet,int idDressing,  TypeChaussures typeC, int couleur) {
+    public Chaussures(int idObjet,int idDressing,  TypeChaussures typeC,Couleur couleur) {
         this.typeC = typeC;
         this.couleur = couleur;
         this.idDressing = idDressing;
@@ -37,7 +38,7 @@ public class Chaussures {
         return typeC;
     }
 
-    public int getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
@@ -53,7 +54,7 @@ public class Chaussures {
         this.typeC = typeC;
     }
 
-    public void setCouleur(int couleur) {
+    public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
@@ -115,7 +116,7 @@ public class Chaussures {
                             "29 - jean clair\n" +
                             "30 - jean marine\n" +
                             "31 - beige");
-        int couleur = sc.nextInt();
+       Couleur couleur = new Couleur (sc.nextInt());
 
         Chaussures c = new Chaussures();
         c.setTypeC(typeC);

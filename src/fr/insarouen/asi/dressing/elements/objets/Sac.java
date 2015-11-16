@@ -4,17 +4,18 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.TypeSac;
 import fr.insarouen.asi.dressing.dao.concret.SacDAO;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import java.util.HashMap;
 
 public class Sac {
 
     private TypeSac typeS;
-    private int couleur;
+    private Couleur couleur;
     private int idDressing;
     private int idObjet;
     public static HashMap<Integer, Sac> sacs = new HashMap<Integer, Sac>();
 
-    public Sac(int idObjet, int idDressing, TypeSac typeS, int couleur) {
+    public Sac(int idObjet, int idDressing, TypeSac typeS, Couleur couleur) {
         this.typeS = typeS;
         this.couleur = couleur;
         this.idObjet = idObjet;
@@ -28,7 +29,7 @@ public class Sac {
         return typeS;
     }
 
-    public int getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
@@ -48,7 +49,7 @@ public class Sac {
         this.typeS = typeS;
     }
 
-    public void setCouleur(int couleur) {
+    public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
@@ -95,7 +96,7 @@ public class Sac {
                             "29 - jean clair\n" +
                             "30 - jean marine\n" +
                             "31 - beige");
-        int couleur = sc.nextInt();
+        Couleur couleur = new Couleur(sc.nextInt());
 
         Sac s = new Sac();
         s.setTypeS(typeS);

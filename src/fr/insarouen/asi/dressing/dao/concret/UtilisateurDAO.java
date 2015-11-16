@@ -8,6 +8,7 @@ package fr.insarouen.asi.dressing.dao.concret;
 import fr.insarouen.asi.dressing.dao.DAO;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import fr.insarouen.asi.dressing.Initialisation;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         prepare.setInt(3,  obj.getAge());
         prepare.setInt(4,  obj.getTaille());
         prepare.setString(5 , obj.getCouleurCheveux().name());
-        prepare.setString(6,  obj.getCouleurPreferee());
+        prepare.setInt(6,  obj.getCouleurPreferee().getCouleur());
         prepare.setString(7,  obj.getSigneUtilisateur());
         prepare.executeUpdate();
         //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
@@ -69,7 +70,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM PERSONNE WHERE idPers = "+id);
             
             if(res.first()){
-                u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),res.getString("couleurCheveux"),CouleurCheveux.get(res.getString("couleurPreferee")),res.getString("signe"));
+                u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),new Couleur(res.getInt("couleurCheveux")),CouleurCheveux.get(res.getString("couleurPreferee")),res.getString("signe"));
                 return u;
             }else{
                 return null;

@@ -1,16 +1,10 @@
 package fr.insarouen.asi.dressing.elements.utilisateurs;
 
-import fr.insarouen.asi.dressing.Initialisation;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Scanner;
-import java.io.Console;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
-import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
+import fr.insarouen.asi.dressing.elements.Couleur;
 
 public class Utilisateur {
 
@@ -19,11 +13,11 @@ public class Utilisateur {
     private int id;
     private int age;
     private int taille;
-    private String couleurPreferee;
+    private Couleur couleurPreferee;
     private CouleurCheveux couleurCheveux;
     private String signeUtilisateur;
 
-    public Utilisateur(int id, String nom, String prenom, int age, int taille, String couleurPreferee, CouleurCheveux couleurCheveux, String signeUtilisateur) {
+    public Utilisateur(int id, String nom, String prenom, int age, int taille, Couleur couleurPreferee, CouleurCheveux couleurCheveux, String signeUtilisateur) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -61,7 +55,7 @@ public class Utilisateur {
         this.taille = taille;
     }
 
-    public void setCouleurPreferee(String couleurPreferee) {
+    public void setCouleurPreferee(Couleur couleurPreferee) {
         this.couleurPreferee = couleurPreferee;
     }
 
@@ -90,7 +84,7 @@ public class Utilisateur {
         return taille;
     }
 
-    public String getCouleurPreferee() {
+    public Couleur getCouleurPreferee() {
         return couleurPreferee;
     }
 
@@ -122,7 +116,7 @@ public class Utilisateur {
         CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
         
         System.out.println("Entrez votre couleur preferee");
-        String couleurP = sc.nextLine();
+       Couleur couleurP = new Couleur(sc.nextInt());
         
         System.out.println("Entrez votre forme");
         String signe = sc.nextLine();// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)

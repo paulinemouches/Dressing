@@ -24,4 +24,4 @@ public enum TypeChaussures {
     public String toString() {
         return super.toString();
     }
-};
+}

@@ -8,6 +8,7 @@ package fr.insarouen.asi.dressing.dao.concret;
 import fr.insarouen.asi.dressing.dao.DAO;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.Initialisation;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.TypeSac;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class SacDAO extends DAO<Sac> {
             }
             PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
             prepare.setInt(1,  obj.getIdDressing());
-            prepare.setInt(2,  obj.getCouleur()); 
+            prepare.setInt(2,  obj.getCouleur().getCouleur()); 
             prepare.setString(3,  obj.getTypeS().name());
             prepare.executeUpdate();
             // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
@@ -61,7 +62,7 @@ public class SacDAO extends DAO<Sac> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
 
             if(res.first()){
-                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),res.getInt("couleur"));
+                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),new Couleur(res.getInt("couleur")));
                 return s;
             }else{
                 System.out.println("boudin");

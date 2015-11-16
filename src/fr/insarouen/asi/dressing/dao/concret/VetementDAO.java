@@ -8,16 +8,15 @@ package fr.insarouen.asi.dressing.dao.concret;
 import fr.insarouen.asi.dressing.dao.DAO;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.Initialisation;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
-import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Array; 
 import java.util.*;
 
 
@@ -68,7 +67,7 @@ public class VetementDAO extends DAO<Vetement>{
         
       
         if(result.first()){
-            v = new Vetement(id,result.getInt("idDressing"), result.getInt("couleur"), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null,result.getInt("couche"), Niveau.get(result.getString("niveau")));
+            v = new Vetement(id,result.getInt("idDressing"),new Couleur( result.getInt("couleur")), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null,result.getInt("couche"), Niveau.get(result.getString("niveau")));
             v.setSignes(v.determinerSignes());
             return v;
         }else{
@@ -103,7 +102,7 @@ public class VetementDAO extends DAO<Vetement>{
             }
             
             prepare.setInt(1, obj.getIdDressing()); 
-            prepare.setInt(2, obj.getCouleur());
+            prepare.setInt(2,obj.getCouleur().getCouleur());
             prepare.setString(3, obj.getMatiere().name());
             prepare.setBoolean(4, obj.isSale());
             prepare.setString(5, obj.getType().name());
@@ -169,9 +168,11 @@ public class VetementDAO extends DAO<Vetement>{
     public static String recupererSaison(Vetement v){
         try{
         Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("SELECT saison  FROM MATIERE_SAISON  WHERE matiere = "+v.getMatiere());
+        st.executeQuery("SELECT saison  FROM MATIERE_SAISON  WHERE matiere = '"+v.getMatiere()+"'");
         ResultSet res = st.getResultSet();
+        if(res.first()){
         return res.getString("saison");
+        }
         }
         catch(SQLException e){
              e.printStackTrace();

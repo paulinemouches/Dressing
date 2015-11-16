@@ -1,6 +1,5 @@
 package fr.insarouen.asi.dressing.elements.objets;
 
-import fr.insarouen.asi.dressing.Initialisation;
 import java.sql.SQLException;
 import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
@@ -8,10 +7,8 @@ import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import fr.insarouen.asi.dressing.elements.Couleur;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Vetement {
 
@@ -24,7 +21,7 @@ public class Vetement {
     private Matiere matiere;
 
     private String fils;
-    private int couleur;
+    private Couleur couleur;
     private int couche;
     private boolean sale;
     public static HashMap<Integer, Vetement> hauts = new HashMap<Integer, Vetement>();
@@ -32,7 +29,7 @@ public class Vetement {
     public static HashMap<Integer, Vetement> hautsbas = new HashMap<Integer, Vetement>();
 
     /* Constructeurs */
-    public Vetement(int idV, int idDressing, int couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
+    public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
         this.idObjet = idV;
         this.idDressing = idDressing;
         this.couleur = couleur;
@@ -50,15 +47,15 @@ public class Vetement {
     }
 
     /* Les méthodes */
-    public HashMap<Integer, Vetement> getHauts() {
+    public static HashMap<Integer, Vetement> getHauts() {
         return hauts;
     }
 
-    public HashMap<Integer, Vetement> getBas() {
+    public static HashMap<Integer, Vetement> getBas() {
         return bas;
     }
 
-    public HashMap<Integer, Vetement> getHautsbas() {
+    public static HashMap<Integer, Vetement> getHautsbas() {
         return hautsbas;
     }
 
@@ -70,7 +67,7 @@ public class Vetement {
         return niveau;
     }
 
-    public int getCouleur() {
+    public Couleur getCouleur() {
         return couleur;
     }
 
@@ -146,12 +143,12 @@ public class Vetement {
         this.fils = fils;
     }
 
-    public void setCouleur(int couleur) {
+    public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
     }
 
-    public String determinerSaison(Vetement v) {
-        return VetementDAO.recupererSaison(v);
+    public String determinerSaison() {
+        return VetementDAO.recupererSaison(this);
     }
 
     public String determinerFils(TypeVetement typeVetement) {
@@ -261,7 +258,7 @@ public class Vetement {
                             "29 - jean clair\n" +
                             "30 - jean marine\n" +
                             "31 - beige");
-        int couleur = sc.nextInt();
+        Couleur couleur = new Couleur(sc.nextInt());
 
         String fils = determinerFils(type);
 
