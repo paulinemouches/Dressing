@@ -118,14 +118,25 @@ public class Couleur {
         return 0;// si la couleur désirée n'est pas dans le tableau on retourne 0
     }*/
     
-       public ArrayList<Couleur> recupererValeurAssociee(int note) {
-          ArrayList<Couleur> t = new ArrayList<Couleur>();
-           for(int i =1; i<=couleurs.length; i++){
+       public ArrayList<Integer> recupererValeurAssociee(int note) {
+          ArrayList<Integer> t = new ArrayList<Integer>();
+           for(int i =1; i<couleurs.length; i++){
                if (couleurs[this.getCouleur()][i]==note){
-                        t.add(new Couleur(i));
+                        t.add(i);
                }
            }
            return  t; 
        }
+       
+       public Integer obtenirNote(Couleur c){
+           return couleurs[this.getCouleur()][c.getCouleur()];
+       }
+
+    @Override
+    public String toString() {
+        return "Couleur{" + "couleur=" + couleur + '}';
+    }
+       
+       
     
 }

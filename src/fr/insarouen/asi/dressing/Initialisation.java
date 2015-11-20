@@ -11,7 +11,7 @@ import fr.insarouen.asi.dressing.Tenue;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
-
+ 
 public class Initialisation {
 
     private String nomBase;

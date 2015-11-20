@@ -41,6 +41,10 @@ public class Sac {
         return idObjet;
     }
 
+    public static HashMap<Integer, Sac> getSacs() {
+        return sacs;
+    }
+
     public void setIdObjet(int idObjet) {
         this.idObjet = idObjet;
     }
@@ -163,7 +167,7 @@ public class Sac {
 
     @Override
     public String toString() {
-        return "Sac:\n\t" + "\n\tType : " + typeS + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
+        return "Sac:\n\t" + "\n\tType : " + typeS + "\n\tCouleur : " + couleur.getCouleur() + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
     }
 
 }

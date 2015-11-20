@@ -385,6 +385,8 @@ public void supprimerVetementDansListe(int id) throws SQLException {
             System.out.println("\nIl n'y a pas de hauts-bas");
         }
     }
+    
+    
 
     @Override
         public String toString() {
@@ -394,7 +396,8 @@ public void supprimerVetementDansListe(int id) throws SQLException {
         for (String si : signes) {
             s.append(si.toString() + ", ");
         }
-        s.append("\n\t Matiere : " + matiere + "\n\t Couleur : " + couleur + "\n\t Couche : " + couche + "\n\t Est sale : " + sale);
+        s.append("\n\t Matiere : " + matiere + "\n\t Couleur : " + couleur.getCouleur() + "\n\t Couche : " + couche + "\n\t Est sale : " + sale);
         return s.toString();
     }
+
 }

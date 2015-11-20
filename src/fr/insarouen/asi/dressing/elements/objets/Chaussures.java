@@ -49,6 +49,8 @@ public class Chaussures {
     public int getIdObjet() {
         return idObjet;
     }
+    
+    
 
     public void setTypeC(TypeChaussures typeC) {
         this.typeC = typeC;
