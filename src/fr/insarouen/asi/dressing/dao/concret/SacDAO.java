@@ -65,7 +65,6 @@ public class SacDAO extends DAO<Sac> {
                 s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),new Couleur(res.getInt("couleur")));
                 return s;
             }else{
-                System.out.println("boudin");
                 return null;
             }
 
