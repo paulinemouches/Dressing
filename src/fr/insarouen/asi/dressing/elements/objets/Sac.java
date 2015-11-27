@@ -7,19 +7,14 @@ import fr.insarouen.asi.dressing.dao.concret.SacDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import java.util.HashMap;
 
-public class Sac {
+public class Sac extends Contenu{
 
     private TypeSac typeS;
-    private Couleur couleur;
-    private int idDressing;
-    private int idObjet;
     public static HashMap<Integer, Sac> sacs = new HashMap<Integer, Sac>();
 
     public Sac(int idObjet, int idDressing, TypeSac typeS, Couleur couleur) {
+        super(couleur, idObjet, idDressing);
         this.typeS = typeS;
-        this.couleur = couleur;
-        this.idObjet = idObjet;
-        this.idDressing = idDressing;
     }
 
     public Sac() {
@@ -29,37 +24,15 @@ public class Sac {
         return typeS;
     }
 
-    public Couleur getCouleur() {
-        return couleur;
-    }
-
-    public int getIdDressing() {
-        return idDressing;
-    }
-
-    public int getIdObjet() {
-        return idObjet;
-    }
 
     public static HashMap<Integer, Sac> getSacs() {
         return sacs;
-    }
-
-    public void setIdObjet(int idObjet) {
-        this.idObjet = idObjet;
     }
 
     public void setTypeS(TypeSac typeS) {
         this.typeS = typeS;
     }
 
-    public void setCouleur(Couleur couleur) {
-        this.couleur = couleur;
-    }
-
-    public void setIdDressing(int idDressing) {
-        this.idDressing = idDressing;
-    }
 
     public Sac menuAjouterSacTxt() {
         Scanner sc = new Scanner(System.in);
@@ -167,7 +140,7 @@ public class Sac {
 
     @Override
     public String toString() {
-        return "Sac:\n\t" + "\n\tType : " + typeS + "\n\tCouleur : " + couleur.getCouleur() + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
+        return "Sac:\n\t" + "\n\tType : " + typeS + "\n\tCouleur : " + getCouleur() + "\n\tidDressing : " + getIdDressing() + "\n\tidObjet : " + getIdObjet();
     }
 
 }

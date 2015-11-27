@@ -1,6 +1,7 @@
 package fr.insarouen.asi.dressing;
 
 import fr.insarouen.asi.dressing.elements.Couleur;
+import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
 import fr.insarouen.asi.dressing.elements.TypeEvenement;
 import fr.insarouen.asi.dressing.elements.TypeSac;
@@ -8,6 +9,8 @@ import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
+import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +18,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Calendar;
 
-public class Tenue {
+public class Tenue{
 
     private Sac sac;
     private Chaussures chaussures;
@@ -55,7 +58,7 @@ public class Tenue {
     }
 
 // ------------------------------------------------------------------------------------------                                     
-    public Tenue creerTenue(TypeEvenement evenement) {
+    public Tenue creerTenue(int typeTenue, int id, TypeEvenement evenement) throws SQLException{
         // Initialisation des variables :
         Couleur couleurCorrespondante = new Couleur();
         Vetement v1 = new Vetement();
@@ -88,23 +91,24 @@ public class Tenue {
             case 0:
                 System.out.println("cas 0");
                 // On cherche tout d'abord un haut de couche 1 avec une couleur correspondante = 0 
-                v1 = chercherDansVetements(chercherDansCouche(Vetement.getHauts(),1), saison, couleurCorrespondante, evenement);
+                v1 = chercherDansVetements(typeTenue,id,chercherDansCouche(Vetement.getHauts(),1), saison, couleurCorrespondante, evenement);
                 couleurCorrespondante = v1.getCouleur();
                 // On cherche ensuite un bas avec la couleurCorrespondante égale à celle du 1er vêtement
-                v2 = chercherDansVetements(Vetement.getBas(), saison, couleurCorrespondante, evenement);
+                v2 = chercherDansVetements(typeTenue,id,Vetement.getBas(), saison, couleurCorrespondante, evenement);
                 break;
             case 1:
                 System.out.println("cas 1");
                 // On cherche tout d'abord un bas avec une couleur correspondante = 0 
-                v1 = chercherDansVetements(Vetement.getBas(), saison, couleurCorrespondante, evenement);
+                v1 = chercherDansVetements(typeTenue,id,Vetement.getBas(), saison, couleurCorrespondante, evenement);
                 couleurCorrespondante = v1.getCouleur();
                 // On cherche ensuite un haut de couche 1 avec la couleurCorrespondante égale à celle du 1er vêtement
-                v2 = chercherDansVetements(chercherDansCouche(Vetement.getHauts(),1), saison, couleurCorrespondante, evenement);
+                v2 = chercherDansVetements(typeTenue,id,chercherDansCouche(Vetement.getHauts(),1), saison, couleurCorrespondante, evenement);
                 break;
             case 2:
                 System.out.println("cas 2");
-                // On cherche un hautbas avec une Couleur correspondante=0
-                v1 = chercherDansVetements(Vetement.getHautsbas(), saison, couleurCorrespondante, evenement);
+                // On cherche un hautbas \avec une Couleur correspondante=0
+                
+                v1 = chercherDansVetements(typeTenue,id,Vetement.getHautsbas(), saison, couleurCorrespondante, evenement);
                 couleurCorrespondante = v1.getCouleur();
                 break;
 
@@ -114,15 +118,15 @@ public class Tenue {
         // Si notre saison est Automne/Hiver et que notre évènement n'est pas sport, 
         // on choisit un vêtement de couche 2
         if ((saison.equals("Automne/Hiver")) && (evenement != TypeEvenement.Sport)) {
-            v3 = chercherDansVetements(chercherDansCouche(Vetement.getHauts(),2), saison, couleurCorrespondante, evenement);
+            v3 = chercherDansVetements(typeTenue,id,chercherDansCouche(Vetement.getHauts(),2), saison, couleurCorrespondante, evenement);
         }
         
         // On attribut les vêtements trouvés à notre tenue : 
         this.setVetements(v1);
-        if (v2 != null && v2.getIdV()!=0) {
+        if (v2 != null && v2.getIdObjet()!=0) {
             this.setVetements(v2);
         }
-        if (v3 != null && v3.getIdV()!=0) {
+        if (v3 != null && v3.getIdObjet()!=0) {
             this.setVetements(v3);
         }
         
@@ -168,32 +172,29 @@ public class Tenue {
     
 // ------------------------------------------------------------------------------------------                                     
 
-    private Vetement chercherDansVetements(HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) {
-        Vetement v = new Vetement();
-        // initialisation du tableau de vetements (Hauts)
-        ArrayList<Vetement> t = new ArrayList<Vetement>(vetements.values());
-        // Réduction du tableau en fonction des différents critères
-        t = chercherVetementEvenement(t, evenement);
-        t = chercherVetementSaison(t, saison);
-        if (couleurCorrespondante.getCouleur()!=0){
-            t = chercherVetementCouleur(t, couleurCorrespondante);
-        }
-        if (t.isEmpty()) {
-            System.out.println("Votre dressing ne permet pas de créer de tenue complète");
-        }
-        else {
-            int i = 0;
-            int taille = t.size();
-            Random rand = new Random();
-            int alea = rand.nextInt(taille);
-            for (Vetement ve : t) {
-                if (i == alea) {
-                    return ve;
-                }
-                else {
-                    i++;
-                }
+    private Vetement chercherDansVetements(int typeTenue,int id,HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException{
+        try{
+            GeneriqueTenue g = new GeneriqueTenue();
+            // initialisation du tableau de vetements (Hauts)
+            ArrayList<Vetement> t = new ArrayList<Vetement>(vetements.values());
+            // Réduction du tableau en fonction des différents critères
+            t = chercherVetementEvenement(t, evenement);
+            switch(typeTenue){
+                case 2:
+                t = chercherVetementSigne(id,t);
+                    break;
             }
+            t = chercherVetementSaison(t, saison);
+            if (couleurCorrespondante.getCouleur()!=0){
+                t = g.chercherCouleur(t, couleurCorrespondante);
+            }
+            if (t.isEmpty() ){
+                throw new TenueImpossibleException("Pas assez de vêtements dans le dressing pour créer une tenue correspondant aux contraintes.");
+            }
+            return ((Vetement)g.prendreAleatoirement(t));
+        }catch(TenueImpossibleException e){
+            System.out.println(e);
+            menuCreerTenue(id);
         }
         return null;
     }
@@ -256,48 +257,20 @@ public class Tenue {
         }
         return vetements;
     }
-
 // ------------------------------------------------------------------------------------------ 
-    private ArrayList<Vetement> chercherVetementCouleur(ArrayList<Vetement> vetements, Couleur couleurCorrespondante) {
-        //Initialisation : 
-        ArrayList<Vetement> nvTab5 = new ArrayList<Vetement>();
-        ArrayList<Vetement> nvTab4 = new ArrayList<Vetement>();
-        ArrayList<Vetement> nvTab3 = new ArrayList<Vetement>();
-        ArrayList<Vetement> nvTab2 = new ArrayList<Vetement>();
-        ArrayList<Vetement> nvTab1 = new ArrayList<Vetement>();
-       
-        for (Vetement v: vetements){
-            int note=couleurCorrespondante.obtenirNote(v.getCouleur());
-            switch(note){
-                case 5:
-                    nvTab5.add(v);
-                    break;
-                case 4:
-                    nvTab4.add(v);
-                    break;
-                case 3:
-                    nvTab3.add(v);
-                    break;
-                case 2:
-                    nvTab2.add(v);
-                    break;
-                case 1:
-                    nvTab1.add(v);
-                    break;
+        
+    private ArrayList<Vetement> chercherVetementSigne(int id,ArrayList<Vetement> vetements) throws SQLException{
+        Utilisateur u = new Utilisateur();
+        Utilisateur ut = u.trouverUtilisateur(id);
+        // On ne garde que les vêtements qui correspondent au signe de l'utilisateur
+        Iterator<Vetement> it = vetements.iterator();
+        while (it.hasNext()) {
+            Vetement v = it.next();
+            if (!v.correspondAuSigne(ut)){
+                it.remove();
             }
         }
-        
-        if(!nvTab5.isEmpty()){
-            return nvTab5;
-        }else if(!nvTab4.isEmpty()){
-            return nvTab4;
-        }else if(!nvTab3.isEmpty()){
-            return nvTab3;
-        }else if(!nvTab2.isEmpty()){
-            return nvTab2;
-        }else {
-            return nvTab1;
-        }
+        return vetements;
     }
     
     // ------------------------------------------------------------------------------------------ 
@@ -307,85 +280,38 @@ public class Tenue {
 // ------------------------------------------------------------------------------------------                                     
     private Sac chercherDansSac(HashMap<Integer, Sac> sacs,Couleur couleurCorrespondante, TypeEvenement evenement) {
         Sac s = new Sac();
+        GeneriqueTenue g = new GeneriqueTenue();
         // initialisation du tableau de vetements (Hauts)
         ArrayList<Sac> t = new ArrayList<Sac>(sacs.values());
         // Réduction du tableau en fonction des différents critères
         t = chercherSacEvenement(t, evenement);
-        t = chercherSacCouleur(t, couleurCorrespondante);
-        if (t.isEmpty()) {
-            System.out.println("Votre dressing ne trouve pas de sac");
-        }
-        else {
-            int i = 0;
-            int taille = t.size();
-            Random rand = new Random();
-            int alea = rand.nextInt(taille);
-            for (Sac sa : t) {
-                if (i == alea) {
-                    return sa;
-                }
-                else {
-                    i++;
-                }
-            }
-        }
-        return null;
+        t = g.chercherCouleur(t, couleurCorrespondante);
+        return ((Sac)g.prendreAleatoirement(t));
+
     }
-    
-// ------------------------------------------------------------------------------------------ 
-    private ArrayList<Sac> chercherSacCouleur(ArrayList<Sac> sacs, Couleur couleurCorrespondante) {
-        //Initialisation : 
-        ArrayList<Sac> nvTab5 = new ArrayList<Sac>();
-        ArrayList<Sac> nvTab4 = new ArrayList<Sac>();
-        ArrayList<Sac> nvTab3 = new ArrayList<Sac>();
-        ArrayList<Sac> nvTab2 = new ArrayList<Sac>();
-        ArrayList<Sac> nvTab1 = new ArrayList<Sac>();
-       
-        for (Sac s: sacs){
-            int note=couleurCorrespondante.obtenirNote(s.getCouleur());
-            switch(note){
-                case 5:
-                    nvTab5.add(s);
-                    break;
-                case 4:
-                    nvTab4.add(s);
-                    break;
-                case 3:
-                    nvTab3.add(s);
-                    break;
-                case 2:
-                    nvTab2.add(s);
-                    break;
-                case 1:
-                    nvTab1.add(s);
-                    break;
-            }
-        }
-        
-        if(!nvTab5.isEmpty()){
-            return nvTab5;
-        }else if(!nvTab4.isEmpty()){
-            return nvTab4;
-        }else if(!nvTab3.isEmpty()){
-            return nvTab3;
-        }else if(!nvTab2.isEmpty()){
-            return nvTab2;
-        }else {
-            return nvTab1;
-        }
-    }
+
     
 // ------------------------------------------------------------------------------------------ 
     private ArrayList<Sac> chercherSacEvenement(ArrayList<Sac> sacs, TypeEvenement ev) {
         // Différents cas en fonction de l'evenement : 
         switch (ev) {
-            case Sport:
+            case TousLesJours:
                 Iterator<Sac> it = sacs.iterator(); 
                 while(it.hasNext()){
                     Sac s = it.next();
-                    // Que Jogging, Teeshirt, Pull pour le sport ! 
-                    if ((!s.getTypeS().equals(TypeSac.Sacados))) {
+                    // Pasde pochette pour tous les jours !! 
+                    if ((s.getTypeS().equals(TypeSac.Pochette))) {
                         it.remove();
+                    }
+                }
+                break;
+            case Sport:
+                Iterator<Sac> it1 = sacs.iterator(); 
+                while(it1.hasNext()){
+                    Sac s = it1.next();
+                    // Que des sacs à dos pour sport ! 
+                    if ((!s.getTypeS().equals(TypeSac.Sacados))) {
+                        it1.remove();
                     }
                 }
                 break;
@@ -413,15 +339,17 @@ public class Tenue {
 
     private Chaussures chercherDansChaussures(HashMap<Integer, Chaussures> chaussures, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) {
         Chaussures c = new Chaussures();
+        GeneriqueTenue g = new GeneriqueTenue();
         // initialisation du tableau de vetements (Hauts)
         ArrayList<Chaussures> t = new ArrayList<Chaussures>(chaussures.values());
         // Réduction du tableau en fonction des différents critères
         t = chercherChaussuresEvenement(t, evenement);
         t = chercherChaussuresSaison(t, saison);
         if (couleurCorrespondante.getCouleur()!=0){
-            t = chercherChaussuresCouleur(t, couleurCorrespondante);
+            t = g.chercherCouleur(t, couleurCorrespondante);
         }
-        if (t.isEmpty()) {
+        return ((Chaussures)g.prendreAleatoirement(t));
+        /*if (t.isEmpty()) {
             System.out.println("Votre dressing ne permet pas d'avoir des chaussures");
         }
         else {
@@ -438,7 +366,7 @@ public class Tenue {
                 }
             }
         }
-        return null;
+        return null;*/
     }
 
 // ------------------------------------------------------------------------------------------ 
@@ -495,70 +423,27 @@ public class Tenue {
         return chaussures;
     }
 
-// ------------------------------------------------------------------------------------------ 
-    private ArrayList<Chaussures> chercherChaussuresCouleur(ArrayList<Chaussures> chaussures, Couleur couleurCorrespondante) {
-        //Initialisation : 
-        ArrayList<Chaussures> nvTab5 = new ArrayList<Chaussures>();
-        ArrayList<Chaussures> nvTab4 = new ArrayList<Chaussures>();
-        ArrayList<Chaussures> nvTab3 = new ArrayList<Chaussures>();
-        ArrayList<Chaussures> nvTab2 = new ArrayList<Chaussures>();
-        ArrayList<Chaussures> nvTab1 = new ArrayList<Chaussures>();
-       
-        for (Chaussures c: chaussures){
-            int note=couleurCorrespondante.obtenirNote(c.getCouleur());
-            switch(note){
-                case 5:
-                    nvTab5.add(c);
-                    break;
-                case 4:
-                    nvTab4.add(c);
-                    break;
-                case 3:
-                    nvTab3.add(c);
-                    break;
-                case 2:
-                    nvTab2.add(c);
-                    break;
-                case 1:
-                    nvTab1.add(c);
-                    break;
-            }
-        }
-        
-        if(!nvTab5.isEmpty()){
-            return nvTab5;
-        }else if(!nvTab4.isEmpty()){
-            return nvTab4;
-        }else if(!nvTab3.isEmpty()){
-            return nvTab3;
-        }else if(!nvTab2.isEmpty()){
-            return nvTab2;
-        }else {
-            return nvTab1;
-        }
-    }
     
 // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------ 
     
 
-    public  void menuCreerTenue() {
+    public  void menuCreerTenue(int id) throws SQLException{
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Evenement :");
         System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
         TypeEvenement evt = TypeEvenement.getfromInt(sc.nextInt());
-        System.out.println(creerTenue(evt).toString());
+        System.out.println("Type de tenue :");
+        System.out.println("1: Tenue normale\t 2: Tenue accordee a la forme\t 3: Tenue avec un contenu particulier\t 4: Tenue avec un type particulier\t"); 
+        int typeTenue = sc.nextInt();
+        System.out.println(creerTenue(typeTenue, id,evt).toString());
+
     }
 
     @Override
     public String toString() {
-        return "Tenue{" + "sac=" + sac + ", chaussures=" + chaussures + ", vetements=" + vetements + '}';
+        return "Tenue{" + "sac=" + sac + ", \nchaussures=" + chaussures + ", \nvetements=" + vetements + '}';
     }
-
-    
-
-    
-
-    
 }

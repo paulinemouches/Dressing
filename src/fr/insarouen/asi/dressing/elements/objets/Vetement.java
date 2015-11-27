@@ -8,20 +8,20 @@ import fr.insarouen.asi.dressing.elements.Niveau;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
+import fr.insarouen.asi.dressing.elements.Signe;
+import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.util.HashMap;
 
-public class Vetement {
+public class Vetement extends Contenu{
 
-    private int idObjet;
-    private int idDressing;
+
     private Niveau niveau;
-    private String[] signes;
+    private Signe[] signes;
     private CoupeVetement coupe;
     private TypeVetement type;
     private Matiere matiere;
 
     private String fils;
-    private Couleur couleur;
     private int couche;
     private boolean sale;
     public static HashMap<Integer, Vetement> hauts = new HashMap<Integer, Vetement>();
@@ -29,10 +29,8 @@ public class Vetement {
     public static HashMap<Integer, Vetement> hautsbas = new HashMap<Integer, Vetement>();
 
     /* Constructeurs */
-    public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, String[] signes, int couche, Niveau niveau) throws SQLException {
-        this.idObjet = idV;
-        this.idDressing = idDressing;
-        this.couleur = couleur;
+    public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, Signe[] signes, int couche, Niveau niveau) throws SQLException {
+        super(couleur, idV, idDressing);
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
@@ -59,23 +57,12 @@ public class Vetement {
         return hautsbas;
     }
 
-    public int getIdV() {
-        return idObjet;
-    }
-
     public Niveau getNiveau() {
         return niveau;
     }
 
-    public Couleur getCouleur() {
-        return couleur;
-    }
 
-    public int getIdDressing() {
-        return idDressing;
-    }
-
-    public String[] getSignes() {
+    public Signe[] getSignes() {
         return signes;
     }
 
@@ -103,19 +90,11 @@ public class Vetement {
         return sale;
     }
 
-    public void setIdV(int idV) {
-        this.idObjet = idV;
-    }
-
-    public void setIdDressing(int idDressing) {
-        this.idDressing = idDressing;
-    }
-
     public void setNiveau(Niveau niveau) {
         this.niveau = niveau;
     }
 
-    public void setSignes(String[] signes) {
+    public void setSignes(Signe[] signes) {
         this.signes = signes;
     }
 
@@ -141,10 +120,6 @@ public class Vetement {
 
     public void setFils(String fils) {
         this.fils = fils;
-    }
-
-    public void setCouleur(Couleur couleur) {
-        this.couleur = couleur;
     }
 
     public String determinerSaison() {
@@ -188,12 +163,21 @@ public class Vetement {
         return VetementDAO.recupererNiveau(this);
     }
 
-    public String[] determinerSignes() throws SQLException {
+    public Signe[] determinerSignes() throws SQLException {
         return VetementDAO.recupererSignes(this);
     }
 
     public int determinerCouche() throws SQLException {
         return VetementDAO.recupererCouche(this);
+    }
+    
+    public boolean correspondAuSigne(Utilisateur u){
+        boolean res = false;
+        for (int i=1;i<signes.length;i++){
+            if(u.getSigneUtilisateur().equals(this.signes[i]))
+                return true;
+        }
+        return res;
     }
 
     public Vetement menuAjouterVetementTxt() {
@@ -282,7 +266,7 @@ public class Vetement {
 
         Niveau niveau = v.determinerNiveau();
         int couche = v.determinerCouche();
-        String signes[] = v.determinerSignes();
+        Signe signes[] = v.determinerSignes();
 
         v.setNiveau(niveau);
         v.setCouche(couche);
@@ -316,13 +300,13 @@ public class Vetement {
     public void ajouterVetementDansListe() throws SQLException {
         switch (this.getNiveau()) {
             case Haut:
-                hauts.put(this.getIdV(), this);
+                hauts.put(getIdObjet(), this);
                 break;
             case Bas:
-                bas.put(this.getIdV(), this);
+                bas.put(getIdObjet(), this);
                 break;
             case Hautbas:
-                hautsbas.put(this.getIdV(), this);
+                hautsbas.put(getIdObjet(), this);
                 break;
         }
     }
@@ -391,12 +375,12 @@ public void supprimerVetementDansListe(int id) throws SQLException {
     @Override
         public String toString() {
         StringBuilder s = new StringBuilder("");
-        s.append("\nVetement : \n\t idObjet : " + idObjet + "\n\t Type : " + type + "\n\t Coupe : " + coupe + "\n\t Signes : ");
+        s.append("\nVetement : \n\t idObjet : " + getIdObjet() + "\n\t Type : " + type + "\n\t Coupe : " + coupe + "\n\t Signes : ");
 
-        for (String si : signes) {
+        for (Signe si : signes) {
             s.append(si.toString() + ", ");
         }
-        s.append("\n\t Matiere : " + matiere + "\n\t Couleur : " + couleur.getCouleur() + "\n\t Couche : " + couche + "\n\t Est sale : " + sale);
+        s.append("\n\t Matiere : " + matiere + "\n\t Couleur : " + getCouleur() + "\n\t Couche : " + couche + "\n\t Est sale : " + sale);
         return s.toString();
     }
 

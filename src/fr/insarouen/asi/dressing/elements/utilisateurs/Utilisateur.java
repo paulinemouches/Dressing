@@ -5,6 +5,7 @@ import java.util.Scanner;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
 import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
+import fr.insarouen.asi.dressing.elements.Signe;
 
 public class Utilisateur {
 
@@ -15,9 +16,9 @@ public class Utilisateur {
     private int taille;
     private Couleur couleurPreferee;
     private CouleurCheveux couleurCheveux;
-    private String signeUtilisateur;
+    private Signe signeUtilisateur;
 
-    public Utilisateur(int id, String nom, String prenom, int age, int taille, Couleur couleurPreferee, CouleurCheveux couleurCheveux, String signeUtilisateur) {
+    public Utilisateur(int id, String nom, String prenom, int age, int taille, Couleur couleurPreferee, CouleurCheveux couleurCheveux, Signe signeUtilisateur) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -63,7 +64,7 @@ public class Utilisateur {
         this.couleurCheveux = couleurCheveux;
     }
 
-    public void setSigneUtilisateur(String signeUtilisateur) {
+    public void setSigneUtilisateur(Signe signeUtilisateur) {
         this.signeUtilisateur = signeUtilisateur;
     }
 
@@ -92,7 +93,7 @@ public class Utilisateur {
         return couleurCheveux;
     }
 
-    public String getSigneUtilisateur() {
+    public Signe getSigneUtilisateur() {
         return signeUtilisateur;
     }
 
@@ -119,7 +120,7 @@ public class Utilisateur {
        Couleur couleurP = new Couleur(sc.nextInt());
         
         System.out.println("Entrez votre forme");
-        String signe = sc.nextLine();// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
+        Signe signe = Signe.get(sc.nextLine());// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
         
         Utilisateur u = new Utilisateur();
         System.out.println("creer user");
@@ -148,6 +149,11 @@ public class Utilisateur {
         return false;
         }
         }
+    
+        public Utilisateur trouverUtilisateur(int id) throws SQLException {
+        UtilisateurDAO u = new UtilisateurDAO();
+        return u.find(id);
+    }
 
     @Override
     public String toString() {

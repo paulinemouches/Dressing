@@ -7,22 +7,17 @@ import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import java.util.HashMap;
 
-public class Chaussures {
+public class Chaussures extends Contenu{
 
    TypeChaussures typeC;
-    private Couleur  couleur;
-    private int idDressing;
-    private int idObjet;
     private static HashMap<Integer,Chaussures>  chaussures =  new  HashMap<Integer,Chaussures>();
 
     public Chaussures() {
     }
 
     public Chaussures(int idObjet,int idDressing,  TypeChaussures typeC,Couleur couleur) {
+        super(couleur, idObjet, idDressing);
         this.typeC = typeC;
-        this.couleur = couleur;
-        this.idDressing = idDressing;
-        this.idObjet = idObjet;
     }
 
     public static HashMap<Integer, Chaussures> getChaussures() {
@@ -38,36 +33,10 @@ public class Chaussures {
         return typeC;
     }
 
-    public Couleur getCouleur() {
-        return couleur;
-    }
-
-    public int getIdDressing() {
-        return idDressing;
-    }
-
-    public int getIdObjet() {
-        return idObjet;
-    }
-    
-    
-
     public void setTypeC(TypeChaussures typeC) {
         this.typeC = typeC;
     }
 
-    public void setCouleur(Couleur couleur) {
-        this.couleur = couleur;
-    }
-
-    public void setIdDressing(int idDressing) {
-        this.idDressing = idDressing;
-    }
-
-    public void setIdObjet(int idObjet) {
-        this.idObjet = idObjet;
-    }
-    
     
         public static void afficherChaussures() {
         if(!chaussures.isEmpty()){
@@ -173,7 +142,7 @@ public void supprimerChaussuresDansListe(int id){
     
     @Override
     public String toString() {
-        return "\nChaussures:\n\t" + "\n\tType : " + typeC.name() + "\n\tCouleur : " + couleur + "\n\tidDressing : " + idDressing + "\n\tidObjet : " + idObjet;
+        return "\nChaussures:\n\t" + "\n\tType : " + typeC.name() + "\n\tCouleur : " + getCouleur() + "\n\tidDressing : " + getIdDressing() + "\n\tidObjet : " + getIdObjet();
     }
 
 }

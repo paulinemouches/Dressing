@@ -10,6 +10,7 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import fr.insarouen.asi.dressing.Initialisation;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
+import fr.insarouen.asi.dressing.elements.Signe;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
         prepare.setInt(4,  obj.getTaille());
         prepare.setString(5 , obj.getCouleurCheveux().name());
         prepare.setInt(6,  obj.getCouleurPreferee().getCouleur());
-        prepare.setString(7,  obj.getSigneUtilisateur());
+        prepare.setString(7,  obj.getSigneUtilisateur().name());
         prepare.executeUpdate();
         //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
         obj.setId(id);
@@ -70,7 +71,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM PERSONNE WHERE idPers = "+id);
             
             if(res.first()){
-                u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),new Couleur(res.getInt("couleurCheveux")),CouleurCheveux.get(res.getString("couleurPreferee")),res.getString("signe"));
+                u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),new Couleur(res.getInt("couleurPreferee")),CouleurCheveux.get(res.getString("couleurCheveux")),Signe.get(res.getString("signe")));
                 return u;
             }else{
                 return null;

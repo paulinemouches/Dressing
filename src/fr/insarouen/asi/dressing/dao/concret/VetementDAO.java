@@ -13,6 +13,7 @@ import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
 import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Niveau;
+import fr.insarouen.asi.dressing.elements.Signe;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,7 +88,7 @@ public class VetementDAO extends DAO<Vetement>{
                           id = res.getInt(1) +1;
             }
             // on attribut cet id à l'objet : 
-            obj.setIdV(id);
+            obj.setIdObjet(id);
             PreparedStatement prepare;
             switch(obj.getFils()){
                 case "Haut": 
@@ -125,7 +126,7 @@ public class VetementDAO extends DAO<Vetement>{
     @Override
     public boolean delete(Vetement obj) throws SQLException {
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            st.executeUpdate("DELETE  FROM CONTENU WHERE idObjet ="+obj.getIdV()); 
+            st.executeUpdate("DELETE  FROM CONTENU WHERE idObjet ="+obj.getIdObjet()); 
             return true;
     }
     
@@ -133,7 +134,7 @@ public class VetementDAO extends DAO<Vetement>{
     public static Niveau recupererNiveau(Vetement obj) throws SQLException{
         Niveau resultat=null;
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("SELECT niveau FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdV());
+        st.executeQuery("SELECT niveau FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdObjet());
         ResultSet res = st.getResultSet();
         if(res.first()){
             resultat = Niveau.get(res.getString("niveau"));
@@ -144,23 +145,23 @@ public class VetementDAO extends DAO<Vetement>{
     public static int recupererCouche(Vetement obj) throws SQLException{
         int resultat=0;
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        ResultSet res = st.executeQuery("SELECT couche FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdV());
+        ResultSet res = st.executeQuery("SELECT couche FROM "+obj.getFils()+" WHERE idObjet ="+obj.getIdObjet());
         if(res.first()){
             resultat = res.getInt("couche");
         }
         return resultat;
     }
     
-    public static String[] recupererSignes(Vetement obj) throws SQLException{
-        String[] resultat= new String[15];
+    public static Signe[] recupererSignes(Vetement obj) throws SQLException{
+        Signe[] resultat= new Signe[15];
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("SELECT c.signe FROM VETEMENT v, CORRESPOND c WHERE v.idobjet=c.idobjet and v.idobjet="+obj.getIdV());   
+        st.executeQuery("SELECT c.signe FROM VETEMENT v, CORRESPOND c WHERE v.idobjet=c.idobjet and v.idobjet="+obj.getIdObjet());   
         ResultSet res = st.getResultSet();
         List rowValues = new ArrayList();
         while (res.next()) {
-            rowValues.add(res.getString(1));
+            rowValues.add(Signe.get(res.getString(1)));
         }
-        resultat = (String[]) rowValues.toArray(new String[rowValues.size()]);
+        resultat = (Signe[]) rowValues.toArray(new Signe[rowValues.size()]);
         return resultat;
     }
     

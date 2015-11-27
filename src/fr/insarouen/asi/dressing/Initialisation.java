@@ -199,7 +199,7 @@ public class Initialisation {
                 break;
             case 4:
                 Tenue t = new Tenue();
-                t.menuCreerTenue();
+                t.menuCreerTenue(id);
                 explorerDressing(idDressing);
                 break;
             case 5:
