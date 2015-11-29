@@ -36,7 +36,7 @@ public class Initialisation {
 
 
     
-    public static void menuDressing(int id) {
+    public static void menuDressing() {
         System.out.println("--------------------------DRESSING--------------------------\n");
         System.out.println("tapez 1 pour ajouter un nouvel objet au dressing");
         System.out.println("tapez 2 pour consulter votre dressing");
@@ -45,7 +45,7 @@ public class Initialisation {
         System.out.println("tapez 5 pour revenir au menu precedent\n");
     }
 
-    public static void menuAjouterDansDressing(int id) {
+    public static void menuAjouterDansDressing() {
         System.out.println("----------------------------AJOUT----------------------------\n");
         System.out.println("tapez 1 pour entrer un nouveau sac");
         System.out.println("tapez 2 pour entrer des nouvelles chaussures");
@@ -53,7 +53,7 @@ public class Initialisation {
         System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
 
-    public static void menuConsulterDressing(int id) {
+    public static void menuConsulterDressing() {
         System.out.println("------------------------CONSULTATION------------------------\n");
         System.out.println("tapez 1 pour consulter vos sacs");
         System.out.println("tapez 2 pour consulter vos chaussures");
@@ -62,7 +62,7 @@ public class Initialisation {
 
     }
 
-    public static void menuSupprimerDansDressing(int id) {
+    public static void menuSupprimerDansDressing() {
         System.out.println("------------------------SUPPRESSION------------------------\n");
         System.out.println("tapez 1 pour supprimer un sac");
         System.out.println("tapez 2 pour supprimer des chaussures");
@@ -94,17 +94,9 @@ public class Initialisation {
 
     }
 
-    public static void ajouterDansDressing(int id) throws SQLException {
-        // Recuperation de l'idDressing à partir de l'idée utilisateur
-        Integer idDressing = 1;
-        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        st.executeQuery("select d.iddressing from personne p, dressing d where p.idpers=d.idpers and p.idpers=" + id);
-        ResultSet res = (st.getResultSet());
-        if (res.first()) {
-            idDressing = res.getInt("iddressing");
-        }
-
-        menuAjouterDansDressing(idDressing);
+    public static void ajouterDansDressing(int idDressing) throws SQLException {
+        
+        menuAjouterDansDressing();
         Scanner scAjout = new Scanner(System.in);
         switch (scAjout.nextInt()) {
             case 1:
@@ -127,10 +119,8 @@ public class Initialisation {
         }
     }
 
-    public static void supprimerDansDressing(int id) throws SQLException {
-        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
-        int idDressing = id;
-        menuSupprimerDansDressing(idDressing);
+    public static void supprimerDansDressing(int idDressing) throws SQLException {
+        menuSupprimerDansDressing();
         Scanner scSup = new Scanner(System.in);
         switch (scSup.nextInt()) {
             case 1:
@@ -153,10 +143,8 @@ public class Initialisation {
         }
     }
 
-    public static void consulterDressing(int id) throws SQLException {
-        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
-        int idDressing = id;
-        menuConsulterDressing(idDressing);
+    public static void consulterDressing(int idDressing) throws SQLException {
+        menuConsulterDressing();
         Scanner scCons = new Scanner(System.in);
         switch (scCons.nextInt()) {
             case 1:
@@ -179,59 +167,71 @@ public class Initialisation {
         }
     }
 
-    public static void explorerDressing(int id) throws SQLException {
-        // Dire que l'id d'utilisateur est le meme que l'id dressing c'est pas très juste ... 
-        int idDressing = id;
-        menuDressing(idDressing);
-        Scanner scDressing = new Scanner(System.in);
-        switch (scDressing.nextInt()) {
-            case 1:
-                ajouterDansDressing(idDressing);
-                explorerDressing(idDressing);
-                break;
-            case 2:
-                consulterDressing(idDressing);
-                explorerDressing(idDressing);
-                break;
-            case 3:
-                supprimerDansDressing(idDressing);
-                explorerDressing(idDressing);
-                break;
-            case 4:
-                Tenue t = new Tenue();
-                t.menuCreerTenue(id);
-                explorerDressing(idDressing);
-                break;
-            case 5:
-                lancer();
-                break;
-            default:
-                break;
-        }
+    public static void explorerDressing(int idDressing) throws SQLException{
+        
+            menuDressing();
+            Scanner scDressing = new Scanner(System.in);
+            switch (scDressing.nextInt()) {
+                case 1:
+                    ajouterDansDressing(idDressing);
+                    explorerDressing(idDressing);
+                    break;
+                case 2:
+                    consulterDressing(idDressing);
+                    explorerDressing(idDressing);
+                    break;
+                case 3:
+                    supprimerDansDressing(idDressing);
+                    explorerDressing(idDressing);
+                    break;
+                case 4:
+                    Tenue t = new Tenue();
+                    t.menuCreerTenue(idDressing);
+                    explorerDressing(idDressing);
+                    break;
+                case 5:
+                    lancer();
+                    break;
+                default:
+                    break;
+            } 
     }
 
     public static void lancer() throws SQLException {
-        Chaussures.initialiserChaussures();
-        Sac.initSacs();
-        Vetement.initiVetements();
-        menuGeneral();
         Scanner sc = new Scanner(System.in);
+        menuGeneral();
         switch (sc.nextInt()) {
             case 1:
                 Utilisateur user1 = new Utilisateur();
                 boolean buser1 = user1.ajouterUtilisateur();
-                menuGeneral();
+                lancer();
                 break;
             case 2:
                 Utilisateur user2 = new Utilisateur();
                 boolean buser2 = user2.supprimerUtilisateur();
-                menuGeneral();
+                lancer();
                 break;
             case 3:
                 Scanner scId = new Scanner(System.in);
                 System.out.println("Votre id d'utilisateur ?");
-                explorerDressing(scId.nextInt());
-                menuGeneral();
+                int id = scId.nextInt();
+                try {
+                    Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                    st.executeQuery("select d.iddressing from personne p, dressing d where p.idpers=d.idpers and p.idpers=" + id);
+                    ResultSet res = (st.getResultSet());
+                    if (res.first()) {
+                        id = res.getInt("iddressing");
+                    }else{
+                        throw new IdNonPresentException("L'id saisi n'est pas correct.");
+                    }
+                    Chaussures.initialiserChaussures(id);
+                    Sac.initSacs(id);
+                    Vetement.initiVetements(id);
+                    explorerDressing(id);
+                }catch(IdNonPresentException e){
+                    System.out.println(e);
+                }
+                lancer();
                 break;
             case 4:
                 System.out.println("deconnection");
@@ -245,10 +245,6 @@ public class Initialisation {
     public static void main(String[] args) {
         try {
             connexion();
-            //test couleurs
-            //Couleurs coul = new Couleurs();
-            // int entier = coul.recupererValeurAssociee(2,1);
-            // System.out.println("la couleur associee a 1 est :"+entier);
             lancer();
             c.close();
         } catch (SQLException e) {

@@ -130,8 +130,8 @@ public void supprimerChaussuresDansListe(int id){
 
     }
     
-    public static void initialiserChaussures(){
-        chaussures = ChaussuresDAO.initChaussures();
+    public static void initialiserChaussures(int id){
+        chaussures = ChaussuresDAO.initChaussures(id);
     }
 
 

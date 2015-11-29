@@ -118,8 +118,8 @@ public class Sac extends Contenu{
 
     }
     
-    public static void initSacs(){
-        sacs=SacDAO.initialiserSacs();
+    public static void initSacs(int id){
+        sacs=SacDAO.initialiserSacs(id);
     }
 
     public static void afficherSacs() {

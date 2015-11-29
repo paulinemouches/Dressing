@@ -86,11 +86,11 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         }
     }
     
-        public static HashMap<Integer,Chaussures> initChaussures(){
+        public static HashMap<Integer,Chaussures> initChaussures(int id){
              HashMap<Integer,Chaussures>  chaussures = new  HashMap<Integer,Chaussures>();
         try{
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Chaussure");
+            sts.executeQuery("SELECT c.idObjet FROM Chaussure c WHERE c.idDressing="+id);
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Chaussures c = new Chaussures();

@@ -311,8 +311,8 @@ public class Vetement extends Contenu{
         }
     }
 
-    public static void initiVetements() throws SQLException {
-        HashMap<Integer, Vetement> vetements = VetementDAO.initialiserVetements();
+    public static void initiVetements(int id) throws SQLException {
+        HashMap<Integer, Vetement> vetements = VetementDAO.initialiserVetements(id);
         for (Vetement v : vetements.values()) {
             v.ajouterVetementDansListe();
         }

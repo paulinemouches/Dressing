@@ -117,8 +117,9 @@ public class Utilisateur {
         CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
         
         System.out.println("Entrez votre couleur preferee");
-       Couleur couleurP = new Couleur(sc.nextInt());
+        Couleur couleurP = new Couleur(sc.nextInt());
         
+        sc.nextLine();
         System.out.println("Entrez votre forme");
         Signe signe = Signe.get(sc.nextLine());// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
         

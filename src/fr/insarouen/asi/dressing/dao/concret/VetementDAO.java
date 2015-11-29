@@ -195,11 +195,11 @@ public class VetementDAO extends DAO<Vetement>{
         }
     }
     
-        public static HashMap<Integer,Vetement> initialiserVetements(){
+        public static HashMap<Integer,Vetement> initialiserVetements(int id){
         try{
             HashMap<Integer,Vetement> vetements = new HashMap<Integer,Vetement>();
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Vetement");
+            sts.executeQuery("SELECT idObjet FROM Vetement WHERE idDressing="+id);
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Vetement v = new Vetement();

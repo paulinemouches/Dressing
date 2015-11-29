@@ -84,11 +84,11 @@ public class SacDAO extends DAO<Sac> {
         }
     }
      
-          public static  HashMap<Integer,Sac> initialiserSacs(){
+          public static  HashMap<Integer,Sac> initialiserSacs(int id){
         try{
             HashMap<Integer,Sac>  sacs = new  HashMap<Integer,Sac>();
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Sac");
+            sts.executeQuery("SELECT idObjet FROM Sac WHERE idDressing="+id);
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Sac s = new Sac();
