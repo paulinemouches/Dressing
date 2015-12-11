@@ -315,7 +315,7 @@ public class Vetement extends Contenu{
         HashMap<Integer, Vetement> vetements = VetementDAO.initialiserVetements(id);
         for (Vetement v : vetements.values()) {
             v.ajouterVetementDansListe();
-        }
+      }
 }
 
 public void supprimerVetementDansListe(int id) throws SQLException {

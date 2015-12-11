@@ -114,14 +114,47 @@ public class Utilisateur {
         int taille = Integer.parseInt(sc.nextLine());
         
         System.out.println("Entrez couleur de cheveux ");
-        CouleurCheveux  couleurC = CouleurCheveux.get(sc.nextLine()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
+        System.out.println("1:  Blond\t 2: Brun\t 3: Roux\t 4:  Chatain");
+        CouleurCheveux  couleurC = CouleurCheveux.getfromInt(sc.nextInt()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
         
         System.out.println("Entrez votre couleur preferee");
+                System.out.println( "1 - bleu\n" +
+                            "2 - bleu clair\n" +
+                            "3 - bleu marine\n" +
+                            "4 - turquoise\n" +
+                            "5 - gris clair\n" +
+                            "6 - argenté\n" +
+                            "7 - gris foncé\n" +
+                            "8 - marron clair\n" +
+                            "9 - marron foncé\n" +
+                            "10 - corail\n" +
+                            "11 - orange\n" +
+                            "12 - bordeau\n" +
+                            "13 - brique\n" +
+                            "14 - rouge\n" +
+                            "15 - rose pale\n" +
+                            "16 - rose fushia\n" +
+                            "17 - rose foncé\n" +
+                            "18 - mauve\n" +
+                            "19 - violet\n" +
+                            "20 - prune\n" +
+                            "21 - blanc\n" +
+                            "22 - jaune moutarde \n" +
+                            "23 - jaune\n" +
+                            "24 - doré\n" +
+                            "25 - noir\n" +
+                            "26 - kaki\n" +
+                            "27 - vert pale\n" +
+                            "28 - vert\n" +
+                            "29 - jean clair\n" +
+                            "30 - jean marine\n" +
+                            "31 - beige");
         Couleur couleurP = new Couleur(sc.nextInt());
         
-        sc.nextLine();
+       
         System.out.println("Entrez votre forme");
-        Signe signe = Signe.get(sc.nextLine());// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
+        System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
+        Signe signe = Signe.getfromInt(sc.nextInt());// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
         
         Utilisateur u = new Utilisateur();
         System.out.println("creer user");

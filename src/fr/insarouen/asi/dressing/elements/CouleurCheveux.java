@@ -11,6 +11,14 @@ public enum CouleurCheveux {
         return null;
     }
 
+       public static CouleurCheveux getfromInt(int numero){
+        for(CouleurCheveux  c :  values()){
+            if( numero==(c.ordinal()+1))
+                return c;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return super.toString();

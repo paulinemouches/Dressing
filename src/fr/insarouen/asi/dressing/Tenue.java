@@ -60,7 +60,7 @@ public class Tenue {
      * Permet de creer une tenue en fonction du type de tenue choisi par
      * l'utilisateur.
      */
-    public Tenue creerTenue(int typeTenue, int id, TypeEvenement evenement) throws SQLException {
+    public Tenue creerTenue(int typeTenue, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
         Tenue t = new Tenue();
         switch (typeTenue) {
             case 1:
@@ -92,22 +92,24 @@ public class Tenue {
      * Permet de creer une tenue si le type de tenue choisi par l'utilisateur
      * est "normal" ou "accordee au signe".
      */
-    public Tenue creerTenueNormaleOuSigne(int typeTenue, int id, TypeEvenement evenement) throws SQLException {
+    public Tenue creerTenueNormaleOuSigne(int typeTenue, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
         //
         Couleur couleurCorrespondante = new Couleur(0);
         String saison = determinerSaison();
+
         couleurCorrespondante = recupererTableauVetementsCouche1(typeTenue, id, evenement, couleurCorrespondante, saison);
         recupererTableauVetementsCouche2(typeTenue, id, evenement, couleurCorrespondante, saison);
         recupererSac(typeTenue, id, evenement, couleurCorrespondante, saison);
         recupererChaussures(typeTenue, id, evenement, couleurCorrespondante, saison);
         return this;
+
     }
 
     /**
      * Permet de creer une tenue si le type de tenue choisi par l'utilisateur
      * est "contenu particulier"
      */
-    public Tenue creerTenueContenuParticulier(int idVetement, int idSac, int idChaussures, int typeTenue, int id, TypeEvenement evenement) throws SQLException {
+    public Tenue creerTenueContenuParticulier(int idVetement, int idSac, int idChaussures, int typeTenue, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
         // Initialisation des variables :
         Couleur couleurCorrespondante = new Couleur(0);
         Vetement v1 = new Vetement();
@@ -199,6 +201,7 @@ public class Tenue {
             recupererChaussures(typeTenue, id, evenement, couleurCorrespondante, saison);
         }
         return this;
+
     }
     // ------------------------------------------------------------------------------------------ 
     //VETEMENT//
@@ -209,7 +212,7 @@ public class Tenue {
      * Permet de remplir le tableau de vetementde la tenue avec 1 ou 2 vetements
      * de couche 1 ( hors manteau et veste)
      */
-    private Couleur recupererTableauVetementsCouche1(int typeTenue, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException {
+    private Couleur recupererTableauVetementsCouche1(int typeTenue, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         // Initialisation des variables :
         Vetement v1 = new Vetement();
         Vetement v2 = new Vetement();
@@ -271,7 +274,7 @@ public class Tenue {
      * Permet de remplir le tableau de vetement de la tenue avec le vetement de
      * couche 2 ( manteau et veste)
      */
-    private void recupererTableauVetementsCouche2(int typeTenue, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException {
+    private void recupererTableauVetementsCouche2(int typeTenue, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         Vetement v3 = new Vetement();
         // Si notre saison est Automne/Hiver et que notre évènement n'est pas sport, 
         // on choisit un vêtement de couche 2
@@ -309,7 +312,7 @@ public class Tenue {
      * Permet de retourner un tableau de vetements qui correspondent à la couche
      * demandée par l'utilisateur
      */
-    private HashMap<Integer, Vetement> chercherDansCouche(HashMap<Integer, Vetement> vetementsE, int numeroCouche) {
+    private HashMap<Integer, Vetement> chercherDansCouche(HashMap<Integer, Vetement> vetementsE, int numeroCouche)throws TenueImpossibleException {
         // Initialisation d'un HashMap<Integer, Vetement>
         HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
 
@@ -324,6 +327,9 @@ public class Tenue {
                 it.remove();
             }
         }
+        if (vetements.isEmpty()) {
+            throw new TenueImpossibleException("Pas assez de vêtements dans le dressing pour créer une tenue correspondant aux contraintes.");
+        }
         return vetements;
     }
 
@@ -337,40 +343,36 @@ public class Tenue {
      * -Si le type de tenue est "avec contenu particulier", le vetement choisi
      * correspond à l'evenement, la saison et la couleur du vetement precedent.
      */
-    private Vetement chercherDansVetements(int typeTenue, int id, HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException {
-        try {
-            GeneriqueTenue g = new GeneriqueTenue();
-            // initialisation du tableau de vetements (Hauts)
-            ArrayList<Vetement> t = new ArrayList<Vetement>(vetements.values());
-            // Réduction du tableau en fonction des différents critères
-            switch (typeTenue) {
-                case 1:
-                    t = chercherVetementEvenement(t, evenement);
-                    t = chercherVetementSaison(t, saison);
-                case 2:
-                    t = chercherVetementEvenement(t, evenement);
-                    t = chercherVetementSigne(id, t);
-                    t = chercherVetementSaison(t, saison);
-                    break;
-                case 3:
-                    t = chercherVetementEvenement(t, evenement);
-                    t = chercherVetementSaison(t, saison);
-                    break;
-            }
-            // si la couleur est differente de 0, donc que le vetement qu'on cherche n'est pas le premier, alors on l'accorde a la couleur du premier vetement.
-            if (couleurCorrespondante.getCouleur() != 0) {
-                t = g.chercherCouleur(t, couleurCorrespondante);
-            }
-            if (t.isEmpty()) {
-                throw new TenueImpossibleException("Pas assez de vêtements dans le dressing pour créer une tenue correspondant aux contraintes.");
-            }
-            return ((Vetement) g.prendreAleatoirement(t));
-            // on choisi aleatoirement un vetement dans le dernier tableau de vetements renvoyé. (Tous ces vetements correspondent parfaitement à la tenue).
-        } catch (TenueImpossibleException e) {
-            System.out.println(e);
-            menuCreerTenue(id);
+    private Vetement chercherDansVetements(int typeTenue, int id, HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
+
+        GeneriqueTenue g = new GeneriqueTenue();
+        // initialisation du tableau de vetements (Hauts)
+        ArrayList<Vetement> t = new ArrayList<Vetement>(vetements.values());
+        // Réduction du tableau en fonction des différents critères
+        switch (typeTenue) {
+            case 1:
+                t = chercherVetementEvenement(t, evenement);
+                t = chercherVetementSaison(t, saison);
+            case 2:
+                t = chercherVetementEvenement(t, evenement);
+                t = chercherVetementSigne(id, t);
+                t = chercherVetementSaison(t, saison);
+                break;
+            case 3:
+                t = chercherVetementEvenement(t, evenement);
+                t = chercherVetementSaison(t, saison);
+                break;
         }
-        return null;
+        // si la couleur est differente de 0, donc que le vetement qu'on cherche n'est pas le premier, alors on l'accorde a la couleur du premier vetement.
+        if (couleurCorrespondante.getCouleur() != 0) {
+            t = g.chercherCouleur(t, couleurCorrespondante);
+        }
+        if (t.isEmpty()) {
+            throw new TenueImpossibleException("Pas assez de vêtements dans le dressing pour créer une tenue correspondant aux contraintes.");
+        }
+        return ((Vetement) g.prendreAleatoirement(t));
+        // on choisi aleatoirement un vetement dans le dernier tableau de vetements renvoyé. (Tous ces vetements correspondent parfaitement à la tenue).
+
     }
 
 // ------------------------------------------------------------------------------------------ 
@@ -637,19 +639,18 @@ public class Tenue {
      * Permet d'afficher le menu permettant à l'utilisateur de faire ces choix
      * pour la tenue désirée.
      */
-    public void menuCreerTenue(int id) throws SQLException {
+    /*    public void menuCreerTenue(int id) throws SQLException {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Evenement :");
-        System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
-        TypeEvenement evt = TypeEvenement.getfromInt(sc.nextInt());
-        System.out.println("Type de tenue :");
-        System.out.println("1: Tenue normale\t 2: Tenue accordee a la forme\t 3: Tenue avec un contenu particulier\t 4: Tenue avec un type particulier\t");
-        int typeTenue = sc.nextInt();
-        System.out.println(creerTenue(typeTenue, id, evt).toString());
+     Scanner sc = new Scanner(System.in);
+     System.out.println("Evenement :");
+     System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
+     TypeEvenement evt = TypeEvenement.getfromInt(sc.nextInt());
+     System.out.println("Type de tenue :");
+     System.out.println("1: Tenue normale\t 2: Tenue accordee a la forme\t 3: Tenue avec un contenu particulier\t 4: Tenue avec un type particulier\t");
+     int typeTenue = sc.nextInt();
+     System.out.println(creerTenue(typeTenue, id, evt).toString());
 
-    }
-
+     }*/
     @Override
     public String toString() {
         return "Tenue{" + "sac=" + sac + ", \nchaussures=" + chaussures + ", \nvetements=" + vetements + '}';

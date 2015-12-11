@@ -2,15 +2,15 @@ package fr.insarouen.asi.dressing;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Scanner;
-import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
-import fr.insarouen.asi.dressing.Tenue;
+import fr.insarouen.asi.dressing.elements.TypeEvenement;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
+import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import java.sql.ResultSet;
+import java.sql.Statement;
  
 public class Initialisation {
 
@@ -68,6 +68,10 @@ public class Initialisation {
         System.out.println("tapez 2 pour supprimer des chaussures");
         System.out.println("tapez 3 pour supprimer un vetement");
         System.out.println("tapez 4 pour revenir au menu precedent\n");
+    }
+    
+    public static void menuCreerTenueDansDressing() {
+       
     }
 
     public static void connexion() {
@@ -166,6 +170,24 @@ public class Initialisation {
                 break;
         }
     }
+    
+       public static void menuCreerTenue(int idDressing) throws SQLException {
+           Tenue t = new Tenue();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Evenement :");
+        System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
+        TypeEvenement evt = TypeEvenement.getfromInt(sc.nextInt());
+        System.out.println("Type de tenue :");
+        System.out.println("1: Tenue normale\t 2: Tenue accordee a la forme\t 3: Tenue avec un contenu particulier\t 4: Tenue avec un type particulier\t");
+        int typeTenue = sc.nextInt();
+        try{
+            System.out.println(t.creerTenue(typeTenue, idDressing, evt).toString());
+            explorerDressing(idDressing);
+        } catch (TenueImpossibleException e) {
+            System.out.println(e);
+            explorerDressing(idDressing);
+        }
+    }
 
     public static void explorerDressing(int idDressing) throws SQLException{
         
@@ -174,20 +196,18 @@ public class Initialisation {
             switch (scDressing.nextInt()) {
                 case 1:
                     ajouterDansDressing(idDressing);
-                    explorerDressing(idDressing);
+                    //explorerDressing(idDressing);
                     break;
                 case 2:
                     consulterDressing(idDressing);
-                    explorerDressing(idDressing);
+                   // explorerDressing(idDressing);
                     break;
                 case 3:
                     supprimerDansDressing(idDressing);
-                    explorerDressing(idDressing);
+                   // explorerDressing(idDressing);
                     break;
                 case 4:
-                    Tenue t = new Tenue();
-                    t.menuCreerTenue(idDressing);
-                    explorerDressing(idDressing);
+                    menuCreerTenue(idDressing);
                     break;
                 case 5:
                     lancer();
@@ -221,13 +241,16 @@ public class Initialisation {
                     ResultSet res = (st.getResultSet());
                     if (res.first()) {
                         id = res.getInt("iddressing");
+                        System.out.println(id+"id dressing");
                     }else{
                         throw new IdNonPresentException("L'id saisi n'est pas correct.");
                     }
                     Chaussures.initialiserChaussures(id);
                     Sac.initSacs(id);
+                     System.out.println("ca fait l'init");
                     Vetement.initiVetements(id);
                     explorerDressing(id);
+                    
                 }catch(IdNonPresentException e){
                     System.out.println(e);
                 }
