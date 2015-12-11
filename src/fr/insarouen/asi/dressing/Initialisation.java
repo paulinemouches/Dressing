@@ -196,15 +196,15 @@ public class Initialisation {
             switch (scDressing.nextInt()) {
                 case 1:
                     ajouterDansDressing(idDressing);
-                    //explorerDressing(idDressing);
+                    explorerDressing(idDressing);
                     break;
                 case 2:
                     consulterDressing(idDressing);
-                   // explorerDressing(idDressing);
+                    explorerDressing(idDressing);
                     break;
                 case 3:
                     supprimerDansDressing(idDressing);
-                   // explorerDressing(idDressing);
+                   explorerDressing(idDressing);
                     break;
                 case 4:
                     menuCreerTenue(idDressing);
