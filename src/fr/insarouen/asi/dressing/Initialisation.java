@@ -178,10 +178,12 @@ public class Initialisation {
         System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
         TypeEvenement evt = TypeEvenement.getfromInt(sc.nextInt());
         System.out.println("Type de tenue :");
-        System.out.println("1: Tenue normale\t 2: Tenue accordee a la forme\t 3: Tenue avec un contenu particulier\t 4: Tenue avec un type particulier\t");
+        System.out.println("1: Tenue normale\t 2: Tenue avec un contenu particulier\t 3: Tenue avec un type particulier\t");
         int typeTenue = sc.nextInt();
+        System.out.println("Tenue accordee a la forme ? \n 1: Oui\t 2: Non");
+        int avecForme = sc.nextInt();
         try{
-            System.out.println(t.creerTenue(typeTenue, idDressing, evt).toString());
+            System.out.println(t.creerTenue(typeTenue, avecForme, idDressing, evt).toString());
             explorerDressing(idDressing);
         } catch (TenueImpossibleException e) {
             System.out.println(e);
@@ -241,13 +243,11 @@ public class Initialisation {
                     ResultSet res = (st.getResultSet());
                     if (res.first()) {
                         id = res.getInt("iddressing");
-                        System.out.println(id+"id dressing");
-                    }else{
+                    }else{ 
                         throw new IdNonPresentException("L'id saisi n'est pas correct.");
                     }
                     Chaussures.initialiserChaussures(id);
                     Sac.initSacs(id);
-                     System.out.println("ca fait l'init");
                     Vetement.initiVetements(id);
                     explorerDressing(id);
                     

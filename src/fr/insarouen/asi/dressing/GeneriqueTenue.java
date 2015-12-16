@@ -6,12 +6,8 @@
 package fr.insarouen.asi.dressing;
 
 import fr.insarouen.asi.dressing.elements.Couleur;
-import fr.insarouen.asi.dressing.elements.TypeChaussures;
-import fr.insarouen.asi.dressing.elements.TypeEvenement;
-import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -23,7 +19,7 @@ public class GeneriqueTenue<T extends Contenu> {
     public GeneriqueTenue() {
     }
     
-    public ArrayList<T> chercherCouleur(ArrayList<T> contenus, Couleur couleurCorrespondante) {
+    public ArrayList<T> chercherCouleur(ArrayList<T> contenus, Couleur couleurCorrespondante) throws TenueImpossibleException{
         //Initialisation : 
         ArrayList<T> nvTab5 = new ArrayList<T>();
         ArrayList<T> nvTab4 = new ArrayList<T>();
@@ -61,13 +57,16 @@ public class GeneriqueTenue<T extends Contenu> {
         }else if(!nvTab2.isEmpty()){
             return nvTab2;
         }else {
+            if(nvTab1.isEmpty()){
+                throw new TenueImpossibleException("Vous ne possédez pas de vêtements de couleur appropriée");
+            }
             return nvTab1;
         }
     }
     
-    public T prendreAleatoirement(ArrayList<T> contenus){
+    public T prendreAleatoirement(ArrayList<T> contenus)throws TenueImpossibleException{
         if (contenus.isEmpty()) {
-            System.out.println("Votre dressing ne permet pas de faire de tenue complete");
+            throw new TenueImpossibleException("Vous ne possédez pas de contenu de ce type."); 
         }
         else {
             int i = 0;
