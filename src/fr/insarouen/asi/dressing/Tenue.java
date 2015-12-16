@@ -49,7 +49,8 @@ public class Tenue {
         Calendar cal = Calendar.getInstance();
         if (((cal.get(Calendar.MONTH) >= Calendar.MARCH) && (cal.get(Calendar.DAY_OF_MONTH) >= 21)) && ((cal.get(Calendar.MONTH) <= Calendar.SEPTEMBER) && (cal.get(Calendar.DAY_OF_MONTH) <= 21))) {
             return "Printemps/Ete";
-        } else {
+        }
+        else {
             return "Automne/Hiver";
         }
     }
@@ -62,51 +63,50 @@ public class Tenue {
      *
      * boolean forme = true si l'utilisateur veut que ce soit accordé à la forme
      */
-    public void menuChoixUtilisateur(int typeTenue, int idVetement, int idSac, int idChaussures)throws SQLException, TenueImpossibleException{
-        switch (typeTenue) {
-            case 2:
-                Scanner sc = new Scanner(System.in);
-                Vetement.afficherHauts();
-                Vetement.afficherBas();
-                Vetement.afficherHautsBas();
-                System.out.println("Entrez l'id du vetement que vous voulez  (0 si vous ne désirez pas de vetement particulier):");
-                idVetement = sc.nextInt();
-                Sac.afficherSacs();
-                System.out.println("Entrez l'id du sac que vous voulez  (0 si vous ne désirez pas de sac particulier):");
-                idSac = sc.nextInt();
-                Chaussures.afficherChaussures();
-                System.out.println("Entrez l'id des chaussures que vous voulez  (0 si vous ne désirez pas de chaussures  particulières):");
-                idChaussures = sc.nextInt();
-                break;
-            case 3:
-                Scanner scc = new Scanner(System.in);
-                System.out.println("Quel type de vêtement voulez-vous particulièrement ?\n 1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
-                TypeVetement type = TypeVetement.getfromInt(scc.nextInt());
-
-                Vetement v = new Vetement();
-                GeneriqueTenue g = new GeneriqueTenue();
-                
-                ArrayList<Vetement> tab = new ArrayList<Vetement>(Vetement.getVetements().values());
-
-                // On choisi aléatoirement un vetement parmi ceux dont le igne correspond :
-                v = (Vetement) g.prendreAleatoirement(chercherVetementType(tab, type));
-              
-                idVetement = v.getIdObjet();
-                break;
-        }
+    public int[] menuCreerTenueContenuParticulier() throws SQLException, TenueImpossibleException {
+        Scanner sc = new Scanner(System.in);
+        Vetement.afficherVetementsSaleOuPropre(false);
+        System.out.println("Entrez l'id du vetement que vous voulez  (0 si vous ne désirez pas de vetement particulier):");
+        int idVetement = sc.nextInt();
+        Sac.afficherSacs();
+        System.out.println("Entrez l'id du sac que vous voulez  (0 si vous ne désirez pas de sac particulier):");
+        int idSac = sc.nextInt();
+        Chaussures.afficherChaussures();
+        System.out.println("Entrez l'id des chaussures que vous voulez  (0 si vous ne désirez pas de chaussures  particulières):");
+        int idChaussures = sc.nextInt();
+        int[] tableauId = {idVetement, idSac, idChaussures};
+        return tableauId;
     }
 
-    
+    public ArrayList<Vetement> menuCreerTenueTypeParticulier() throws SQLException, TenueImpossibleException {
+        Scanner scc = new Scanner(System.in);
+        System.out.println("Quel type de vêtement voulez-vous particulièrement ?\n 1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
+        TypeVetement type = TypeVetement.getfromInt(scc.nextInt());
 
-    /**
+        Vetement v = new Vetement();
+        GeneriqueTenue g = new GeneriqueTenue();
+
+        ArrayList<Vetement> tab = new ArrayList<Vetement>(Vetement.getVetements().values());
+        tab = chercherVetementType(tab, type);
+        return tab;
+    }
+
+    /**     
      * Permet de creer une tenue si le type de tenue choisi par l'utilisateur
-     * est "contenu particulier"
+     * est "contenu particulier".
      */
-    public Tenue creerTenue(int typeTenue, int avecForme, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
-        int idVetement = 0;
-        int idSac = 0;
-        int idChaussures = 0;
-        menuChoixUtilisateur(typeTenue, idVetement, idSac, idChaussures);
+    public Tenue creerTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
+        // int[] tableauId = menuChoixUtilisateur(typeTenue);
+      Vetement v = new Vetement();
+      GeneriqueTenue g = new GeneriqueTenue();
+        int idVetement =  tableauIdChoisis[0];
+        int idSac =  tableauIdChoisis[1];
+        int idChaussures = tableauIdChoisis[2];
+        if (typeTenue == 3) {
+          //  menuCreerTenueTypeParticulier();
+            v = (Vetement) g.prendreAleatoirement(vetementsTypeChoisis);
+            idVetement = v.getIdObjet();
+        }
         // Initialisation des variables :
         Couleur couleurCorrespondante = new Couleur(0);
         Vetement v1 = new Vetement();
@@ -120,7 +120,7 @@ public class Tenue {
 
         // Si l'idVetement est non nul, ça signifie que l'utilisateur à choisi un vetement particulier
         if (idVetement != 0) {
-            Vetement v = new Vetement();
+            
             // On cherche ce  vetement particulier à partir de l'idVetement entré par l'utilisateur
             v = v.trouverVetement(idVetement);
             couleurCorrespondante = v.getCouleur();
@@ -131,7 +131,8 @@ public class Tenue {
                 this.setVetements(v3);
                 // On va chercher les vetements de couche 1 pour completer la tenue
                 recupererVetementsCouche1(null, avecForme, id, evenement, couleurCorrespondante, saison);
-            } else {
+            }
+            else {
                 // Si le vetement est de couche 1 
                 v1 = v;
                 // On récupère le deuxième vetement de couche1
@@ -141,7 +142,8 @@ public class Tenue {
                 // recupererTableauVetementsCouche2 renvoie une valeur seulement si on est en Automne/Hiver et si on ne fait pas de sport.
                 recupererVetementsCouche2(avecForme, id, evenement, couleurCorrespondante, saison);
             }
-        } else {
+        }
+        else {
             // Si l'idVetement vaut 0, l'utilisateur n'a pas choisi de vetement particulier, on cherche des vetements comme d'habitude
             // vetement choisis en fonction de la couleur correspondante qui sera donc celle des chaussures ou du sac choisi
             couleurCorrespondante = recupererVetementsCouche1(null, avecForme, id, evenement, couleurCorrespondante, saison);
@@ -154,7 +156,8 @@ public class Tenue {
             this.setSac(s);
             // La couleurCorrespondante devient celle du sac choisi.
             couleurCorrespondante = s.getCouleur();
-        } else {
+        }
+        else {
             // Si l'idSac vaut 0,  l'utilisateur n'a pas choisi de sac particulier, on cherche un sac comme d'habitude
             // sac choisi en fonction de la couleur correspondante qui sera donc celle des chaussures ou du vetement choisi
             recupererSac(id, evenement, couleurCorrespondante, saison);
@@ -166,7 +169,8 @@ public class Tenue {
             this.setChaussures(c);
             // La couleurCorrespondante devient celle des chaussures choisies.
             couleurCorrespondante = c.getCouleur();
-        } else {
+        }
+        else {
             // Si l'idChaussures vaut 0,  l'utilisateur n'a pas choisi de chaussures particulières, on cherche une paire de chaussures  comme d'habitude
             // chaussures choisies en fonction de la couleur correspondante qui sera donc celle du sac ou du vetement choisi
             recupererChaussures(id, evenement, couleurCorrespondante, saison);
@@ -175,11 +179,11 @@ public class Tenue {
         return this;
 
     }
+
     // ------------------------------------------------------------------------------------------ 
     //VETEMENT//
     // ------------------------------------------------------------------------------------------ 
     // ------------------------------------------------------------------------------------------     
-
     /**
      * Permet de remplir le tableau de vetement de la tenue avec 1 ou 2
      * vetements de couche 1 ( hors manteau et veste)
@@ -330,6 +334,7 @@ public class Tenue {
         if (avecForme == 1) {
             t = chercherVetementSigne(id, t);
         }
+        t=chercherVetementSalePropre(t);
         t = chercherVetementEvenement(t, evenement);
         t = chercherVetementSaison(t, saison);
 
@@ -350,7 +355,7 @@ public class Tenue {
      * certaines couleurs. 3 -Si l'evenement est tous les jours on ne veut pas
      * de jogging.
      */
-    private ArrayList<Vetement> chercherVetementEvenement(ArrayList<Vetement> vetements, TypeEvenement ev) throws TenueImpossibleException{
+    private ArrayList<Vetement> chercherVetementEvenement(ArrayList<Vetement> vetements, TypeEvenement ev) throws TenueImpossibleException {
         // Différents cas en fonction de l'evenement : 
         switch (ev) {
 
@@ -393,7 +398,7 @@ public class Tenue {
                 }
                 break;
         }
-        if(vetements.isEmpty()){
+        if (vetements.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de vêtements correspondant à cet évènement");
         }
         return vetements;
@@ -412,7 +417,7 @@ public class Tenue {
                 it.remove();
             }
         }
-        if(vetements.isEmpty()){
+        if (vetements.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de vêtements correspondant à la saison");
         }
         return vetements;
@@ -434,7 +439,7 @@ public class Tenue {
                 it.remove();
             }
         }
-        if(vetements.isEmpty()){
+        if (vetements.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas assez de vêtements correspondant à votre forme");
         }
         return vetements;
@@ -455,12 +460,27 @@ public class Tenue {
                 it.remove();
             }
         }
-        if(vetements.isEmpty()){
+        if (vetements.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de vêtements de ce type");
         }
         return vetements;
     }
 
+     private ArrayList<Vetement> chercherVetementSalePropre(ArrayList<Vetement> vetements) throws SQLException, TenueImpossibleException {
+        // On ne garde que les vêtements qui correspondent au type souhaité
+        Iterator<Vetement> it = vetements.iterator();
+        while (it.hasNext()) {
+            Vetement v = it.next();
+            if (v.isSale()) {
+                it.remove();
+            }
+        }
+        if (vetements.isEmpty()) {
+            throw new TenueImpossibleException("Vous ne possédez pas de vêtements de ce type");
+        }
+        return vetements;
+    }
+    
     // ------------------------------------------------------------------------------------------ 
     //SAC//
     // ------------------------------------------------------------------------------------------ 
@@ -521,7 +541,7 @@ public class Tenue {
                 }
                 break;
         }
-        if(sacs.isEmpty()){
+        if (sacs.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de sacs correspondant à cet évènement");
         }
         return sacs;
@@ -556,7 +576,7 @@ public class Tenue {
      * soirée on ne veut pas de baskets ni de bottes plates. 3 - Si l'évenement
      * est tous les jours on ne veut pas de baskets ni d'escrapins.
      */
-    private ArrayList<Chaussures> chercherChaussuresEvenement(ArrayList<Chaussures> chaussures, TypeEvenement ev) throws TenueImpossibleException{
+    private ArrayList<Chaussures> chercherChaussuresEvenement(ArrayList<Chaussures> chaussures, TypeEvenement ev) throws TenueImpossibleException {
         // Différents cas en fonction de l'evenement : 
         switch (ev) {
             case Sport:
@@ -590,7 +610,7 @@ public class Tenue {
                 }
                 break;
         }
-        if(chaussures.isEmpty()){
+        if (chaussures.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de chaussures correspondant à cet évènement");
         }
         return chaussures;
@@ -614,7 +634,7 @@ public class Tenue {
                 it.remove();
             }
         }
-        if(chaussures.isEmpty()){
+        if (chaussures.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de chaussures correspondant à cette saison");
         }
         return chaussures;
@@ -623,7 +643,6 @@ public class Tenue {
 // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------ 
-   
     @Override
     public String toString() {
         return "Tenue{" + "sac=" + sac + ", \nchaussures=" + chaussures + ", \nvetements=" + vetements + '}';

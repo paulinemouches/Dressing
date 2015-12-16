@@ -11,7 +11,8 @@ import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.sql.ResultSet;
 import java.sql.Statement;
- 
+import java.util.ArrayList;
+
 public class Initialisation {
 
     private String nomBase;
@@ -34,15 +35,14 @@ public class Initialisation {
         System.out.println("tapez 4 pour vous déconnecter");
     }
 
-
-    
     public static void menuDressing() {
         System.out.println("--------------------------DRESSING--------------------------\n");
         System.out.println("tapez 1 pour ajouter un nouvel objet au dressing");
         System.out.println("tapez 2 pour consulter votre dressing");
         System.out.println("tapez 3 pour supprimer un objet de votre dressing");
         System.out.println("tapez 4 pour créer une tenue");
-        System.out.println("tapez 5 pour revenir au menu precedent\n");
+         System.out.println("tapez 5 pour mettre des vêtements au sale ou au propre");
+        System.out.println("tapez 6 pour revenir au menu precedent\n");
     }
 
     public static void menuAjouterDansDressing() {
@@ -69,9 +69,9 @@ public class Initialisation {
         System.out.println("tapez 3 pour supprimer un vetement");
         System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
-    
+
     public static void menuCreerTenueDansDressing() {
-       
+
     }
 
     public static void connexion() {
@@ -99,7 +99,7 @@ public class Initialisation {
     }
 
     public static void ajouterDansDressing(int idDressing) throws SQLException {
-        
+
         menuAjouterDansDressing();
         Scanner scAjout = new Scanner(System.in);
         switch (scAjout.nextInt()) {
@@ -170,9 +170,10 @@ public class Initialisation {
                 break;
         }
     }
-    
-       public static void menuCreerTenue(int idDressing) throws SQLException {
-           Tenue t = new Tenue();
+
+    public static void menuCreerTenue(int idDressing) throws SQLException {
+        int suivant;
+        // Tenue t = new Tenue();
         Scanner sc = new Scanner(System.in);
         System.out.println("Evenement :");
         System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
@@ -182,41 +183,78 @@ public class Initialisation {
         int typeTenue = sc.nextInt();
         System.out.println("Tenue accordee a la forme ? \n 1: Oui\t 2: Non");
         int avecForme = sc.nextInt();
-        try{
-            System.out.println(t.creerTenue(typeTenue, avecForme, idDressing, evt).toString());
+        try {
+            Tenue t = new Tenue();
+            int[] tableauIdChoisis = {0,0,0};
+            ArrayList<Vetement> vetementsTypeChoisis = new ArrayList();
+            if (typeTenue == 2) {
+                tableauIdChoisis = t.menuCreerTenueContenuParticulier();
+            }
+            if (typeTenue == 3) {
+                vetementsTypeChoisis = t.menuCreerTenueTypeParticulier();
+            }
+            do {
+                System.out.println(t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evt).toString());
+                t = new Tenue();
+                System.out.println("Appuyer sur 1 pour voir la tenue suivante, sur 0 pour quitter");
+                suivant = sc.nextInt();
+            } while (suivant == 1);
             explorerDressing(idDressing);
         } catch (TenueImpossibleException e) {
             System.out.println(e);
             explorerDressing(idDressing);
         }
     }
+    
+        public static void mettreAuSaleOuPropre() throws SQLException {
+        Scanner sc = new Scanner(System.in);
+        boolean mettreAuSale = false;
+        int idVetement = 10; //id bidon pour entrer au moins une fois dans le while
+        System.out.println("1: Mettre au sale\t 2: Mettre au propre\t");
+        int salePropre = sc.nextInt();
+        if (salePropre == 1) {
+            mettreAuSale = true; //je veux mettre des vetements au sale
+        }
+        System.out.println("mettre au sale"+mettreAuSale);
+        Vetement.afficherVetementsSaleOuPropre(!mettreAuSale);//je veux donc afficher les vetements propres
+        while (idVetement != 0){
+            System.out.println("id du vetement à mettre à modifier ? (tapez 0 si plus de vetements a mettre au sale)");
+            idVetement = sc.nextInt();
+            if (idVetement!=0 ){
+                Vetement.modifierSalePropre(idVetement,mettreAuSale);
+            }
+        } 
+    }
 
-    public static void explorerDressing(int idDressing) throws SQLException{
+    public static void explorerDressing(int idDressing) throws SQLException {
+
+        menuDressing();
         
-            menuDressing();
-            Scanner scDressing = new Scanner(System.in);
-            switch (scDressing.nextInt()) {
-                case 1:
-                    ajouterDansDressing(idDressing);
-                    explorerDressing(idDressing);
-                    break;
-                case 2:
-                    consulterDressing(idDressing);
-                    explorerDressing(idDressing);
-                    break;
-                case 3:
-                    supprimerDansDressing(idDressing);
-                   explorerDressing(idDressing);
-                    break;
-                case 4:
-                    menuCreerTenue(idDressing);
-                    break;
-                case 5:
-                    lancer();
-                    break;
-                default:
-                    break;
-            } 
+        Scanner scDressing = new Scanner(System.in);
+        switch (scDressing.nextInt()) {
+            case 1:
+                ajouterDansDressing(idDressing);
+                explorerDressing(idDressing);
+                break;
+            case 2:
+                consulterDressing(idDressing);
+                explorerDressing(idDressing);
+                break;
+            case 3:
+                supprimerDansDressing(idDressing);
+                explorerDressing(idDressing);
+                break;
+            case 4:
+                menuCreerTenue(idDressing);
+                break;
+            case 5:
+                mettreAuSaleOuPropre();
+            case 6:
+                lancer();
+                break;
+            default:
+                break;
+        }
     }
 
     public static void lancer() throws SQLException {
@@ -243,15 +281,16 @@ public class Initialisation {
                     ResultSet res = (st.getResultSet());
                     if (res.first()) {
                         id = res.getInt("iddressing");
-                    }else{ 
+                    }
+                    else {
                         throw new IdNonPresentException("L'id saisi n'est pas correct.");
                     }
                     Chaussures.initialiserChaussures(id);
                     Sac.initSacs(id);
                     Vetement.initiVetements(id);
                     explorerDressing(id);
-                    
-                }catch(IdNonPresentException e){
+
+                } catch (IdNonPresentException e) {
                     System.out.println(e);
                 }
                 lancer();

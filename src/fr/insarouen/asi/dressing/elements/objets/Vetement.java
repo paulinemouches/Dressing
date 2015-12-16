@@ -11,6 +11,7 @@ import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Vetement extends Contenu {
 
@@ -34,7 +35,7 @@ public class Vetement extends Contenu {
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
-        this.sale = false;
+        this.sale = determinerSalePropre();
         this.niveau = niveau;
         this.couche = couche;
         this.signes = signes;
@@ -173,6 +174,10 @@ public class Vetement extends Contenu {
     public int determinerCouche() throws SQLException {
         return VetementDAO.recupererCouche(this);
     }
+    
+    public boolean determinerSalePropre()throws SQLException{
+         return VetementDAO.recupererSalePropre(this);
+    }
 
     public boolean correspondAuSigne(Utilisateur u) {
         boolean res = false;
@@ -204,10 +209,16 @@ public class Vetement extends Contenu {
         System.out.println("Entrez la coupe : ");
         if ((numero == 1) || (numero == 2) || (numero == 3) || (numero == 4) || (numero == 5)) {
             System.out.println("1: Cintré\t 2: Droit\t 3: Large\t");
-        } else if ((numero == 6) || (numero == 7) || (numero == 8)) {
-            System.out.println("2: Droit\t 4: Slim\t 5: Evase\t 6: Baggy\t");
-        } else if ((numero == 9) || (numero == 10) || (numero == 11) || (numero == 12)) {
-            System.out.println("7:Court\t 8: Long");
+        }
+        else {
+            if ((numero == 6) || (numero == 7) || (numero == 8)) {
+                System.out.println("2: Droit\t 4: Slim\t 5: Evase\t 6: Baggy\t");
+            }
+            else {
+                if ((numero == 9) || (numero == 10) || (numero == 11) || (numero == 12)) {
+                    System.out.println("7:Court\t 8: Long");
+                }
+            }
         }
         CoupeVetement coupe = CoupeVetement.getfromInt(sc.nextInt());
         if (coupe == null) {
@@ -290,12 +301,13 @@ public class Vetement extends Contenu {
             vASupprimer.find(id).supprimerVetementDansListe(id);
             vASupprimer.delete(vASupprimer.find(id));
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
 
-    public Vetement trouverVetement(int id) throws SQLException {
+    public static Vetement trouverVetement(int id) throws SQLException {
         VetementDAO v = new VetementDAO();
         return v.find(id);
     }
@@ -328,14 +340,17 @@ public class Vetement extends Contenu {
     }
 
     public void supprimerVetementDansListe(int id) throws SQLException {
+        vetements.remove(id);
         if (hauts.containsKey(id)) {
             hauts.remove(id);
             System.out.println("Le haut est supprimé");
-        } else {
+        }
+        else {
             if (bas.containsKey(id)) {
                 bas.remove(id);
                 System.out.println("Le bas est supprimé");
-            } else {
+            }
+            else {
                 if (hautsbas.containsKey(id)) {
                     hautsbas.remove(id);
                     System.out.println("Le haut-bas est supprimé");
@@ -349,7 +364,8 @@ public class Vetement extends Contenu {
             for (Vetement v : hauts.values()) {
                 System.out.println(v.toString());
             }
-        } else {
+        }
+        else {
             System.out.println("\nIl n'y a pas de hauts");
         }
     }
@@ -359,7 +375,8 @@ public class Vetement extends Contenu {
             for (Vetement v : bas.values()) {
                 System.out.println(v.toString());
             }
-        } else {
+        }
+        else {
             System.out.println("\nIl n'y a pas de bas");
         }
     }
@@ -369,9 +386,37 @@ public class Vetement extends Contenu {
             for (Vetement v : hautsbas.values()) {
                 System.out.println(v.toString());
             }
-        } else {
+        }
+        else {
             System.out.println("\nIl n'y a pas de hauts-bas");
         }
+    }
+
+    public static void afficherVetementsSaleOuPropre(boolean estSale) {
+        if (estSale) {
+            for (Vetement v : vetements.values()) {
+                if (v.isSale()) {
+                    System.out.println(v.toString());
+                }
+            }
+        }
+        else {
+            for (Vetement v : vetements.values()) {
+                if (!v.isSale()) {
+                    System.out.println(v.toString());
+                }
+            }
+        }
+    }
+
+    public static void modifierSalePropre(int idVetement, boolean mettreAuSale) {
+        // try {
+        VetementDAO vd = new VetementDAO();
+        vd.modifierSalePropreBD(idVetement, mettreAuSale);
+            //trouverVetement(idVetement).setSale(mettreAuSale);
+        //} catch (SQLException e) {
+        //e.printStackTrace();
+        //}
     }
 
     @Override
