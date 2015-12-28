@@ -154,7 +154,7 @@ public class Utilisateur {
        
         System.out.println("Entrez votre forme");
         System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
-        Signe signe = Signe.getfromInt(sc.nextInt());// attention a bien respecter les contraintes de la base (=X ou V ou A ou ...)
+        Signe signe = Signe.getfromInt(sc.nextInt());
         
         Utilisateur u = new Utilisateur();
         System.out.println("creer user");

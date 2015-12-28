@@ -162,6 +162,8 @@ public class VetementDAO extends DAO<Vetement> {
         resultat = (Signe[]) rowValues.toArray(new Signe[rowValues.size()]);
         return resultat;
     }
+    
+    
 
     public static boolean recupererSalePropre(Vetement obj) throws SQLException{
          boolean resultat = false;
@@ -173,6 +175,78 @@ public class VetementDAO extends DAO<Vetement> {
         return resultat;
         
     }
+    
+    public static HashMap<Integer, Vetement> recupererVetementsSaison(int idDressing) throws SQLException{
+        HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet res = st.executeQuery("SELECT idObjet FROM vetementsaison WHERE idDressing="+idDressing);
+        while (res.next()) {
+            Vetement v = new Vetement();
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+        }
+        return vetements;
+    }
+    
+    public static HashMap<Integer, Vetement> recupererVetementsCouleurPreferee(int idDressing) throws SQLException{
+        HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet res = st.executeQuery("SELECT idObjet FROM vetementcouleurpreferee WHERE idDressing="+idDressing);
+        while (res.next()) {
+            Vetement v = new Vetement();
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+        }
+        return vetements;
+    }
+    
+    public static HashMap<Integer, Vetement> recupererVetementsForme(int idDressing, Signe signe) throws SQLException{
+        HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet res = st.executeQuery("SELECT v.idObjet FROM vetement v, correspond c WHERE c.signe='"+signe+"' AND c.idobjet=v.idobjet AND v.idDressing="+idDressing);
+        while (res.next()) {
+            Vetement v = new Vetement();
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+        }
+        return vetements;
+    }
+    
+    public static HashMap<Integer, Vetement> recupererVetementsType(int idDressing, int type) throws SQLException{
+        HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        ResultSet res= null;
+        do{
+            switch(type){
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    res = st.executeQuery("SELECT idObjet FROM HAUT WHERE typeh='"+TypeVetement.getfromInt(type)+"' AND idDressing="+idDressing);
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    res = st.executeQuery("SELECT idObjet FROM PANTALON WHERE typep='"+TypeVetement.getfromInt(type)+"' AND idDressing="+idDressing);
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                    res = st.executeQuery("SELECT idObjet FROM AUTRE WHERE typea='"+TypeVetement.getfromInt(type)+"' AND idDressing="+idDressing);
+                    break;
+                default:
+                    System.out.println("Veuillez Saisir un chiffre entre 1 et 12");
+            }
+        }while(type>12);
+        
+        while (res.next()) {
+            Vetement v = new Vetement();
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+        }
+        return vetements;
+    }
+    
+    
+    
     public static String recupererSaison(Vetement v) {
         try {
             Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);

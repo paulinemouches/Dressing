@@ -78,4 +78,15 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             }
 
     }
+    
+    public static int obtenirIdUtilisateur(int idDressing) throws SQLException{
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT idPers FROM DRESSING WHERE idDressing="+idDressing);   
+        ResultSet res = st.getResultSet(); 
+        if(res.first()){
+            return res.getInt("idpers");
+        }else{
+            return 0;
+        }
+    }
 }

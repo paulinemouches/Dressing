@@ -124,11 +124,10 @@ public class Sac extends Contenu{
 
     public static void afficherSacs() {
         if(!sacs.isEmpty()){
-        for (Sac s : sacs.values()) {
-            System.out.println(s.toString());
-        }
-        }
-        else{
+            for (Sac s : sacs.values()) {
+                System.out.println(s.toString());
+            }
+        }else{
             System.out.println("\nIl n'y a pas de sacs");
         }
     }

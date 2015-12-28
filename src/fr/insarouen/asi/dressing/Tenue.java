@@ -95,7 +95,7 @@ public class Tenue {
      * Permet de creer une tenue si le type de tenue choisi par l'utilisateur
      * est "contenu particulier".
      */
-    public Tenue creerTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int id, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
+    public Tenue creerTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
         // int[] tableauId = menuChoixUtilisateur(typeTenue);
       Vetement v = new Vetement();
       GeneriqueTenue g = new GeneriqueTenue();
@@ -103,7 +103,6 @@ public class Tenue {
         int idSac =  tableauIdChoisis[1];
         int idChaussures = tableauIdChoisis[2];
         if (typeTenue == 3) {
-          //  menuCreerTenueTypeParticulier();
             v = (Vetement) g.prendreAleatoirement(vetementsTypeChoisis);
             idVetement = v.getIdObjet();
         }
@@ -130,24 +129,24 @@ public class Tenue {
                 v3 = v;
                 this.setVetements(v3);
                 // On va chercher les vetements de couche 1 pour completer la tenue
-                recupererVetementsCouche1(null, avecForme, id, evenement, couleurCorrespondante, saison);
+                recupererVetementsCouche1(null, avecForme, idUtilisateur, evenement, couleurCorrespondante, saison);
             }
             else {
                 // Si le vetement est de couche 1 
                 v1 = v;
                 // On récupère le deuxième vetement de couche1
-                couleurCorrespondante = recupererVetementsCouche1(v1, avecForme, id, evenement, couleurCorrespondante, saison);
+                couleurCorrespondante = recupererVetementsCouche1(v1, avecForme, idUtilisateur, evenement, couleurCorrespondante, saison);
 
                 // Si le vetement choisi est une couche 1 , on va chercher une couche 2
                 // recupererTableauVetementsCouche2 renvoie une valeur seulement si on est en Automne/Hiver et si on ne fait pas de sport.
-                recupererVetementsCouche2(avecForme, id, evenement, couleurCorrespondante, saison);
+                recupererVetementsCouche2(avecForme, idUtilisateur, evenement, couleurCorrespondante, saison);
             }
         }
         else {
             // Si l'idVetement vaut 0, l'utilisateur n'a pas choisi de vetement particulier, on cherche des vetements comme d'habitude
             // vetement choisis en fonction de la couleur correspondante qui sera donc celle des chaussures ou du sac choisi
-            couleurCorrespondante = recupererVetementsCouche1(null, avecForme, id, evenement, couleurCorrespondante, saison);
-            recupererVetementsCouche2(avecForme, id, evenement, couleurCorrespondante, saison);
+            couleurCorrespondante = recupererVetementsCouche1(null, avecForme, idUtilisateur, evenement, couleurCorrespondante, saison);
+            recupererVetementsCouche2(avecForme, idUtilisateur, evenement, couleurCorrespondante, saison);
         }
 
         // Si l'idSac est non nul, ça signifie que l'utilisateur à choisi un sac particulier
@@ -160,7 +159,7 @@ public class Tenue {
         else {
             // Si l'idSac vaut 0,  l'utilisateur n'a pas choisi de sac particulier, on cherche un sac comme d'habitude
             // sac choisi en fonction de la couleur correspondante qui sera donc celle des chaussures ou du vetement choisi
-            recupererSac(id, evenement, couleurCorrespondante, saison);
+            recupererSac(evenement, couleurCorrespondante);
         }
 
         // Si l'idChaussures est non nul, ça signifie que l'utilisateur à choisi des chaussures  particulières
@@ -173,7 +172,7 @@ public class Tenue {
         else {
             // Si l'idChaussures vaut 0,  l'utilisateur n'a pas choisi de chaussures particulières, on cherche une paire de chaussures  comme d'habitude
             // chaussures choisies en fonction de la couleur correspondante qui sera donc celle du sac ou du vetement choisi
-            recupererChaussures(id, evenement, couleurCorrespondante, saison);
+            recupererChaussures(evenement, couleurCorrespondante, saison);
         }
 
         return this;
@@ -188,7 +187,7 @@ public class Tenue {
      * Permet de remplir le tableau de vetement de la tenue avec 1 ou 2
      * vetements de couche 1 ( hors manteau et veste)
      */
-    private Couleur recupererVetementsCouche1(Vetement v1, int avecForme, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
+    private Couleur recupererVetementsCouche1(Vetement v1, int avecForme, int idUtilisateur, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         // Initialisation des variables :
         Vetement v2 = new Vetement();
         Random rand = new Random();
@@ -207,19 +206,19 @@ public class Tenue {
                 case 0:
                     System.out.println("cas 0");
                     // On cherche tout d'abord un haut de couche 1 avec une couleur correspondante = 0 
-                    v1 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
+                    v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
                     break;
                 case 1:
                     System.out.println("cas 1");
                     // On cherche tout d'abord un bas avec une couleur correspondante = 0 
-                    v1 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
+                    v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
                     break;
                 case 2:
                     System.out.println("cas 2");
                     // On cherche un hautbas \avec une Couleur correspondante=0
-                    v1 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getHautsbas(), 1), saison, couleurCorrespondante, evenement);
+                    v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHautsbas(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
                     break;
 
@@ -231,12 +230,12 @@ public class Tenue {
             case Bas:
                 // Si le vetement choisi est un bas on va chercher un haut
                 System.out.println("cas bas");
-                v2 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
+                v2 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
                 break;
             case Haut:
                 // Si le vetement choisi est un haut on va chercher un bas
                 System.out.println("cas haut");
-                v2 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
+                v2 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
                 break;
         }
 
@@ -255,13 +254,13 @@ public class Tenue {
      * Permet de remplir le tableau de vetement de la tenue avec le vetement de
      * couche 2 ( manteau et veste)
      */
-    private void recupererVetementsCouche2(int avecForme, int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
+    private void recupererVetementsCouche2(int avecForme, int idUtilisateur, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         Vetement v3 = new Vetement();
 
         // Si notre saison est Automne/Hiver et que notre évènement n'est pas sport, 
         // on choisit un vêtement de couche 2
         if ((saison.equals("Automne/Hiver")) && (evenement != TypeEvenement.Sport)) {
-            v3 = chercherDansVetements(avecForme, id, chercherDansCouche(Vetement.getHauts(), 2), saison, couleurCorrespondante, evenement);
+            v3 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHauts(), 2), saison, couleurCorrespondante, evenement);
         }
         if (v3 != null && v3.getIdObjet() != 0) {
             this.setVetements(v3);
@@ -271,7 +270,7 @@ public class Tenue {
     /**
      * Permet de remplir l'attribut sac de la tenue
      */
-    private void recupererSac(int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
+    private void recupererSac( TypeEvenement evenement, Couleur couleurCorrespondante) throws SQLException, TenueImpossibleException {
         Sac s;
         s = chercherDansSac(Sac.getSacs(), couleurCorrespondante, evenement);
         if (s != null && s.getIdObjet() != 0) {
@@ -282,7 +281,7 @@ public class Tenue {
     /**
      * Permet de remplir l'attribut chaussures de la tenue
      */
-    private void recupererChaussures(int id, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
+    private void recupererChaussures( TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         Chaussures c;
         c = chercherDansChaussures(Chaussures.getChaussures(), saison, couleurCorrespondante, evenement);
         if (c != null && c.getIdObjet() != 0) {
@@ -325,14 +324,14 @@ public class Tenue {
      * -Si le type de tenue est "avec contenu particulier", le vetement choisi
      * correspond à l'evenement, la saison et la couleur du vetement precedent.
      */
-    private Vetement chercherDansVetements(int avecForme, int id, HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
+    private Vetement chercherDansVetements(int avecForme, int idUtilisateur, HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
 
         GeneriqueTenue g = new GeneriqueTenue();
         // initialisation du tableau de vetements (Hauts)
         ArrayList<Vetement> t = new ArrayList<Vetement>(vetements.values());
         // Réduction du tableau en fonction des différents critères
         if (avecForme == 1) {
-            t = chercherVetementSigne(id, t);
+            t = chercherVetementSigne(idUtilisateur, t);
         }
         t=chercherVetementSalePropre(t);
         t = chercherVetementEvenement(t, evenement);
@@ -428,9 +427,9 @@ public class Tenue {
      * Permet de renvoyer un tableau de vetements qui correspond au signe de
      * l'utilisateur (du possesseur du dressing).
      */
-    private ArrayList<Vetement> chercherVetementSigne(int id, ArrayList<Vetement> vetements) throws SQLException, TenueImpossibleException {
+    private ArrayList<Vetement> chercherVetementSigne(int idUtilisateur, ArrayList<Vetement> vetements) throws SQLException, TenueImpossibleException {
         Utilisateur u = new Utilisateur();
-        Utilisateur ut = u.trouverUtilisateur(id);
+        Utilisateur ut = u.trouverUtilisateur(idUtilisateur);
         // On ne garde que les vêtements qui correspondent au signe de l'utilisateur
         Iterator<Vetement> it = vetements.iterator();
         while (it.hasNext()) {

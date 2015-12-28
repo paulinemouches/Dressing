@@ -391,6 +391,38 @@ public class Vetement extends Contenu {
             System.out.println("\nIl n'y a pas de hauts-bas");
         }
     }
+    
+    public static void afficherVetementsSaison(int idDressing) throws SQLException {
+       for (Vetement v : VetementDAO.recupererVetementsSaison(idDressing).values()){
+           System.out.println(v.toString());
+       }
+    }
+    
+    public static void afficherVetementsCouleurPreferee(int idDressing) throws SQLException {
+       for (Vetement v : VetementDAO.recupererVetementsCouleurPreferee(idDressing).values()){
+           System.out.println(v.toString());
+       }
+    }
+    
+    public static void afficherVetementsForme(int idDressing) throws SQLException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez votre forme");
+        System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
+        Signe signe = Signe.getfromInt(sc.nextInt());
+       for (Vetement v : VetementDAO.recupererVetementsForme(idDressing, signe).values()){
+           System.out.println(v.toString());
+       }
+    }
+    
+    public static void afficherVetementsType(int idDressing) throws SQLException {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez le type de vêtement : ");
+        System.out.println("1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
+        int numero = sc.nextInt();
+       for (Vetement v : VetementDAO.recupererVetementsType(idDressing, numero).values()){
+           System.out.println(v.toString());
+       }
+    }
 
     public static void afficherVetementsSaleOuPropre(boolean estSale) {
         if (estSale) {
