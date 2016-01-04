@@ -56,10 +56,10 @@ public class SacDAO extends DAO<Sac> {
     }
     
     @Override
-    public  Sac  find(int id) throws SQLException{
+    public  Sac  find(int id, int idDressing) throws SQLException{
         
        Sac s = new Sac();
-            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id);
+            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id+" and iddressing="+idDressing);
 
             if(res.first()){
                 s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),new Couleur(res.getInt("couleur")));
@@ -70,7 +70,7 @@ public class SacDAO extends DAO<Sac> {
 
     }
      
-     public static void afficherSacs(){
+     /*public static void afficherSacs(){
         try{
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             sts.executeQuery("SELECT idObjet FROM Sac");
@@ -82,7 +82,7 @@ public class SacDAO extends DAO<Sac> {
         }catch(SQLException e){
              e.printStackTrace();
         }
-    }
+    }*/
      
           public static  HashMap<Integer,Sac> initialiserSacs(int id){
         try{
@@ -92,7 +92,7 @@ public class SacDAO extends DAO<Sac> {
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Sac s = new Sac();
-                sacs.put(ress.getInt("idObjet"),s.trouverSac(ress.getInt("idobjet")));
+                sacs.put(ress.getInt("idObjet"),s.trouverSac(ress.getInt("idobjet"),id));
             }
             return sacs;
         }catch(SQLException e){

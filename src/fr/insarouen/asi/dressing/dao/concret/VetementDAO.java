@@ -30,14 +30,14 @@ public class VetementDAO extends DAO<Vetement> {
     }
 
     @Override
-    public Vetement find(int id) throws SQLException {
+    public Vetement find(int id, int idDressing) throws SQLException {
         Vetement v = new Vetement();
         String fils = "";
         String type = "";
         String coupe = "";
 
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        ResultSet res = st.executeQuery("select p.relname from vetement v, pg_class p where v.tableoid=p.oid and v.idobjet=" + id);
+        ResultSet res = st.executeQuery("select p.relname from vetement v, pg_class p where v.tableoid=p.oid and v.idobjet=" + id+" and v.iddressing="+idDressing);
 
         if (res.first()) {
             fils = res.getString("relname");
@@ -182,7 +182,7 @@ public class VetementDAO extends DAO<Vetement> {
         ResultSet res = st.executeQuery("SELECT idObjet FROM vetementsaison WHERE idDressing="+idDressing);
         while (res.next()) {
             Vetement v = new Vetement();
-            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet"), idDressing));
         }
         return vetements;
     }
@@ -193,7 +193,7 @@ public class VetementDAO extends DAO<Vetement> {
         ResultSet res = st.executeQuery("SELECT idObjet FROM vetementcouleurpreferee WHERE idDressing="+idDressing);
         while (res.next()) {
             Vetement v = new Vetement();
-            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet"),idDressing));
         }
         return vetements;
     }
@@ -204,7 +204,7 @@ public class VetementDAO extends DAO<Vetement> {
         ResultSet res = st.executeQuery("SELECT v.idObjet FROM vetement v, correspond c WHERE c.signe='"+signe+"' AND c.idobjet=v.idobjet AND v.idDressing="+idDressing);
         while (res.next()) {
             Vetement v = new Vetement();
-            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet"),idDressing));
         }
         return vetements;
     }
@@ -240,7 +240,7 @@ public class VetementDAO extends DAO<Vetement> {
         
         while (res.next()) {
             Vetement v = new Vetement();
-            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet")));
+            vetements.put(res.getInt("idobjet"),v.trouverVetement(res.getInt("idobjet"),idDressing));
         }
         return vetements;
     }
@@ -261,7 +261,7 @@ public class VetementDAO extends DAO<Vetement> {
         return null;
     }
 
-    public static void afficherVetements() {
+   /* public static void afficherVetements() {
         try {
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             sts.executeQuery("SELECT idObjet FROM Vetement");
@@ -273,7 +273,7 @@ public class VetementDAO extends DAO<Vetement> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static HashMap<Integer, Vetement> initialiserVetements(int id) {
         try {
@@ -283,7 +283,7 @@ public class VetementDAO extends DAO<Vetement> {
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Vetement v = new Vetement();
-                vetements.put(ress.getInt("idObjet"), v.trouverVetement(ress.getInt("idobjet")));
+                vetements.put(ress.getInt("idObjet"), v.trouverVetement(ress.getInt("idobjet"),id));
             }
             return vetements;
         } catch (SQLException e) {

@@ -98,24 +98,28 @@ public class Sac extends Contenu{
     public void supprimerSacDansListe(int id) throws SQLException {
         if (sacs.containsKey(id)) {
             sacs.remove(id);
-            System.out.println("Le sac est supprimé");
         }
     }
 
-    public boolean supprimerSac() throws SQLException {
+    public boolean supprimerSac(int idDressing) throws SQLException {
+        if(sacs.isEmpty()){
+            System.out.println("Vous n'avez pas de sacs ! ");
+            return false;
+        }else{
+        afficherSacs();
         SacDAO sacASupprimer = new SacDAO();
         Scanner sc = new Scanner(System.in);
         System.out.println("entrez l'id du sac à supprimer");
         int id = sc.nextInt();
-        if (sacASupprimer.find(id) != null) {
-            sacASupprimer.find(id).supprimerSacDansListe(id);
-            sacASupprimer.delete(sacASupprimer.find(id));
+        if (sacASupprimer.find(id, idDressing) != null) {
+            sacASupprimer.find(id, idDressing).supprimerSacDansListe(id);
+            sacASupprimer.delete(sacASupprimer.find(id, idDressing));
             return true;
         }
         else {
             return false;
         }
-
+        }
     }
     
     public static void initSacs(int id){
@@ -132,9 +136,9 @@ public class Sac extends Contenu{
         }
     }
 
-    public Sac trouverSac(int id) throws SQLException {
+    public Sac trouverSac(int id, int idDressing) throws SQLException {
         SacDAO s = new SacDAO();
-        return s.find(id);
+        return s.find(id, idDressing);
     }
 
     @Override

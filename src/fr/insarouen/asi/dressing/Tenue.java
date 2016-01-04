@@ -1,5 +1,6 @@
 package fr.insarouen.asi.dressing;
 
+import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
@@ -121,7 +122,7 @@ public class Tenue {
         if (idVetement != 0) {
             
             // On cherche ce  vetement particulier à partir de l'idVetement entré par l'utilisateur
-            v = v.trouverVetement(idVetement);
+            v = v.trouverVetement(idVetement,UtilisateurDAO.obtenirIdDressing(idUtilisateur));
             couleurCorrespondante = v.getCouleur();
             // Si le vetement choisi est une couche 2 (Veste ou Manteau)
             if (v.getCouche() == 2) {
@@ -151,7 +152,7 @@ public class Tenue {
 
         // Si l'idSac est non nul, ça signifie que l'utilisateur à choisi un sac particulier
         if (idSac != 0) {
-            s = s.trouverSac(idSac);
+            s = s.trouverSac(idSac,UtilisateurDAO.obtenirIdDressing(idUtilisateur));
             this.setSac(s);
             // La couleurCorrespondante devient celle du sac choisi.
             couleurCorrespondante = s.getCouleur();
@@ -164,7 +165,7 @@ public class Tenue {
 
         // Si l'idChaussures est non nul, ça signifie que l'utilisateur à choisi des chaussures  particulières
         if (idChaussures != 0) {
-            c = c.trouverChaussures(idChaussures);
+            c = c.trouverChaussures(idChaussures,UtilisateurDAO.obtenirIdDressing(idUtilisateur));
             this.setChaussures(c);
             // La couleurCorrespondante devient celle des chaussures choisies.
             couleurCorrespondante = c.getCouleur();
@@ -204,19 +205,19 @@ public class Tenue {
 
             switch (alea) {
                 case 0:
-                    System.out.println("cas 0");
+                    //System.out.println("cas 0");
                     // On cherche tout d'abord un haut de couche 1 avec une couleur correspondante = 0 
                     v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
                     break;
                 case 1:
-                    System.out.println("cas 1");
+                    //System.out.println("cas 1");
                     // On cherche tout d'abord un bas avec une couleur correspondante = 0 
                     v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
                     break;
                 case 2:
-                    System.out.println("cas 2");
+                    //System.out.println("cas 2");
                     // On cherche un hautbas \avec une Couleur correspondante=0
                     v1 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHautsbas(), 1), saison, couleurCorrespondante, evenement);
                     couleurCorrespondante = v1.getCouleur();
@@ -229,12 +230,12 @@ public class Tenue {
         switch (v1.getNiveau()) {
             case Bas:
                 // Si le vetement choisi est un bas on va chercher un haut
-                System.out.println("cas bas");
+                //System.out.println("cas bas");
                 v2 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getHauts(), 1), saison, couleurCorrespondante, evenement);
                 break;
             case Haut:
                 // Si le vetement choisi est un haut on va chercher un bas
-                System.out.println("cas haut");
+                //System.out.println("cas haut");
                 v2 = chercherDansVetements(avecForme, idUtilisateur, chercherDansCouche(Vetement.getBas(), 1), saison, couleurCorrespondante, evenement);
                 break;
         }

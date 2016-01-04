@@ -122,7 +122,7 @@ public class Initialisation {
                     exit = true;
                     break;
                 default:
-                    System.out.println("Veulillez saisir un chiffre entre 1 et 4");
+                    System.out.println("Veuillez saisir un chiffre entre 1 et 4");
                     break;
             }
         }while(!exit);
@@ -136,15 +136,30 @@ public class Initialisation {
             switch (scSup.nextInt()) {
                 case 1:
                     Sac sac = new Sac();
-                    boolean bsac = sac.supprimerSac();
+                    boolean bsac = sac.supprimerSac(idDressing);
+                    if (bsac){
+                        System.out.println("Le sac a été suprimé");
+                    }else{
+                        System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
+                    }
                     break;
                 case 2:
                     Chaussures c = new Chaussures();
-                    boolean bc = c.supprimerChaussures();
+                    boolean bc = c.supprimerChaussures(idDressing);
+                    if (bc){
+                        System.out.println("Les chaussures ont été suprimé");
+                    }else{
+                        System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
+                    }
                     break;
                 case 3:
                     Vetement v = new Vetement();
-                    boolean bv = v.supprimerVetement();
+                    boolean bv = v.supprimerVetement(idDressing);
+                    if (bv){
+                        System.out.println("Le vêtement a été suprimé");
+                    }else{
+                        System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
+                    }
                     break;
                 case 4: 
                     exit = true;
@@ -185,6 +200,7 @@ public class Initialisation {
                     break;
                 case 7:
                     Vetement.afficherVetementsType(idDressing);
+                    break;
                 case 8 :
                     exit = true;
                     break;
@@ -228,7 +244,7 @@ public class Initialisation {
         }
     }
     
-    public static void mettreAuSaleOuPropre() throws SQLException {
+    public static void mettreAuSaleOuPropre(int idDressing) throws SQLException {
         Scanner sc = new Scanner(System.in);
         boolean mettreAuSale = false;
         int idVetement = 10; //id bidon pour entrer au moins une fois dans le while
@@ -237,15 +253,18 @@ public class Initialisation {
         if (salePropre == 1) {
             mettreAuSale = true; //je veux mettre des vetements au sale
         }
-        System.out.println("mettre au sale"+mettreAuSale);
-        Vetement.afficherVetementsSaleOuPropre(!mettreAuSale);//je veux donc afficher les vetements propres
+        boolean ok = Vetement.afficherVetementsSaleOuPropre(!mettreAuSale);//je veux donc afficher les vetements propres
+        if (ok){
         while (idVetement != 0){
             System.out.println("id du vetement à mettre à mettre au sale ? (tapez 0 si plus de vetements a mettre au sale)");
             idVetement = sc.nextInt();
             if (idVetement!=0 ){
-                Vetement.modifierSalePropre(idVetement,mettreAuSale);
+                Vetement.modifierSalePropre(idVetement, idDressing,mettreAuSale);
             }
         } 
+        }else{
+            System.out.println("Pas de vêtements correspondants");
+        }
     }
 
     public static void explorerDressing(int idDressing) throws SQLException {
@@ -267,7 +286,8 @@ public class Initialisation {
                     menuCreerTenue(idDressing);
                     break;
                 case 5:
-                    mettreAuSaleOuPropre();
+                    mettreAuSaleOuPropre(idDressing);
+                    break;
                 case 6: 
                     exit = true;
                     break;

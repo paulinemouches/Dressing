@@ -10,8 +10,8 @@ import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Vetement extends Contenu {
 
@@ -291,25 +291,33 @@ public class Vetement extends Contenu {
         return true;
     }
 
-    public boolean supprimerVetement() throws SQLException {
-        // Attention à gérer les exceptions !!! 
+    public boolean supprimerVetement(int idDressing) throws SQLException {
+
+        if(vetements.isEmpty()){
+            System.out.println("Vous n'avez pas de vêtements ! ");
+            return false;
+        }else{
+        afficherHauts();
+        afficherBas();
+        afficherHautsBas();
         VetementDAO vASupprimer = new VetementDAO();
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez l'id du vêtement à supprimer");
         int id = sc.nextInt();
-        if (vASupprimer.find(id) != null) {
-            vASupprimer.find(id).supprimerVetementDansListe(id);
-            vASupprimer.delete(vASupprimer.find(id));
+        if (vASupprimer.find(id,idDressing) != null) {
+            vASupprimer.find(id,idDressing).supprimerVetementDansListe(id);
+            vASupprimer.delete(vASupprimer.find(id,idDressing));
             return true;
         }
         else {
             return false;
         }
+        }
     }
 
-    public static Vetement trouverVetement(int id) throws SQLException {
+    public static Vetement trouverVetement(int id, int idDressing) throws SQLException {
         VetementDAO v = new VetementDAO();
-        return v.find(id);
+        return v.find(id, idDressing);
     }
 
     public void ajouterVetementDansListe() throws SQLException {
@@ -343,17 +351,14 @@ public class Vetement extends Contenu {
         vetements.remove(id);
         if (hauts.containsKey(id)) {
             hauts.remove(id);
-            System.out.println("Le haut est supprimé");
         }
         else {
             if (bas.containsKey(id)) {
                 bas.remove(id);
-                System.out.println("Le bas est supprimé");
             }
             else {
                 if (hautsbas.containsKey(id)) {
                     hautsbas.remove(id);
-                    System.out.println("Le haut-bas est supprimé");
                 }
             }
         }
@@ -393,25 +398,40 @@ public class Vetement extends Contenu {
     }
     
     public static void afficherVetementsSaison(int idDressing) throws SQLException {
-       for (Vetement v : VetementDAO.recupererVetementsSaison(idDressing).values()){
+        Collection<Vetement> vetements = VetementDAO.recupererVetementsSaison(idDressing).values();
+        if (vetements.isEmpty()){
+            System.out.println("Vous n'avez pas de vêtements correspondants!");
+        }else{
+        for (Vetement v : vetements){
            System.out.println(v.toString());
        }
+        }
     }
     
     public static void afficherVetementsCouleurPreferee(int idDressing) throws SQLException {
-       for (Vetement v : VetementDAO.recupererVetementsCouleurPreferee(idDressing).values()){
+       Collection<Vetement> vetements = VetementDAO.recupererVetementsCouleurPreferee(idDressing).values();
+        if (vetements.isEmpty()){
+            System.out.println("Vous n'avez pas de vêtements correspondants!");
+        }else{
+        for (Vetement v : vetements){
            System.out.println(v.toString());
        }
+        }
     }
     
     public static void afficherVetementsForme(int idDressing) throws SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez votre forme");
+        System.out.println("Entrez la forme voulue :");
         System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
-        Signe signe = Signe.getfromInt(sc.nextInt());
-       for (Vetement v : VetementDAO.recupererVetementsForme(idDressing, signe).values()){
+        Signe signe = Signe.getfromInt(sc.nextInt()); 
+        Collection<Vetement> vetements = VetementDAO.recupererVetementsForme(idDressing, signe).values();
+        if (vetements.isEmpty()){
+            System.out.println("Vous n'avez pas de vêtements correspondants!");
+        }else{
+        for (Vetement v : vetements){
            System.out.println(v.toString());
        }
+        }
     }
     
     public static void afficherVetementsType(int idDressing) throws SQLException {
@@ -419,16 +439,23 @@ public class Vetement extends Contenu {
         System.out.println("Entrez le type de vêtement : ");
         System.out.println("1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
         int numero = sc.nextInt();
-       for (Vetement v : VetementDAO.recupererVetementsType(idDressing, numero).values()){
+        Collection<Vetement> vetements = VetementDAO.recupererVetementsType(idDressing, numero).values();
+        if (vetements.isEmpty()){
+            System.out.println("Vous n'avez pas de vêtements correspondants!");
+        }else{
+        for (Vetement v : vetements){
            System.out.println(v.toString());
        }
+        }
     }
 
-    public static void afficherVetementsSaleOuPropre(boolean estSale) {
+    public static boolean afficherVetementsSaleOuPropre(boolean estSale) {
+        boolean vetement = false;
         if (estSale) {
             for (Vetement v : vetements.values()) {
                 if (v.isSale()) {
                     System.out.println(v.toString());
+                    vetement = true;
                 }
             }
         }
@@ -436,19 +463,22 @@ public class Vetement extends Contenu {
             for (Vetement v : vetements.values()) {
                 if (!v.isSale()) {
                     System.out.println(v.toString());
+                    vetement = true;
                 }
             }
         }
+        return vetement; 
     }
 
-    public static void modifierSalePropre(int idVetement, boolean mettreAuSale) {
-        // try {
+    public static void modifierSalePropre(int idVetement,int idDressing, boolean mettreAuSale) {
+
         VetementDAO vd = new VetementDAO();
         vd.modifierSalePropreBD(idVetement, mettreAuSale);
-            //trouverVetement(idVetement).setSale(mettreAuSale);
-        //} catch (SQLException e) {
-        //e.printStackTrace();
-        //}
+        for (Vetement v : vetements.values()){
+            if (v.getIdObjet()==idVetement){
+                v.setSale(mettreAuSale);
+            }
+        }
     }
 
     @Override

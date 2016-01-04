@@ -34,7 +34,6 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
          while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
                           id = res.getInt(1) +1;
         }
-         System.out.println(id);
          PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO PERSONNE(idPers,nom,prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ("+id+",?,?,?,?,?,?,?)");
         prepare.setString(1,  obj.getNom()); 
         prepare.setString(2,  obj.getPrenom());
@@ -65,7 +64,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     }
     
     @Override
-    public Utilisateur  find(int id) throws SQLException{
+    public Utilisateur  find(int id, int idDressing) throws SQLException{
         
        Utilisateur u = new Utilisateur();
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM PERSONNE WHERE idPers = "+id);
@@ -89,4 +88,16 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             return 0;
         }
     }
+    
+    public static int obtenirIdDressing(int idUtilisateur) throws SQLException{
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT idDressing FROM DRESSING WHERE idPers="+idUtilisateur);   
+        ResultSet res = st.getResultSet(); 
+        if(res.first()){
+            return res.getInt("iddressing");
+        }else{
+            return 0;
+        }
+    }
+    
 }

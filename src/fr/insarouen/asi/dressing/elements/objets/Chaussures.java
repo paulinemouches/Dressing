@@ -42,7 +42,7 @@ public class Chaussures extends Contenu {
                 System.out.println(c.toString());
             }
         } else {
-            System.out.println("\nIl n'y a pas de chaussuress");
+            System.out.println("\nIl n'y a pas de chaussures");
         }
     }
 
@@ -110,32 +110,36 @@ public class Chaussures extends Contenu {
     public void supprimerChaussuresDansListe(int id) {
         if (chaussures.containsKey(id)) {
             chaussures.remove(id);
-            System.out.println("Les chaussures sont supprimées");
         }
     }
 
-    public boolean supprimerChaussures() throws SQLException {
+    public boolean supprimerChaussures(int idDressing) throws SQLException {
+        if(chaussures.isEmpty()){
+            System.out.println("Vous n'avez pas de chaussures ! ");
+            return false;
+        }else{
+        afficherChaussures();
         ChaussuresDAO cASupprimer = new ChaussuresDAO();
         Scanner sc = new Scanner(System.in);
         System.out.println("entrez l'id des chaussures à supprimer");
         int id = sc.nextInt();
-        if (cASupprimer.find(id) != null) {
-            cASupprimer.find(id).supprimerChaussuresDansListe(id);
-            cASupprimer.delete(cASupprimer.find(id));
+        if (cASupprimer.find(id, idDressing) != null) {
+            cASupprimer.find(id, idDressing).supprimerChaussuresDansListe(id);
+            cASupprimer.delete(cASupprimer.find(id, idDressing));
             return true;
         } else {
             return false;
         }
-
+        }
     }
 
     public static void initialiserChaussures(int id) {
         chaussures = ChaussuresDAO.initChaussures(id);
     }
 
-    public Chaussures trouverChaussures(int id) throws SQLException {
+    public Chaussures trouverChaussures(int id, int idDressing) throws SQLException {
         ChaussuresDAO c = new ChaussuresDAO();
-        return c.find(id);
+        return c.find(id, idDressing);
     }
 
     @Override

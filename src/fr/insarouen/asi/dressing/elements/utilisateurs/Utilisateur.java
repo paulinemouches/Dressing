@@ -39,7 +39,7 @@ public class Utilisateur {
     public int getId() {
         return id;
     }
-
+    
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -157,7 +157,7 @@ public class Utilisateur {
         Signe signe = Signe.getfromInt(sc.nextInt());
         
         Utilisateur u = new Utilisateur();
-        System.out.println("creer user");
+        System.out.println("utilisateur créé");
         u.setNom(nom);
         u.setPrenom(prenom);
         u.setAge(age);
@@ -167,6 +167,7 @@ public class Utilisateur {
         u.setSigneUtilisateur(signe);
         UtilisateurDAO nouvelUtilisateur = new UtilisateurDAO();
         nouvelUtilisateur.create(u);
+        System.out.println("Votre id d'utilisateur est : "+u.getId());
         return true;
     }
 
@@ -175,8 +176,8 @@ public class Utilisateur {
         System.out.println("Id utilisateur a supprimer ?");
         int id = sc.nextInt();
         UtilisateurDAO uASupprimer = new UtilisateurDAO();
-        if (uASupprimer.find(id) != null) {
-            uASupprimer.delete(uASupprimer.find(id));  
+        if (uASupprimer.find(id,UtilisateurDAO.obtenirIdDressing(id)) != null) {
+            uASupprimer.delete(uASupprimer.find(id,UtilisateurDAO.obtenirIdDressing(id)));  
             return true;
         }
         else{
@@ -186,7 +187,7 @@ public class Utilisateur {
     
         public Utilisateur trouverUtilisateur(int id) throws SQLException {
         UtilisateurDAO u = new UtilisateurDAO();
-        return u.find(id);
+        return u.find(id,UtilisateurDAO.obtenirIdDressing(id));
     }
 
     @Override

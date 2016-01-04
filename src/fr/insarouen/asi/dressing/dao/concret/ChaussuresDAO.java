@@ -58,10 +58,10 @@ public class ChaussuresDAO extends DAO<Chaussures> {
     }
     
         @Override
-    public Chaussures  find(int id) throws SQLException{
+    public Chaussures  find(int id, int idDressing) throws SQLException{
         
        Chaussures c = new Chaussures();
-            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM CHAUSSURE WHERE idObjet = "+id);
+            ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM CHAUSSURE WHERE idObjet = "+id+" and iddressing="+idDressing);
             
             if(res.first()){
                 c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),new Couleur(res.getInt("couleur")));
@@ -72,7 +72,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
 
     }  
     
-    public static void afficherChaussures(){
+    /*public static void afficherChaussures(){
         try{
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             sts.executeQuery("SELECT idObjet FROM Chaussure");
@@ -84,7 +84,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         }catch(SQLException e){
              e.printStackTrace();
         }
-    }
+    }*/
     
         public static HashMap<Integer,Chaussures> initChaussures(int id){
              HashMap<Integer,Chaussures>  chaussures = new  HashMap<Integer,Chaussures>();
@@ -94,7 +94,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
             ResultSet ress = sts.getResultSet();
             while (ress.next()) {
                 Chaussures c = new Chaussures();
-                chaussures.put(ress.getInt("idobjet"),c.trouverChaussures(ress.getInt("idobjet")));   
+                chaussures.put(ress.getInt("idobjet"),c.trouverChaussures(ress.getInt("idobjet"),id));   
             }
             return chaussures;
         }catch(SQLException e){
