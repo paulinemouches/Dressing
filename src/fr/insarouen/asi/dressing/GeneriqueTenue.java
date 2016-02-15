@@ -8,7 +8,10 @@ package fr.insarouen.asi.dressing;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
@@ -18,55 +21,80 @@ public class GeneriqueTenue<T extends Contenu> {
 
     public GeneriqueTenue() {
     }
-    
-    public ArrayList<T> chercherCouleur(ArrayList<T> contenus, Couleur couleurCorrespondante) throws TenueImpossibleException{
+
+    public ArrayList<T> chercherCouleur(ArrayList<T> contenus, Couleur couleurCorrespondante, ArrayList<Couleur> couleurs) throws TenueImpossibleException {
         //Initialisation : 
         ArrayList<T> nvTab5 = new ArrayList<T>();
         ArrayList<T> nvTab4 = new ArrayList<T>();
         ArrayList<T> nvTab3 = new ArrayList<T>();
         ArrayList<T> nvTab2 = new ArrayList<T>();
         ArrayList<T> nvTab1 = new ArrayList<T>();
-       
-        for (T c: contenus){
-            int note=couleurCorrespondante.obtenirNote(c.getCouleur());
-            switch(note){
-                case 5:
+        Set<Integer> hs = new HashSet<Integer>();
+        for (Couleur c : couleurs) {
+            hs.add(c.getCouleur());
+        }
+        int nbCoulDiff = hs.size();
+        for (T c : contenus) {
+            int note = couleurCorrespondante.obtenirNote(c.getCouleur());
+            System.out.println("nbCoulDiff =" +hs);
+            if (nbCoulDiff < 3) {
+                switch (note) {
+                    case 5:
+                        nvTab5.add(c);
+                        break;
+                    case 4:
+                        nvTab4.add(c);
+                        break;
+                    case 3:
+                        nvTab3.add(c);
+                        break;
+                    case 2:
+                        nvTab2.add(c);
+                        break;
+                    case 1:
+                        nvTab1.add(c);
+                        break;
+                }
+            }
+            else {
+                if ((note == 5) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab5.add(c);
-                    break;
-                case 4:
-                    nvTab4.add(c);
-                    break;
-                case 3:
+                if ((note == 4) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+                   nvTab4.add(c);
+                if ((note == 3) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab3.add(c);
-                    break;
-                case 2:
+                if ((note == 2) &&  ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab2.add(c);
-                    break;
-                case 1:
+                if ((note == 1) &&  ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab1.add(c);
-                    break;
             }
         }
-        
-        if(!nvTab5.isEmpty()){
+
+        if (!nvTab5.isEmpty()) {
             return nvTab5;
-        }else if(!nvTab4.isEmpty()){
-            return nvTab4;
-        }else if(!nvTab3.isEmpty()){
-            return nvTab3;
-        }else if(!nvTab2.isEmpty()){
-            return nvTab2;
         }else {
-            if(nvTab1.isEmpty()){
-                throw new TenueImpossibleException("Vous ne possédez pas de vêtements de couleur appropriée");
+            if (!nvTab4.isEmpty()) {
+                return nvTab4;
+            } else {
+                if (!nvTab3.isEmpty()) {
+                    return nvTab3;
+                } else {
+                    if (!nvTab2.isEmpty()) {
+                        return nvTab2;
+                    } else {
+                        if (nvTab1.isEmpty()) {
+                            throw new TenueImpossibleException("Vous ne possédez pas de vêtements de couleur appropriée");
+                        }
+                        return nvTab1;
+                    }
+                }
             }
-            return nvTab1;
         }
     }
-    
-    public T prendreAleatoirement(ArrayList<T> contenus)throws TenueImpossibleException{
+
+    public T prendreAleatoirement(ArrayList<T> contenus) throws TenueImpossibleException {
         if (contenus.isEmpty()) {
-            throw new TenueImpossibleException("Vous ne possédez pas de contenu de ce type."); 
+            throw new TenueImpossibleException("Vous ne possédez pas de contenu de ce type.");
         }
         else {
             int i = 0;
@@ -85,4 +113,3 @@ public class GeneriqueTenue<T extends Contenu> {
         return null;
     }
 }
-    

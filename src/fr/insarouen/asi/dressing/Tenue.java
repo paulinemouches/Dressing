@@ -24,6 +24,7 @@ public class Tenue {
     private Sac sac;
     private Chaussures chaussures;
     private ArrayList<Vetement> vetements = new ArrayList<Vetement>();
+    private ArrayList<Couleur> couleurs = new ArrayList<Couleur>();
 
     public Tenue() {
     }
@@ -31,14 +32,17 @@ public class Tenue {
     // Setters 
     public void setVetements(Vetement vetement) {
         this.vetements.add(vetement);
+        this.couleurs.add(vetement.getCouleur());
     }
 
     public void setSac(Sac sac) {
         this.sac = sac;
+         this.couleurs.add(sac.getCouleur());
     }
 
     public void setChaussures(Chaussures chaussures) {
         this.chaussures = chaussures;
+         this.couleurs.add(chaussures.getCouleur());
     }
 
     // --------------------------------------------------------------------------------------
@@ -224,6 +228,7 @@ public class Tenue {
                     break;
 
             }
+            this.setVetements(v1);
         }
 
         // On choisi un v2 en fonction du niveau du v1 : 
@@ -241,9 +246,6 @@ public class Tenue {
         }
 
         // On attribut les vêtements trouvés à notre tenue : 
-        if (v1 != null && v1.getIdObjet() != 0) {
-            this.setVetements(v1);
-        }
         if (v2 != null && v2.getIdObjet() != 0) {
             this.setVetements(v2);
         }
@@ -340,7 +342,7 @@ public class Tenue {
 
         // si la couleur est differente de 0, donc que le vetement qu'on cherche n'est pas le premier, alors on l'accorde a la couleur du premier vetement.
         if (couleurCorrespondante.getCouleur() != 0) {
-            t = g.chercherCouleur(t, couleurCorrespondante);
+            t = g.chercherCouleur(t, couleurCorrespondante,couleurs);
         }
         return ((Vetement) g.prendreAleatoirement(t));
         // on choisi aleatoirement un vetement dans le dernier tableau de vetements renvoyé. (Tous ces vetements correspondent parfaitement à la tenue).
@@ -495,7 +497,7 @@ public class Tenue {
         ArrayList<Sac> t = new ArrayList<Sac>(sacs.values());
         // Réduction du tableau en fonction des différents critères
         t = chercherSacEvenement(t, evenement);
-        t = g.chercherCouleur(t, couleurCorrespondante);
+        t = g.chercherCouleur(t, couleurCorrespondante,couleurs);
         return ((Sac) g.prendreAleatoirement(t));
 
     }
@@ -564,7 +566,7 @@ public class Tenue {
         t = chercherChaussuresEvenement(t, evenement);
         t = chercherChaussuresSaison(t, saison);
         if (couleurCorrespondante.getCouleur() != 0) {
-            t = g.chercherCouleur(t, couleurCorrespondante);
+            t = g.chercherCouleur(t, couleurCorrespondante,couleurs);
         }
         return ((Chaussures) g.prendreAleatoirement(t));
     }
@@ -645,6 +647,6 @@ public class Tenue {
 // ------------------------------------------------------------------------------------------ 
     @Override
     public String toString() {
-        return "Tenue{" + "sac=" + sac + ", \nchaussures=" + chaussures + ", \nvetements=" + vetements + '}';
+        return "Tenue{" + "sac=" + sac + ", \nchaussures=" + chaussures + ", \nvetements=" + vetements + '}'+"couleurs ="+couleurs;
     }
 }
