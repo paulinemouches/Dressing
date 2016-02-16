@@ -29,15 +29,14 @@ public class GeneriqueTenue<T extends Contenu> {
         ArrayList<T> nvTab3 = new ArrayList<T>();
         ArrayList<T> nvTab2 = new ArrayList<T>();
         ArrayList<T> nvTab1 = new ArrayList<T>();
-        Set<Integer> hs = new HashSet<Integer>();
+        Set<Couleur> hs = new HashSet<Couleur>(); //un hashSet ne contient pas de doublons
         for (Couleur c : couleurs) {
-            hs.add(c.getCouleur());
+            hs.add(c);//on copie les couleurs des vetements deja choisis dans le hasSet (si il y a 2 fois la même couleur dans le tableau de couleurs, cette couleur ne sera copiee que 1 fois dans la hashSet)
         }
-        int nbCoulDiff = hs.size();
+        int nbCoulDiff = hs.size();//La taille du hashSet représente donc le nombre de couleurs differentes contenues dans la tenue en cours de construction
         for (T c : contenus) {
             int note = couleurCorrespondante.obtenirNote(c.getCouleur());
-            System.out.println("nbCoulDiff =" +hs);
-            if (nbCoulDiff < 3) {
+            if (nbCoulDiff < 3) {//Si le nombre de couleur différentes de la tenue est 1 ou 2, on prend donc un vetement de couleur choisies comme d'habitude
                 switch (note) {
                     case 5:
                         nvTab5.add(c);
@@ -56,16 +55,16 @@ public class GeneriqueTenue<T extends Contenu> {
                         break;
                 }
             }
-            else {
-                if ((note == 5) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+            else {//si on a deja 3 couleurs differentes : on ajoute aux tableaux seulement les vetements dont la couleur est une des 3 deja presente, ou noir.
+                if ((note == 5) && ((hs.contains(c.getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab5.add(c);
-                if ((note == 4) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+                if ((note == 4) && ((hs.contains(c.getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                    nvTab4.add(c);
-                if ((note == 3) && ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+                if ((note == 3) && ((hs.contains(c.getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab3.add(c);
-                if ((note == 2) &&  ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+                if ((note == 2) &&  ((hs.contains(c.getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab2.add(c);
-                if ((note == 1) &&  ((hs.contains(c.getCouleur().getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
+                if ((note == 1) &&  ((hs.contains(c.getCouleur())) ||(c.getCouleur().getCouleur()==25))) 
                     nvTab1.add(c);
             }
         }

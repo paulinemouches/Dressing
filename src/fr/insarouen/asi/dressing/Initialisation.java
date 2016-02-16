@@ -43,7 +43,7 @@ public class Initialisation {
         System.out.println("tapez 2 pour consulter votre dressing");
         System.out.println("tapez 3 pour supprimer un objet de votre dressing");
         System.out.println("tapez 4 pour créer une tenue");
-         System.out.println("tapez 5 pour mettre des vêtements au sale ou au propre");
+        System.out.println("tapez 5 pour mettre des vêtements au sale ou au propre");
         System.out.println("tapez 6 pour revenir au menu precedent\n");
     }
 
@@ -76,7 +76,6 @@ public class Initialisation {
         System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
 
-
     public static void connexion() {
         String nomBase;
         String nomUtilisateur;
@@ -103,7 +102,7 @@ public class Initialisation {
     public static void ajouterDansDressing(int idDressing) throws SQLException {
         Scanner scAjout = new Scanner(System.in);
         boolean exit = false;
-        do{
+        do {
             menuAjouterDansDressing();
             switch (scAjout.nextInt()) {
                 case 1:
@@ -118,63 +117,66 @@ public class Initialisation {
                     Vetement v = new Vetement();
                     boolean bv = v.ajouterVetement(idDressing);
                     break;
-                case 4: 
+                case 4:
                     exit = true;
                     break;
                 default:
                     System.out.println("Veuillez saisir un chiffre entre 1 et 4");
                     break;
             }
-        }while(!exit);
+        } while (!exit);
     }
 
     public static void supprimerDansDressing(int idDressing) throws SQLException {
         Scanner scSup = new Scanner(System.in);
         boolean exit = false;
-        do{
+        do {
             menuSupprimerDansDressing();
             switch (scSup.nextInt()) {
                 case 1:
                     Sac sac = new Sac();
                     boolean bsac = sac.supprimerSac(idDressing);
-                    if (bsac){
+                    if (bsac) {
                         System.out.println("Le sac a été suprimé");
-                    }else{
+                    }
+                    else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
                 case 2:
                     Chaussures c = new Chaussures();
                     boolean bc = c.supprimerChaussures(idDressing);
-                    if (bc){
+                    if (bc) {
                         System.out.println("Les chaussures ont été suprimé");
-                    }else{
+                    }
+                    else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
                 case 3:
                     Vetement v = new Vetement();
                     boolean bv = v.supprimerVetement(idDressing);
-                    if (bv){
+                    if (bv) {
                         System.out.println("Le vêtement a été suprimé");
-                    }else{
+                    }
+                    else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
-                case 4: 
+                case 4:
                     exit = true;
                     break;
                 default:
                     System.out.println("Veulillez saisir un chiffre entre 1 et 4");
                     break;
             }
-        }while(!exit);
+        } while (!exit);
     }
 
     public static void consulterDressing(int idDressing) throws SQLException {
         Scanner scCons = new Scanner(System.in);
         boolean exit = false;
-        do{
+        do {
             menuConsulterDressing();
             switch (scCons.nextInt()) {
                 case 1:
@@ -195,20 +197,20 @@ public class Initialisation {
                 case 5:
                     Vetement.afficherVetementsCouleurPreferee(idDressing);
                     break;
-                case 6 :
+                case 6:
                     Vetement.afficherVetementsForme(idDressing);
                     break;
                 case 7:
                     Vetement.afficherVetementsType(idDressing);
                     break;
-                case 8 :
+                case 8:
                     exit = true;
                     break;
                 default:
                     System.out.println("Veulillez saisir un chiffre entre 1 et 7");
                     break;
             }
-        }while(!exit);
+        } while (!exit);
     }
 
     public static void menuCreerTenue(int idDressing) throws SQLException {
@@ -223,10 +225,10 @@ public class Initialisation {
         int typeTenue = sc.nextInt();
         System.out.println("Tenue accordee a la forme ? \n 1: Oui\t 2: Non");
         int avecForme = sc.nextInt();
+        Tenue t = new Tenue();
+        int[] tableauIdChoisis = {0, 0, 0};
+        ArrayList<Vetement> vetementsTypeChoisis = new ArrayList();
         try {
-            Tenue t = new Tenue();
-            int[] tableauIdChoisis = {0,0,0};
-            ArrayList<Vetement> vetementsTypeChoisis = new ArrayList();
             if (typeTenue == 2) {
                 tableauIdChoisis = t.menuCreerTenueContenuParticulier();
             }
@@ -234,16 +236,33 @@ public class Initialisation {
                 vetementsTypeChoisis = t.menuCreerTenueTypeParticulier();
             }
             do {
-                System.out.println(t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString());
-                t = new Tenue();
+                creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
                 System.out.println("Appuyer sur 1 pour voir la tenue suivante, sur 0 pour quitter");
                 suivant = sc.nextInt();
-            } while (suivant == 1);
+            } while (suivant == 1);//tant qu'on tape 1, ça calcule la tenue suivante
         } catch (TenueImpossibleException e) {
             System.out.println(e);
         }
     }
-    
+//séparation de la methode en deux, plus facile pour faire les 2 boucles necessaires
+    public static void creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
+        int suivant = 0;
+        boolean flag;//change si l'exception est levée
+        Scanner sc = new Scanner(System.in);
+        Tenue t = new Tenue();
+        do {
+            try {
+                t=new Tenue();
+               t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
+                flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
+            } catch (TenueImpossibleException e) {
+                flag=true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
+                System.out.println("Attention !");
+            }
+        } while (flag);//tant que l'exception est levée, on recommence a creer une nouvelle tenue (toujours avec les meme caractéristiques)
+        System.out.println(t);
+    }
+
     public static void mettreAuSaleOuPropre(int idDressing) throws SQLException {
         Scanner sc = new Scanner(System.in);
         boolean mettreAuSale = false;
@@ -254,15 +273,16 @@ public class Initialisation {
             mettreAuSale = true; //je veux mettre des vetements au sale
         }
         boolean ok = Vetement.afficherVetementsSaleOuPropre(!mettreAuSale);//je veux donc afficher les vetements propres
-        if (ok){
-        while (idVetement != 0){
-            System.out.println("id du vetement à mettre à mettre au sale ? (tapez 0 si plus de vetements a mettre au sale)");
-            idVetement = sc.nextInt();
-            if (idVetement!=0 ){
-                Vetement.modifierSalePropre(idVetement, idDressing,mettreAuSale);
+        if (ok) {
+            while (idVetement != 0) {
+                System.out.println("id du vetement à mettre à mettre au sale ? (tapez 0 si plus de vetements a mettre au sale)");
+                idVetement = sc.nextInt();
+                if (idVetement != 0) {
+                    Vetement.modifierSalePropre(idVetement, idDressing, mettreAuSale);
+                }
             }
-        } 
-        }else{
+        }
+        else {
             System.out.println("Pas de vêtements correspondants");
         }
     }
@@ -270,7 +290,7 @@ public class Initialisation {
     public static void explorerDressing(int idDressing) throws SQLException {
         Scanner scDressing = new Scanner(System.in);
         boolean exit = false;
-        do{
+        do {
             menuDressing();
             switch (scDressing.nextInt()) {
                 case 1:
@@ -288,20 +308,20 @@ public class Initialisation {
                 case 5:
                     mettreAuSaleOuPropre(idDressing);
                     break;
-                case 6: 
+                case 6:
                     exit = true;
                     break;
                 default:
                     System.out.println("Veulillez saisir un chiffre entre 1 et 6");
                     break;
             }
-        }while(!exit);
+        } while (!exit);
     }
 
     public static void lancer() throws SQLException {
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
-        do{
+        do {
             menuGeneral();
             switch (sc.nextInt()) {
                 case 1:
@@ -335,14 +355,14 @@ public class Initialisation {
                         System.out.println(e);
                     }
                     break;
-                case 4 :
+                case 4:
                     exit = true;
                     break;
                 default:
                     System.out.println("Veulillez saisir un chiffre entre 1 et 4");
                     break;
             }
-        }while(!exit);
+        } while (!exit);
         System.out.println("deconnection");
         c.close();
     }

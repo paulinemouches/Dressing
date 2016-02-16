@@ -24,7 +24,7 @@ public class Tenue {
     private Sac sac;
     private Chaussures chaussures;
     private ArrayList<Vetement> vetements = new ArrayList<Vetement>();
-    private ArrayList<Couleur> couleurs = new ArrayList<Couleur>();
+    private ArrayList<Couleur> couleurs = new ArrayList<Couleur>();//tableau contenant les couleurs de chaque element de la tenue
 
     public Tenue() {
     }
@@ -68,7 +68,7 @@ public class Tenue {
      *
      * boolean forme = true si l'utilisateur veut que ce soit accordé à la forme
      */
-    public int[] menuCreerTenueContenuParticulier() throws SQLException, TenueImpossibleException {
+    public int[] menuCreerTenueContenuParticulier() throws SQLException , TenueImpossibleException{
         Scanner sc = new Scanner(System.in);
         Vetement.afficherVetementsSaleOuPropre(false);
         System.out.println("Entrez l'id du vetement que vous voulez  (0 si vous ne désirez pas de vetement particulier):");
@@ -228,9 +228,9 @@ public class Tenue {
                     break;
 
             }
-            this.setVetements(v1);
-        }
 
+        }
+                    this.setVetements(v1);
         // On choisi un v2 en fonction du niveau du v1 : 
         switch (v1.getNiveau()) {
             case Bas:
@@ -246,6 +246,9 @@ public class Tenue {
         }
 
         // On attribut les vêtements trouvés à notre tenue : 
+        // if (v1 != null && v1.getIdObjet() != 0) {
+           // this.setVetements(v1);
+       // }
         if (v2 != null && v2.getIdObjet() != 0) {
             this.setVetements(v2);
         }
