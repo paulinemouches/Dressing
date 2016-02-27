@@ -23,6 +23,11 @@ import java.sql.Statement;
 public class UtilisateurDAO extends DAO<Utilisateur>{
     
     public UtilisateurDAO(){}
+
+        /**
+     *Permet d'ajouter un utilisateur à la base à partir d'un objet Utilisateur java
+     * @param obj Objet Utilisateur java
+     */
     
     @Override
     public  boolean create(Utilisateur obj) {
@@ -55,6 +60,11 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
     
     @Override
      public  boolean update (Utilisateur obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un utilisateur
+
+        /**
+     *Permet de supprimer un utilisateur dans la base à partir d'un objet Utilisateur java
+     * @param obj objet java à supprimer 
+     */
     
     @Override
     public  boolean delete(Utilisateur obj) throws SQLException{
@@ -62,6 +72,13 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             st.executeUpdate("DELETE  FROM PERSONNE WHERE idPers ="+obj.getId()); 
             return true;
     }
+
+        /**
+     *Permet de trouver un utilisateur dans la base 
+     * @param id identifiant de l'utilisateur à trouver
+     * @param idDressing id du dressing de l'utilisateur
+     * @return objet java utilisateur correspondant à l'utilisateur de la base
+     */
     
     @Override
     public Utilisateur  find(int id, int idDressing) throws SQLException{
@@ -88,6 +105,12 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             return 0;
         }
     }
+
+    /**
+     *Permet l'id du dressing d'un utilisateur
+     * @param idUtilisateur id de l'utilisateur dont on veut connaitre le dressing
+     * @return id du dressing correspondant
+     */
     
     public static int obtenirIdDressing(int idUtilisateur) throws SQLException{
         Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);

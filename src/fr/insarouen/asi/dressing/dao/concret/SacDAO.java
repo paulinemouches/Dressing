@@ -20,6 +20,13 @@ import java.util.HashMap;
  * @author pauline
  */
 public class SacDAO extends DAO<Sac> {
+
+
+    
+    /**
+     *Permet d'ajouter un sac à la base à partir d'un objet Sac java
+     * @param obj Objet Sac java
+     */
     
     @Override
      public  boolean create(Sac obj) {
@@ -47,13 +54,25 @@ public class SacDAO extends DAO<Sac> {
     
     @Override
     public  boolean update (Sac obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
-     
+
+        /**
+     *Permet de supprimer un sac dans la base à partir d'un objet  Sac  java
+     * @param obj objet java à supprimer 
+     */
+    
     @Override
     public  boolean delete(Sac obj) throws SQLException{
     Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             st.executeUpdate("DELETE  FROM SAC WHERE idObjet ="+obj.getIdObjet()); 
             return true;
     }
+
+        /**
+     *Permet de trouver un sac dans la base 
+     * @param id identifiant du sac à trouver
+     * @param idDressing id du dressing auquel le sac appartient
+     * @return objet java  sac correspondant au sac de la base
+     */
     
     @Override
     public  Sac  find(int id, int idDressing) throws SQLException{
@@ -70,20 +89,13 @@ public class SacDAO extends DAO<Sac> {
 
     }
      
-     /*public static void afficherSacs(){
-        try{
-            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Sac");
-            ResultSet ress = sts.getResultSet();
-            while (ress.next()) {
-                Sac s = new Sac();
-                System.out.println((s.trouverSac(ress.getInt("idobjet"))).toString());
-            }
-        }catch(SQLException e){
-             e.printStackTrace();
-        }
-    }*/
-     
+
+        /**
+    * Permet de récupérer tous les sacs d'un dressing
+    * @param id id du dressing
+    * @return Tableau de sacs
+    */
+    
           public static  HashMap<Integer,Sac> initialiserSacs(int id){
         try{
             HashMap<Integer,Sac>  sacs = new  HashMap<Integer,Sac>();

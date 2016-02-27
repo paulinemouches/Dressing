@@ -29,6 +29,12 @@ public class VetementDAO extends DAO<Vetement> {
     public VetementDAO() {
     }
 
+    /**
+     *Permet de trouver un vêtement dans la base 
+     * @param id identifiant du vêtement à trouver
+     * @param idDressing id du dressing auquel le vêtement appartient
+     * @return objet java vêtement correspondant au vêtement de la base
+     */
     @Override
     public Vetement find(int id, int idDressing) throws SQLException {
         Vetement v = new Vetement();
@@ -76,6 +82,11 @@ public class VetementDAO extends DAO<Vetement> {
 
     }
 
+    /**
+     *Permet d'ajouter un vêtement à la base à partir d'un objet Vetement java
+     * @param obj Objet Vetement java
+     */
+
     @Override
     public boolean create(Vetement obj) throws SQLException {
         try {
@@ -122,6 +133,11 @@ public class VetementDAO extends DAO<Vetement> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *Permet de supprimer un vêtement dans la base à partir d'un objet Vetement java
+     * @param obj objet java à supprimer 
+     */
+    
     @Override
     public boolean delete(Vetement obj) throws SQLException {
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -129,6 +145,11 @@ public class VetementDAO extends DAO<Vetement> {
         return true;
     }
 
+    /**
+     *Permet de recuperer la valeur de l'attribut niveau correspondant à un vetement stocké dans la base
+     * @param obj objet Vetement java dont on veut le niveau
+     */
+    
     public static Niveau recupererNiveau(Vetement obj) throws SQLException {
         Niveau resultat = null;
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -139,7 +160,11 @@ public class VetementDAO extends DAO<Vetement> {
         }
         return resultat;
     }
-
+    
+    /**
+     *Permet de récupérer la valeur de l'attribut couche correspondant à un vêtement stocké dans la base
+     * @param obj objet Vetement java dont on veut la couche
+     */
     public static int recupererCouche(Vetement obj) throws SQLException {
         int resultat = 0;
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -150,6 +175,11 @@ public class VetementDAO extends DAO<Vetement> {
         return resultat;
     }
 
+        /**
+     *Permet de recuperer les valeurs des signes  correspondant à un vêtement stocké dans la base
+     * @param obj objet Vetement java dont on veut les signes
+     */
+    
     public static Signe[] recupererSignes(Vetement obj) throws SQLException {
         Signe[] resultat = new Signe[15];
         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -163,7 +193,10 @@ public class VetementDAO extends DAO<Vetement> {
         return resultat;
     }
     
-    
+        /**
+     *Permet de recuperer la valeur de l'attribut salePropre correspondant à un vêtement stocké dans la base
+     * @param obj objet Vetement java dont on veut l'attribut salePropre
+     */
 
     public static boolean recupererSalePropre(Vetement obj) throws SQLException{
          boolean resultat = false;
@@ -175,6 +208,11 @@ public class VetementDAO extends DAO<Vetement> {
         return resultat;
         
     }
+
+        /**
+     *Permet de recuperer les vetements correspondant à la saison courante
+     * @param idDressing Id du dressing
+     */
     
     public static HashMap<Integer, Vetement> recupererVetementsSaison(int idDressing) throws SQLException{
         HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
@@ -197,6 +235,13 @@ public class VetementDAO extends DAO<Vetement> {
         }
         return vetements;
     }
+
+        /**
+     *Permet de recuperer tous les vêtements correspondants à un signe
+     * @param idDressing dressing dans lequel on veut récupérer les vêtements
+     * @param signe signe auquel on veut que les vêtements récupérés correspondent
+     * @return tableau contenant les vêtements désirés  
+     */
     
     public static HashMap<Integer, Vetement> recupererVetementsForme(int idDressing, Signe signe) throws SQLException{
         HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
@@ -208,6 +253,13 @@ public class VetementDAO extends DAO<Vetement> {
         }
         return vetements;
     }
+
+            /**
+     *Permet de recuperer tous les vêtements correspondants à un type
+     * @param idDressing dressing dans lequel on veut récupérer les vêtements
+     * @param type type auquel on veut que les vêtements récupérés correspondent
+     * @return tableau contenant les vêtements désirés  
+     */
     
     public static HashMap<Integer, Vetement> recupererVetementsType(int idDressing, int type) throws SQLException{
         HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
@@ -245,7 +297,11 @@ public class VetementDAO extends DAO<Vetement> {
         return vetements;
     }
     
-    
+            /**
+     *Permet de recupererla saison correspondante à un vêtement
+     * @param v vêtement dont on veut connaitre la saison
+     * @return saison  
+     */
     
     public static String recupererSaison(Vetement v) {
         try {
@@ -261,20 +317,12 @@ public class VetementDAO extends DAO<Vetement> {
         return null;
     }
 
-   /* public static void afficherVetements() {
-        try {
-            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Vetement");
-            ResultSet ress = sts.getResultSet();
-            while (ress.next()) {
-                Vetement v = new Vetement();
-                System.out.println((v.trouverVetement(ress.getInt("idobjet"))).toString());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
+    /**
+    * Permet de récupérer tous les vêtements d'un dressing
+    * @param id id du dressing
+    * @return Tableau de vêtements
+    */
     public static HashMap<Integer, Vetement> initialiserVetements(int id) {
         try {
             HashMap<Integer, Vetement> vetements = new HashMap<Integer, Vetement>();
@@ -292,6 +340,12 @@ public class VetementDAO extends DAO<Vetement> {
         return null;
     }
 
+    /**
+     *Permet de modifier l'attribut salePropre d'un vêtement dans la base de données
+     * @param id id du vêtement à modifier
+     * @param sale vaut VRAI si le vêtement est à mettre au sale, FAUX sinon
+     */
+    
     public static void modifierSalePropreBD(int id, boolean sale) {
         try {
             Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);

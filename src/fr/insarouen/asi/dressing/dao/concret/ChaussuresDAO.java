@@ -21,7 +21,12 @@ import java.util.HashMap;
  * @author pauline
  */
 public class ChaussuresDAO extends DAO<Chaussures> {
-     
+
+        /**
+     *Permet d'ajouter des chaussures à la base à partir d'un objet Chaussures java
+     * @param obj Objet Chaussures java
+     */
+
     @Override
      public  boolean create(Chaussures obj) {
         try{
@@ -49,13 +54,25 @@ public class ChaussuresDAO extends DAO<Chaussures> {
     
  @Override
      public  boolean update (Chaussures obj){ return false;} // inutile car pas de fonctionnalité permettant de modifier un sac
-     
+
+        /**
+     *Permet de supprimer des chaussures dans la base à partir d'un objet Chaussures java
+     * @param obj objet java à supprimer 
+     */
+    
          @Override
     public  boolean delete(Chaussures obj) throws SQLException{
     Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             st.executeUpdate("DELETE  FROM CHAUSSURE WHERE idObjet ="+obj.getIdObjet()); 
             return true;
     }
+
+        /**
+     *Permet de trouver des chaussures dans la base 
+     * @param id identifiant des chaussures à trouver
+     * @param idDressing id du dressing auquel les chaussures appartient
+     * @return objet java chaussures correspondant aux chaussures de la base
+     */
     
         @Override
     public Chaussures  find(int id, int idDressing) throws SQLException{
@@ -70,21 +87,13 @@ public class ChaussuresDAO extends DAO<Chaussures> {
                 return null;
             }
 
-    }  
+    }
     
-    /*public static void afficherChaussures(){
-        try{
-            Statement sts = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sts.executeQuery("SELECT idObjet FROM Chaussure");
-            ResultSet ress = sts.getResultSet();
-            while (ress.next()) {
-                Chaussures c = new Chaussures();
-                System.out.println((c.trouverChaussures(ress.getInt("idobjet"))).toString());
-            }
-        }catch(SQLException e){
-             e.printStackTrace();
-        }
-    }*/
+        /**
+    * Permet de récupérer toutes les chaussures d'un dressing
+    * @param id id du dressing
+    * @return Tableau de chaussures
+    */
     
         public static HashMap<Integer,Chaussures> initChaussures(int id){
              HashMap<Integer,Chaussures>  chaussures = new  HashMap<Integer,Chaussures>();
