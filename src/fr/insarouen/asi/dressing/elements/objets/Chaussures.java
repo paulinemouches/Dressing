@@ -46,6 +46,11 @@ public class Chaussures extends Contenu {
         }
     }
 
+        /** 
+     *Premet de demander à l'utilisateur les caractéristiques nécessaire à la création de nouvelles chaussures
+     * @return chaussures java créés
+     */
+    
     public Chaussures menuAjouterChaussuresTxt() {
         Scanner sc = new Scanner(System.in);
 
@@ -92,11 +97,20 @@ public class Chaussures extends Contenu {
         c.setCouleur(couleur);
         return c;
     }
-
+    /**
+     *Permet d'ajouter des chaussures dans le tableau de chaussures en attribut de la classe
+     */
+    
     public void ajouterChaussuresDansListe() {
         chaussures.put(this.getIdObjet(), this);
     }
 
+        /**
+     * Permet d'ajouter un des chaussures
+     * @param idDressing id du dressing auquel on veut ajouter les chaussures
+     * @return VRAI si les chaussures ont été bien ajoutées, FAUX sinon
+     */
+    
     public boolean ajouterChaussures(int idDressing) throws SQLException {
 
         Chaussures c = menuAjouterChaussuresTxt();
@@ -107,12 +121,23 @@ public class Chaussures extends Contenu {
         return true;
     }
 
+        /**
+     *Permet de supprimer des chaussures dans le tableau de sacs en attribut de la classe
+     * @param id des chaussures à supprimer
+     */
+    
     public void supprimerChaussuresDansListe(int id) {
         if (chaussures.containsKey(id)) {
             chaussures.remove(id);
         }
     }
 
+            /**
+     *Permet de supprimer des chasussures du dressing
+     * @param idDressing dressing contenant les chaussures
+     * @return VRAI si les chaussures ont bien été supprimées, FAUX sinon
+     */
+    
     public boolean supprimerChaussures(int idDressing) throws SQLException {
         if(chaussures.isEmpty()){
             System.out.println("Vous n'avez pas de chaussures ! ");
@@ -133,10 +158,21 @@ public class Chaussures extends Contenu {
         }
     }
 
+        /**
+     *Permet d'initialiser le tableau de chaussures contenu en attribut dans la classe avec les données de la base
+     *id id du dressing qu'on veut initialiser
+     */
+
     public static void initialiserChaussures(int id) {
         chaussures = ChaussuresDAO.initChaussures(id);
     }
 
+        /**
+     *Permet de récupérer des chaussures en fonction de leur id
+     * @param id id des chaussures qu'on veut récupérer
+     * @return objet Chaussures java
+     */
+    
     public Chaussures trouverChaussures(int id, int idDressing) throws SQLException {
         ChaussuresDAO c = new ChaussuresDAO();
         return c.find(id, idDressing);

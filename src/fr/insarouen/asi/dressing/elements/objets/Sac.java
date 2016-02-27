@@ -32,7 +32,10 @@ public class Sac extends Contenu{
     public void setTypeS(TypeSac typeS) {
         this.typeS = typeS;
     }
-
+    /** 
+     *Premet de demander à l'utilisateur les caractéristiques nécessaire à la création d'un nouveau sac
+     * @return sac java créé
+     */
 
     public Sac menuAjouterSacTxt() {
         Scanner sc = new Scanner(System.in);
@@ -81,10 +84,20 @@ public class Sac extends Contenu{
         return s;
     }
 
+    /**
+     *Permet d'ajouter un sac dans le tableau de sac qui est un attribut de la classe
+     */
+    
     public void ajouterSacDansListe() {
         sacs.put(this.getIdObjet(), this);
     }
 
+    /**
+     * Permet d'ajouter un sac 
+     * @param idDressing id du dressing auquel on veut ajouter le sac
+     * @return VRAI si le sac a été bien ajouté, FAUX sinon
+     */
+    
     public boolean ajouterSac(int idDressing) throws SQLException {
 
         Sac s = menuAjouterSacTxt();
@@ -95,11 +108,22 @@ public class Sac extends Contenu{
         return true;
     }
 
+    /**
+     *Permet de supprimer un sac dans le tableau de sacs en attribut de la classe
+     * @param id du sac à supprimer
+     */
+    
     public void supprimerSacDansListe(int id) throws SQLException {
         if (sacs.containsKey(id)) {
             sacs.remove(id);
         }
     }
+
+        /**
+     *Permet de supprimer un sac du dressing
+     * @param idDressing dressing contenant le sac
+     * @return VRAI si le sac a bien été supprimé, FAUX sinon
+     */
 
     public boolean supprimerSac(int idDressing) throws SQLException {
         if(sacs.isEmpty()){
@@ -121,11 +145,19 @@ public class Sac extends Contenu{
         }
         }
     }
+
+    /**
+     *Permet d'initialiser le tableau de sac contenu en attribut dans la classe avec les données de la base
+     *id id du dressing qu'on veut initialiser
+     */
     
     public static void initSacs(int id){
         sacs=SacDAO.initialiserSacs(id);
     }
-
+    /**
+     *Permet d'afficher tous les sacs
+     */
+    
     public static void afficherSacs() {
         if(!sacs.isEmpty()){
             for (Sac s : sacs.values()) {
@@ -135,7 +167,15 @@ public class Sac extends Contenu{
             System.out.println("\nIl n'y a pas de sacs");
         }
     }
+    
 
+        
+    /**
+     *Permet de récupérer un sac en fonction de son id
+     * @param id id du sac qu'on veut récupérer
+     * @return objet Sac java
+     */
+    
     public Sac trouverSac(int id, int idDressing) throws SQLException {
         SacDAO s = new SacDAO();
         return s.find(id, idDressing);

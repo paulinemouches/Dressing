@@ -16,9 +16,19 @@ import java.util.Random;
  */
 public class GeneriqueTenue<T extends Contenu> {
 
+    /**
+    * Constructeur vide de Tenue
+    */
     public GeneriqueTenue() {
     }
     
+    /**
+    * Méthode générique permettant de trouver les contenus qui correspondent à une couleur
+    * 
+    * @param contenus élément pouvant être de type "Vetement", "Sac" ou "Chaussures"
+    * @param couleurCorrespondante couleur correspondante 
+    * @return ArrayList Tableau de contenus ne contenant que des éléments s'accordant avec la couleur précisée
+    */
     public ArrayList<T> chercherCouleur(ArrayList<T> contenus, Couleur couleurCorrespondante) throws TenueImpossibleException{
         //Initialisation : 
         ArrayList<T> nvTab5 = new ArrayList<T>();
@@ -64,6 +74,13 @@ public class GeneriqueTenue<T extends Contenu> {
         }
     }
     
+    /**
+     * Permet de choisir aléatoirement un élément dans un tableau de contenus 
+     * 
+     * @param contenus élément pouvant être de type "Vetement", "Sac" ou "Chaussures"
+     * @return T élément choisi aléatoirement
+     * @throws TenueImpossibleException 
+     */
     public T prendreAleatoirement(ArrayList<T> contenus)throws TenueImpossibleException{
         if (contenus.isEmpty()) {
             throw new TenueImpossibleException("Vous ne possédez pas de contenu de ce type."); 

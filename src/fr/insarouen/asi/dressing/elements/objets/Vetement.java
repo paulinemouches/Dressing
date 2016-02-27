@@ -13,6 +13,10 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+* 
+*
+*/
 public class Vetement extends Contenu {
 
     private Niveau niveau;
@@ -30,6 +34,10 @@ public class Vetement extends Contenu {
     public static HashMap<Integer, Vetement> hautsbas = new HashMap<Integer, Vetement>();
 
     /* Constructeurs */
+    /**
+    * Constructeur de Vêtement avec des valeurs en entrée 
+    *
+    */
     public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, Signe[] signes, int couche, Niveau niveau) throws SQLException {
         super(couleur, idV, idDressing);
         this.coupe = coupe;
@@ -42,6 +50,10 @@ public class Vetement extends Contenu {
         this.fils = determinerFils(type);
     }
 
+    /**
+    * Constructeur vide de Vêtement 
+    *
+    */
     public Vetement() {
     }
 
@@ -126,10 +138,23 @@ public class Vetement extends Contenu {
         this.fils = fils;
     }
 
+    /**
+    * Permet de récuprer la saison associée au vêtement
+    * 
+    * @return String saison 
+    *
+    */
     public String determinerSaison() {
         return VetementDAO.recupererSaison(this);
     }
 
+    /**
+    * Permet de déterminer à quelle Entité de la BD appartient un vêtement en fonction de son type
+    * 
+    * @param typeVetement Type du vêtement 
+    * @return String Entité fille  
+    *
+    */
     public String determinerFils(TypeVetement typeVetement) {
         String resultat;
         switch (typeVetement) {
@@ -163,22 +188,53 @@ public class Vetement extends Contenu {
         return resultat;
     }
 
+    /**
+    * Permet de récuprer le niveau associé au vêtement
+    * 
+    * @return Niveau niveau 
+    *
+    */
     public Niveau determinerNiveau() throws SQLException {
         return VetementDAO.recupererNiveau(this);
     }
 
+    /**
+    * Permet de récuprer les signes associés au vêtement
+    * 
+    * @return Signe[] Tableau contenant les signes
+    *
+    */
     public Signe[] determinerSignes() throws SQLException {
         return VetementDAO.recupererSignes(this);
     }
 
+    /**
+    * Permet de récuprer la couche associée au vêtement
+    * 
+    * @return int couche
+    *
+    */
     public int determinerCouche() throws SQLException {
         return VetementDAO.recupererCouche(this);
     }
     
+    /**
+    * Permet de savoir si le vêtement est propre ou sale
+    * 
+    * @return boolean Vrai si le vêtement est sale et Faux s'il est propre
+    *
+    */
     public boolean determinerSalePropre()throws SQLException{
          return VetementDAO.recupererSalePropre(this);
     }
 
+    /**
+    * Permet de savoir si le vêtement correspond au signe de la forme de l'utilisateur
+    * 
+    * @param u Utilisateur
+    * @return boolean Vrai si le vêtement correspond au signe, Faux sinon 
+    *
+    */
     public boolean correspondAuSigne(Utilisateur u) {
         boolean res = false;
         for (int i = 1; i < signes.length; i++) {
@@ -189,6 +245,12 @@ public class Vetement extends Contenu {
         return res;
     }
 
+    /**
+    * Permet de demander à l'utilisateur les caractéristiques nécessaires à la création d'un nouveau vêtement
+    * 
+    * @return Vetement vetement créé
+    * 
+    */
     public Vetement menuAjouterVetementTxt() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le type de vêtement : ");
@@ -271,6 +333,13 @@ public class Vetement extends Contenu {
         return v;
     }
 
+    /**
+    * Permet d'ajouter un vêtement au dressing
+    * 
+    * @param idDressing Id du dressing auquel on ajoute le vêtement 
+    * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
+    *
+    */
     public boolean ajouterVetement(int idDressing) throws SQLException {
         // Attention à gérer les exceptions !!! 
         Vetement v = menuAjouterVetementTxt();
@@ -291,6 +360,13 @@ public class Vetement extends Contenu {
         return true;
     }
 
+    /**
+    * Permet de supprimer un vêtement du dressing
+    * 
+    * @param idDressing Id du dressing 
+    * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
+    *
+    */
     public boolean supprimerVetement(int idDressing) throws SQLException {
 
         if(vetements.isEmpty()){
@@ -315,11 +391,23 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet de chercher un vêtement dans la base 
+    * 
+    * @param idDressing Id du dressing dans lequel on cherche
+    * @param id Id du vêtement que l'on cherche
+    * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
+    *
+    */
     public static Vetement trouverVetement(int id, int idDressing) throws SQLException {
         VetementDAO v = new VetementDAO();
         return v.find(id, idDressing);
     }
 
+    /**
+    * Permet d'ajouter un vêtement dans chaque liste : hauts, haut-bas, et bas 
+    *
+    */
     public void ajouterVetementDansListe() throws SQLException {
         vetements.put(getIdObjet(), this);
         switch (this.getNiveau()) {
@@ -335,6 +423,11 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet d'initialiser les tableaux de vêtements contenu en attribut dans la classe avec les données de la base
+    * 
+    * @param id Id du dressing que l'on veut initialiser
+    */
     public static void initiVetements(int id) throws SQLException {
         // On vide réinitialise les tableaux de vêtements :
         vetements.clear();
@@ -347,6 +440,12 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet de supprimer un vêtements de chaque liste : hauts, hauts-bas, et bas 
+    * 
+    * @param id Id du vêtement que l'on veut supprimer
+    *
+    */
     public void supprimerVetementDansListe(int id) throws SQLException {
         vetements.remove(id);
         if (hauts.containsKey(id)) {
@@ -364,6 +463,10 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet d'afficher les hauts
+    * 
+    */
     public static void afficherHauts() throws SQLException {
         if (!hauts.isEmpty()) {
             for (Vetement v : hauts.values()) {
@@ -375,6 +478,10 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet d'afficher les bas
+    * 
+    */
     public static void afficherBas() throws SQLException {
         if (!bas.isEmpty()) {
             for (Vetement v : bas.values()) {
@@ -386,6 +493,10 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet d'afficher les hauts-bas
+    * 
+    */
     public static void afficherHautsBas() throws SQLException {
         if (!hautsbas.isEmpty()) {
             for (Vetement v : hautsbas.values()) {
@@ -397,6 +508,11 @@ public class Vetement extends Contenu {
         }
     }
     
+    /**
+    * Permet d'afficher tous les vêtements du dressing correspondant à la saison courante 
+    * 
+    * @param idDressing Id du dressing
+    */
     public static void afficherVetementsSaison(int idDressing) throws SQLException {
         Collection<Vetement> vetements = VetementDAO.recupererVetementsSaison(idDressing).values();
         if (vetements.isEmpty()){
@@ -408,6 +524,11 @@ public class Vetement extends Contenu {
         }
     }
     
+    /**
+    * Permet d'afficher tous les vêtements du dressing correspondant à la couleur préférée de l'utilisateur
+    * 
+    * @param idDressing Id du dressing
+    */
     public static void afficherVetementsCouleurPreferee(int idDressing) throws SQLException {
        Collection<Vetement> vetements = VetementDAO.recupererVetementsCouleurPreferee(idDressing).values();
         if (vetements.isEmpty()){
@@ -419,6 +540,11 @@ public class Vetement extends Contenu {
         }
     }
     
+    /**
+    * Permet d'afficher tous les vêtements du dressing correspondant à une forme particulière rentrée par l'utilisateur
+    * 
+    * @param idDressing Id du dressing
+    */
     public static void afficherVetementsForme(int idDressing) throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez la forme voulue :");
@@ -434,6 +560,11 @@ public class Vetement extends Contenu {
         }
     }
     
+    /**
+    * Permet d'afficher tous les vêtements du dressing correspondant à un type partivulier rentré par l'utilisateur
+    * 
+    * @param idDressing Id du dressing
+    */
     public static void afficherVetementsType(int idDressing) throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez le type de vêtement : ");
@@ -449,9 +580,15 @@ public class Vetement extends Contenu {
         }
     }
 
+    /**
+    * Permet d'afficher tous les vêtements du dressing étant sale ou propre
+    * 
+    * @param estSale Vrai si on veut afficher les vêtements sales, Faux sinon
+    */
     public static boolean afficherVetementsSaleOuPropre(boolean estSale) {
         boolean vetement = false;
         if (estSale) {
+            System.out.println("------------------------VETEMENTS SALES------------------------\n");
             for (Vetement v : vetements.values()) {
                 if (v.isSale()) {
                     System.out.println(v.toString());
@@ -460,6 +597,7 @@ public class Vetement extends Contenu {
             }
         }
         else {
+            System.out.println("------------------------VETEMENTS PROPRES------------------------\n");
             for (Vetement v : vetements.values()) {
                 if (!v.isSale()) {
                     System.out.println(v.toString());
@@ -470,6 +608,13 @@ public class Vetement extends Contenu {
         return vetement; 
     }
 
+    /**
+    * Permet de modifier l'attribut estSale du vêtement 
+    * 
+    * @param idDressing Id du dressing
+    * @param idVetement Id du vêtement
+    * @param mettreAuSale Vrai si on veut mettre un vêtement au sale, Faux sinon
+    */
     public static void modifierSalePropre(int idVetement,int idDressing, boolean mettreAuSale) {
 
         VetementDAO vd = new VetementDAO();

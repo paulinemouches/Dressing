@@ -97,9 +97,12 @@ public class Utilisateur {
         return signeUtilisateur;
     }
 
+    /**
+     *Permet d'ajouter un nouvel utilisateur
+     * @return VRAI si l'utilisateur a bien été créé, FAUX sinon
+     */ 
     
     public boolean ajouterUtilisateur() throws SQLException {
-        // Attention à gérer les exceptions !!!! 
         Scanner sc = new Scanner(System.in);
         System.out.println("Entrez votre nom");
         String nom = sc.nextLine();
@@ -171,6 +174,11 @@ public class Utilisateur {
         return true;
     }
 
+    /**
+     *Permet de supprimer un utilisateur
+     * @return VRAI si l'utilisateur a bien été supprimé, FAUX sinon
+     */
+    
     public boolean supprimerUtilisateur() throws SQLException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Id utilisateur a supprimer ?");
@@ -183,7 +191,15 @@ public class Utilisateur {
         else{
         return false;
         }
-        }
+    }
+
+    
+    /**
+     *Permet de récupérer un utilisateur en fonction de son id
+     * @param id id de l'utilisateur qu'on veut récupérer
+     * @return objet Utilisateur java
+     */
+    
     
         public Utilisateur trouverUtilisateur(int id) throws SQLException {
         UtilisateurDAO u = new UtilisateurDAO();

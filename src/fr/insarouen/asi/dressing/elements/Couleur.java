@@ -117,6 +117,12 @@ public class Couleur {
         }
         return 0;// si la couleur désirée n'est pas dans le tableau on retourne 0
     }*/
+
+    /**
+     *Permet de récupérer un tableau d'elements associés à un autre élément par une certaine note
+     * @param note note avec laquelle on veut que les éléments soient associés
+     * @return Tableau d'éléments correctement associés au premier élément
+     */
     
        public ArrayList<Integer> recupererValeurAssociee(int note) {
           ArrayList<Integer> t = new ArrayList<Integer>();
@@ -127,7 +133,13 @@ public class Couleur {
            }
            return  t; 
        }
-       
+
+    /**
+     *Permet d'obtenir la note reliant deux couleurs
+     * @param c Couleur avec laquel on veut obtenir la note
+     * @return note liant les deux couleurs
+     */
+    
        public Integer obtenirNote(Couleur c){
            return couleurs[this.getCouleur()][c.getCouleur()];
        }

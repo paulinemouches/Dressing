@@ -29,14 +29,24 @@ public class Tenue {
     }
 
     // Setters 
+    
+     /**
+     * Ajoute un vêtement au tableau contenant les vêtements de la tenue.
+     */
     public void setVetements(Vetement vetement) {
         this.vetements.add(vetement);
     }
 
+    /**
+     * Ajoute un sac à la tenue.
+     */
     public void setSac(Sac sac) {
         this.sac = sac;
     }
 
+    /**
+     * Ajoute une paire de chaussures à la tenue.
+     */
     public void setChaussures(Chaussures chaussures) {
         this.chaussures = chaussures;
     }
@@ -59,10 +69,15 @@ public class Tenue {
 // ------------------------------------------------------------------------------------------                    
     /**
      * Permet de creer une tenue en fonction du type de tenue choisi par
-     * l'utilisateur. 1 : tenue normale 2 : Tenue avec un contenu partidulier 3
-     * : Tenue avec un type particulier
-     *
-     * boolean forme = true si l'utilisateur veut que ce soit accordé à la forme
+     * l'utilisateur
+     * 
+     * <ul>
+     * <li>1 : tenue normale </li>
+     * <li>2 : Tenue avec un contenu particulier </li>
+     * <li>3 : Tenue avec un type particulier </li>
+     * </ul>
+     * 
+     * @return int[] : Tableau d'id 
      */
     public int[] menuCreerTenueContenuParticulier() throws SQLException, TenueImpossibleException {
         Scanner sc = new Scanner(System.in);
@@ -79,6 +94,13 @@ public class Tenue {
         return tableauId;
     }
 
+    /**
+     * Permet de creer une tenue en fonction du type de tenue choisi par
+     * l'utilisateur
+     *
+     * 
+     * @return ArrayList : Contient les vêtements du type entré par l'utilisateur 
+     */
     public ArrayList<Vetement> menuCreerTenueTypeParticulier() throws SQLException, TenueImpossibleException {
         Scanner scc = new Scanner(System.in);
         System.out.println("Quel type de vêtement voulez-vous particulièrement ?\n 1: Tee-shirt\t 2: Chemisier\t 3: Pull\t 4: Veste\t 5: Manteau\t 6: Pantalon\t 7: Pantacourt\t 8: Jogging\t 9: Jupe\t 10: Short\t 11: Robe\t 12: Combinaison ");
@@ -93,8 +115,21 @@ public class Tenue {
     }
 
     /**     
-     * Permet de creer une tenue si le type de tenue choisi par l'utilisateur
-     * est "contenu particulier".
+     * Permet de creer une tenue.
+     * 
+     * @param tableauIdChoisis  Tableau d'id choisis si l'utilisateur souhaite un cntenu particulier. Contien 0 sinon. 
+     * @param vetementsTypeChoisis : Contient les vêtements du type choisi par l'utilisateur si celui-ci a demandé un type particulier
+     * @param typeTenue  Type de la tenue choisie : 
+     * <ul>
+     * <li>1 : tenue normale </li>
+     * <li>2 : Tenue avec un contenu particulier </li>
+     * <li>3 : Tenue avec un type particulier </li>
+     * </ul>
+     * @param avecForme  Vrai si l'utilisateur a choisi l'option accordée à la forme, Faux sinon.
+     * @param idUtilisateur  id de l'utilisateur.
+     * @param evenement  evênement choisi par l'utilisateur
+     * 
+     * @return Tenue  La tenue créée selon les contraintes
      */
     public Tenue creerTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
         // int[] tableauId = menuChoixUtilisateur(typeTenue);
@@ -185,9 +220,14 @@ public class Tenue {
     // ------------------------------------------------------------------------------------------ 
     // ------------------------------------------------------------------------------------------     
     /**
-     * Permet de remplir le tableau de vetement de la tenue avec 1 ou 2
-     * vetements de couche 1 ( hors manteau et veste)
-     */
+     * Permet de recuperer les vetements de couche 1 en fonction ou non d'une couleur correspondante
+     * @param v1  contient un vetement uniquement si l'utilisateur a choisi un contenu particulier de couche 1.
+     * @param avecForme  Vrai si l'utilisateur a choisi l'option accordée à la forme, Faux sinon.
+     * @param idUtilisateur  id de l'utilisateur.
+     * @param evenement  evênement choisi par l'utilisateur
+     * @param couleurCorrespondante couleur à laquelle on veut faire correspondre les vetements choisis, vaut 0 si on a pas encore choisi d'autre element
+     * @param saison saison courante
+    */
     private Couleur recupererVetementsCouche1(Vetement v1, int avecForme, int idUtilisateur, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         // Initialisation des variables :
         Vetement v2 = new Vetement();
@@ -252,9 +292,14 @@ public class Tenue {
     }
 
     /**
-     * Permet de remplir le tableau de vetement de la tenue avec le vetement de
-     * couche 2 ( manteau et veste)
-     */
+     * Permet de recuperer les vetements de couche 2 en fonction ou non d'une couleur correspondante
+     * 
+     * @param avecForme  Vrai si l'utilisateur a choisi l'option accordée à la forme, Faux sinon.
+     * @param idUtilisateur  id de l'utilisateur.
+     * @param evenement  evênement choisi par l'utilisateur
+     * @param couleurCorrespondante couleur à laquelle on veut faire correspondre les vetements choisis, vaut 0 si on a pas encore choisi d'autre element
+     * @param saison saison courante
+    */
     private void recupererVetementsCouche2(int avecForme, int idUtilisateur, TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         Vetement v3 = new Vetement();
 
@@ -270,6 +315,9 @@ public class Tenue {
 
     /**
      * Permet de remplir l'attribut sac de la tenue
+     * 
+     * @param evenement evênement choisit par l'utilisateur
+     * @param couleurCorrespondante couleur à laquelle on veut faire correspondre les vetements choisis, vaut 0 si on a pas encore choisi d'autre element
      */
     private void recupererSac( TypeEvenement evenement, Couleur couleurCorrespondante) throws SQLException, TenueImpossibleException {
         Sac s;
@@ -281,6 +329,8 @@ public class Tenue {
 
     /**
      * Permet de remplir l'attribut chaussures de la tenue
+     * @param evenement evênement choisit par l'utilisateur
+     * @param couleurCorrespondante couleur à laquelle on veut faire correspondre les vetements choisis, vaut 0 si on a pas encore choisi d'autre element
      */
     private void recupererChaussures( TypeEvenement evenement, Couleur couleurCorrespondante, String saison) throws SQLException, TenueImpossibleException {
         Chaussures c;
@@ -293,6 +343,11 @@ public class Tenue {
     /**
      * Permet de retourner un tableau de vetements qui correspondent à la couche
      * demandée par l'utilisateur
+     * 
+     * @param vetementsE Correspond à un tableau de vêtements dans lequel on va tester pour chaque vêtement 
+     * si la couche correspond à celle voulue par l'utilisateur. 
+     * @param numeroCouche Entier correspondant au numéro de la couche souhaité
+     * @return HashMap Tableau de vêtements dont la couche correspond à celle demandée par l'uitilisateur
      */
     private HashMap<Integer, Vetement> chercherDansCouche(HashMap<Integer, Vetement> vetementsE, int numeroCouche) throws TenueImpossibleException {
         // Initialisation d'un HashMap<Integer, Vetement>
@@ -317,13 +372,17 @@ public class Tenue {
 
 // ------------------------------------------------------------------------------------------    
     /**
-     * Permet de renvoyer un vetement selon différents critères. 1 - Si le type
-     * de tenue est "normal", le vetement choisi correspond à l'evenement, la
-     * saison et la couleur du vetement precedent. 2 -Si le type de tenue est
-     * "accordée au signe", le vetement choisi correspond à l'evenement, la
-     * saison, la couleur du vetement precedent et au signe de l'utilisateur. 3
-     * -Si le type de tenue est "avec contenu particulier", le vetement choisi
-     * correspond à l'evenement, la saison et la couleur du vetement precedent.
+     * Permet de renvoyer un vetement selon différents critères. 
+     * 
+     * 
+     * @param avecForme  Vrai si l'utilisateur a choisi l'option accordée à la forme, Faux sinon.
+     * @param idUtilisateur  Id de l'utilisateur.
+     * @param evenement  Evênement choisi par l'utilisateur
+     * @param vetements Tableau de vêtements dans lequel se fait la recherche 
+     * @param couleurCorrespondante Couleur à laquelle on veut faire correspondre les vetements choisis, vaut 0 si on a pas encore choisi d'autre element
+     * @param saison Saison courante
+     * 
+     * @return Vetement Vêtement qui sera ajouter à la Tenue
      */
     private Vetement chercherDansVetements(int avecForme, int idUtilisateur, HashMap<Integer, Vetement> vetements, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws SQLException, TenueImpossibleException {
 
@@ -349,16 +408,15 @@ public class Tenue {
 
 // ------------------------------------------------------------------------------------------ 
     /**
-     * Permet de renvoyer un vetement selon l'evenement. 1 - Si l'evenement est
-     * sport on veut des joggings teeshirts ou pulls. 3 -Si l'evenement est
-     * soirée on ne veut pas de joggings ni de pantacourts et on veut que
-     * certaines couleurs. 3 -Si l'evenement est tous les jours on ne veut pas
-     * de jogging.
+     * Permet de renvoyer des vêtements correspondant à un évênement rentré par l'utilisateur
+     * 
+     * @param vetements Tableau de vêtements dans lequel va s'effectuer la recherche
+     * @param ev Evênement choisi par l'utilisateur 
+     * @return ArrayList Tableau de vêtements correspondant à l'évênement
      */
     private ArrayList<Vetement> chercherVetementEvenement(ArrayList<Vetement> vetements, TypeEvenement ev) throws TenueImpossibleException {
         // Différents cas en fonction de l'evenement : 
         switch (ev) {
-
             case Sport:
                 Iterator<Vetement> it = vetements.iterator();
                 while (it.hasNext()) {
@@ -406,7 +464,11 @@ public class Tenue {
 
 // ------------------------------------------------------------------------------------------ 
     /**
-     * Permet de renvoyer un tableau de vetements selon la saison.
+     * Permet de renvoyer un tableau de vetements selon la saison courante.
+     *
+     * @param vetements Tableau de vêtements dans lequel va s'effectuer la recherche
+     * @param saison Saison courante 
+     * @return ArrayList Tableau de vêtements correspondant à l'évênement
      */
     private ArrayList<Vetement> chercherVetementSaison(ArrayList<Vetement> vetements, String saison) throws TenueImpossibleException {
         // On ne garde que les vêtements dont la saison correspond à celle actuelle ou à "Toutes"
@@ -427,6 +489,10 @@ public class Tenue {
     /**
      * Permet de renvoyer un tableau de vetements qui correspond au signe de
      * l'utilisateur (du possesseur du dressing).
+     * 
+     * @param idUtilisateur Id de l'utilisateur 
+     * @param vetements Tableau de vêtements dans lequel va s'effectuer la recherche
+     * @return ArrayList Tableau de vêtements correspondant au signe
      */
     private ArrayList<Vetement> chercherVetementSigne(int idUtilisateur, ArrayList<Vetement> vetements) throws SQLException, TenueImpossibleException {
         Utilisateur u = new Utilisateur();
@@ -449,6 +515,10 @@ public class Tenue {
     /**
      * Permet de renvoyer un tableau de vetements selon un type choisi par
      * l'utilisateur
+     * 
+     * @param vetements Tableau de vêtements dans lequel va s'effectuer la recherche
+     * @param type Type du vêtement souhaité par l'utilisateur 
+     * @return ArrayList Tableau de vêtements correspondant à l'évênement
      *
      */
     private ArrayList<Vetement> chercherVetementType(ArrayList<Vetement> vetements, TypeVetement type) throws SQLException, TenueImpossibleException {
@@ -466,8 +536,14 @@ public class Tenue {
         return vetements;
     }
 
+    /**
+     * Permet de renvoyer un tableau de vetements qui ne sont pas sales
+     * 
+     * @param vetements Tableau de vêtements dans lequel va s'effectuer la recherche 
+     * @return ArrayList Tableau de vêtements correspondant à l'évênement
+     *
+     */
      private ArrayList<Vetement> chercherVetementSalePropre(ArrayList<Vetement> vetements) throws SQLException, TenueImpossibleException {
-        // On ne garde que les vêtements qui correspondent au type souhaité
         Iterator<Vetement> it = vetements.iterator();
         while (it.hasNext()) {
             Vetement v = it.next();
@@ -486,7 +562,13 @@ public class Tenue {
     // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------         
     /**
-     * Permet de renvoyer un sac selon l'evenement.
+     * Permet de renvoyer un sac selon différents critères. 
+     * 
+     * @param sacs Tableau de sacs dans lequel se fait la recherche 
+     * @param evenement  Evênement choisi par l'utilisateur
+     * @param couleurCorrespondante Couleur à laquelle on veut faire correspondre les sacs
+     * 
+     * @return Sac Sac qui sera ajouté à la Tenue
      */
     private Sac chercherDansSac(HashMap<Integer, Sac> sacs, Couleur couleurCorrespondante, TypeEvenement evenement) throws TenueImpossibleException {
         Sac s = new Sac();
@@ -502,10 +584,11 @@ public class Tenue {
 
 // ------------------------------------------------------------------------------------------ 
     /**
-     * Permet de renvoyer un sac selon l'evenement. 1 - Si l'évenement est tous
-     * les jours on ne veut pas de pochettes . 2 - Si l'évenement est sport on
-     * ne veut que des sacs à dos . 3 - Si l'evenement est soirée on ne veut pas
-     * de sacs à dos.
+     * Permet de renvoyer des sacs correspondant à un évênement rentré par l'utilisateur
+     * 
+     * @param sacs Tableau de sacs dans lequel va s'effectuer la recherche
+     * @param ev Evênement choisi par l'utilisateur 
+     * @return ArrayList Tableau de sacs correspondant à l'évênement
      */
     private ArrayList<Sac> chercherSacEvenement(ArrayList<Sac> sacs, TypeEvenement ev) throws TenueImpossibleException {
         // Différents cas en fonction de l'evenement : 
@@ -552,8 +635,14 @@ public class Tenue {
     // ------------------------------------------------------------------------------------------ 
 // ------------------------------------------------------------------------------------------          
     /**
-     * Permet de renvoyer une paire de chaussures selon la saison et
-     * l'evenement.
+     * Permet de renvoyer une paire de chaussures selon différents critères. 
+     * 
+     * @param chaussures Tableau de chaussures dans lequel se fait la recherche 
+     * @param saison Saison courante
+     * @param evenement  Evênement choisi par l'utilisateur
+     * @param couleurCorrespondante Couleur à laquelle on veut faire correspondre les chaussures
+     * 
+     * @return Chaussures Paire de chaussures qui sera ajoutée à la Tenue
      */
     private Chaussures chercherDansChaussures(HashMap<Integer, Chaussures> chaussures, String saison, Couleur couleurCorrespondante, TypeEvenement evenement) throws TenueImpossibleException {
         Chaussures c = new Chaussures();
@@ -570,11 +659,12 @@ public class Tenue {
     }
 
 // ------------------------------------------------------------------------------------------ 
-    /**
-     * Permet de renvoyer une paire de chaussures selon l'evenement. 1 -Si
-     * l'évenement est sport on ne veut que des baskets . 2 - Si l'evenement est
-     * soirée on ne veut pas de baskets ni de bottes plates. 3 - Si l'évenement
-     * est tous les jours on ne veut pas de baskets ni d'escrapins.
+     /**
+     * Permet de renvoyer des chaussures correspondant à un évênement rentré par l'utilisateur
+     * 
+     * @param chaussures Tableau de chaussures dans lequel va s'effectuer la recherche
+     * @param ev Evênement choisi par l'utilisateur 
+     * @return ArrayList Tableau de chaussures correspondant à l'évênement
      */
     private ArrayList<Chaussures> chercherChaussuresEvenement(ArrayList<Chaussures> chaussures, TypeEvenement ev) throws TenueImpossibleException {
         // Différents cas en fonction de l'evenement : 
@@ -618,9 +708,11 @@ public class Tenue {
 
 // ------------------------------------------------------------------------------------------ 
     /**
-     * Permet de renvoyer une paire de chaussures selon la saison. 1 -Si la
-     * saison est Automne/Hiver, on ne veut pas de sandales ni de ballerines . 2
-     * - Si la saison est Printemps/Ete, on ne veut pas de bottes .
+     * Permet de renvoyer un tableau de chaussures selon la saison courante.
+     *
+     * @param chaussures Tableau de chaussures dans lequel va s'effectuer la recherche
+     * @param saison Saison courante 
+     * @return ArrayList Tableau de chaussures correspondant à l'évênement
      */
     private ArrayList<Chaussures> chercherChaussuresSaison(ArrayList<Chaussures> chaussures, String saison) throws TenueImpossibleException {
         // On ne garde que les chaussures correspondantes à la saison
