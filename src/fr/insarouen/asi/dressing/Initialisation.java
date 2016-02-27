@@ -12,13 +12,14 @@ import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Initialisation {
 
     private String nomBase;
     private String utilisateur;
+    
 
     private static Connection c = null;
 
@@ -213,9 +214,17 @@ public class Initialisation {
         } while (!exit);
     }
 
-    public static void menuCreerTenue(int idDressing) throws SQLException {
+    public static void menuCreerTenue(int idDressing) throws SQLException, IOException {
         int suivant;
+        int plusDeTenueDisponible=0; // Pour éviter de faire une boucle infinie
+                                    // Compteur, si on redemande de faire une tenue
+                                    // un certain nombre de fois (parce que les précédentes
+                                    // avaient déjà été trouvées), alors on arrête et on préviens
+                                    // l'utilisateur qu'il n'y a plus de tenue disponible
         int idUtilisateur = UtilisateurDAO.obtenirIdUtilisateur(idDressing);
+        ArrayList<Tenue> tenues = new ArrayList<Tenue>();
+        int i =0;
+        int indiceCourant = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("Evenement :");
         System.out.println("1: Tous Les Jours\t 2: Sport\t 3: Soiree\t");
@@ -236,16 +245,107 @@ public class Initialisation {
                 vetementsTypeChoisis = t.menuCreerTenueTypeParticulier();
             }
             do {
-                creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
-                System.out.println("Appuyer sur 1 pour voir la tenue suivante, sur 0 pour quitter");
-                suivant = sc.nextInt();
-            } while (suivant == 1);//tant qu'on tape 1, ça calcule la tenue suivante
+                if (plusDeTenueDisponible==100){
+                    System.out.println("Plus de tenues disponibles");
+                    System.in.read();
+                    suivant=1;
+                    i=i-1;
+                    t = tenues.get(i);
+                }else{
+                    t = creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
+                }
+                // Test de si la tenue n'est pas déjà dans le tableau 
+                if(!estContenuDans(t,tenues) || (plusDeTenueDisponible==100)){ 
+                    if (plusDeTenueDisponible !=100){
+                        plusDeTenueDisponible=0;
+                        tenues.add(i,t);
+                    } 
+                    // on l'ajoute
+                    System.out.println(t);
+                    if (i==0){
+                        System.out.println("Appuyer sur 2 pour voir la tenue suivant, sur 0 pour quitter");
+                        suivant = sc.nextInt();
+                    }else if(plusDeTenueDisponible==100){
+                        System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 0 pour quitter");
+                        suivant = sc.nextInt();
+                    } else {
+                        System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 2 pour voir la tenue suivant, sur 0 pour quitter");
+                        suivant = sc.nextInt();
+                    }
+                    if (suivant==1){
+                        indiceCourant = i-1;
+                        do {
+                            System.out.println(tenues.get(indiceCourant));   
+                            if (indiceCourant==0){
+                                System.out.println("Appuyer sur 2 pour voir la tenue suivant, sur 0 pour quitter");
+                                suivant = sc.nextInt();
+                            } else {
+                                System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 2 pour voir la tenue suivant, sur 0 pour quitter");
+                                suivant = sc.nextInt();
+                            }
+                            if (suivant ==1){
+                                indiceCourant = indiceCourant-1;
+                            }else if (suivant == 2){
+                                indiceCourant = indiceCourant+1;
+                            }
+                        }while(indiceCourant<=i);
+                    }
+                    if (plusDeTenueDisponible!=100){
+                        i++;
+                    }
+                }else{
+                    // Si la tenue est déjà dans le tableau, elle a déja été proposée, 
+                    // donc on calcule une autre tenue 
+                    plusDeTenueDisponible++;
+                    suivant = 2;
+                }
+            } while (suivant == 2);//tant qu'on tape 2, ça calcule la tenue suivante
         } catch (TenueImpossibleException e) {
             System.out.println(e);
         }
     }
-//séparation de la methode en deux, plus facile pour faire les 2 boucles necessaires
-    public static void creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
+    
+    private static boolean estContenuDans(Tenue t,ArrayList<Tenue> tenues){
+        int contenu =0;
+        boolean estDedans = false;
+        ArrayList<Integer> idsTenue = idsTenueCorrespondant(t);
+        ArrayList<Integer> idsTableau = new ArrayList<Integer>();
+        if (tenues.isEmpty()){
+            return false;
+        }else{
+            for (Tenue ten : tenues){
+                idsTableau = idsTenueCorrespondant(ten);
+                if (idsTenue.size()==idsTableau.size()){
+                    contenu =0;
+                    for (int j=0; j<idsTableau.size();j++){
+                        if (idsTableau.contains(idsTenue.get(j))){
+                            contenu = contenu+1;
+                        }
+                    }
+                    if (contenu == idsTableau.size()){
+                        return true;
+                    }
+                }
+            }
+            return estDedans;
+       }
+    }
+    
+    
+    private static ArrayList<Integer> idsTenueCorrespondant(Tenue t){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ids.add(t.getSac().getIdObjet());
+        ids.add(t.getChaussures().getIdObjet());
+        ArrayList<Vetement> vetements = t.getVetements();
+        for (Vetement v: vetements){
+            ids.add(v.getIdObjet());
+        }
+        return ids;
+    }
+    
+
+    //séparation de la methode en deux, plus facile pour faire les 2 boucles necessaires
+    public static Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
         int suivant = 0;
         boolean flag;//change si l'exception est levée
         Scanner sc = new Scanner(System.in);
@@ -253,14 +353,13 @@ public class Initialisation {
         do {
             try {
                 t=new Tenue();
-               t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
+                t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
                 flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
             } catch (TenueImpossibleException e) {
                 flag=true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
-                System.out.println("Attention !");
             }
         } while (flag);//tant que l'exception est levée, on recommence a creer une nouvelle tenue (toujours avec les meme caractéristiques)
-        System.out.println(t);
+        return t;
     }
 
     public static void mettreAuSaleOuPropre(int idDressing) throws SQLException {
@@ -287,7 +386,7 @@ public class Initialisation {
         }
     }
 
-    public static void explorerDressing(int idDressing) throws SQLException {
+    public static void explorerDressing(int idDressing) throws SQLException, IOException {
         Scanner scDressing = new Scanner(System.in);
         boolean exit = false;
         do {
@@ -318,7 +417,7 @@ public class Initialisation {
         } while (!exit);
     }
 
-    public static void lancer() throws SQLException {
+    public static void lancer() throws SQLException,IOException {
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
         do {
@@ -367,7 +466,7 @@ public class Initialisation {
         c.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
             connexion();
             lancer();

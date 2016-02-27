@@ -54,6 +54,33 @@ public class Tenue {
         this.chaussures = chaussures;
          this.couleurs.add(chaussures.getCouleur());
     }
+    
+    // Getters 
+
+    /**
+     * Permet de récupérer le sac de la tenue
+     * @return Sac
+     */
+    public Sac getSac() {
+        return sac;
+    }
+
+    /**
+     * Permet de récupérer la paire de chaussures de la tenue
+     * @return Chaussures
+     */
+    public Chaussures getChaussures() {
+        return chaussures;
+    }
+
+    /**
+     * Permet de récupérer les vêtements de la tenue
+     * @return ArrayList
+     */
+    public ArrayList<Vetement> getVetements() {
+        return vetements;
+    }
+    
 
     // --------------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------
