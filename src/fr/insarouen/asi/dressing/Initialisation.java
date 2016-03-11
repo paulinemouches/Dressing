@@ -10,6 +10,7 @@ import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import fr.insarouen.asi.dressing.frames.InitFrame;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.io.IOException;
@@ -19,9 +20,9 @@ public class Initialisation {
 
     private String nomBase;
     private String utilisateur;
-    
+    private static InitFrame window;
 
-    private static Connection c = null;
+    private static Connection c;
 
     public Initialisation() {
     }
@@ -30,12 +31,14 @@ public class Initialisation {
         return c;
     }
 
-    public static void menuGeneral() {
+    public static int menuGeneral() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("---------------------------ACCEUIL---------------------------\n");
         System.out.println("tapez 1 pour entrer un nouvel utilisateur");
         System.out.println("tapez 2 pour supprimer  un utilisateur");
         System.out.println("tapez 3 pour accéder à un dressing existant");
         System.out.println("tapez 4 pour vous déconnecter");
+        return (sc.nextInt());
     }
 
     public static void menuDressing() {
@@ -77,27 +80,35 @@ public class Initialisation {
         System.out.println("tapez 4 pour revenir au menu precedent\n");
     }
 
-    public static void connexion() {
+    public static String[] menuConnexion() {
         String nomBase;
         String nomUtilisateur;
+        String tab[] = new String[2];
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nom de la base ?");
-        nomBase = sc.next();
         System.out.println("Utilisateur?");
         nomUtilisateur = sc.next();
-        System.out.println("mdp ?");
-        String password = sc.next();
+        System.out.println("nom Base ?");
+        nomBase = sc.next();
+        tab[0] = nomUtilisateur;
+        tab[1] = nomBase;
+        return tab;
+    }
+
+    public static boolean connexion(String nomUtilisateur, String nomBase) {
+        String password = nomUtilisateur;
+        Boolean connecte;
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + nomBase, nomUtilisateur, password);
 
             System.out.println("Connecté à la base ");
             System.out.println();
-
+            connecte = true;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+            connecte = false;
         }
-
+        return connecte;
     }
 
     public static void ajouterDansDressing(int idDressing) throws SQLException {
@@ -216,14 +227,14 @@ public class Initialisation {
 
     public static void menuCreerTenue(int idDressing) throws SQLException, IOException {
         int suivant;
-        int plusDeTenueDisponible=0; // Pour éviter de faire une boucle infinie
-                                    // Compteur, si on redemande de faire une tenue
-                                    // un certain nombre de fois (parce que les précédentes
-                                    // avaient déjà été trouvées), alors on arrête et on préviens
-                                    // l'utilisateur qu'il n'y a plus de tenue disponible
+        int plusDeTenueDisponible = 0; // Pour éviter de faire une boucle infinie
+        // Compteur, si on redemande de faire une tenue
+        // un certain nombre de fois (parce que les précédentes
+        // avaient déjà été trouvées), alors on arrête et on préviens
+        // l'utilisateur qu'il n'y a plus de tenue disponible
         int idUtilisateur = UtilisateurDAO.obtenirIdUtilisateur(idDressing);
         ArrayList<Tenue> tenues = new ArrayList<Tenue>();
-        int i =0;
+        int i = 0;
         int indiceCourant = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("Evenement :");
@@ -245,55 +256,65 @@ public class Initialisation {
                 vetementsTypeChoisis = t.menuCreerTenueTypeParticulier();
             }
             do {
-                if (plusDeTenueDisponible==100){
+                if (plusDeTenueDisponible == 100) {
                     System.out.println("Plus de tenues disponibles");
                     System.in.read();
-                    suivant=1;
-                    i=i-1;
+                    suivant = 1;
+                    i = i - 1;
                     t = tenues.get(i);
-                }else{
+                }
+                else {
                     t = creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
                 }
                 // Test de si la tenue n'est pas déjà dans le tableau 
-                if(!estContenuDans(t,tenues) || (plusDeTenueDisponible==100)){ 
-                    if (plusDeTenueDisponible !=100){
-                        plusDeTenueDisponible=0;
-                        tenues.add(i,t);
-                    } 
+                if (!estContenuDans(t, tenues) || (plusDeTenueDisponible == 100)) {
+                    if (plusDeTenueDisponible != 100) {
+                        plusDeTenueDisponible = 0;
+                        tenues.add(i, t);
+                    }
                     // on l'ajoute
                     System.out.println(t);
-                    if (i==0){
+                    if (i == 0) {
                         System.out.println("Appuyer sur 2 pour voir la tenue suivant, sur 0 pour quitter");
                         suivant = sc.nextInt();
-                    }else if(plusDeTenueDisponible==100){
-                        System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 0 pour quitter");
-                        suivant = sc.nextInt();
-                    } else {
-                        System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 2 pour voir la tenue suivant, sur 0 pour quitter");
-                        suivant = sc.nextInt();
                     }
-                    if (suivant==1){
-                        indiceCourant = i-1;
+                    else {
+                        if (plusDeTenueDisponible == 100) {
+                            System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 0 pour quitter");
+                            suivant = sc.nextInt();
+                        }
+                        else {
+                            System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 2 pour voir la tenue suivant, sur 0 pour quitter");
+                            suivant = sc.nextInt();
+                        }
+                    }
+                    if (suivant == 1) {
+                        indiceCourant = i - 1;
                         do {
-                            System.out.println(tenues.get(indiceCourant));   
-                            if (indiceCourant==0){
+                            System.out.println(tenues.get(indiceCourant));
+                            if (indiceCourant == 0) {
                                 System.out.println("Appuyer sur 2 pour voir la tenue suivant, sur 0 pour quitter");
                                 suivant = sc.nextInt();
-                            } else {
+                            }
+                            else {
                                 System.out.println("Appuyer sur 1 pour voir la tenue précédente, sur 2 pour voir la tenue suivant, sur 0 pour quitter");
                                 suivant = sc.nextInt();
                             }
-                            if (suivant ==1){
-                                indiceCourant = indiceCourant-1;
-                            }else if (suivant == 2){
-                                indiceCourant = indiceCourant+1;
+                            if (suivant == 1) {
+                                indiceCourant = indiceCourant - 1;
                             }
-                        }while(indiceCourant<=i);
+                            else {
+                                if (suivant == 2) {
+                                    indiceCourant = indiceCourant + 1;
+                                }
+                            }
+                        } while (indiceCourant <= i);
                     }
-                    if (plusDeTenueDisponible!=100){
+                    if (plusDeTenueDisponible != 100) {
                         i++;
                     }
-                }else{
+                }
+                else {
                     // Si la tenue est déjà dans le tableau, elle a déja été proposée, 
                     // donc on calcule une autre tenue 
                     plusDeTenueDisponible++;
@@ -304,45 +325,44 @@ public class Initialisation {
             System.out.println(e);
         }
     }
-    
-    private static boolean estContenuDans(Tenue t,ArrayList<Tenue> tenues){
-        int contenu =0;
+
+    private static boolean estContenuDans(Tenue t, ArrayList<Tenue> tenues) {
+        int contenu = 0;
         boolean estDedans = false;
         ArrayList<Integer> idsTenue = idsTenueCorrespondant(t);
         ArrayList<Integer> idsTableau = new ArrayList<Integer>();
-        if (tenues.isEmpty()){
+        if (tenues.isEmpty()) {
             return false;
-        }else{
-            for (Tenue ten : tenues){
+        }
+        else {
+            for (Tenue ten : tenues) {
                 idsTableau = idsTenueCorrespondant(ten);
-                if (idsTenue.size()==idsTableau.size()){
-                    contenu =0;
-                    for (int j=0; j<idsTableau.size();j++){
-                        if (idsTableau.contains(idsTenue.get(j))){
-                            contenu = contenu+1;
+                if (idsTenue.size() == idsTableau.size()) {
+                    contenu = 0;
+                    for (int j = 0; j < idsTableau.size(); j++) {
+                        if (idsTableau.contains(idsTenue.get(j))) {
+                            contenu = contenu + 1;
                         }
                     }
-                    if (contenu == idsTableau.size()){
+                    if (contenu == idsTableau.size()) {
                         return true;
                     }
                 }
             }
             return estDedans;
-       }
+        }
     }
-    
-    
-    private static ArrayList<Integer> idsTenueCorrespondant(Tenue t){
+
+    private static ArrayList<Integer> idsTenueCorrespondant(Tenue t) {
         ArrayList<Integer> ids = new ArrayList<Integer>();
         ids.add(t.getSac().getIdObjet());
         ids.add(t.getChaussures().getIdObjet());
         ArrayList<Vetement> vetements = t.getVetements();
-        for (Vetement v: vetements){
+        for (Vetement v : vetements) {
             ids.add(v.getIdObjet());
         }
         return ids;
     }
-    
 
     //séparation de la methode en deux, plus facile pour faire les 2 boucles necessaires
     public static Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
@@ -352,11 +372,11 @@ public class Initialisation {
         Tenue t = new Tenue();
         do {
             try {
-                t=new Tenue();
+                t = new Tenue();
                 t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
                 flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
             } catch (TenueImpossibleException e) {
-                flag=true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
+                flag = true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
             }
         } while (flag);//tant que l'exception est levée, on recommence a creer une nouvelle tenue (toujours avec les meme caractéristiques)
         return t;
@@ -417,38 +437,70 @@ public class Initialisation {
         } while (!exit);
     }
 
-    public static void lancer() throws SQLException,IOException {
-        Scanner sc = new Scanner(System.in);
+    public static Utilisateur accederDressing(int id) throws SQLException, IOException {
+       boolean acces = false;
+       Utilisateur user = new Utilisateur();
+        try {
+            Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            st.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
+            ResultSet res = (st.getResultSet());
+            if (res.first()) {
+                id = res.getInt("iddressing");
+                acces = true;
+                
+                user.trouverUtilisateur(id);
+                
+            }
+            else {
+                acces = false;
+                throw new IdNonPresentException("L'id saisi n'est pas correct.");    
+            }
+            Chaussures.initialiserChaussures(id);
+            Sac.initSacs(id);
+            Vetement.initiVetements(id);
+            //explorerDressing(id);
+            user.toString();
+
+        } catch (IdNonPresentException e) {
+            System.out.println(e);
+        }
+return user;
+    }
+
+    public static boolean lancer(int choix, int id) throws SQLException, IOException {
         boolean exit = false;
+        boolean lancer = false;
         do {
-            menuGeneral();
-            switch (sc.nextInt()) {
+            //menuGeneral();
+            switch (choix) {
                 case 1:
-                    Utilisateur user1 = new Utilisateur();
-                    boolean buser1 = user1.ajouterUtilisateur();
+                  //  Utilisateur user1 = new Utilisateur();
+                  //  boolean buser1 = user1.ajouterUtilisateur();
                     break;
                 case 2:
                     Utilisateur user2 = new Utilisateur();
-                    boolean buser2 = user2.supprimerUtilisateur();
+                    boolean buser2 = user2.supprimerUtilisateur(1);
                     break;
                 case 3:
-                    Scanner scId = new Scanner(System.in);
-                    System.out.println("Votre id d'utilisateur ?");
-                    int id = scId.nextInt();
+                    //Scanner scId = new Scanner(System.in);
+                    //System.out.println("Votre id d'utilisateur ?");
+                    //int id = scId.nextInt();
                     try {
                         Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         st.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
                         ResultSet res = (st.getResultSet());
                         if (res.first()) {
                             id = res.getInt("iddressing");
+                            lancer = true;
                         }
                         else {
+                            lancer = false;
                             throw new IdNonPresentException("L'id saisi n'est pas correct.");
                         }
                         Chaussures.initialiserChaussures(id);
                         Sac.initSacs(id);
                         Vetement.initiVetements(id);
-                        explorerDressing(id);
+                        //explorerDressing(id);
 
                     } catch (IdNonPresentException e) {
                         System.out.println(e);
@@ -461,15 +513,26 @@ public class Initialisation {
                     System.out.println("Veulillez saisir un chiffre entre 1 et 4");
                     break;
             }
+
         } while (!exit);
         System.out.println("deconnection");
         c.close();
+        return lancer;
     }
 
     public static void main(String[] args) throws IOException {
         try {
-            connexion();
-            lancer();
+            //InitFrame initFrame = new InitFrame();
+            //add(initFrame);
+            window = new InitFrame();
+            window.setDefaultCloseOperation(InitFrame.EXIT_ON_CLOSE);
+            window.setVisible(true);
+            // window.getWindow().setVisible(true);
+            //String tab[] = menuConnexion();
+            //String nomBase = tab[1];
+            //String nomUtilisateur = tab[0];
+            //connexion(nomUtilisateur, nomBase);
+            //lancer();
             c.close();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -102,25 +102,34 @@ public class Utilisateur {
      * @return VRAI si l'utilisateur a bien été créé, FAUX sinon
      */ 
     
-    public boolean ajouterUtilisateur() throws SQLException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez votre nom");
-        String nom = sc.nextLine();
+    public boolean ajouterUtilisateur(String nom,String prenom,int age,int taille,CouleurCheveux couleurC, Couleur couleurP, Signe signe) throws SQLException {
+        /*   String nom =" popo";
+        String prenom ="popo";
+        int age =12;
+        int taille = 123;
+       CouleurCheveux couleurC = CouleurCheveux.getfromInt(1);
+       Couleur couleurP = new Couleur(2);
+        Signe signe = Signe.getfromInt(1);*/
         
-        System.out.println("Entrez votre prenom");
-        String prenom = sc.nextLine();
         
-        System.out.println("Entrez votre age");
-        int age = Integer.parseInt(sc.nextLine());
+        //Scanner sc = new Scanner(System.in);
+        //System.out.println("Entrez votre nom");
+       // String nom = sc.nextLine();
         
-        System.out.println("Entrez votre taille");
-        int taille = Integer.parseInt(sc.nextLine());
+        //System.out.println("Entrez votre prenom");
+        //String prenom = sc.nextLine();
         
-        System.out.println("Entrez couleur de cheveux ");
-        System.out.println("1:  Blond\t 2: Brun\t 3: Roux\t 4:  Chatain");
-        CouleurCheveux  couleurC = CouleurCheveux.getfromInt(sc.nextInt()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
+        //System.out.println("Entrez votre age");
+        //int age = Integer.parseInt(sc.nextLine());
         
-        System.out.println("Entrez votre couleur preferee");
+        //System.out.println("Entrez votre taille");
+       // int taille = Integer.parseInt(sc.nextLine());
+        
+       // System.out.println("Entrez couleur de cheveux ");
+        //System.out.println("1:  Blond\t 2: Brun\t 3: Roux\t 4:  Chatain");
+        //CouleurCheveux  couleurC = CouleurCheveux.getfromInt(sc.nextInt()); // attention a bien respecter les contraintes de la base (=Brun ou Blond ou ...)
+        
+        /*System.out.println("Entrez votre couleur preferee");
                 System.out.println( "1 - bleu\n" +
                             "2 - bleu clair\n" +
                             "3 - bleu marine\n" +
@@ -157,7 +166,7 @@ public class Utilisateur {
        
         System.out.println("Entrez votre forme");
         System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
-        Signe signe = Signe.getfromInt(sc.nextInt());
+        Signe signe = Signe.getfromInt(sc.nextInt());*/
         
         Utilisateur u = new Utilisateur();
         System.out.println("utilisateur créé");
@@ -179,10 +188,12 @@ public class Utilisateur {
      * @return VRAI si l'utilisateur a bien été supprimé, FAUX sinon
      */
     
-    public boolean supprimerUtilisateur() throws SQLException {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Id utilisateur a supprimer ?");
-        int id = sc.nextInt();
+    
+    
+    public boolean supprimerUtilisateur(int id) throws SQLException {
+        //Scanner sc = new Scanner(System.in);
+        //System.out.println("Id utilisateur a supprimer ?");
+        //int id = sc.nextInt();
         UtilisateurDAO uASupprimer = new UtilisateurDAO();
         if (uASupprimer.find(id,UtilisateurDAO.obtenirIdDressing(id)) != null) {
             uASupprimer.delete(uASupprimer.find(id,UtilisateurDAO.obtenirIdDressing(id)));  
