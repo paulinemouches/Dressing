@@ -168,18 +168,18 @@ public class Utilisateur {
         System.out.println("1: Huit\t 2:  V\t 3: O\t 4:  H\t 5:  A\t 6 :  X");
         Signe signe = Signe.getfromInt(sc.nextInt());*/
         
-        Utilisateur u = new Utilisateur();
+        
         System.out.println("utilisateur créé");
-        u.setNom(nom);
-        u.setPrenom(prenom);
-        u.setAge(age);
-        u.setTaille(taille);
-        u.setCouleurCheveux(couleurC);
-        u.setCouleurPreferee(couleurP);
-        u.setSigneUtilisateur(signe);
+        this.setNom(nom);
+        this.setPrenom(prenom);
+        this.setAge(age);
+        this.setTaille(taille);
+        this.setCouleurCheveux(couleurC);
+        this.setCouleurPreferee(couleurP);
+        this.setSigneUtilisateur(signe);
         UtilisateurDAO nouvelUtilisateur = new UtilisateurDAO();
-        nouvelUtilisateur.create(u);
-        System.out.println("Votre id d'utilisateur est : "+u.getId());
+        nouvelUtilisateur.create(this);
+        System.out.println("Votre id d'utilisateur est : "+this.getId());
         return true;
     }
 

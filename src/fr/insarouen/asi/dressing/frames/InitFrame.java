@@ -6,12 +6,16 @@
 package fr.insarouen.asi.dressing.frames;
 
 import fr.insarouen.asi.dressing.Initialisation;
+import fr.insarouen.asi.dressing.elements.Couleur;
+import fr.insarouen.asi.dressing.elements.CouleurCheveux;
+import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.CardLayout;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,8 +77,8 @@ public class InitFrame extends javax.swing.JFrame {
         nouveauTaille = new javax.swing.JTextField();
         jScrollBar1 = new javax.swing.JScrollBar();
         nouveauCoulC = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jComboBox4 = new javax.swing.JComboBox();
+        nouveauCoulP = new javax.swing.JComboBox();
+        nouveauSigne = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -133,7 +137,7 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(ConnexionLayout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addComponent(connecter)))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         ConnexionLayout.setVerticalGroup(
             ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,6 +165,11 @@ public class InitFrame extends javax.swing.JFrame {
         });
 
         ajoutUtilisateur.setText("Ajouter un utilisateur");
+        ajoutUtilisateur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutUtilisateurActionPerformed(evt);
+            }
+        });
 
         supprUtilisateur.setText("Supprimer un utilisateur");
         supprUtilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +199,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(idUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addComponent(accesDressing)))
                 .addGap(20, 20, 20))
             .addGroup(AccueilLayout.createSequentialGroup()
@@ -222,7 +231,7 @@ public class InitFrame extends javax.swing.JFrame {
         ConsulterDressing.setLayout(ConsulterDressingLayout);
         ConsulterDressingLayout.setHorizontalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
         ConsulterDressingLayout.setVerticalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,6 +241,11 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(ConsulterDressing, "ConsulterDressing");
 
         dressing.setText("Dressing");
+        dressing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dressingActionPerformed(evt);
+            }
+        });
 
         corebeille.setText("Corbeille à linge");
 
@@ -313,15 +327,20 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AccueilDressing, "AccueilDressing");
 
         nouveauCoulC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Blond", "Brun", "Roux", "Chatain" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Bleu clair", "Bleu marine", "Turquoise" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        nouveauCoulC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                nouveauCoulCActionPerformed(evt);
             }
         });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8", "V", "O", "H", "A", "X" }));
+        nouveauCoulP.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Bleu clair", "Bleu marine", "Turquoise", "Gris clair", "Argenté", "Gris foncé", "Marron clair", "Marron foncé", "Corail", "Orange", "Bordeau", "Brique", "Rouge", "Rose pale", "Rose fushia", "Rose foncé", "Mauve", "Violet", "Prune", "Blanc", "Jaune moutarde ", "Jaune", "Doré", "Noir", "Kaki", "Vert pale", "Vert", "Jean clair", "Jean marine", "Beige" }));
+        nouveauCoulP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nouveauCoulPActionPerformed(evt);
+            }
+        });
+
+        nouveauSigne.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8", "V", "O", "H", "A", "X" }));
 
         jLabel5.setText("nom :");
 
@@ -361,8 +380,8 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(AjoutUtilisateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nouveauCoulP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nouveauSigne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(validerAjoutUtilisateur)
                     .addGroup(AjoutUtilisateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(nouveauTaille, javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,11 +417,11 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(AjoutUtilisateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nouveauCoulP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(AjoutUtilisateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nouveauSigne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(33, 33, 33)
                 .addComponent(validerAjoutUtilisateur)
@@ -416,7 +435,7 @@ public class InitFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(MainFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -478,27 +497,50 @@ public class InitFrame extends javax.swing.JFrame {
         Utilisateur user = new Utilisateur();
         try {
             boolean buser = user.supprimerUtilisateur(Integer.parseInt(idSuppr.getText()));
-            idSuppr.setText("Utilisateur supprimé !");
+            
+            // boite de dialogue : 
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(Accueil, "Utilisateur supprimé !", "Information", JOptionPane.INFORMATION_MESSAGE);
+        
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_supprUtilisateurActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void nouveauCoulPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveauCoulPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_nouveauCoulPActionPerformed
 
     private void validerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutUtilisateurActionPerformed
         // TODO add your handling code here:
-        //A FAIRE TROUVER COMMENT RECUPERER L'INDEX  DE L'ELEMENT SELECTIONNE D'UNE COMBO BOX ???
-     //    Utilisateur user = new Utilisateur();
-     //            try {
-         //   boolean buser = user.ajouterUtilisateur(nouveauNom.getText(),nouveauPrenom.getText(),Integer.parseInt(nouveauAge.getText()), Integer.parseInt(nouveauTaille.getText()), nouveauCoulC.);
-       //    
-       // } catch (SQLException ex) {
-       //     Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
-       // }
+        
+        Utilisateur user = new Utilisateur();
+        try {
+            boolean buser = user.ajouterUtilisateur(nouveauNom.getText(),nouveauPrenom.getText(),Integer.parseInt(nouveauAge.getText()), Integer.parseInt(nouveauTaille.getText()), CouleurCheveux.get((String)nouveauCoulC.getSelectedItem()),new Couleur(nouveauCoulP.getSelectedIndex()+1),Signe.getfromInt(nouveauSigne.getSelectedIndex()+1));
+            int id = user.getId();
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(AjoutUtilisateur, "Utilisateur ajouté ! \n Votre identifiant est : "+id, "Information", JOptionPane.INFORMATION_MESSAGE);
+            
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "Accueil");
+        } catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_validerAjoutUtilisateurActionPerformed
+
+    private void dressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dressingActionPerformed
+
+    private void nouveauCoulCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveauCoulCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nouveauCoulCActionPerformed
+
+    private void ajoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutUtilisateurActionPerformed
+       // TODO add your handling code here:
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AjoutUtilisateur");
+    }//GEN-LAST:event_ajoutUtilisateurActionPerformed
 
     /**
      * @param args the command line arguments
@@ -555,9 +597,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField idSuppr;
     private javax.swing.JTextField idUtilisateur;
     private javax.swing.JLabel identifiant;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -578,8 +618,10 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField nomUtilisateur;
     private javax.swing.JTextField nouveauAge;
     private javax.swing.JComboBox nouveauCoulC;
+    private javax.swing.JComboBox nouveauCoulP;
     private javax.swing.JTextField nouveauNom;
     private javax.swing.JTextField nouveauPrenom;
+    private javax.swing.JComboBox nouveauSigne;
     private javax.swing.JTextField nouveauTaille;
     private javax.swing.JButton premiereConnexion;
     private javax.swing.JButton supprUtilisateur;
