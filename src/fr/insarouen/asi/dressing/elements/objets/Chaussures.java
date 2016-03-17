@@ -111,13 +111,15 @@ public class Chaussures extends Contenu {
      * @return VRAI si les chaussures ont été bien ajoutées, FAUX sinon
      */
     
-    public boolean ajouterChaussures(int idDressing) throws SQLException {
+    public boolean ajouterChaussures(int idDressing, TypeChaussures typeC, Couleur couleurC) throws SQLException {
 
-        Chaussures c = menuAjouterChaussuresTxt();
-        c.setIdDressing(idDressing);
+        //Chaussures c = menuAjouterChaussuresTxt();
+        this.setIdDressing(idDressing);
+        this.setTypeC(typeC);
+        this.setCouleur(couleurC);
         ChaussuresDAO nouvellesChaussures = new ChaussuresDAO();
-        nouvellesChaussures.create(c);
-        c.ajouterChaussuresDansListe();
+        nouvellesChaussures.create(this);
+        this.ajouterChaussuresDansListe();
         return true;
     }
 

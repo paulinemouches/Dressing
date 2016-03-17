@@ -98,13 +98,15 @@ public class Sac extends Contenu{
      * @return VRAI si le sac a été bien ajouté, FAUX sinon
      */
     
-    public boolean ajouterSac(int idDressing) throws SQLException {
+    public boolean ajouterSac(int idDressing, TypeSac typeS, Couleur couleurS) throws SQLException {
 
-        Sac s = menuAjouterSacTxt();
-        s.setIdDressing(idDressing);
+        //Sac s = menuAjouterSacTxt();
+        this.setIdDressing(idDressing);
+        this.setTypeS(typeS);
+        this.setCouleur(couleurS);
         SacDAO nouveauSac = new SacDAO();
-        nouveauSac.create(s);
-        s.ajouterSacDansListe();
+        nouveauSac.create(this);
+        this.ajouterSacDansListe();
         return true;
     }
 

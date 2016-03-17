@@ -172,6 +172,39 @@ public class Couleur {
 
     @Override
     public String toString() {
-        return "Couleur{" + "couleur=" + couleur + '}';
+        switch(this.getCouleur()){
+            case 1: return "Bleu"; 
+            case 2: return "Bleu clair"; 
+            case 3: return "Bleu marine"; 
+            case 4: return "Turquoise"; 
+            case 5: return "Gris clair"; 
+            case 6: return "Agenté"; 
+            case 7: return "gris foncé"; 
+            case 8: return "Marron Clair"; 
+            case 9: return "Marron Foncé"; 
+            case 10: return "Corail"; 
+            case 11: return "Orange"; 
+            case 12: return "Bordeau"; 
+            case 13: return "Brique"; 
+            case 14: return "Rouge"; 
+            case 15: return "rose pale"; 
+            case 16: return "Rose fushia"; 
+            case 17: return "Fose foncé"; 
+            case 18: return "Mauve"; 
+            case 19: return "Violet"; 
+            case 20: return "Prune"; 
+            case 21: return "Blanc"; 
+            case 22: return "Jaune moutarde"; 
+            case 23: return "Jaune"; 
+            case 24: return "Doré"; 
+            case 25: return "Noir"; 
+            case 26: return "Kaki"; 
+            case 27: return "Vert pale"; 
+            case 28: return "Vert"; 
+            case 29: return "Jean clair"; 
+            case 30: return "Jean marine"; 
+            case 31: return "Beige"; 
+            default : return "";
+        }
     }
 }

@@ -119,11 +119,11 @@ public class Initialisation {
             switch (scAjout.nextInt()) {
                 case 1:
                     Sac sac = new Sac();
-                    boolean bsac = sac.ajouterSac(idDressing);
+                    //boolean bsac = sac.ajouterSac(idDressing);
                     break;
                 case 2:
                     Chaussures c = new Chaussures();
-                    boolean bc = c.ajouterChaussures(idDressing);
+                    //boolean bc = c.ajouterChaussures(idDressing);
                     break;
                 case 3:
                     Vetement v = new Vetement();
@@ -440,31 +440,23 @@ public class Initialisation {
     public static Utilisateur accederDressing(int id) throws SQLException, IOException {
        boolean acces = false;
        Utilisateur user = new Utilisateur();
-        try {
             Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             st.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
             ResultSet res = (st.getResultSet());
             if (res.first()) {
                 id = res.getInt("iddressing");
                 acces = true;
-                
-                user.trouverUtilisateur(id);
-                
+                user = user.trouverUtilisateur(id);
             }
             else {
                 acces = false;
-                throw new IdNonPresentException("L'id saisi n'est pas correct.");    
+                return null;  
             }
             Chaussures.initialiserChaussures(id);
             Sac.initSacs(id);
             Vetement.initiVetements(id);
             //explorerDressing(id);
-            user.toString();
-
-        } catch (IdNonPresentException e) {
-            System.out.println(e);
-        }
-return user;
+        return user;
     }
 
     public static boolean lancer(int choix, int id) throws SQLException, IOException {
