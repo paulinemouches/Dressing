@@ -8,18 +8,26 @@ package fr.insarouen.asi.dressing.frames;
 import fr.insarouen.asi.dressing.Initialisation;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
+import fr.insarouen.asi.dressing.elements.CoupeVetement;
+import fr.insarouen.asi.dressing.elements.Matiere;
 import fr.insarouen.asi.dressing.elements.Signe;
 import fr.insarouen.asi.dressing.elements.TypeChaussures;
 import fr.insarouen.asi.dressing.elements.TypeSac;
+import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
-import static fr.insarouen.asi.dressing.elements.objets.Sac.sacs;
+import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,6 +63,7 @@ public class InitFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox3 = new javax.swing.JComboBox();
         MainFrame = new javax.swing.JPanel();
         premiereConnexion = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
@@ -65,21 +74,6 @@ public class InitFrame extends javax.swing.JFrame {
         idUtilisateur = new javax.swing.JTextField();
         identifiant = new javax.swing.JLabel();
         idSuppr = new javax.swing.JTextField();
-        AccueilDressing = new javax.swing.JPanel();
-        dressing = new javax.swing.JButton();
-        corebeille = new javax.swing.JButton();
-        creerTenue = new javax.swing.JButton();
-        age = new javax.swing.JLabel();
-        taille = new javax.swing.JLabel();
-        coulCheveux = new javax.swing.JLabel();
-        coulPreferee = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         ConsulterDressing = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
@@ -100,6 +94,7 @@ public class InitFrame extends javax.swing.JFrame {
         joggins = new javax.swing.JButton();
         ajoutContenu = new javax.swing.JButton();
         supprimerContenu = new javax.swing.JButton();
+        retourAccueilDressing = new javax.swing.JButton();
         AjoutUtilisateur = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         nouveauCoulC = new javax.swing.JComboBox();
@@ -113,10 +108,15 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         nouveauSigne = new javax.swing.JComboBox();
         nouveauCoulP = new javax.swing.JComboBox();
-        nouveauTaille = new javax.swing.JTextField();
-        nouveauAge = new javax.swing.JTextField();
         nouveauPrenom = new javax.swing.JTextField();
         nouveauNom = new javax.swing.JTextField();
+        annulerAjoutUtilisateur = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        nouveauIdentifiant = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        nouveauAge = new javax.swing.JComboBox();
+        nouveauTaille = new javax.swing.JComboBox();
+        nouveauMdp = new javax.swing.JPasswordField();
         Connexion = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -135,6 +135,42 @@ public class InitFrame extends javax.swing.JFrame {
         typeChaussures = new javax.swing.JComboBox();
         couleurChaussures = new javax.swing.JComboBox();
         validerAjoutChaussures = new javax.swing.JButton();
+        Accueilv2 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        identifiantUtilisateur = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        connection = new javax.swing.JButton();
+        creationCompte = new javax.swing.JButton();
+        mdpUtilisateur = new javax.swing.JPasswordField();
+        AccueilDressing = new javax.swing.JPanel();
+        dressing = new javax.swing.JButton();
+        corebeille = new javax.swing.JButton();
+        creerTenue = new javax.swing.JButton();
+        age = new javax.swing.JLabel();
+        taille = new javax.swing.JLabel();
+        coulCheveux = new javax.swing.JLabel();
+        coulPreferee = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        deconnection = new javax.swing.JButton();
+        AjoutVetement = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        typeV = new javax.swing.JComboBox();
+        jLabel25 = new javax.swing.JLabel();
+        coupeV = new javax.swing.JComboBox();
+        jLabel26 = new javax.swing.JLabel();
+        matiereV = new javax.swing.JComboBox();
+        jLabel27 = new javax.swing.JLabel();
+        couleurV = new javax.swing.JComboBox();
+        validerAjoutVetement = new javax.swing.JButton();
+        annulerAjoutVetement = new javax.swing.JButton();
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,6 +206,17 @@ public class InitFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Identifiant :");
+
+        idUtilisateur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                idUtilisateurMouseReleased(evt);
+            }
+        });
+        idUtilisateur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idUtilisateurActionPerformed(evt);
+            }
+        });
 
         identifiant.setText("Identifiant :");
 
@@ -218,125 +265,6 @@ public class InitFrame extends javax.swing.JFrame {
         );
 
         MainFrame.add(Accueil, "Accueil");
-
-        dressing.setText("Dressing");
-        dressing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dressingActionPerformed(evt);
-            }
-        });
-
-        corebeille.setText("Corbeille à linge");
-
-        creerTenue.setText("Créer une tenue");
-
-        age.setText("age");
-
-        taille.setText("taille");
-
-        coulCheveux.setText("couleur Cheveux");
-
-        coulPreferee.setText("couleur Préférée");
-
-        jLabel1.setText("Nos Conseils :");
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
-
-        jLabel12.setText("age :");
-
-        jLabel13.setText("couleur Cheveux :");
-
-        jLabel14.setText("couler préférée :");
-
-        jLabel15.setText("taille :");
-
-        javax.swing.GroupLayout AccueilDressingLayout = new javax.swing.GroupLayout(AccueilDressing);
-        AccueilDressing.setLayout(AccueilDressingLayout);
-        AccueilDressingLayout.setHorizontalGroup(
-            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AccueilDressingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dressing)
-                    .addComponent(corebeille)
-                    .addComponent(creerTenue))
-                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26))
-                            .addGroup(AccueilDressingLayout.createSequentialGroup()
-                                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(26, 26, 26))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel12))
-                                        .addGap(18, 18, 18)))
-                                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(AccueilDressingLayout.createSequentialGroup()
-                                            .addGap(87, 87, 87)
-                                            .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(taille)
-                                                .addComponent(age)))
-                                        .addComponent(coulPreferee, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(coulCheveux, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addContainerGap())))
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel1))))
-        );
-        AccueilDressingLayout.setVerticalGroup(
-            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AccueilDressingLayout.createSequentialGroup()
-                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(dressing)
-                        .addGap(28, 28, 28)
-                        .addComponent(corebeille))
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(age))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(coulCheveux, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(taille))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(coulPreferee))))
-                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(creerTenue)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
-        );
-
-        MainFrame.add(AccueilDressing, "AccueilDressing");
 
         sacs.setText("Sacs");
         sacs.addActionListener(new java.awt.event.ActionListener() {
@@ -514,6 +442,13 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
+        retourAccueilDressing.setText("<-");
+        retourAccueilDressing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retourAccueilDressingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ConsulterDressingLayout = new javax.swing.GroupLayout(ConsulterDressing);
         ConsulterDressing.setLayout(ConsulterDressingLayout);
         ConsulterDressingLayout.setHorizontalGroup(
@@ -525,7 +460,9 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(retourAccueilDressing, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         ConsulterDressingLayout.setVerticalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,8 +472,9 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(ConsulterDressingLayout.createSequentialGroup()
                         .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 368, Short.MAX_VALUE))
+                            .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(retourAccueilDressing, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 373, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -563,7 +501,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel9.setText("couleur cheveux :");
 
-        jLabel8.setText("taille :");
+        jLabel8.setText("taille (cm) :");
 
         jLabel7.setText("âge :");
 
@@ -580,39 +518,74 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
+        annulerAjoutUtilisateur.setText("Annuler");
+        annulerAjoutUtilisateur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annulerAjoutUtilisateurActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("identifiant:");
+
+        jLabel23.setText("mot de passe:");
+
+        nouveauAge.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99" }));
+
+        nouveauTaille.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "179", "180", "181", "182", "183", "184", "185", "186", "187", "188", "189", "190", "191", "192", "193", "194", "195", "196", "197", "198", "199", "200", "201", "202", "203", "204", "205", "206", "207", "208", "209", "210", "211", "212", "213", "214", "215", "216", "217", "218", "219", "220" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(57, 57, 57)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nouveauNom)
-                            .addComponent(nouveauTaille, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nouveauAge, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(nouveauPrenom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nouveauCoulC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nouveauSigne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nouveauCoulP, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(107, 107, 107))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(174, 174, 174)
+                .addGap(141, 141, 141)
                 .addComponent(validerAjoutUtilisateur)
+                .addGap(18, 18, 18)
+                .addComponent(annulerAjoutUtilisateur)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel5))
+                        .addGap(139, 139, 139)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nouveauSigne, 0, 116, Short.MAX_VALUE)
+                            .addComponent(nouveauNom)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel22)
+                                                .addComponent(jLabel23)
+                                                .addComponent(jLabel8))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                            .addComponent(jLabel9)
+                                            .addGap(61, 61, 61)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(57, 57, 57)))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(151, 151, 151)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(122, 122, 122)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(nouveauPrenom)
+                            .addComponent(nouveauAge, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nouveauCoulP, 0, 1, Short.MAX_VALUE)
+                            .addComponent(nouveauCoulC, javax.swing.GroupLayout.Alignment.TRAILING, 0, 116, Short.MAX_VALUE)
+                            .addComponent(nouveauTaille, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nouveauIdentifiant, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nouveauMdp, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(107, 107, 107))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,33 +594,43 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(nouveauNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(nouveauPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(nouveauAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(nouveauTaille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(nouveauCoulC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(nouveauCoulP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nouveauSigne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addComponent(validerAjoutUtilisateur)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(nouveauIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(nouveauMdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(validerAjoutUtilisateur)
+                    .addComponent(annulerAjoutUtilisateur))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout AjoutUtilisateurLayout = new javax.swing.GroupLayout(AjoutUtilisateur);
@@ -662,9 +645,9 @@ public class InitFrame extends javax.swing.JFrame {
         AjoutUtilisateurLayout.setVerticalGroup(
             AjoutUtilisateurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AjoutUtilisateurLayout.createSequentialGroup()
-                .addGap(0, 5, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 5, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutUtilisateur, "AjoutUtilisateur");
@@ -709,7 +692,7 @@ public class InitFrame extends javax.swing.JFrame {
         ConnexionLayout.setVerticalGroup(
             ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConnexionLayout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addContainerGap(143, Short.MAX_VALUE)
                 .addGroup(ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nomBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -777,7 +760,7 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(validerAjoutSac)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -817,7 +800,7 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(AjoutChaussuresLayout.createSequentialGroup()
                         .addGap(174, 174, 174)
                         .addComponent(validerAjoutChaussures)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         AjoutChaussuresLayout.setVerticalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,10 +815,280 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(validerAjoutChaussures)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
+
+        jLabel20.setText("identifiant :");
+
+        identifiantUtilisateur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                identifiantUtilisateurActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("mot de passe :");
+
+        connection.setText("se connecter");
+        connection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                connectionActionPerformed(evt);
+            }
+        });
+
+        creationCompte.setText("créer un compte");
+        creationCompte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creationCompteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Accueilv2Layout = new javax.swing.GroupLayout(Accueilv2);
+        Accueilv2.setLayout(Accueilv2Layout);
+        Accueilv2Layout.setHorizontalGroup(
+            Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Accueilv2Layout.createSequentialGroup()
+                .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Accueilv2Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21))
+                        .addGap(48, 48, 48)
+                        .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(identifiantUtilisateur, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(mdpUtilisateur)))
+                    .addGroup(Accueilv2Layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(creationCompte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(connection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
+        Accueilv2Layout.setVerticalGroup(
+            Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Accueilv2Layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(identifiantUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(mdpUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(connection)
+                .addGap(18, 18, 18)
+                .addComponent(creationCompte)
+                .addContainerGap(168, Short.MAX_VALUE))
+        );
+
+        MainFrame.add(Accueilv2, "Accueilv2");
+
+        dressing.setText("Dressing");
+        dressing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dressingActionPerformed(evt);
+            }
+        });
+
+        corebeille.setText("Corbeille à linge");
+
+        creerTenue.setText("Créer une tenue");
+
+        age.setText("age");
+
+        taille.setText("taille");
+
+        coulCheveux.setText("couleur Cheveux");
+
+        coulPreferee.setText("couleur Préférée");
+
+        jLabel1.setText("Nos Conseils :");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jLabel12.setText("age :");
+
+        jLabel13.setText("couleur Cheveux :");
+
+        jLabel14.setText("couler préférée :");
+
+        jLabel15.setText("taille :");
+
+        deconnection.setText("deconnection");
+        deconnection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deconnectionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout AccueilDressingLayout = new javax.swing.GroupLayout(AccueilDressing);
+        AccueilDressing.setLayout(AccueilDressingLayout);
+        AccueilDressingLayout.setHorizontalGroup(
+            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(corebeille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(creerTenue, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(dressing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deconnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(taille))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(age))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(coulCheveux))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(coulPreferee)))
+                .addGap(39, 39, 39))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(124, 124, 124))
+        );
+        AccueilDressingLayout.setVerticalGroup(
+            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccueilDressingLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(dressing))
+                        .addGap(12, 12, 12)
+                        .addComponent(creerTenue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(corebeille))
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(age)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(coulCheveux, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(taille)
+                            .addComponent(jLabel15))
+                        .addGap(18, 18, 18)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(coulPreferee)
+                            .addComponent(jLabel14))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(deconnection)
+                        .addGap(49, 49, 49)))
+                .addContainerGap())
+        );
+
+        MainFrame.add(AccueilDressing, "AccueilDressing");
+
+        jLabel24.setText("type :");
+
+        typeV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "tee-shirt", "chemisier", "pull", "veste", "manteau", "pantalon", "pantacourt", "jogging", "jupe", "short", "robe", "combinaison" }));
+        typeV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeVActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("coupe:");
+
+        jLabel26.setText("matière:");
+
+        matiereV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "laine", "coton", "jean", "lin", "velours", "cuir", "dentelle", "daim", "satin", "paillette" }));
+
+        jLabel27.setText("couleur:");
+
+        couleurV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Bleu clair", "Bleu marine", "Turquoise", "Gris clair", "Argenté", "Gris foncé", "Marron clair", "Marron foncé", "Corail", "Orange", "Bordeau", "Brique", "Rouge", "Rose pale", "Rose fushia", "Rose foncé", "Mauve", "Violet", "Prune", "Blanc", "Jaune moutarde ", "Jaune", "Doré", "Noir", "Kaki", "Vert pale", "Vert", "Jean clair", "Jean marine", "Beige" }));
+
+        validerAjoutVetement.setText("valider");
+        validerAjoutVetement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validerAjoutVetementActionPerformed(evt);
+            }
+        });
+
+        annulerAjoutVetement.setText("annuler");
+        annulerAjoutVetement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annulerAjoutVetementActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout AjoutVetementLayout = new javax.swing.GroupLayout(AjoutVetement);
+        AjoutVetement.setLayout(AjoutVetementLayout);
+        AjoutVetementLayout.setHorizontalGroup(
+            AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AjoutVetementLayout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(typeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(coupeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(matiereV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(couleurV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(97, 97, 97))
+            .addGroup(AjoutVetementLayout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(validerAjoutVetement)
+                .addGap(26, 26, 26)
+                .addComponent(annulerAjoutVetement)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        AjoutVetementLayout.setVerticalGroup(
+            AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AjoutVetementLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(typeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(coupeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(matiereV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(validerAjoutVetement)
+                    .addComponent(annulerAjoutVetement))
+                .addContainerGap(187, Short.MAX_VALUE))
+        );
+
+        MainFrame.add(AjoutVetement, "AjoutVetement");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -847,7 +1100,7 @@ public class InitFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGap(0, 438, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(MainFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -866,7 +1119,7 @@ public class InitFrame extends javax.swing.JFrame {
         Boolean connecte = Initialisation.connexion(nomUtilisateur.getText(), nomBase.getText());
         if (connecte) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "Accueil");
+            card.show(MainFrame, "Accueilv2");
         }
         else {
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -875,31 +1128,33 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_connecterActionPerformed
 
     private void accesDressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accesDressingActionPerformed
+        /*if (idUtilisateur.getText().equals("")){
+            JOptionPane j = new JOptionPane();
+            idUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+            j.showMessageDialog(Accueil, "Veuillez saisir un identifiant", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                Utilisateur user = Initialisation.accederDressing(Integer.parseInt(idUtilisateur.getText()));
+                if (user!=null ){
+                    CardLayout card = (CardLayout) MainFrame.getLayout();
+                    card.show(MainFrame, "AccueilDressing");
+                    idDressing=user.getId();
+                    age.setText(Integer.toString(user.getAge()));
+                    taille.setText(Integer.toString(user.getTaille()));
+                    coulPreferee.setText(user.getCouleurPreferee().toString());
+                    coulCheveux.setText((user.getCouleurCheveux().toString())); 
+                  }else{
+                    // boite de dialogue :
+                    JOptionPane jop = new JOptionPane();
+                    jop.showMessageDialog(Accueil, "Identifiant incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+                  }
 
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AccueilDressing");
-
-        try {
-            Utilisateur user = Initialisation.accederDressing(Integer.parseInt(idUtilisateur.getText()));
-              if (user!=null ){
-                age.setText(Integer.toString(user.getAge()));
-                taille.setText(Integer.toString(user.getTaille()));
-                coulPreferee.setText(user.getCouleurPreferee().toString());
-                coulCheveux.setText((user.getCouleurCheveux().toString())); 
-              }else{
-                // boite de dialogue :
-                JOptionPane jop = new JOptionPane();
-                jop.showMessageDialog(AccueilDressing, "Identifiant incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
-                CardLayout card2 = (CardLayout) MainFrame.getLayout();
-                card2.show(MainFrame, "Accueil");
-              }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }*/
     }//GEN-LAST:event_accesDressingActionPerformed
 
     private void supprUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprUtilisateurActionPerformed
@@ -923,17 +1178,40 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void validerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutUtilisateurActionPerformed
         // TODO add your handling code here:
-        
+        nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.gray));
+        nouveauNom.setBorder(BorderFactory.createLineBorder(Color.gray));
+        nouveauMdp.setBorder(BorderFactory.createLineBorder(Color.gray));
+        nouveauPrenom.setBorder(BorderFactory.createLineBorder(Color.gray));
         Utilisateur user = new Utilisateur();
         try {
-            boolean buser = user.ajouterUtilisateur(nouveauNom.getText(),nouveauPrenom.getText(),Integer.parseInt(nouveauAge.getText()), Integer.parseInt(nouveauTaille.getText()), CouleurCheveux.get((String)nouveauCoulC.getSelectedItem()),new Couleur(nouveauCoulP.getSelectedIndex()+1),Signe.getfromInt(nouveauSigne.getSelectedIndex()+1));
-            int id = user.getId();
-            this.setIdDressing(id);
-            JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(AjoutUtilisateur, "Utilisateur ajouté ! \n Votre identifiant est : "+id, "Information", JOptionPane.INFORMATION_MESSAGE);
-            
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "Accueil");
+            if(nouveauNom.getText().equals("") || nouveauPrenom.getText().equals("") || nouveauIdentifiant.getText().equals("") || String.valueOf(nouveauMdp.getPassword()).equals("")){
+                JOptionPane j1 = new JOptionPane();
+                j1.showMessageDialog(AjoutUtilisateur, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+                if(nouveauNom.getText().equals(""))
+                    nouveauNom.setBorder(BorderFactory.createLineBorder(Color.RED));
+                if(nouveauPrenom.getText().equals(""))
+                    nouveauPrenom.setBorder(BorderFactory.createLineBorder(Color.RED));
+                if(nouveauIdentifiant.getText().equals(""))
+                    nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.RED));
+                if(String.valueOf(nouveauMdp.getPassword()).equals(""))
+                    nouveauMdp.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }else if(user.identifiantDejaUtilise(nouveauIdentifiant.getText())){
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(AjoutUtilisateur, "Identifiant non disponible", "Erreur", JOptionPane.ERROR_MESSAGE);
+                nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }else {
+                JOptionPane jop = new JOptionPane();            
+                int option = jop.showConfirmDialog(AjoutUtilisateur, "Voulez-vous vraiment valider ?", "Validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(option == JOptionPane.OK_OPTION){
+                    boolean buser = user.ajouterUtilisateur(nouveauIdentifiant.getText(), String.valueOf(nouveauMdp.getPassword()), nouveauNom.getText(),nouveauPrenom.getText(),Integer.parseInt((String)nouveauAge.getSelectedItem()), Integer.parseInt((String)nouveauTaille.getSelectedItem()), CouleurCheveux.get((String)nouveauCoulC.getSelectedItem()),new Couleur(nouveauCoulP.getSelectedIndex()+1),Signe.getfromInt(nouveauSigne.getSelectedIndex()+1));
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(AjoutUtilisateur, "Utilisateur ajouté ! \n Votre identifiant est : "+nouveauIdentifiant.getText(), "Information", JOptionPane.INFORMATION_MESSAGE);
+
+                    CardLayout card = (CardLayout) MainFrame.getLayout();
+                    card.show(MainFrame, "Accueilv2");
+
+                } 
+            }
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1027,7 +1305,7 @@ public class InitFrame extends javax.swing.JFrame {
         CardLayout card = (CardLayout) MainFrame.getLayout();
         switch(rang){
             case 0: 
-                //card.show(MainFrame, "AjoutVetement");
+                card.show(MainFrame, "AjoutVetement");
                 break;
             case 1: 
                 card.show(MainFrame, "AjoutSac");
@@ -1088,6 +1366,145 @@ public class InitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_validerAjoutChaussuresActionPerformed
 
+    private void annulerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutUtilisateurActionPerformed
+        // TODO add your handling code here:
+        JOptionPane jop = new JOptionPane();            
+        int option = jop.showConfirmDialog(AjoutUtilisateur, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(option == JOptionPane.OK_OPTION){
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "Accueilv2");
+        }        
+    }//GEN-LAST:event_annulerAjoutUtilisateurActionPerformed
+
+    private void idUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idUtilisateurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idUtilisateurActionPerformed
+
+    private void idUtilisateurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idUtilisateurMouseReleased
+        // TODO add your handling code here:
+        idUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
+    }//GEN-LAST:event_idUtilisateurMouseReleased
+
+    private void identifiantUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifiantUtilisateurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_identifiantUtilisateurActionPerformed
+
+    private void connectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectionActionPerformed
+        // TODO add your handling code here:
+        identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
+        mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
+        if (identifiantUtilisateur.getText().equals("") || mdpUtilisateur.getPassword().equals("")){
+            JOptionPane j = new JOptionPane();
+            if (identifiantUtilisateur.getText().equals("") ){
+                identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+            if(String.valueOf(mdpUtilisateur.getPassword()).equals("")){
+                mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+            j.showMessageDialog(Accueil, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                Utilisateur user = Initialisation.accederDressing(identifiantUtilisateur.getText(), String.valueOf(mdpUtilisateur.getPassword()));
+                if (user!=null ){
+                    CardLayout card = (CardLayout) MainFrame.getLayout();
+                    card.show(MainFrame, "AccueilDressing");
+                    idDressing=user.getId();
+                    age.setText(Integer.toString(user.getAge()));
+                    taille.setText(Integer.toString(user.getTaille()));
+                    coulPreferee.setText(user.getCouleurPreferee().toString());
+                    coulCheveux.setText((user.getCouleurCheveux().toString())); 
+                  }else{
+                    // boite de dialogue :
+                    JOptionPane jop = new JOptionPane();
+                    jop.showMessageDialog(Accueil, "Identifiant ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+                    mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+                  }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_connectionActionPerformed
+
+    private void creationCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationCompteActionPerformed
+        // TODO add your handling code here:
+        nouveauNom.setText("");
+        nouveauPrenom.setText("");
+        nouveauAge.setSelectedIndex(0);
+        nouveauTaille.setSelectedIndex(0);
+        nouveauCoulP.setSelectedIndex(0);
+        nouveauCoulC.setSelectedIndex(0);
+        nouveauIdentifiant.setText("");
+        nouveauMdp.setText("");
+        nouveauSigne.setSelectedItem("");
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AjoutUtilisateur");
+    }//GEN-LAST:event_creationCompteActionPerformed
+
+    private void deconnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnectionActionPerformed
+        // TODO add your handling code here:
+        JOptionPane jop = new JOptionPane();            
+        int option = jop.showConfirmDialog(AccueilDressing, "Voulez-vous vraiment vous déconnecter ?", "Deconnexion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(option == JOptionPane.OK_OPTION){
+            identifiantUtilisateur.setText("");
+            mdpUtilisateur.setText("");
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "Accueilv2");
+        }        
+    }//GEN-LAST:event_deconnectionActionPerformed
+
+    private void retourAccueilDressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourAccueilDressingActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AccueilDressing");
+    }//GEN-LAST:event_retourAccueilDressingActionPerformed
+
+    private void typeVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeVActionPerformed
+        // TODO add your handling code here:
+        final List<String> values = new ArrayList<String>(); 
+        if (typeV.getSelectedIndex()==0 || typeV.getSelectedIndex()==1 || typeV.getSelectedIndex()==2 || typeV.getSelectedIndex()==3 || typeV.getSelectedIndex()==4){
+            values.add("Cintre");
+            values.add("Droit");
+            values.add("Large");
+        } else if (typeV.getSelectedIndex()==5 || typeV.getSelectedIndex()==6 || typeV.getSelectedIndex()==7) {
+            values.add("Droit");
+            values.add("Slim");
+            values.add("Evase");
+            values.add("Baggy");
+        } else if (typeV.getSelectedIndex()==8 || typeV.getSelectedIndex()==9 || typeV.getSelectedIndex()==10 || typeV.getSelectedIndex()==11 ) {
+            values.add("Court");
+            values.add("Long");
+        }
+        coupeV.setModel(new DefaultComboBoxModel(values.toArray()));
+    }//GEN-LAST:event_typeVActionPerformed
+
+    private void annulerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutVetementActionPerformed
+        // TODO add your handling code here:
+        JOptionPane jop = new JOptionPane();            
+        int option = jop.showConfirmDialog(AjoutVetement, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(option == JOptionPane.OK_OPTION){
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "ConsulterDressing");
+        }
+    }//GEN-LAST:event_annulerAjoutVetementActionPerformed
+
+    private void validerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutVetementActionPerformed
+        // TODO add your handling code here:
+        Vetement v = new Vetement();
+        try {
+            boolean bv = v.ajouterVetement(this.getIdDressing(),new Couleur(couleurChaussures.getSelectedIndex()+1),CoupeVetement.get((String)coupeV.getSelectedItem()),Matiere.getfromInt(matiereV.getSelectedIndex()+1),TypeVetement.getfromInt(typeV.getSelectedIndex()+1));
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "ConsulterDressing");
+        } catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_validerAjoutVetementActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1127,9 +1544,11 @@ public class InitFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Accueil;
     private javax.swing.JPanel AccueilDressing;
+    private javax.swing.JPanel Accueilv2;
     private javax.swing.JPanel AjoutChaussures;
     private javax.swing.JPanel AjoutSac;
     private javax.swing.JPanel AjoutUtilisateur;
+    private javax.swing.JPanel AjoutVetement;
     private javax.swing.JPanel Connexion;
     private javax.swing.JPanel ConsulterDressing;
     private javax.swing.JPanel MainFrame;
@@ -1137,21 +1556,30 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel age;
     private javax.swing.JButton ajoutContenu;
     private javax.swing.JButton ajoutUtilisateur;
+    private javax.swing.JButton annulerAjoutUtilisateur;
+    private javax.swing.JButton annulerAjoutVetement;
     private javax.swing.JButton chaussures;
     private javax.swing.JButton chemisiers;
     private javax.swing.JButton combinaisons;
     private javax.swing.JButton connecter;
+    private javax.swing.JButton connection;
     private javax.swing.JButton corebeille;
     private javax.swing.JLabel coulCheveux;
     private javax.swing.JLabel coulPreferee;
     private javax.swing.JComboBox couleurChaussures;
     private javax.swing.JComboBox couleurSac;
+    private javax.swing.JComboBox couleurV;
+    private javax.swing.JComboBox coupeV;
+    private javax.swing.JButton creationCompte;
     private javax.swing.JButton creerTenue;
+    private javax.swing.JButton deconnection;
     private javax.swing.JButton dressing;
     private javax.swing.JButton dressingComplet;
     private javax.swing.JTextField idSuppr;
     private javax.swing.JTextField idUtilisateur;
     private javax.swing.JLabel identifiant;
+    private javax.swing.JTextField identifiantUtilisateur;
+    private javax.swing.JComboBox jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1164,6 +1592,14 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1179,19 +1615,24 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton joggins;
     private javax.swing.JButton jupes;
     private javax.swing.JButton manteaux;
+    private javax.swing.JComboBox matiereV;
+    private javax.swing.JPasswordField mdpUtilisateur;
     private javax.swing.JTextField nomBase;
     private javax.swing.JTextField nomUtilisateur;
-    private javax.swing.JTextField nouveauAge;
+    private javax.swing.JComboBox nouveauAge;
     private javax.swing.JComboBox nouveauCoulC;
     private javax.swing.JComboBox nouveauCoulP;
+    private javax.swing.JTextField nouveauIdentifiant;
+    private javax.swing.JPasswordField nouveauMdp;
     private javax.swing.JTextField nouveauNom;
     private javax.swing.JTextField nouveauPrenom;
     private javax.swing.JComboBox nouveauSigne;
-    private javax.swing.JTextField nouveauTaille;
+    private javax.swing.JComboBox nouveauTaille;
     private javax.swing.JButton pantacourts;
     private javax.swing.JButton pantalons;
     private javax.swing.JButton premiereConnexion;
     private javax.swing.JButton pulls;
+    private javax.swing.JButton retourAccueilDressing;
     private javax.swing.JButton robes;
     private javax.swing.JButton sacs;
     private javax.swing.JButton shorts;
@@ -1201,9 +1642,11 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton teeshirts;
     private javax.swing.JComboBox typeChaussures;
     private javax.swing.JComboBox typeSac;
+    private javax.swing.JComboBox typeV;
     private javax.swing.JButton validerAjoutChaussures;
     private javax.swing.JButton validerAjoutSac;
     private javax.swing.JButton validerAjoutUtilisateur;
+    private javax.swing.JButton validerAjoutVetement;
     private javax.swing.JButton vestes;
     // End of variables declaration//GEN-END:variables
 
