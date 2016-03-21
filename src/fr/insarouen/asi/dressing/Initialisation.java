@@ -127,7 +127,7 @@ public class Initialisation {
                     break;
                 case 3:
                     Vetement v = new Vetement();
-                    boolean bv = v.ajouterVetement(idDressing);
+                    //boolean bv = v.ajouterVetement(idDressing);
                     break;
                 case 4:
                     exit = true;
@@ -437,14 +437,26 @@ public class Initialisation {
         } while (!exit);
     }
 
-    public static Utilisateur accederDressing(int id) throws SQLException, IOException {
+    public static Utilisateur accederDressing(String identifiant, String mdp) throws SQLException, IOException {
        boolean acces = false;
+       int id;
        Utilisateur user = new Utilisateur();
             Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            st.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
+            st.executeQuery("select idpers from personne where identifiant='" + identifiant+"' and mdp='"+mdp+"'");
             ResultSet res = (st.getResultSet());
             if (res.first()) {
-                id = res.getInt("iddressing");
+                id = res.getInt("idpers");
+                System.out.println(res.getInt("idpers"));
+            }
+            else {
+                return null;  
+            }
+            
+            Statement st2 = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            st2.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
+            ResultSet res2 = (st2.getResultSet());
+            if (res2.first()) {
+                id = res2.getInt("iddressing");
                 acces = true;
                 user = user.trouverUtilisateur(id);
             }
@@ -513,7 +525,7 @@ public class Initialisation {
     }
 
     public static void main(String[] args) throws IOException {
-        try {
+        //try {
             //InitFrame initFrame = new InitFrame();
             //add(initFrame);
             window = new InitFrame();
@@ -525,9 +537,9 @@ public class Initialisation {
             //String nomUtilisateur = tab[0];
             //connexion(nomUtilisateur, nomBase);
             //lancer();
-            c.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            //c.close();
+        //} catch (SQLException e) {
+            //e.printStackTrace();
+        //}
     }
 }

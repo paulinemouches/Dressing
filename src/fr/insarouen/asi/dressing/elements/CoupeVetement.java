@@ -2,7 +2,7 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum CoupeVetement {
 
-    Cintre, Droit, Large,  Slim, Evase, Baggy, Court,Longue;
+    Cintre, Droit, Large,  Slim, Evase, Baggy, Court,Long;
     
     public static CoupeVetement get(String saisie){
         for(CoupeVetement cv :  values()){

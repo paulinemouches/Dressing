@@ -39,14 +39,16 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
          while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
                           id = res.getInt(1) +1;
         }
-         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO PERSONNE(idPers,nom,prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ("+id+",?,?,?,?,?,?,?)");
-        prepare.setString(1,  obj.getNom()); 
-        prepare.setString(2,  obj.getPrenom());
-        prepare.setInt(3,  obj.getAge());
-        prepare.setInt(4,  obj.getTaille());
-        prepare.setString(5 , obj.getCouleurCheveux().name());
-        prepare.setInt(6,  obj.getCouleurPreferee().getCouleur());
-        prepare.setString(7,  obj.getSigneUtilisateur().name());
+         PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO PERSONNE(idPers,identifiant,mdp,nom,prenom, age, taille, couleurCheveux, couleurPreferee, signe) VALUES ("+id+",?,?,?,?,?,?,?,?,?)");
+        prepare.setString(1,  obj.getIdentifiant()); 
+        prepare.setString(2,  obj.getMdp()); 
+        prepare.setString(3,  obj.getNom()); 
+        prepare.setString(4,  obj.getPrenom());
+        prepare.setInt(5,  obj.getAge());
+        prepare.setInt(6,  obj.getTaille());
+        prepare.setString(7 , obj.getCouleurCheveux().name());
+        prepare.setInt(8,  obj.getCouleurPreferee().getCouleur());
+        prepare.setString(9,  obj.getSigneUtilisateur().name());
         prepare.executeUpdate();
         //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
         obj.setId(id);
@@ -87,7 +89,7 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM PERSONNE WHERE idPers = "+id);
             
             if(res.first()){
-                u = new Utilisateur(id,res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),new Couleur(res.getInt("couleurPreferee")),CouleurCheveux.get(res.getString("couleurCheveux")),Signe.get(res.getString("signe")));
+                u = new Utilisateur(id,res.getString("identifiant"),res.getString("mdp"),res.getString("nom"),res.getString("prenom"),res.getInt("age"),res.getInt("taille"),new Couleur(res.getInt("couleurPreferee")),CouleurCheveux.get(res.getString("couleurCheveux")),Signe.get(res.getString("signe")));
                 return u;
             }else{
                 return null;
@@ -103,6 +105,17 @@ public class UtilisateurDAO extends DAO<Utilisateur>{
             return res.getInt("idpers");
         }else{
             return 0;
+        }
+    }
+    
+    public static boolean identifiantDejaPresent(String identifiant) throws SQLException{
+        Statement st =  Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("SELECT * FROM PERSONNE WHERE identifiant='"+identifiant+"'");   
+        ResultSet res = st.getResultSet(); 
+        if(res.first()){
+            return true;
+        }else{
+            return false;
         }
     }
 

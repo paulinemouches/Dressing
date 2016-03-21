@@ -340,9 +340,17 @@ public class Vetement extends Contenu {
     * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
     *
     */
-    public boolean ajouterVetement(int idDressing) throws SQLException {
-        // Attention à gérer les exceptions !!! 
-        Vetement v = menuAjouterVetementTxt();
+    public boolean ajouterVetement(int idDressing, Couleur couleur, CoupeVetement coupe, Matiere matiere, TypeVetement type) throws SQLException {
+        //Vetement v = menuAjouterVetementTxt();
+        String fils = determinerFils(type);
+
+        Vetement v = new Vetement();
+        v.setCouleur(couleur);
+        v.setCoupe(coupe);
+        v.setMatiere(matiere);
+        v.setSale(false);
+        v.setType(type);
+        v.setFils(fils);
         v.setIdDressing(idDressing);
 
         VetementDAO nouveauVetement = new VetementDAO();

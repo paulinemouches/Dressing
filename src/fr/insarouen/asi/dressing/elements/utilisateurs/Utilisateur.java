@@ -11,6 +11,8 @@ public class Utilisateur {
 
     private String nom;
     private String prenom;
+    private String identifiant;
+    private String mdp;
     private int id;
     private int age;
     private int taille;
@@ -18,8 +20,10 @@ public class Utilisateur {
     private CouleurCheveux couleurCheveux;
     private Signe signeUtilisateur;
 
-    public Utilisateur(int id, String nom, String prenom, int age, int taille, Couleur couleurPreferee, CouleurCheveux couleurCheveux, Signe signeUtilisateur) {
+    public Utilisateur(int id, String identifiant, String mdp, String nom, String prenom, int age, int taille, Couleur couleurPreferee, CouleurCheveux couleurCheveux, Signe signeUtilisateur) {
         this.id = id;
+        this.identifiant =identifiant;
+        this.mdp= mdp;
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
@@ -68,7 +72,16 @@ public class Utilisateur {
         this.signeUtilisateur = signeUtilisateur;
     }
 
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
+    }
 
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    
+    
     public String getNom() {
         return nom;
     }
@@ -97,12 +110,24 @@ public class Utilisateur {
         return signeUtilisateur;
     }
 
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public boolean identifiantDejaUtilise(String identifiant)throws SQLException{
+        return UtilisateurDAO.identifiantDejaPresent(identifiant);
+    }
+    
     /**
      *Permet d'ajouter un nouvel utilisateur
      * @return VRAI si l'utilisateur a bien été créé, FAUX sinon
      */ 
     
-    public boolean ajouterUtilisateur(String nom,String prenom,int age,int taille,CouleurCheveux couleurC, Couleur couleurP, Signe signe) throws SQLException {
+    public boolean ajouterUtilisateur(String identifiant, String mdp, String nom,String prenom,int age,int taille,CouleurCheveux couleurC, Couleur couleurP, Signe signe) throws SQLException {
         /*   String nom =" popo";
         String prenom ="popo";
         int age =12;
@@ -170,6 +195,8 @@ public class Utilisateur {
         
         
         System.out.println("utilisateur créé");
+        this.setIdentifiant(identifiant);
+        this.setMdp(mdp);
         this.setNom(nom);
         this.setPrenom(prenom);
         this.setAge(age);

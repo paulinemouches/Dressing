@@ -68,8 +68,11 @@ public class InitFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+<<<<<<< HEAD
         jFileChooser1 = new javax.swing.JFileChooser();
+=======
         jComboBox3 = new javax.swing.JComboBox();
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
         MainFrame = new javax.swing.JPanel();
         premiereConnexion = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
@@ -144,15 +147,17 @@ public class InitFrame extends javax.swing.JFrame {
         typeChaussures = new javax.swing.JComboBox();
         couleurChaussures = new javax.swing.JComboBox();
         validerAjoutChaussures = new javax.swing.JButton();
+<<<<<<< HEAD
         jLabel21 = new javax.swing.JLabel();
         parcourirChaussures = new javax.swing.JButton();
         cheminImageChaussures = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JScrollPane();
         listeObjets = new javax.swing.JList<>();
+=======
         Accueilv2 = new javax.swing.JPanel();
-        jLabel28 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         identifiantUtilisateur = new javax.swing.JTextField();
-        jLabel29 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         connection = new javax.swing.JButton();
         creationCompte = new javax.swing.JButton();
         mdpUtilisateur = new javax.swing.JPasswordField();
@@ -185,6 +190,7 @@ public class InitFrame extends javax.swing.JFrame {
         annulerAjoutVetement = new javax.swing.JButton();
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -280,6 +286,125 @@ public class InitFrame extends javax.swing.JFrame {
 
         MainFrame.add(Accueil, "Accueil");
 
+<<<<<<< HEAD
+        dressing.setText("Dressing");
+        dressing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dressingActionPerformed(evt);
+            }
+        });
+
+        corebeille.setText("Corbeille à linge");
+
+        creerTenue.setText("Créer une tenue");
+
+        age.setText("age");
+
+        taille.setText("taille");
+
+        coulCheveux.setText("couleur Cheveux");
+
+        coulPreferee.setText("couleur Préférée");
+
+        jLabel1.setText("Nos Conseils :");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jLabel12.setText("age :");
+
+        jLabel13.setText("couleur Cheveux :");
+
+        jLabel14.setText("couler préférée :");
+
+        jLabel15.setText("taille :");
+
+        javax.swing.GroupLayout AccueilDressingLayout = new javax.swing.GroupLayout(AccueilDressing);
+        AccueilDressing.setLayout(AccueilDressingLayout);
+        AccueilDressingLayout.setHorizontalGroup(
+            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccueilDressingLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dressing)
+                    .addComponent(corebeille)
+                    .addComponent(creerTenue))
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))
+                            .addGroup(AccueilDressingLayout.createSequentialGroup()
+                                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel15))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(26, 26, 26))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel13)
+                                        .addComponent(jLabel12)))
+                                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(AccueilDressingLayout.createSequentialGroup()
+                                            .addGap(87, 87, 87)
+                                            .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(taille)
+                                                .addComponent(age)))
+                                        .addComponent(coulPreferee, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(coulCheveux, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())))
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel1))))
+        );
+        AccueilDressingLayout.setVerticalGroup(
+            AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccueilDressingLayout.createSequentialGroup()
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(dressing)
+                        .addGap(28, 28, 28)
+                        .addComponent(corebeille))
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(age))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(coulCheveux, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(taille))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(coulPreferee))))
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(creerTenue)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
+        );
+
+        MainFrame.add(AccueilDressing, "AccueilDressing");
+
+=======
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
         sacs.setText("Sacs");
         sacs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -799,7 +924,11 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(cheminImageSac, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(validerAjoutSac)
+<<<<<<< HEAD
+                .addContainerGap(105, Short.MAX_VALUE))
+=======
                 .addContainerGap(161, Short.MAX_VALUE))
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -877,11 +1006,16 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(cheminImageChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(validerAjoutChaussures)
+<<<<<<< HEAD
+                .addContainerGap(132, Short.MAX_VALUE))
+=======
                 .addContainerGap(234, Short.MAX_VALUE))
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
 
+<<<<<<< HEAD
         listeObjets.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -890,8 +1024,8 @@ public class InitFrame extends javax.swing.JFrame {
         AffichageDressing.setViewportView(listeObjets);
 
         MainFrame.add(AffichageDressing, "AffichageSacs");
-
-        jLabel28.setText("identifiant :");
+=======
+        jLabel20.setText("identifiant :");
 
         identifiantUtilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -899,7 +1033,7 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel29.setText("mot de passe :");
+        jLabel21.setText("mot de passe :");
 
         connection.setText("se connecter");
         connection.addActionListener(new java.awt.event.ActionListener() {
@@ -922,37 +1056,37 @@ public class InitFrame extends javax.swing.JFrame {
             .addGroup(Accueilv2Layout.createSequentialGroup()
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Accueilv2Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(87, 87, 87)
                         .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel29)
-                            .addComponent(jLabel28))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel21))
+                        .addGap(48, 48, 48)
                         .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(mdpUtilisateur, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                            .addComponent(identifiantUtilisateur)))
+                            .addComponent(identifiantUtilisateur, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                            .addComponent(mdpUtilisateur)))
                     .addGroup(Accueilv2Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(connection)
-                        .addGap(32, 32, 32)
-                        .addComponent(creationCompte)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addGap(163, 163, 163)
+                        .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(creationCompte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(connection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         Accueilv2Layout.setVerticalGroup(
             Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Accueilv2Layout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addGap(90, 90, 90)
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
+                    .addComponent(jLabel20)
                     .addComponent(identifiantUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
+                    .addComponent(jLabel21)
                     .addComponent(mdpUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(connection)
-                    .addComponent(creationCompte))
-                .addGap(212, 212, 212))
+                .addGap(32, 32, 32)
+                .addComponent(connection)
+                .addGap(18, 18, 18)
+                .addComponent(creationCompte)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         MainFrame.add(Accueilv2, "Accueilv2");
@@ -1160,6 +1294,7 @@ public class InitFrame extends javax.swing.JFrame {
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1662,8 +1797,11 @@ public class InitFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Accueil;
     private javax.swing.JPanel AccueilDressing;
-    private javax.swing.JPanel Accueilv2;
+<<<<<<< HEAD
     private javax.swing.JScrollPane AffichageDressing;
+=======
+    private javax.swing.JPanel Accueilv2;
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
     private javax.swing.JPanel AjoutChaussures;
     private javax.swing.JPanel AjoutSac;
     private javax.swing.JPanel AjoutUtilisateur;
@@ -1699,9 +1837,12 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField idSuppr;
     private javax.swing.JTextField idUtilisateur;
     private javax.swing.JLabel identifiant;
+<<<<<<< HEAD
+    private javax.swing.JFileChooser jFileChooser1;
+=======
     private javax.swing.JTextField identifiantUtilisateur;
     private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JFileChooser jFileChooser1;
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1716,14 +1857,15 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+<<<<<<< HEAD
+=======
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
+>>>>>>> bea947b683d886784fcaa06d6a899cec91d62287
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
