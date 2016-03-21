@@ -14,6 +14,7 @@ import fr.insarouen.asi.dressing.elements.Couleur;
 public class Contenu {
     //Variable d'instance
     private Couleur couleur;
+    private String image;
     private int idObjet;
     private int idDressing;
         
@@ -22,8 +23,9 @@ public class Contenu {
     public Contenu(){
   }
 
-    public Contenu(Couleur couleur, int idObjet, int idDressing) {
+    public Contenu(Couleur couleur, String image, int idObjet, int idDressing) {
         this.couleur = couleur;
+        this.image = image;
         this.idObjet = idObjet;
         this.idDressing = idDressing;
     }
@@ -43,7 +45,16 @@ public class Contenu {
     public int getIdDressing() {
         return idDressing;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     
+   
     
 
     public void setCouleur(Couleur couleur) {

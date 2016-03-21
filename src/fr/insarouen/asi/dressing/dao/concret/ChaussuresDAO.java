@@ -37,10 +37,11 @@ public class ChaussuresDAO extends DAO<Chaussures> {
         while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
             id = res.getInt(1) +1;
         }
-        PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec) VALUES ("+id+",?,?,?)");
+        PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO CHAUSSURE(idObjet,idDressing,couleur, typec, image) VALUES ("+id+",?,?,?,?)");
         prepare.setInt(1,  obj.getIdDressing());
         prepare.setInt(2,  obj.getCouleur().getCouleur()); 
         prepare.setString(3,  obj.getTypeC().name());
+        prepare.setString(4,  obj.getImage());
         prepare.executeUpdate();
        // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
                 obj.setIdObjet(id);
@@ -81,7 +82,7 @@ public class ChaussuresDAO extends DAO<Chaussures> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM CHAUSSURE WHERE idObjet = "+id+" and iddressing="+idDressing);
             
             if(res.first()){
-                c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),new Couleur(res.getInt("couleur")));
+                c = new Chaussures(id,res.getInt("idDressing"),TypeChaussures.get(res.getString("typec")),new Couleur(res.getInt("couleur")), res.getString("image"));
                 return c;
             }else{
                 return null;

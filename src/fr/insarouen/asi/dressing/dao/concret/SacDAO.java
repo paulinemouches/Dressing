@@ -38,10 +38,11 @@ public class SacDAO extends DAO<Sac> {
             while ( res.next() ){                          //recupère le max de l'id puis +1 pour notre nouvel id
                 id = res.getInt(1) +1;
             }
-            PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types) VALUES ("+id+",?,?,?)");
+            PreparedStatement prepare = Initialisation.getC().prepareStatement("INSERT INTO SAC(idObjet,idDressing,couleur, types,image) VALUES ("+id+",?,?,?,?)");
             prepare.setInt(1,  obj.getIdDressing());
             prepare.setInt(2,  obj.getCouleur().getCouleur()); 
             prepare.setString(3,  obj.getTypeS().name());
+            prepare.setString(4,  obj.getImage());
             prepare.executeUpdate();
             // obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
             obj.setIdObjet(id);
@@ -81,7 +82,7 @@ public class SacDAO extends DAO<Sac> {
             ResultSet res = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE).executeQuery("SELECT * FROM SAC WHERE idObjet = "+id+" and iddressing="+idDressing);
 
             if(res.first()){
-                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),new Couleur(res.getInt("couleur")));
+                s = new Sac(id,res.getInt("idDressing"),TypeSac.get(res.getString("typeS")),new Couleur(res.getInt("couleur")), res.getString("image"));
                 return s;
             }else{
                 return null;

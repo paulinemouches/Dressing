@@ -12,8 +12,8 @@ public class Sac extends Contenu{
     private TypeSac typeS;
     public static HashMap<Integer, Sac> sacs = new HashMap<Integer, Sac>();
 
-    public Sac(int idObjet, int idDressing, TypeSac typeS, Couleur couleur) {
-        super(couleur, idObjet, idDressing);
+    public Sac(int idObjet, int idDressing, TypeSac typeS, Couleur couleur, String image) {
+        super(couleur, image, idObjet, idDressing);
         this.typeS = typeS;
     }
 
@@ -98,12 +98,13 @@ public class Sac extends Contenu{
      * @return VRAI si le sac a été bien ajouté, FAUX sinon
      */
     
-    public boolean ajouterSac(int idDressing, TypeSac typeS, Couleur couleurS) throws SQLException {
+    public boolean ajouterSac(int idDressing, TypeSac typeS, Couleur couleurS, String image) throws SQLException {
 
         //Sac s = menuAjouterSacTxt();
         this.setIdDressing(idDressing);
         this.setTypeS(typeS);
         this.setCouleur(couleurS);
+        this.setImage(image);
         SacDAO nouveauSac = new SacDAO();
         nouveauSac.create(this);
         this.ajouterSacDansListe();

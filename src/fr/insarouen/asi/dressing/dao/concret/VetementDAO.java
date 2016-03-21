@@ -72,7 +72,7 @@ public class VetementDAO extends DAO<Vetement> {
         ResultSet result = stat.getResultSet();
 
         if (result.first()) {
-            v = new Vetement(id, result.getInt("idDressing"), new Couleur(result.getInt("couleur")), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null, result.getInt("couche"), Niveau.get(result.getString("niveau")));
+            v = new Vetement(id, result.getInt("idDressing"), new Couleur(result.getInt("couleur")), CoupeVetement.get(result.getString(coupe)), TypeVetement.get(result.getString(type)), Matiere.get(result.getString("matiere")), null, result.getInt("couche"), Niveau.get(result.getString("niveau")),result.getString("image"));
             v.setSignes(v.determinerSignes());
             return v;
         }

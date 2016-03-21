@@ -38,8 +38,8 @@ public class Vetement extends Contenu {
     * Constructeur de Vêtement avec des valeurs en entrée 
     *
     */
-    public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, Signe[] signes, int couche, Niveau niveau) throws SQLException {
-        super(couleur, idV, idDressing);
+    public Vetement(int idV, int idDressing, Couleur couleur, CoupeVetement coupe, TypeVetement type, Matiere matiere, Signe[] signes, int couche, Niveau niveau, String image) throws SQLException {
+        super(couleur, image, idV, idDressing);
         this.coupe = coupe;
         this.type = type;
         this.matiere = matiere;
