@@ -5,7 +5,11 @@
  */
 package fr.insarouen.asi.dressing.elements.objets;
 
+import fr.insarouen.asi.dressing.dao.concret.ChaussuresDAO;
+import fr.insarouen.asi.dressing.dao.concret.SacDAO;
+import fr.insarouen.asi.dressing.dao.concret.VetementDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
+import java.sql.SQLException;
 
 /**
  *
@@ -70,7 +74,24 @@ public class Contenu {
     }
     
     
-    
+    public static Contenu trouver(int id, int idDressing) throws SQLException {
+        VetementDAO v = new VetementDAO();
+        if(v.find(id, idDressing) == null){
+            SacDAO s = new SacDAO();
+            if(s.find(id, idDressing) == null){
+                ChaussuresDAO c = new ChaussuresDAO();
+                if(c.find(id, idDressing) == null){
+                    return null;
+                }
+                else
+                    return (Contenu)(c.find(id, idDressing));
+            }
+            else
+               return (Contenu)(s.find(id, idDressing)); 
+        }
+        else
+            return (Contenu)(v.find(id, idDressing)); 
+    }
   
 }
 

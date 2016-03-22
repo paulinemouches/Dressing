@@ -15,6 +15,7 @@ import fr.insarouen.asi.dressing.elements.TypeChaussures;
 import fr.insarouen.asi.dressing.elements.TypeSac;
 import fr.insarouen.asi.dressing.elements.TypeVetement;
 import fr.insarouen.asi.dressing.elements.objets.Chaussures;
+import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
@@ -24,8 +25,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,6 +69,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
         jComboBox3 = new javax.swing.JComboBox();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         MainFrame = new javax.swing.JPanel();
         premiereConnexion = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
@@ -183,8 +183,17 @@ public class InitFrame extends javax.swing.JFrame {
         couleurV = new javax.swing.JComboBox();
         validerAjoutVetement = new javax.swing.JButton();
         annulerAjoutVetement = new javax.swing.JButton();
+        AffichageObjet = new javax.swing.JPanel();
+        photoLabel = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -882,11 +891,6 @@ public class InitFrame extends javax.swing.JFrame {
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
 
-        listeObjets.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         AffichageDressing.setViewportView(listeObjets);
 
         MainFrame.add(AffichageDressing, "AffichageSacs");
@@ -1161,6 +1165,53 @@ public class InitFrame extends javax.swing.JFrame {
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
 
+        jLabel30.setText("Description :");
+
+        javax.swing.GroupLayout AffichageObjetLayout = new javax.swing.GroupLayout(AffichageObjet);
+        AffichageObjet.setLayout(AffichageObjetLayout);
+        AffichageObjetLayout.setHorizontalGroup(
+            AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AffichageObjetLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AffichageObjetLayout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addContainerGap(140, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AffichageObjetLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(77, 77, 77))))
+        );
+        AffichageObjetLayout.setVerticalGroup(
+            AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AffichageObjetLayout.createSequentialGroup()
+                .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AffichageObjetLayout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AffichageObjetLayout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        MainFrame.add(AffichageObjet, "AffichageObjet");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1315,16 +1366,12 @@ public class InitFrame extends javax.swing.JFrame {
        DefaultListModel dlm = new DefaultListModel();
         
         HashMap<Integer, Sac> sacs = Sac.getSacs();
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
         
         int i = 0;
-        ArrayList<String> images = new ArrayList<String>();
-        ArrayList<String> types = new ArrayList<String>();
         for(Sac s : sacs.values()){
-            if(s.getImage()=="")
-            images.add("sac-icone.jpg");
-            else
-            images.add(s.getImage());
-            types.add(s.getTypeS().toString());
+            contenus.add((Contenu)s);
+            //images.add("sac-icone.jpg");
             // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
             dlm.insertElementAt(i,i);
             i++;
@@ -1332,9 +1379,24 @@ public class InitFrame extends javax.swing.JFrame {
         //Application du modèle à la liste
         listeObjets.setModel(dlm);
         //On applique maintenant l'affichage voulu
-        ListCellRenderer renderer = new jListRenderer(types,images);
+        ListCellRenderer renderer = new jListRenderer(contenus);
         listeObjets.setCellRenderer(renderer);
+        //listeObjets.addMouseListener(new jListMouseListener(listeObjets));
+    /*  MouseListener mouseListener = new MouseAdapter() {
+      public void mouseClicked(MouseEvent mouseEvent) {
+        JList theList = (JList) mouseEvent.getSource();
+        if (mouseEvent.getClickCount() == 2) {
+          int index = theList.locationToIndex(mouseEvent.getPoint());
+          if (index >= 0) {
+            Object o = theList.getModel().getElementAt(index);
+            System.out.println("Double-clicked on: " + o.toString());
+          }
+        }
+      }
+    };*/
+    listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus,AffichageObjet));
 
+        
     }//GEN-LAST:event_sacsActionPerformed
 
     private void chaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chaussuresActionPerformed
@@ -1664,13 +1726,14 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel AccueilDressing;
     private javax.swing.JPanel Accueilv2;
     private javax.swing.JScrollPane AffichageDressing;
+    private javax.swing.JPanel AffichageObjet;
     private javax.swing.JPanel AjoutChaussures;
     private javax.swing.JPanel AjoutSac;
     private javax.swing.JPanel AjoutUtilisateur;
     private javax.swing.JPanel AjoutVetement;
     private javax.swing.JPanel Connexion;
     private javax.swing.JPanel ConsulterDressing;
-    private javax.swing.JPanel MainFrame;
+    public static javax.swing.JPanel MainFrame;
     private javax.swing.JButton accesDressing;
     private javax.swing.JLabel age;
     private javax.swing.JButton ajoutContenu;
@@ -1702,6 +1765,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField identifiantUtilisateur;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1725,6 +1789,11 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1757,6 +1826,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton pantalons;
     private javax.swing.JButton parcourirChaussures;
     private javax.swing.JButton parcourirSac;
+    private javax.swing.JLabel photoLabel;
     private javax.swing.JButton premiereConnexion;
     private javax.swing.JButton pulls;
     private javax.swing.JButton retourAccueilDressing;
