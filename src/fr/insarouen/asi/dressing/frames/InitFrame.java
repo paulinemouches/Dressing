@@ -21,6 +21,7 @@ import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ import javax.swing.ListModel;
 public class InitFrame extends javax.swing.JFrame {
 
     int idDressing;
+    Boolean connecte = false;
+    public static ArrayList<String> oldPanel = new ArrayList<String>();
 
     /**
      * Creates new form InitFrame
@@ -100,7 +103,6 @@ public class InitFrame extends javax.swing.JFrame {
         joggins = new javax.swing.JButton();
         ajoutContenu = new javax.swing.JButton();
         supprimerContenu = new javax.swing.JButton();
-        retourAccueilDressing = new javax.swing.JButton();
         AjoutUtilisateur = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         nouveauCoulC = new javax.swing.JComboBox();
@@ -171,7 +173,6 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        deconnection = new javax.swing.JButton();
         AjoutVetement = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         typeV = new javax.swing.JComboBox();
@@ -190,6 +191,11 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        deconnexion = new javax.swing.JMenu();
+        retourAccueilItem = new javax.swing.JMenuItem();
+        deconnexionItem = new javax.swing.JMenuItem();
+        retour = new javax.swing.JMenu();
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -465,13 +471,6 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
-        retourAccueilDressing.setText("<-");
-        retourAccueilDressing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retourAccueilDressingActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout ConsulterDressingLayout = new javax.swing.GroupLayout(ConsulterDressing);
         ConsulterDressing.setLayout(ConsulterDressingLayout);
         ConsulterDressingLayout.setHorizontalGroup(
@@ -483,9 +482,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(retourAccueilDressing, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         ConsulterDressingLayout.setVerticalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,9 +492,8 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(ConsulterDressingLayout.createSequentialGroup()
                         .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(retourAccueilDressing, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 373, Short.MAX_VALUE))
+                            .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 403, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -715,7 +711,7 @@ public class InitFrame extends javax.swing.JFrame {
         ConnexionLayout.setVerticalGroup(
             ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConnexionLayout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
+                .addContainerGap(173, Short.MAX_VALUE)
                 .addGroup(ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nomBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -808,7 +804,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(cheminImageSac, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(validerAjoutSac)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -886,7 +882,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(cheminImageChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(validerAjoutChaussures)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
@@ -952,7 +948,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(mdpUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connection)
                     .addComponent(creationCompte))
@@ -994,13 +990,6 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel15.setText("taille :");
 
-        deconnection.setText("deconnection");
-        deconnection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deconnectionActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout AccueilDressingLayout = new javax.swing.GroupLayout(AccueilDressing);
         AccueilDressing.setLayout(AccueilDressingLayout);
         AccueilDressingLayout.setHorizontalGroup(
@@ -1010,8 +999,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(corebeille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(creerTenue, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(dressing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deconnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dressing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(AccueilDressingLayout.createSequentialGroup()
@@ -1065,15 +1053,10 @@ public class InitFrame extends javax.swing.JFrame {
                         .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(coulPreferee)
                             .addComponent(jLabel14))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccueilDressingLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                        .addComponent(deconnection)
-                        .addGap(49, 49, 49)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1160,7 +1143,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(validerAjoutVetement)
                     .addComponent(annulerAjoutVetement))
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
@@ -1183,10 +1166,9 @@ public class InitFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(77, 77, 77))))
         );
         AffichageObjetLayout.setVerticalGroup(
@@ -1207,10 +1189,42 @@ public class InitFrame extends javax.swing.JFrame {
                         .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         MainFrame.add(AffichageObjet, "AffichageObjet");
+
+        deconnexion.setText("Aller à ...");
+
+        retourAccueilItem.setText("Retour Accueil");
+        retourAccueilItem.setFocusCycleRoot(true);
+        retourAccueilItem.setFocusPainted(true);
+        retourAccueilItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retourAccueilItemActionPerformed(evt);
+            }
+        });
+        deconnexion.add(retourAccueilItem);
+
+        deconnexionItem.setText("Deconnexion");
+        deconnexionItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deconnexionItemActionPerformed(evt);
+            }
+        });
+        deconnexion.add(deconnexionItem);
+
+        jMenuBar1.add(deconnexion);
+
+        retour.setText("Retour");
+        retour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                retourMousePressed(evt);
+            }
+        });
+        jMenuBar1.add(retour);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1222,7 +1236,7 @@ public class InitFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 438, Short.MAX_VALUE)
+            .addGap(0, 468, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(MainFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1238,12 +1252,11 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void connecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connecterActionPerformed
         // TODO add your handling code here:
-        Boolean connecte = Initialisation.connexion(nomUtilisateur.getText(), nomBase.getText());
+        connecte = Initialisation.connexion(nomUtilisateur.getText(), nomBase.getText());
         if (connecte) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "Accueilv2");
-        }
-        else {
+        } else {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "Connexion");
         }
@@ -1308,33 +1321,37 @@ public class InitFrame extends javax.swing.JFrame {
         nouveauPrenom.setBorder(BorderFactory.createLineBorder(Color.gray));
         Utilisateur user = new Utilisateur();
         try {
-            if(nouveauNom.getText().equals("") || nouveauPrenom.getText().equals("") || nouveauIdentifiant.getText().equals("") || String.valueOf(nouveauMdp.getPassword()).equals("")){
+            if (nouveauNom.getText().equals("") || nouveauPrenom.getText().equals("") || nouveauIdentifiant.getText().equals("") || String.valueOf(nouveauMdp.getPassword()).equals("")) {
                 JOptionPane j1 = new JOptionPane();
                 j1.showMessageDialog(AjoutUtilisateur, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
-                if(nouveauNom.getText().equals(""))
+                if (nouveauNom.getText().equals("")) {
                     nouveauNom.setBorder(BorderFactory.createLineBorder(Color.RED));
-                if(nouveauPrenom.getText().equals(""))
+                }
+                if (nouveauPrenom.getText().equals("")) {
                     nouveauPrenom.setBorder(BorderFactory.createLineBorder(Color.RED));
-                if(nouveauIdentifiant.getText().equals(""))
+                }
+                if (nouveauIdentifiant.getText().equals("")) {
                     nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.RED));
-                if(String.valueOf(nouveauMdp.getPassword()).equals(""))
+                }
+                if (String.valueOf(nouveauMdp.getPassword()).equals("")) {
                     nouveauMdp.setBorder(BorderFactory.createLineBorder(Color.RED));
-            }else if(user.identifiantDejaUtilise(nouveauIdentifiant.getText())){
+                }
+            } else if (user.identifiantDejaUtilise(nouveauIdentifiant.getText())) {
                 JOptionPane j = new JOptionPane();
                 j.showMessageDialog(AjoutUtilisateur, "Identifiant non disponible", "Erreur", JOptionPane.ERROR_MESSAGE);
                 nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.RED));
-            }else {
-                JOptionPane jop = new JOptionPane();            
+            } else {
+                JOptionPane jop = new JOptionPane();
                 int option = jop.showConfirmDialog(AjoutUtilisateur, "Voulez-vous vraiment valider ?", "Validation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if(option == JOptionPane.OK_OPTION){
-                    boolean buser = user.ajouterUtilisateur(nouveauIdentifiant.getText(), String.valueOf(nouveauMdp.getPassword()), nouveauNom.getText(),nouveauPrenom.getText(),Integer.parseInt((String)nouveauAge.getSelectedItem()), Integer.parseInt((String)nouveauTaille.getSelectedItem()), CouleurCheveux.get((String)nouveauCoulC.getSelectedItem()),new Couleur(nouveauCoulP.getSelectedIndex()+1),Signe.getfromInt(nouveauSigne.getSelectedIndex()+1));
+                if (option == JOptionPane.OK_OPTION) {
+                    boolean buser = user.ajouterUtilisateur(nouveauIdentifiant.getText(), String.valueOf(nouveauMdp.getPassword()), nouveauNom.getText(), nouveauPrenom.getText(), Integer.parseInt((String) nouveauAge.getSelectedItem()), Integer.parseInt((String) nouveauTaille.getSelectedItem()), CouleurCheveux.get((String) nouveauCoulC.getSelectedItem()), new Couleur(nouveauCoulP.getSelectedIndex() + 1), Signe.getfromInt(nouveauSigne.getSelectedIndex() + 1));
                     JOptionPane jop1 = new JOptionPane();
-                    jop1.showMessageDialog(AjoutUtilisateur, "Utilisateur ajouté ! \n Votre identifiant est : "+nouveauIdentifiant.getText(), "Information", JOptionPane.INFORMATION_MESSAGE);
+                    jop1.showMessageDialog(AjoutUtilisateur, "Utilisateur ajouté ! \n Votre identifiant est : " + nouveauIdentifiant.getText(), "Information", JOptionPane.INFORMATION_MESSAGE);
 
                     CardLayout card = (CardLayout) MainFrame.getLayout();
                     card.show(MainFrame, "Accueilv2");
 
-                } 
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1349,54 +1366,42 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "AjoutUtilisateur");
+        oldPanel.add("Accueilv2");
     }//GEN-LAST:event_ajoutUtilisateurActionPerformed
 
     private void dressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingActionPerformed
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "ConsulterDressing");
+        oldPanel.add("AccueilDressing");
     }//GEN-LAST:event_dressingActionPerformed
 
     private void sacsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacsActionPerformed
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "AffichageSacs");
-        
-       ListModel modele = listeObjets.getModel();
-       DefaultListModel dlm = new DefaultListModel();
-        
+
+        ListModel modele = listeObjets.getModel();
+        DefaultListModel dlm = new DefaultListModel();
+
         HashMap<Integer, Sac> sacs = Sac.getSacs();
         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-        
+
         int i = 0;
-        for(Sac s : sacs.values()){
-            contenus.add((Contenu)s);
-            //images.add("sac-icone.jpg");
+        for (Sac s : sacs.values()) {
+            contenus.add((Contenu) s);
             // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-            dlm.insertElementAt(i,i);
+            dlm.insertElementAt(i, i);
             i++;
-         }
+        }
         //Application du modèle à la liste
         listeObjets.setModel(dlm);
         //On applique maintenant l'affichage voulu
         ListCellRenderer renderer = new jListRenderer(contenus);
         listeObjets.setCellRenderer(renderer);
-        //listeObjets.addMouseListener(new jListMouseListener(listeObjets));
-    /*  MouseListener mouseListener = new MouseAdapter() {
-      public void mouseClicked(MouseEvent mouseEvent) {
-        JList theList = (JList) mouseEvent.getSource();
-        if (mouseEvent.getClickCount() == 2) {
-          int index = theList.locationToIndex(mouseEvent.getPoint());
-          if (index >= 0) {
-            Object o = theList.getModel().getElementAt(index);
-            System.out.println("Double-clicked on: " + o.toString());
-          }
-        }
-      }
-    };*/
-    listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus,AffichageObjet));
+        listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+        oldPanel.add("ConsulterDressing");
 
-        
     }//GEN-LAST:event_sacsActionPerformed
 
     private void chaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chaussuresActionPerformed
@@ -1465,8 +1470,8 @@ public class InitFrame extends javax.swing.JFrame {
                 ajout[2]);
 
         CardLayout card = (CardLayout) MainFrame.getLayout();
-        switch(rang){
-            case 0: 
+        switch (rang) {
+            case 0:
                 card.show(MainFrame, "AjoutVetement");
                 break;
             case 1:
@@ -1517,8 +1522,8 @@ public class InitFrame extends javax.swing.JFrame {
     private void validerAjoutChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutChaussuresActionPerformed
         // TODO add your handling code here:
         Chaussures c = new Chaussures();
-         try {
-            boolean bc = c.ajouterChaussures(this.getIdDressing(),TypeChaussures.getfromInt(typeChaussures.getSelectedIndex()+1),new Couleur(couleurChaussures.getSelectedIndex()+1),cheminImageChaussures.getText());
+        try {
+            boolean bc = c.ajouterChaussures(this.getIdDressing(), TypeChaussures.getfromInt(typeChaussures.getSelectedIndex() + 1), new Couleur(couleurChaussures.getSelectedIndex() + 1), cheminImageChaussures.getText());
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(AjoutChaussures, "Chaussures ajoutées ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -1533,13 +1538,13 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int returnVal = jFileChooser1.showOpenDialog(null);
         String completeFileName = jFileChooser1.getSelectedFile().getName();
-               cheminImageSac.setText(completeFileName);
-        
+        cheminImageSac.setText(completeFileName);
+
     }//GEN-LAST:event_parcourirSacActionPerformed
 
     private void parcourirChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirChaussuresActionPerformed
         // TODO add your handling code here:
-        
+
         int returnVal = jFileChooser1.showOpenDialog(null);
         String completeFileName = jFileChooser1.getSelectedFile().getName();
         cheminImageChaussures.setText(completeFileName);
@@ -1547,12 +1552,12 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void annulerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutUtilisateurActionPerformed
         // TODO add your handling code here:
-        JOptionPane jop = new JOptionPane();            
+        JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutUtilisateur, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION){
+        if (option == JOptionPane.OK_OPTION) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "Accueilv2");
-        }        
+        }
     }//GEN-LAST:event_annulerAjoutUtilisateurActionPerformed
 
     private void idUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idUtilisateurActionPerformed
@@ -1572,33 +1577,33 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
         mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
-        if (identifiantUtilisateur.getText().equals("") || mdpUtilisateur.getPassword().equals("")){
+        if (identifiantUtilisateur.getText().equals("") || mdpUtilisateur.getPassword().equals("")) {
             JOptionPane j = new JOptionPane();
-            if (identifiantUtilisateur.getText().equals("") ){
+            if (identifiantUtilisateur.getText().equals("")) {
                 identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
             }
-            if(String.valueOf(mdpUtilisateur.getPassword()).equals("")){
+            if (String.valueOf(mdpUtilisateur.getPassword()).equals("")) {
                 mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
             }
             j.showMessageDialog(Accueil, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             try {
                 Utilisateur user = Initialisation.accederDressing(identifiantUtilisateur.getText(), String.valueOf(mdpUtilisateur.getPassword()));
-                if (user!=null ){
+                if (user != null) {
                     CardLayout card = (CardLayout) MainFrame.getLayout();
                     card.show(MainFrame, "AccueilDressing");
-                    idDressing=user.getId();
+                    idDressing = user.getId();
                     age.setText(Integer.toString(user.getAge()));
                     taille.setText(Integer.toString(user.getTaille()));
                     coulPreferee.setText(user.getCouleurPreferee().toString());
-                    coulCheveux.setText((user.getCouleurCheveux().toString())); 
-                  }else{
+                    coulCheveux.setText((user.getCouleurCheveux().toString()));
+                } else {
                     // boite de dialogue :
                     JOptionPane jop = new JOptionPane();
                     jop.showMessageDialog(Accueil, "Identifiant ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
                     identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
                     mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
-                  }
+                }
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -1623,37 +1628,19 @@ public class InitFrame extends javax.swing.JFrame {
         card.show(MainFrame, "AjoutUtilisateur");
     }//GEN-LAST:event_creationCompteActionPerformed
 
-    private void deconnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnectionActionPerformed
-        // TODO add your handling code here:
-        JOptionPane jop = new JOptionPane();            
-        int option = jop.showConfirmDialog(AccueilDressing, "Voulez-vous vraiment vous déconnecter ?", "Deconnexion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION){
-            identifiantUtilisateur.setText("");
-            mdpUtilisateur.setText("");
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "Accueilv2");
-        }        
-    }//GEN-LAST:event_deconnectionActionPerformed
-
-    private void retourAccueilDressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourAccueilDressingActionPerformed
-        // TODO add your handling code here:
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AccueilDressing");
-    }//GEN-LAST:event_retourAccueilDressingActionPerformed
-
     private void typeVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeVActionPerformed
         // TODO add your handling code here:
-        final List<String> values = new ArrayList<String>(); 
-        if (typeV.getSelectedIndex()==0 || typeV.getSelectedIndex()==1 || typeV.getSelectedIndex()==2 || typeV.getSelectedIndex()==3 || typeV.getSelectedIndex()==4){
+        final List<String> values = new ArrayList<String>();
+        if (typeV.getSelectedIndex() == 0 || typeV.getSelectedIndex() == 1 || typeV.getSelectedIndex() == 2 || typeV.getSelectedIndex() == 3 || typeV.getSelectedIndex() == 4) {
             values.add("Cintre");
             values.add("Droit");
             values.add("Large");
-        } else if (typeV.getSelectedIndex()==5 || typeV.getSelectedIndex()==6 || typeV.getSelectedIndex()==7) {
+        } else if (typeV.getSelectedIndex() == 5 || typeV.getSelectedIndex() == 6 || typeV.getSelectedIndex() == 7) {
             values.add("Droit");
             values.add("Slim");
             values.add("Evase");
             values.add("Baggy");
-        } else if (typeV.getSelectedIndex()==8 || typeV.getSelectedIndex()==9 || typeV.getSelectedIndex()==10 || typeV.getSelectedIndex()==11 ) {
+        } else if (typeV.getSelectedIndex() == 8 || typeV.getSelectedIndex() == 9 || typeV.getSelectedIndex() == 10 || typeV.getSelectedIndex() == 11) {
             values.add("Court");
             values.add("Long");
         }
@@ -1662,9 +1649,9 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void annulerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutVetementActionPerformed
         // TODO add your handling code here:
-        JOptionPane jop = new JOptionPane();            
+        JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutVetement, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(option == JOptionPane.OK_OPTION){
+        if (option == JOptionPane.OK_OPTION) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
         }
@@ -1674,7 +1661,7 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Vetement v = new Vetement();
         try {
-            boolean bv = v.ajouterVetement(this.getIdDressing(),new Couleur(couleurChaussures.getSelectedIndex()+1),CoupeVetement.get((String)coupeV.getSelectedItem()),Matiere.getfromInt(matiereV.getSelectedIndex()+1),TypeVetement.getfromInt(typeV.getSelectedIndex()+1));
+            boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1));
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -1684,6 +1671,44 @@ public class InitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_validerAjoutVetementActionPerformed
 
+    private void deconnexionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnexionItemActionPerformed
+        JOptionPane jop = new JOptionPane();
+        if (connecte) {
+            int option = jop.showConfirmDialog(AccueilDressing, "Voulez-vous vraiment vous déconnecter ?", "Deconnexion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (option == JOptionPane.OK_OPTION) {
+                identifiantUtilisateur.setText("");
+                mdpUtilisateur.setText("");
+                CardLayout card = (CardLayout) MainFrame.getLayout();
+                card.show(MainFrame, "Accueilv2");
+            }
+        } else {
+            jop.showMessageDialog(null, "Vous n'êtes pas encore connecté !", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_deconnexionItemActionPerformed
+
+    private void retourAccueilItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retourAccueilItemActionPerformed
+        JOptionPane jop = new JOptionPane();
+        if (connecte) {
+
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "AccueilDressing");
+
+        } else {
+            jop.showMessageDialog(null, "Vous n'êtes pas encore connecté !", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_retourAccueilItemActionPerformed
+
+    private void retourMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retourMousePressed
+        JOptionPane jop = new JOptionPane();
+        if (oldPanel.isEmpty() || !connecte) {
+            jop.showMessageDialog(null, "Vous ne pouvez pas revenir en arrière", "Erreur", JOptionPane.ERROR_MESSAGE);
+        } else {
+            System.out.println(oldPanel);
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
+            oldPanel.remove(oldPanel.size() - 1);
+        }
+    }//GEN-LAST:event_retourMousePressed
 
     /**
      * @param args the command line arguments
@@ -1756,7 +1781,8 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox coupeV;
     private javax.swing.JButton creationCompte;
     private javax.swing.JButton creerTenue;
-    private javax.swing.JButton deconnection;
+    private javax.swing.JMenu deconnexion;
+    private javax.swing.JMenuItem deconnexionItem;
     private javax.swing.JButton dressing;
     private javax.swing.JButton dressingComplet;
     private javax.swing.JTextField idSuppr;
@@ -1800,6 +1826,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1829,7 +1856,8 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel photoLabel;
     private javax.swing.JButton premiereConnexion;
     private javax.swing.JButton pulls;
-    private javax.swing.JButton retourAccueilDressing;
+    private javax.swing.JMenu retour;
+    private javax.swing.JMenuItem retourAccueilItem;
     private javax.swing.JButton robes;
     private javax.swing.JButton sacs;
     private javax.swing.JButton shorts;

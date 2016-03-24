@@ -24,18 +24,16 @@ import javax.swing.ListCellRenderer;
  */
 public class jListRenderer extends JLabel implements ListCellRenderer {
 
-    ArrayList<String> types = new ArrayList<String>();
-    ArrayList<String> images = new ArrayList<String>();
-    ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+
+    ArrayList<Contenu> contenus;
     String description;
     ImageIcon icon = null;
 
-    public jListRenderer(ArrayList<Contenu> contenus/*ArrayList<String> types, ArrayList<String> images*/) {
+    public jListRenderer(ArrayList<Contenu> contenus) {
         setOpaque(true);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
-        //this.types = types;
-        //this.images = images;
+
         this.contenus = contenus;
     }
 
@@ -53,7 +51,6 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         //Set the icon and text.  If icon was null, say so.
         if (contenus.get(index).getImage().length()>0) {
             icon = new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-            System.out.println(contenus.get(index).getIdObjet() +"photo ok");
         }
         if (contenus.get(index) instanceof Vetement) {
             Vetement v = (Vetement) contenus.get(index);
@@ -64,14 +61,14 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         }
         if (contenus.get(index) instanceof Sac) {
             Sac s = (Sac) contenus.get(index);
-            description = s.getTypeS().toString();
+            description = s.getTypeS().getNom();
             if (s.getImage().length() == 0) {
                 icon = new ImageIcon(new ImageIcon("images/sac-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             }
         }
         if (contenus.get(index) instanceof Chaussures) {
             Chaussures c = (Chaussures) contenus.get(index);
-            description = c.getTypeC().toString();
+            description = c.getTypeC().getNom();
             if (icon == null) {
                 icon = new ImageIcon(new ImageIcon("images/chaussures-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             }
@@ -79,7 +76,6 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         setIcon(icon);
         setText(description);
         setFont(list.getFont());
-
         return this;
     }
 

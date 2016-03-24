@@ -43,12 +43,11 @@ public class jListMouseListener implements MouseListener {
         jl = (JList) e.getSource();
         if(e.getClickCount() == 2){
             index = jl.locationToIndex(e.getPoint());
-            System.out.println(index);
-            blabla(index);
+            affichageObjet(index);
         }      
        }
 
-    public void blabla(int index){
+    public void affichageObjet(int index){
 
         Component[] composants = panelAffichage.getComponents();
         JLabel photo = (JLabel)composants[0];
@@ -57,16 +56,19 @@ public class jListMouseListener implements MouseListener {
         JLabel caracteristique3 = (JLabel) composants[4];
         JLabel caracteristique4 = (JLabel) composants[5];        
         
+         if (contenus.get(index).getImage().length()>0){
         photo.setIcon(new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-        
+         }
+         
+         
         if(contenus.get(index) instanceof Sac){
             Sac s = (Sac) contenus.get(index);
-            caracteristique1.setText(s.getTypeS().toString());
+            caracteristique1.setText(s.getTypeS().getNom());
             caracteristique2.setText(String.valueOf(s.getCouleur().getCouleur()));
         }
         if(contenus.get(index) instanceof Chaussures){
             Chaussures c = ( Chaussures) contenus.get(index);
-            caracteristique1.setText(c.getTypeC().toString());
+            caracteristique1.setText(c.getTypeC().getNom());
             caracteristique2.setText(String.valueOf(c.getCouleur().getCouleur()));
         }
         if(contenus.get(index) instanceof Vetement){
@@ -82,7 +84,7 @@ public class jListMouseListener implements MouseListener {
         
         CardLayout card = (CardLayout)InitFrame.MainFrame.getLayout();
         card.show(InitFrame.MainFrame, "AffichageObjet");
-    
+
     }
     @Override
     public void mousePressed(MouseEvent e) {

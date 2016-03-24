@@ -2,7 +2,18 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum TypeChaussures {
 
-    Escarpins, Ballerines, Baskets, Bottesplates, Bottesatalons, Sandales;
+    Escarpins("Escarpins"),
+    Ballerines("Ballerines"),
+    Baskets("Baskets"), 
+    Bottesplates("Bottes plattes"), 
+    Bottesatalons("Bottes à talons"), 
+    Sandales("Sandales");
+    
+    String chaine;
+    
+    TypeChaussures(String chaine){
+        this.chaine = chaine;
+    }
     
     public static TypeChaussures get(String saisie){
         for(TypeChaussures tc :  values()){
@@ -20,8 +31,7 @@ public enum TypeChaussures {
         return null;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public String getNom() {
+        return chaine;
     }
 }

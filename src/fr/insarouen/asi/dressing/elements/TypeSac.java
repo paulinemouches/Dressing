@@ -2,7 +2,15 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum TypeSac {
 
-    Sacados, Sacamain, Pochette;
+    Sacados("Sac à dos"),
+    Sacamain("Sac à main"), 
+    Pochette("Pochette");
+    
+    private String chaine;
+    
+    TypeSac(String chaine){
+        this.chaine = chaine;
+    }
     
     public static TypeSac get(String saisie){
         for(TypeSac ts :  values()){
@@ -19,9 +27,8 @@ public enum TypeSac {
         }
         return null;
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
+    
+    public String getNom() {
+        return chaine;
     }
 };
