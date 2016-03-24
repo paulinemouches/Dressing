@@ -587,6 +587,21 @@ public class Vetement extends Contenu {
        }
         }
     }
+    
+    /**
+    * Permet d'afficher tous les vêtements du dressing correspondant à un type partivulier rentré par l'utilisateur
+    * 
+    * @param idDressing Id du dressing
+    */
+    public static HashMap<Integer, Vetement> getVetementsType(int idDressing, int typeV) throws SQLException {
+        
+        Collection<Vetement> vetements = VetementDAO.recupererVetementsType(idDressing, typeV).values();
+        if (vetements.isEmpty()){
+            return null;
+        }else{
+        return (HashMap<Integer, Vetement>)vetements;
+       }
+    }
 
     /**
     * Permet d'afficher tous les vêtements du dressing étant sale ou propre

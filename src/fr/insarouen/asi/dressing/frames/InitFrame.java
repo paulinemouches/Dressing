@@ -21,7 +21,6 @@ import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -150,7 +149,7 @@ public class InitFrame extends javax.swing.JFrame {
         parcourirChaussures = new javax.swing.JButton();
         cheminImageChaussures = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JScrollPane();
-        listeObjets = new javax.swing.JList<>();
+        listeObjets = new javax.swing.JList<String>();
         Accueilv2 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         identifiantUtilisateur = new javax.swing.JTextField();
@@ -889,7 +888,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         AffichageDressing.setViewportView(listeObjets);
 
-        MainFrame.add(AffichageDressing, "AffichageSacs");
+        MainFrame.add(AffichageDressing, "AffichageDressing");
 
         jLabel28.setText("identifiant :");
 
@@ -1379,7 +1378,7 @@ public class InitFrame extends javax.swing.JFrame {
     private void sacsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacsActionPerformed
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AffichageSacs");
+        card.show(MainFrame, "AffichageDressing");
 
         ListModel modele = listeObjets.getModel();
         DefaultListModel dlm = new DefaultListModel();
@@ -1406,10 +1405,61 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void chaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chaussuresActionPerformed
         // TODO add your handling code here:
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AffichageDressing");
+
+        ListModel modele = listeObjets.getModel();
+        DefaultListModel dlm = new DefaultListModel();
+
+        HashMap<Integer, Chaussures> chaussures = Chaussures.getChaussures();
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+
+        int i = 0;
+        for (Chaussures c : chaussures.values()) {
+            contenus.add((Contenu) c);
+            // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
+            dlm.insertElementAt(i, i);
+            i++;
+        }
+        //Application du modèle à la liste
+        listeObjets.setModel(dlm);
+        //On applique maintenant l'affichage voulu
+        ListCellRenderer renderer = new jListRenderer(contenus);
+        listeObjets.setCellRenderer(renderer);
+        listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+        oldPanel.add("ConsulterDressing");
     }//GEN-LAST:event_chaussuresActionPerformed
 
     private void pantalonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pantalonsActionPerformed
         // TODO add your handling code here:
+        try {
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "AffichageDressing");
+
+            ListModel modele = listeObjets.getModel();
+            DefaultListModel dlm = new DefaultListModel();
+
+            HashMap<Integer, Vetement> vetements = Vetement.getVetementsType(idDressing,6);
+            ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+
+            int i = 0;
+            for (Vetement v : vetements.values()) {
+                contenus.add((Contenu) v);
+                // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
+                dlm.insertElementAt(i, i);
+                i++;
+            }
+            //Application du modèle à la liste
+            listeObjets.setModel(dlm);
+            //On applique maintenant l'affichage voulu
+            ListCellRenderer renderer = new jListRenderer(contenus);
+            listeObjets.setCellRenderer(renderer);
+            listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+            oldPanel.add("ConsulterDressing");
+        }catch(SQLException ex){
+            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_pantalonsActionPerformed
 
     private void chemisiersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chemisiersActionPerformed

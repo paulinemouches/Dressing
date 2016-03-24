@@ -49,20 +49,21 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         }
 
         //Set the icon and text.  If icon was null, say so.
-        if (contenus.get(index).getImage().length()>0) {
+        System.out.println("image : "+contenus.get(index).getImage());
+        if (contenus.get(index).getImage()!=null) {
             icon = new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         }
         if (contenus.get(index) instanceof Vetement) {
             Vetement v = (Vetement) contenus.get(index);
-            description = v.getType().toString();
+            description = v.getType().getNom();
             if (icon == null) {
-                icon = new ImageIcon(new ImageIcon("images/vetement-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+                icon = new ImageIcon(new ImageIcon("images/vetement-icone.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             }
         }
         if (contenus.get(index) instanceof Sac) {
             Sac s = (Sac) contenus.get(index);
             description = s.getTypeS().getNom();
-            if (s.getImage().length() == 0) {
+            if (s.getImage() == null) {
                 icon = new ImageIcon(new ImageIcon("images/sac-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             }
         }
@@ -70,12 +71,12 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
             Chaussures c = (Chaussures) contenus.get(index);
             description = c.getTypeC().getNom();
             if (icon == null) {
-                icon = new ImageIcon(new ImageIcon("images/chaussures-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+                icon = new ImageIcon(new ImageIcon("images/chaussures-icone.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
             }
         }
-        setIcon(icon);
-        setText(description);
-        setFont(list.getFont());
+        this.setIcon(icon);
+        this.setText(description);
+        this.setFont(list.getFont());
         return this;
     }
 

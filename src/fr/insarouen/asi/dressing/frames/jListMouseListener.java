@@ -57,7 +57,7 @@ public class jListMouseListener implements MouseListener {
         JLabel caracteristique4 = (JLabel) composants[5];        
         
          if (contenus.get(index).getImage().length()>0){
-        photo.setIcon(new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
+            photo.setIcon(new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
          }
          
          

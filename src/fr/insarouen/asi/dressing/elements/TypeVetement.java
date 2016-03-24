@@ -2,7 +2,24 @@ package fr.insarouen.asi.dressing.elements;
 
 public enum TypeVetement {
 
-    Teeshirt, Chemisier, Pull, Veste, Manteau, Pantalon, Pantacourt, Jogging, Jupe, Short, Robe, Combinaison;
+    Teeshirt("Tee-shirt"), 
+    Chemisier("Chemisier"), 
+    Pull("Pull"), 
+    Veste("Veste"), 
+    Manteau("Manteau"), 
+    Pantalon("Pantalon"), 
+    Pantacourt("Pantacourt"), 
+    Jogging("Jogging"), 
+    Jupe("Jupe"), 
+    Short("Short"), 
+    Robe("Robe"), 
+    Combinaison("Combinaison");
+    
+    private String chaine;
+    
+    TypeVetement(String chaine){
+        this.chaine = chaine;
+    }
     
     public static TypeVetement get(String saisie){
         for(TypeVetement n :  values()){
@@ -18,6 +35,9 @@ public enum TypeVetement {
                 return n;
         }
         return null;
+    }
+    public String getNom() {
+        return chaine;
     }
 
     @Override
