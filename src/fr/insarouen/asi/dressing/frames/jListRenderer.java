@@ -50,7 +50,6 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         }
 
         //Set the icon and text.  If icon was null, say so.
-        System.out.println("index = "+index);
         icon = new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 
         if (contenus.get(index) instanceof Vetement) {

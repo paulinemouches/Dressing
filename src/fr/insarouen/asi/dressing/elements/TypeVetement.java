@@ -36,6 +36,7 @@ public enum TypeVetement {
         }
         return null;
     }
+    
     public String getNom() {
         return chaine;
     }

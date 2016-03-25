@@ -593,13 +593,13 @@ public class Vetement extends Contenu {
     * 
     * @param idDressing Id du dressing
     */
-    public static HashMap<Integer, Vetement> getVetementsType(int idDressing, int typeV) throws SQLException {
+    public static Collection<Vetement> getVetementsType(int idDressing, int typeV) throws SQLException {
         
         Collection<Vetement> vetements = VetementDAO.recupererVetementsType(idDressing, typeV).values();
         if (vetements.isEmpty()){
             return null;
         }else{
-        return (HashMap<Integer, Vetement>)vetements;
+        return vetements;
        }
     }
 

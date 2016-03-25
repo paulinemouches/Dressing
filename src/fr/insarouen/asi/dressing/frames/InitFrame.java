@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import java.util.List;
@@ -58,6 +59,42 @@ public class InitFrame extends javax.swing.JFrame {
 
     public void setIdDressing(int idDressing) {
         this.idDressing = idDressing;
+    }
+
+    public void consulterVetements(int typeV) {
+        try {
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "AffichageDressing");
+
+            ListModel modele = listeObjets.getModel();
+            DefaultListModel dlm = new DefaultListModel();
+            listeObjets.setModel(dlm);
+
+            Collection<Vetement> vetements = Vetement.getVetementsType(idDressing, typeV);
+            ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+
+            int i = 0;
+            if (vetements!=null) {
+                for (Vetement v : vetements) {
+                    contenus.add((Contenu) v);
+                    // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
+                    dlm.insertElementAt(i, i);
+                    i++;
+                }
+                //Application du modèle à la liste
+                listeObjets.setModel(dlm);
+                //On applique maintenant l'affichage voulu
+                ListCellRenderer renderer = new jListRenderer(contenus);
+                listeObjets.setCellRenderer(renderer);
+                listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+                oldPanel.add("ConsulterDressing");
+            } else {
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(AffichageDressing, "Vous n'avez pas de vêtements correspondant", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -1265,32 +1302,32 @@ public class InitFrame extends javax.swing.JFrame {
 
 
         /*if (idUtilisateur.getText().equals("")){
-            JOptionPane j = new JOptionPane();
-            idUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
-            j.showMessageDialog(Accueil, "Veuillez saisir un identifiant", "Erreur", JOptionPane.ERROR_MESSAGE);
-        }else{
-            try {
-                Utilisateur user = Initialisation.accederDressing(Integer.parseInt(idUtilisateur.getText()));
-                if (user!=null ){
-                    CardLayout card = (CardLayout) MainFrame.getLayout();
-                    card.show(MainFrame, "AccueilDressing");
-                    idDressing=user.getId();
-                    age.setText(Integer.toString(user.getAge()));
-                    taille.setText(Integer.toString(user.getTaille()));
-                    coulPreferee.setText(user.getCouleurPreferee().toString());
-                    coulCheveux.setText((user.getCouleurCheveux().toString())); 
-                  }else{
-                    // boite de dialogue :
-                    JOptionPane jop = new JOptionPane();
-                    jop.showMessageDialog(Accueil, "Identifiant incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
-                  }
+         JOptionPane j = new JOptionPane();
+         idUtilisateur.setBorder(BorderFactory.createLineBorder(Color.RED));
+         j.showMessageDialog(Accueil, "Veuillez saisir un identifiant", "Erreur", JOptionPane.ERROR_MESSAGE);
+         }else{
+         try {
+         Utilisateur user = Initialisation.accederDressing(Integer.parseInt(idUtilisateur.getText()));
+         if (user!=null ){
+         CardLayout card = (CardLayout) MainFrame.getLayout();
+         card.show(MainFrame, "AccueilDressing");
+         idDressing=user.getId();
+         age.setText(Integer.toString(user.getAge()));
+         taille.setText(Integer.toString(user.getTaille()));
+         coulPreferee.setText(user.getCouleurPreferee().toString());
+         coulCheveux.setText((user.getCouleurCheveux().toString())); 
+         }else{
+         // boite de dialogue :
+         JOptionPane jop = new JOptionPane();
+         jop.showMessageDialog(Accueil, "Identifiant incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+         }
 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }*/
+         } catch (SQLException ex) {
+         ex.printStackTrace();
+         } catch (IOException ex) {
+         ex.printStackTrace();
+         }
+         }*/
     }//GEN-LAST:event_accesDressingActionPerformed
 
     private void supprUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprUtilisateurActionPerformed
@@ -1379,9 +1416,10 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "AffichageDressing");
-        
+
         ListModel modele = listeObjets.getModel();
         DefaultListModel dlm = new DefaultListModel();
+        listeObjets.setModel(dlm);
 
         HashMap<Integer, Sac> sacs = Sac.getSacs();
         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
@@ -1393,7 +1431,7 @@ public class InitFrame extends javax.swing.JFrame {
             dlm.insertElementAt(i, i);
             i++;
         }
-        System.out.println("taille tableau sac =" + i);
+        System.out.println("i:"+i+"\n");
         //Application du modèle à la liste
         //DefaultListModel.fireContentsChanged(dlm,0,i);
         listeObjets.setModel(dlm);
@@ -1401,6 +1439,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         listeObjets.setCellRenderer(new jListRenderer(contenus));
         listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+        System.out.println("size:"+contenus.size()+"\n");
         listeObjets.setVisibleRowCount(contenus.size());
         oldPanel.add("ConsulterDressing");
 
@@ -1413,6 +1452,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         ListModel modele = listeObjets.getModel();
         DefaultListModel dlm = new DefaultListModel();
+        listeObjets.setModel(dlm);
 
         HashMap<Integer, Chaussures> chaussures = Chaussures.getChaussures();
         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
@@ -1435,78 +1475,62 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void pantalonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pantalonsActionPerformed
         // TODO add your handling code here:
-        try {
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "AffichageDressing");
-
-            ListModel modele = listeObjets.getModel();
-            DefaultListModel dlm = new DefaultListModel();
-
-            HashMap<Integer, Vetement> vetements = Vetement.getVetementsType(idDressing, 6);
-            ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-
-            int i = 0;
-            for (Vetement v : vetements.values()) {
-                contenus.add((Contenu) v);
-                // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-                dlm.insertElementAt(i, i);
-                i++;
-            }
-            //Application du modèle à la liste
-            listeObjets.setModel(dlm);
-            //On applique maintenant l'affichage voulu
-            ListCellRenderer renderer = new jListRenderer(contenus);
-            listeObjets.setCellRenderer(renderer);
-            listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
-            oldPanel.add("ConsulterDressing");
-        } catch (SQLException ex) {
-            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        consulterVetements(6);
     }//GEN-LAST:event_pantalonsActionPerformed
 
     private void chemisiersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chemisiersActionPerformed
         // TODO add your handling code here:
+        consulterVetements(2);
     }//GEN-LAST:event_chemisiersActionPerformed
 
     private void teeshirtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teeshirtsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(1);
     }//GEN-LAST:event_teeshirtsActionPerformed
 
     private void pullsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pullsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(3);
     }//GEN-LAST:event_pullsActionPerformed
 
     private void combinaisonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combinaisonsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(12);
     }//GEN-LAST:event_combinaisonsActionPerformed
 
     private void jupesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jupesActionPerformed
         // TODO add your handling code here:
+        consulterVetements(9);
     }//GEN-LAST:event_jupesActionPerformed
 
     private void jogginsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jogginsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(8);
     }//GEN-LAST:event_jogginsActionPerformed
 
     private void manteauxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manteauxActionPerformed
         // TODO add your handling code here:
+        consulterVetements(5);
     }//GEN-LAST:event_manteauxActionPerformed
 
     private void pantacourtsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pantacourtsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(7);
     }//GEN-LAST:event_pantacourtsActionPerformed
 
     private void robesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_robesActionPerformed
         // TODO add your handling code here:
+        consulterVetements(11);
     }//GEN-LAST:event_robesActionPerformed
 
     private void shortsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortsActionPerformed
         // TODO add your handling code here:
+        consulterVetements(10);
     }//GEN-LAST:event_shortsActionPerformed
 
     private void vestesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vestesActionPerformed
         // TODO add your handling code here:
+        consulterVetements(4);
     }//GEN-LAST:event_vestesActionPerformed
 
     private void ajoutContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutContenuActionPerformed
@@ -1597,18 +1621,21 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void parcourirSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirSacActionPerformed
         // TODO add your handling code here:
-        int returnVal = jFileChooser1.showOpenDialog(null);
-        String completeFileName = jFileChooser1.getSelectedFile().getName();
-        cheminImageSac.setText(completeFileName);
-
+        int returnVal = jFileChooser1.showOpenDialog(AjoutSac);
+        if (jFileChooser1.APPROVE_OPTION == returnVal) {
+            String completeFileName = jFileChooser1.getSelectedFile().getName();
+            cheminImageSac.setText(completeFileName);
+        }
     }//GEN-LAST:event_parcourirSacActionPerformed
 
     private void parcourirChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirChaussuresActionPerformed
         // TODO add your handling code here:
 
-        int returnVal = jFileChooser1.showOpenDialog(null);
-        String completeFileName = jFileChooser1.getSelectedFile().getName();
-        cheminImageChaussures.setText(completeFileName);
+        int returnVal = jFileChooser1.showOpenDialog(AjoutChaussures);
+        if (jFileChooser1.APPROVE_OPTION == returnVal) {
+            String completeFileName = jFileChooser1.getSelectedFile().getName();
+            cheminImageChaussures.setText(completeFileName);
+        }
     }//GEN-LAST:event_parcourirChaussuresActionPerformed
 
     private void annulerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutUtilisateurActionPerformed
