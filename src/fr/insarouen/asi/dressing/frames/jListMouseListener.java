@@ -27,7 +27,7 @@ import javax.swing.JPanel;
 public class jListMouseListener implements MouseListener {
 
     private JList jl;
-    public int index;
+    private int indexClic;
     ArrayList<Contenu> contenus;
     JPanel panelAffichage;
 
@@ -42,8 +42,8 @@ public class jListMouseListener implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         jl = (JList) e.getSource();
         if (e.getClickCount() == 2) {
-            index = jl.getSelectedIndex();//locationToIndex(e.getPoint());
-            affichageObjet(index);
+            indexClic = jl.getSelectedIndex();//locationToIndex(e.getPoint());
+            affichageObjet(indexClic);
         }
     }
 

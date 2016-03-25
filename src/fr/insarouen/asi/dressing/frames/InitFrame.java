@@ -185,8 +185,6 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         parcourirChaussures = new javax.swing.JButton();
         cheminImageChaussures = new javax.swing.JLabel();
-        AffichageDressing = new javax.swing.JScrollPane();
-        listeObjets = new javax.swing.JList<String>();
         Accueilv2 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         identifiantUtilisateur = new javax.swing.JTextField();
@@ -227,6 +225,8 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
+        AffichageDressing = new javax.swing.JScrollPane();
+        listeObjets = new javax.swing.JList<String>();
         jMenuBar1 = new javax.swing.JMenuBar();
         deconnexion = new javax.swing.JMenu();
         retourAccueilItem = new javax.swing.JMenuItem();
@@ -923,10 +923,6 @@ public class InitFrame extends javax.swing.JFrame {
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
 
-        AffichageDressing.setViewportView(listeObjets);
-
-        MainFrame.add(AffichageDressing, "AffichageDressing");
-
         jLabel28.setText("identifiant :");
 
         identifiantUtilisateur.addActionListener(new java.awt.event.ActionListener() {
@@ -1230,6 +1226,10 @@ public class InitFrame extends javax.swing.JFrame {
 
         MainFrame.add(AffichageObjet, "AffichageObjet");
 
+        AffichageDressing.setViewportView(listeObjets);
+
+        MainFrame.add(AffichageDressing, "AffichageDressing");
+
         deconnexion.setText("Aller à ...");
 
         retourAccueilItem.setText("Retour Accueil");
@@ -1428,7 +1428,7 @@ public class InitFrame extends javax.swing.JFrame {
         for (Sac s : sacs.values()) {
             contenus.add((Contenu) s);
             // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-            dlm.insertElementAt(i, i);
+            dlm.add(i, i);
             i++;
         }
         System.out.println("i:"+i+"\n");
@@ -1438,7 +1438,7 @@ public class InitFrame extends javax.swing.JFrame {
         //On applique maintenant l'affichage voulu
 
         listeObjets.setCellRenderer(new jListRenderer(contenus));
-        listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+        //listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
         System.out.println("size:"+contenus.size()+"\n");
         listeObjets.setVisibleRowCount(contenus.size());
         oldPanel.add("ConsulterDressing");
