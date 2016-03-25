@@ -25,67 +25,68 @@ import javax.swing.JPanel;
  * @author pauline
  */
 public class jListMouseListener implements MouseListener {
-    
+
     private JList jl;
     public int index;
     ArrayList<Contenu> contenus;
     JPanel panelAffichage;
-    
-    public jListMouseListener(JList jl, ArrayList<Contenu> contenus, JPanel panelAffichage){
-    super();
-    this.jl = jl;
-    this.contenus = contenus;
-    this.panelAffichage = panelAffichage;
+
+    public jListMouseListener(JList jl, ArrayList<Contenu> contenus, JPanel panelAffichage) {
+        super();
+        this.jl = jl;
+        this.contenus = contenus;
+        this.panelAffichage = panelAffichage;
     }
 
     @Override
-    public void mouseClicked(MouseEvent e){
+    public void mouseClicked(MouseEvent e) {
         jl = (JList) e.getSource();
-        if(e.getClickCount() == 2){
-            index = jl.locationToIndex(e.getPoint());
+        if (e.getClickCount() == 2) {
+            index = jl.getSelectedIndex();//locationToIndex(e.getPoint());
             affichageObjet(index);
-        }      
-       }
+        }
+    }
 
-    public void affichageObjet(int index){
+    public void affichageObjet(int index) {
 
         Component[] composants = panelAffichage.getComponents();
-        JLabel photo = (JLabel)composants[0];
+        JLabel photo = (JLabel) composants[0];
         JLabel caracteristique1 = (JLabel) composants[2];
         JLabel caracteristique2 = (JLabel) composants[3];
         JLabel caracteristique3 = (JLabel) composants[4];
-        JLabel caracteristique4 = (JLabel) composants[5];        
-        
-         if (contenus.get(index).getImage().length()>0){
+        JLabel caracteristique4 = (JLabel) composants[5];
+
+        if (contenus.get(index).getImage() != null) {
             photo.setIcon(new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
-         }
-         
-         
-        if(contenus.get(index) instanceof Sac){
+        }
+
+        if (contenus.get(index) instanceof Sac) {
             Sac s = (Sac) contenus.get(index);
             caracteristique1.setText(s.getTypeS().getNom());
-            caracteristique2.setText(String.valueOf(s.getCouleur().getCouleur()));
+            caracteristique2.setText(String.valueOf(s.getCouleur().toString()));
         }
-        if(contenus.get(index) instanceof Chaussures){
-            Chaussures c = ( Chaussures) contenus.get(index);
+        if (contenus.get(index) instanceof Chaussures) {
+
+            Chaussures c = (Chaussures) contenus.get(index);
+            System.out.println(c.getImage());
             caracteristique1.setText(c.getTypeC().getNom());
-            caracteristique2.setText(String.valueOf(c.getCouleur().getCouleur()));
+            caracteristique2.setText(String.valueOf(c.getCouleur().toString()));
         }
-        if(contenus.get(index) instanceof Vetement){
+        if (contenus.get(index) instanceof Vetement) {
             Vetement v = (Vetement) contenus.get(index);
             caracteristique1.setText(v.getType().toString());
-            caracteristique2.setText(String.valueOf(v.getCouleur().getCouleur()));
+            caracteristique2.setText(String.valueOf(v.getCouleur().toString()));
             caracteristique3.setText(v.getCoupe().toString());
             caracteristique4.setText(v.getMatiere().toString());
-            
+
         }
-         
         
-        
-        CardLayout card = (CardLayout)InitFrame.MainFrame.getLayout();
+
+        CardLayout card = (CardLayout) InitFrame.MainFrame.getLayout();
         card.show(InitFrame.MainFrame, "AffichageObjet");
 
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
     }

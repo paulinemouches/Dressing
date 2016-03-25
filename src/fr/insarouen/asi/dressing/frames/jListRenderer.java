@@ -40,6 +40,7 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) { //To change body of generated methods, choose Tools | Templates.
         //int selectedIndex = ((Integer) value).intValue();
+
         if (isSelected) {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
@@ -49,30 +50,23 @@ public class jListRenderer extends JLabel implements ListCellRenderer {
         }
 
         //Set the icon and text.  If icon was null, say so.
-        System.out.println("image : "+contenus.get(index).getImage());
-        if (contenus.get(index).getImage()!=null) {
-            icon = new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-        }
+        System.out.println("index = "+index);
+        icon = new ImageIcon(new ImageIcon("images/" + contenus.get(index).getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+
         if (contenus.get(index) instanceof Vetement) {
             Vetement v = (Vetement) contenus.get(index);
             description = v.getType().getNom();
-            if (icon == null) {
-                icon = new ImageIcon(new ImageIcon("images/vetement-icone.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-            }
+
         }
         if (contenus.get(index) instanceof Sac) {
             Sac s = (Sac) contenus.get(index);
             description = s.getTypeS().getNom();
-            if (s.getImage() == null) {
-                icon = new ImageIcon(new ImageIcon("images/sac-icone.jpg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-            }
+
         }
         if (contenus.get(index) instanceof Chaussures) {
             Chaussures c = (Chaussures) contenus.get(index);
             description = c.getTypeC().getNom();
-            if (icon == null) {
-                icon = new ImageIcon(new ImageIcon("images/chaussures-icone.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-            }
+
         }
         this.setIcon(icon);
         this.setText(description);

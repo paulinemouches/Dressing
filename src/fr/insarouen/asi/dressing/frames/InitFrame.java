@@ -1379,7 +1379,7 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "AffichageDressing");
-
+        
         ListModel modele = listeObjets.getModel();
         DefaultListModel dlm = new DefaultListModel();
 
@@ -1393,12 +1393,15 @@ public class InitFrame extends javax.swing.JFrame {
             dlm.insertElementAt(i, i);
             i++;
         }
+        System.out.println("taille tableau sac =" + i);
         //Application du modèle à la liste
+        //DefaultListModel.fireContentsChanged(dlm,0,i);
         listeObjets.setModel(dlm);
         //On applique maintenant l'affichage voulu
-        ListCellRenderer renderer = new jListRenderer(contenus);
-        listeObjets.setCellRenderer(renderer);
+
+        listeObjets.setCellRenderer(new jListRenderer(contenus));
         listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+        listeObjets.setVisibleRowCount(contenus.size());
         oldPanel.add("ConsulterDressing");
 
     }//GEN-LAST:event_sacsActionPerformed
@@ -1439,7 +1442,7 @@ public class InitFrame extends javax.swing.JFrame {
             ListModel modele = listeObjets.getModel();
             DefaultListModel dlm = new DefaultListModel();
 
-            HashMap<Integer, Vetement> vetements = Vetement.getVetementsType(idDressing,6);
+            HashMap<Integer, Vetement> vetements = Vetement.getVetementsType(idDressing, 6);
             ArrayList<Contenu> contenus = new ArrayList<Contenu>();
 
             int i = 0;
@@ -1456,10 +1459,10 @@ public class InitFrame extends javax.swing.JFrame {
             listeObjets.setCellRenderer(renderer);
             listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
             oldPanel.add("ConsulterDressing");
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_pantalonsActionPerformed
 
     private void chemisiersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chemisiersActionPerformed
@@ -1554,8 +1557,12 @@ public class InitFrame extends javax.swing.JFrame {
     private void validerAjoutSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutSacActionPerformed
         // TODO add your handling code here:
         Sac sac = new Sac();
+        String cheminImage = "sac-icone.jpg";
         try {
-            boolean bsac = sac.ajouterSac(this.getIdDressing(), TypeSac.getfromInt(typeSac.getSelectedIndex() + 1), new Couleur(couleurSac.getSelectedIndex() + 1), cheminImageSac.getText());
+            if (cheminImageSac.getText().length() > 0) {
+                cheminImage = cheminImageSac.getText();
+            }
+            boolean bsac = sac.ajouterSac(this.getIdDressing(), TypeSac.getfromInt(typeSac.getSelectedIndex() + 1), new Couleur(couleurSac.getSelectedIndex() + 1), cheminImage);
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(AjoutSac, "Sac ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -1572,8 +1579,12 @@ public class InitFrame extends javax.swing.JFrame {
     private void validerAjoutChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutChaussuresActionPerformed
         // TODO add your handling code here:
         Chaussures c = new Chaussures();
+        String cheminImage = "chaussures-icone.jpeg";
         try {
-            boolean bc = c.ajouterChaussures(this.getIdDressing(), TypeChaussures.getfromInt(typeChaussures.getSelectedIndex() + 1), new Couleur(couleurChaussures.getSelectedIndex() + 1), cheminImageChaussures.getText());
+            if (cheminImageChaussures.getText().length() > 0) {
+                cheminImage = cheminImageChaussures.getText();
+            }
+            boolean bc = c.ajouterChaussures(this.getIdDressing(), TypeChaussures.getfromInt(typeChaussures.getSelectedIndex() + 1), new Couleur(couleurChaussures.getSelectedIndex() + 1), cheminImage);
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(AjoutChaussures, "Chaussures ajoutées ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
