@@ -340,7 +340,7 @@ public class Vetement extends Contenu {
     * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
     *
     */
-    public boolean ajouterVetement(int idDressing, Couleur couleur, CoupeVetement coupe, Matiere matiere, TypeVetement type) throws SQLException {
+    public boolean ajouterVetement(int idDressing, Couleur couleur, CoupeVetement coupe, Matiere matiere, TypeVetement type, String image) throws SQLException {
         //Vetement v = menuAjouterVetementTxt();
         String fils = determinerFils(type);
 
@@ -363,6 +363,7 @@ public class Vetement extends Contenu {
         v.setNiveau(niveau);
         v.setCouche(couche);
         v.setSignes(signes);
+        v.setImage(image);
 
         v.ajouterVetementDansListe();
         return true;

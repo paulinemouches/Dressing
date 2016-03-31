@@ -102,13 +102,13 @@ public class VetementDAO extends DAO<Vetement> {
             PreparedStatement prepare;
             switch (obj.getFils()) {
                 case "Haut":
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO HAUT(idobjet,idDressing,couleur,matiere,sale_propre,typeh,coupeh) VALUES (" + id + ",?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO HAUT(idobjet,idDressing,couleur,matiere,sale_propre,typeh,coupeh,image) VALUES (" + id + ",?,?,?,?,?,?,?)");
                     break;
                 case "Pantalon":
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO PANTALON(idobjet,idDressing,couleur,matiere,sale_propre,typep,coupep) VALUES (" + id + ",?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO PANTALON(idobjet,idDressing,couleur,matiere,sale_propre,typep,coupep,image) VALUES (" + id + ",?,?,?,?,?,?,?)");
                     break;
                 default:
-                    prepare = Initialisation.getC().prepareStatement("INSERT INTO AUTRE(idobjet,idDressing,couleur,matiere,sale_propre,typea,coupea) VALUES (" + id + ",?,?,?,?,?,?)");
+                    prepare = Initialisation.getC().prepareStatement("INSERT INTO AUTRE(idobjet,idDressing,couleur,matiere,sale_propre,typea,coupea,image) VALUES (" + id + ",?,?,?,?,?,?,?)");
                     break;
             }
 
@@ -118,6 +118,7 @@ public class VetementDAO extends DAO<Vetement> {
             prepare.setBoolean(4, obj.isSale());
             prepare.setString(5, obj.getType().name());
             prepare.setString(6, obj.getCoupe().name());
+            prepare.setString(7, obj.getImage());
             prepare.executeUpdate();
             //obj = this.find(id); // Ne sert visiblement a rien mais je laisse au cas ou
 

@@ -19,22 +19,22 @@ import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import javax.swing.DefaultListModel;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListModel;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -63,34 +63,32 @@ public class InitFrame extends javax.swing.JFrame {
 
     public void consulterVetements(int typeV) {
         try {
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "AffichageDressing");
-
-            ListModel modele = listeObjets.getModel();
-            DefaultListModel dlm = new DefaultListModel();
-            listeObjets.setModel(dlm);
+            AffichageDressing.removeAll();
+            DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
+            JList listeObjets = new JList(dlmSac);
+            JScrollPane jsp = new JScrollPane(listeObjets);
+            listeObjets.setSize(3, 3);
 
             Collection<Vetement> vetements = Vetement.getVetementsType(idDressing, typeV);
-            ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-
             int i = 0;
-            if (vetements!=null) {
+            if (vetements == null) {
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de vêtements de ce type !", "Information", JOptionPane.INFORMATION_MESSAGE);
+            } else {
                 for (Vetement v : vetements) {
-                    contenus.add((Contenu) v);
-                    // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-                    dlm.insertElementAt(i, i);
+                    dlmSac.add(i, v);
                     i++;
                 }
-                //Application du modèle à la liste
-                listeObjets.setModel(dlm);
-                //On applique maintenant l'affichage voulu
-                ListCellRenderer renderer = new jListRenderer(contenus);
-                listeObjets.setCellRenderer(renderer);
-                listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
+
+                listeObjets.setCellRenderer(new JListRenderer());
+                listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet));
+                //listeObjets.setVisibleRowCount(i);
+
                 oldPanel.add("ConsulterDressing");
-            } else {
-                JOptionPane j = new JOptionPane();
-                j.showMessageDialog(AffichageDressing, "Vous n'avez pas de vêtements correspondant", "Information", JOptionPane.INFORMATION_MESSAGE);
+                AffichageDressing.add(jsp, BorderLayout.CENTER);
+                CardLayout card = (CardLayout) MainFrame.getLayout();
+                card.show(MainFrame, "AffichageDressing");
+                AffichageDressing.repaint();
             }
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +173,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerAjoutSac = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         parcourirSac = new javax.swing.JButton();
-        cheminImageSac = new javax.swing.JLabel();
+        photoSac = new javax.swing.JLabel();
         AjoutChaussures = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -184,7 +182,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerAjoutChaussures = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         parcourirChaussures = new javax.swing.JButton();
-        cheminImageChaussures = new javax.swing.JLabel();
+        photoChaussures = new javax.swing.JLabel();
         Accueilv2 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         identifiantUtilisateur = new javax.swing.JTextField();
@@ -218,6 +216,9 @@ public class InitFrame extends javax.swing.JFrame {
         couleurV = new javax.swing.JComboBox();
         validerAjoutVetement = new javax.swing.JButton();
         annulerAjoutVetement = new javax.swing.JButton();
+        jLabel35 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        photoVetement = new javax.swing.JLabel();
         AffichageObjet = new javax.swing.JPanel();
         photoLabel = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -225,8 +226,7 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        AffichageDressing = new javax.swing.JScrollPane();
-        listeObjets = new javax.swing.JList<String>();
+        AffichageDressing = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         deconnexion = new javax.swing.JMenu();
         retourAccueilItem = new javax.swing.JMenuItem();
@@ -711,6 +711,9 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Utilisateur :");
 
+        nomBase.setText("dressing");
+
+        nomUtilisateur.setText("pauline");
         nomUtilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomUtilisateurActionPerformed(evt);
@@ -798,49 +801,48 @@ public class InitFrame extends javax.swing.JFrame {
             .addGroup(AjoutSacLayout.createSequentialGroup()
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutSacLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel20))
+                        .addGap(65, 65, 65)
                         .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(typeSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(AjoutSacLayout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel20))
-                                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(AjoutSacLayout.createSequentialGroup()
-                                        .addGap(79, 79, 79)
-                                        .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(typeSac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(AjoutSacLayout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(parcourirSac))))
-                            .addGroup(AjoutSacLayout.createSequentialGroup()
-                                .addGap(204, 204, 204)
-                                .addComponent(validerAjoutSac)))
-                        .addGap(0, 88, Short.MAX_VALUE))
-                    .addComponent(cheminImageSac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(parcourirSac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(AjoutSacLayout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(validerAjoutSac)))
+                .addGap(31, 31, 31))
         );
         AjoutSacLayout.setVerticalGroup(
             AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AjoutSacLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(64, 64, 64)
+                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(typeSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(parcourirSac))
-                .addGap(18, 18, 18)
-                .addComponent(cheminImageSac, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                    .addGroup(AjoutSacLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(parcourirSac)))
+                    .addGroup(AjoutSacLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
                 .addComponent(validerAjoutSac)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -875,29 +877,26 @@ public class InitFrame extends javax.swing.JFrame {
         AjoutChaussures.setLayout(AjoutChaussuresLayout);
         AjoutChaussuresLayout.setHorizontalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cheminImageChaussures, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(AjoutChaussuresLayout.createSequentialGroup()
                 .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(24, 24, 24)
                         .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel21)
-                            .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel18)
-                                .addComponent(jLabel19)))
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19))
+                        .addGap(46, 46, 46)
                         .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(typeChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(couleurChaussures, 0, 1, Short.MAX_VALUE)))
-                            .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addComponent(parcourirChaussures))))
+                                .addComponent(parcourirChaussures)
+                                .addGap(37, 37, 37)
+                                .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typeChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(AjoutChaussuresLayout.createSequentialGroup()
                         .addGap(201, 201, 201)
                         .addComponent(validerAjoutChaussures)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         AjoutChaussuresLayout.setVerticalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -910,21 +909,25 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
                     .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(parcourirChaussures))
-                .addGap(18, 18, 18)
-                .addComponent(cheminImageChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AjoutChaussuresLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(parcourirChaussures)))
+                    .addGroup(AjoutChaussuresLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(46, 46, 46)
                 .addComponent(validerAjoutChaussures)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
 
         jLabel28.setText("identifiant :");
 
+        identifiantUtilisateur.setText("pmouches");
         identifiantUtilisateur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 identifiantUtilisateurActionPerformed(evt);
@@ -946,6 +949,8 @@ public class InitFrame extends javax.swing.JFrame {
                 creationCompteActionPerformed(evt);
             }
         });
+
+        mdpUtilisateur.setText("pmouches76");
 
         javax.swing.GroupLayout Accueilv2Layout = new javax.swing.GroupLayout(Accueilv2);
         Accueilv2.setLayout(Accueilv2Layout);
@@ -1127,30 +1132,39 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel35.setText("image:");
+
+        jButton1.setText("parcourir...");
+
         javax.swing.GroupLayout AjoutVetementLayout = new javax.swing.GroupLayout(AjoutVetement);
         AjoutVetement.setLayout(AjoutVetementLayout);
         AjoutVetementLayout.setHorizontalGroup(
             AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AjoutVetementLayout.createSequentialGroup()
-                .addGap(96, 96, 96)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel27))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                    .addGroup(AjoutVetementLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel35)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel24))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(validerAjoutVetement)
+                        .addGap(18, 18, 18)))
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(annulerAjoutVetement)
                     .addComponent(typeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(coupeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(matiereV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(couleurV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(97, 97, 97))
-            .addGroup(AjoutVetementLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(validerAjoutVetement)
-                .addGap(26, 26, 26)
-                .addComponent(annulerAjoutVetement)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(couleurV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         AjoutVetementLayout.setVerticalGroup(
             AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1164,18 +1178,27 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(jLabel25)
                     .addComponent(coupeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(matiereV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AjoutVetementLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel35)))
+                    .addGroup(AjoutVetementLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(112, 112, 112)
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(matiereV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(validerAjoutVetement)
-                    .addComponent(annulerAjoutVetement))
-                .addContainerGap(217, Short.MAX_VALUE))
+                    .addComponent(annulerAjoutVetement)
+                    .addComponent(validerAjoutVetement))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
@@ -1225,9 +1248,6 @@ public class InitFrame extends javax.swing.JFrame {
         );
 
         MainFrame.add(AffichageObjet, "AffichageObjet");
-
-        AffichageDressing.setViewportView(listeObjets);
-
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
         deconnexion.setText("Aller à ...");
@@ -1414,63 +1434,63 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void sacsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacsActionPerformed
         // TODO add your handling code here:
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AffichageDressing");
 
-        ListModel modele = listeObjets.getModel();
-        DefaultListModel dlm = new DefaultListModel();
-        listeObjets.setModel(dlm);
+        AffichageDressing.removeAll();
+        DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
+        JList listeObjets = new JList(dlmSac);
+        JScrollPane jsp = new JScrollPane(listeObjets);
 
-        HashMap<Integer, Sac> sacs = Sac.getSacs();
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+        if (Sac.getSacs() == null) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de sacs !", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int i = 0;
+            for (Sac s : Sac.getSacs().values()) {
+                dlmSac.add(i, s);
+                i++;
+            }
 
-        int i = 0;
-        for (Sac s : sacs.values()) {
-            contenus.add((Contenu) s);
-            // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-            dlm.add(i, i);
-            i++;
+            listeObjets.setCellRenderer(new JListRenderer());
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet));
+            //listeObjets.setVisibleRowCount(i);
+
+            oldPanel.add("ConsulterDressing");
+            AffichageDressing.add(jsp, BorderLayout.CENTER);
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "AffichageDressing");
+            AffichageDressing.repaint();
         }
-        System.out.println("i:"+i+"\n");
-        //Application du modèle à la liste
-        //DefaultListModel.fireContentsChanged(dlm,0,i);
-        listeObjets.setModel(dlm);
-        //On applique maintenant l'affichage voulu
 
-        listeObjets.setCellRenderer(new jListRenderer(contenus));
-        //listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
-        System.out.println("size:"+contenus.size()+"\n");
-        listeObjets.setVisibleRowCount(contenus.size());
-        oldPanel.add("ConsulterDressing");
 
     }//GEN-LAST:event_sacsActionPerformed
 
     private void chaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chaussuresActionPerformed
         // TODO add your handling code here:
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AffichageDressing");
+        AffichageDressing.removeAll();
+        DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
+        JList listeObjets = new JList(dlmSac);
+        JScrollPane jsp = new JScrollPane(listeObjets);
 
-        ListModel modele = listeObjets.getModel();
-        DefaultListModel dlm = new DefaultListModel();
-        listeObjets.setModel(dlm);
+        if (Chaussures.getChaussures() == null) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de chaussures !", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int i = 0;
+            for (Chaussures c : Chaussures.getChaussures().values()) {
+                dlmSac.add(i, c);
+                i++;
+            }
 
-        HashMap<Integer, Chaussures> chaussures = Chaussures.getChaussures();
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+            listeObjets.setCellRenderer(new JListRenderer());
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet));
+            //listeObjets.setVisibleRowCount(i);
 
-        int i = 0;
-        for (Chaussures c : chaussures.values()) {
-            contenus.add((Contenu) c);
-            // Ajoute un element temporaire à l liste pour pouvoir avoir la bonne taille
-            dlm.insertElementAt(i, i);
-            i++;
+            oldPanel.add("ConsulterDressing");
+            AffichageDressing.add(jsp, BorderLayout.CENTER);
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "AffichageDressing");
+            AffichageDressing.repaint();
         }
-        //Application du modèle à la liste
-        listeObjets.setModel(dlm);
-        //On applique maintenant l'affichage voulu
-        ListCellRenderer renderer = new jListRenderer(contenus);
-        listeObjets.setCellRenderer(renderer);
-        listeObjets.addMouseListener(new jListMouseListener(listeObjets, contenus, AffichageObjet));
-        oldPanel.add("ConsulterDressing");
     }//GEN-LAST:event_chaussuresActionPerformed
 
     private void pantalonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pantalonsActionPerformed
@@ -1583,8 +1603,8 @@ public class InitFrame extends javax.swing.JFrame {
         Sac sac = new Sac();
         String cheminImage = "sac-icone.jpg";
         try {
-            if (cheminImageSac.getText().length() > 0) {
-                cheminImage = cheminImageSac.getText();
+            if (photoSac.getText().length() > 0) {
+                cheminImage = photoSac.getText();
             }
             boolean bsac = sac.ajouterSac(this.getIdDressing(), TypeSac.getfromInt(typeSac.getSelectedIndex() + 1), new Couleur(couleurSac.getSelectedIndex() + 1), cheminImage);
             JOptionPane jop1 = new JOptionPane();
@@ -1605,8 +1625,8 @@ public class InitFrame extends javax.swing.JFrame {
         Chaussures c = new Chaussures();
         String cheminImage = "chaussures-icone.jpeg";
         try {
-            if (cheminImageChaussures.getText().length() > 0) {
-                cheminImage = cheminImageChaussures.getText();
+            if (photoChaussures.getText().length() > 0) {
+                cheminImage = photoChaussures.getText();
             }
             boolean bc = c.ajouterChaussures(this.getIdDressing(), TypeChaussures.getfromInt(typeChaussures.getSelectedIndex() + 1), new Couleur(couleurChaussures.getSelectedIndex() + 1), cheminImage);
             JOptionPane jop1 = new JOptionPane();
@@ -1624,7 +1644,7 @@ public class InitFrame extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(AjoutSac);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
             String completeFileName = jFileChooser1.getSelectedFile().getName();
-            cheminImageSac.setText(completeFileName);
+            photoSac.setText(completeFileName);
         }
     }//GEN-LAST:event_parcourirSacActionPerformed
 
@@ -1634,7 +1654,7 @@ public class InitFrame extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(AjoutChaussures);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
             String completeFileName = jFileChooser1.getSelectedFile().getName();
-            cheminImageChaussures.setText(completeFileName);
+            photoChaussures.setText(completeFileName);
         }
     }//GEN-LAST:event_parcourirChaussuresActionPerformed
 
@@ -1748,8 +1768,52 @@ public class InitFrame extends javax.swing.JFrame {
     private void validerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutVetementActionPerformed
         // TODO add your handling code here:
         Vetement v = new Vetement();
+        String cheminImage = "";
+
         try {
-            boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1));
+            if (photoVetement.getText().length() > 0) {
+                cheminImage = photoVetement.getText();
+            } else {
+                switch (TypeVetement.getfromInt(typeV.getSelectedIndex() + 1)) {
+                    case Teeshirt:
+                        cheminImage = "teeshirt-icone.png";
+                        break;
+                    case Chemisier:
+                        cheminImage = "chemisier-icone.png";
+                        break;
+                    case Pull:
+                        cheminImage = "pull-icone.png";
+                        break;
+                    case Veste:
+                        cheminImage = "veste-icone.png";
+                        break;
+                    case Manteau:
+                        cheminImage = "manteau-icone.png";
+                        break;
+                    case Jogging:
+                        cheminImage = "jogging-icone.jpeg";
+                        break;
+                    case Pantalon:
+                        cheminImage = "pantalon-icone.png";
+                        break;
+                    case Pantacourt:
+                        cheminImage = "pantacourt-icone.jpeg";
+                        break;
+                    case Jupe:
+                        cheminImage = "jupe-icone.png";
+                        break;
+                    case Robe:
+                        cheminImage = "robe-icone.png";
+                        break;
+                    case Combinaison:
+                        cheminImage = "combinaison-icone.jpeg";
+                        break;
+                    case Short:
+                        cheminImage = "short-icone.png";
+                        break;
+                }
+            }
+            boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1), cheminImage);
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -1838,7 +1902,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel Accueil;
     private javax.swing.JPanel AccueilDressing;
     private javax.swing.JPanel Accueilv2;
-    private javax.swing.JScrollPane AffichageDressing;
+    private javax.swing.JPanel AffichageDressing;
     private javax.swing.JPanel AffichageObjet;
     private javax.swing.JPanel AjoutChaussures;
     private javax.swing.JPanel AjoutSac;
@@ -1854,8 +1918,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton annulerAjoutUtilisateur;
     private javax.swing.JButton annulerAjoutVetement;
     private javax.swing.JButton chaussures;
-    private javax.swing.JLabel cheminImageChaussures;
-    private javax.swing.JLabel cheminImageSac;
     private javax.swing.JButton chemisiers;
     private javax.swing.JButton combinaisons;
     private javax.swing.JButton connecter;
@@ -1877,6 +1939,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField idUtilisateur;
     private javax.swing.JLabel identifiant;
     private javax.swing.JTextField identifiantUtilisateur;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -1908,6 +1971,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1922,7 +1986,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton joggins;
     private javax.swing.JButton jupes;
-    private javax.swing.JList<String> listeObjets;
     private javax.swing.JButton manteaux;
     private javax.swing.JComboBox matiereV;
     private javax.swing.JPasswordField mdpUtilisateur;
@@ -1941,7 +2004,10 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton pantalons;
     private javax.swing.JButton parcourirChaussures;
     private javax.swing.JButton parcourirSac;
+    private javax.swing.JLabel photoChaussures;
     private javax.swing.JLabel photoLabel;
+    private javax.swing.JLabel photoSac;
+    private javax.swing.JLabel photoVetement;
     private javax.swing.JButton premiereConnexion;
     private javax.swing.JButton pulls;
     private javax.swing.JMenu retour;
