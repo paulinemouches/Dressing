@@ -553,7 +553,7 @@ public class Tenue {
      * @return ArrayList Tableau de vêtements correspondant à l'évênement
      *
      */
-    private ArrayList<Vetement> chercherVetementType(ArrayList<Vetement> vetements, TypeVetement type) throws SQLException, TenueImpossibleException {
+    public ArrayList<Vetement> chercherVetementType(ArrayList<Vetement> vetements, TypeVetement type) throws SQLException, TenueImpossibleException {
         // On ne garde que les vêtements qui correspondent au type souhaité
         Iterator<Vetement> it = vetements.iterator();
         while (it.hasNext()) {

@@ -150,8 +150,7 @@ public class Initialisation {
                     boolean bsac = sac.supprimerSac(idDressing);
                     if (bsac) {
                         System.out.println("Le sac a été suprimé");
-                    }
-                    else {
+                    } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
@@ -160,8 +159,7 @@ public class Initialisation {
                     boolean bc = c.supprimerChaussures(idDressing);
                     if (bc) {
                         System.out.println("Les chaussures ont été suprimé");
-                    }
-                    else {
+                    } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
@@ -170,8 +168,7 @@ public class Initialisation {
                     boolean bv = v.supprimerVetement(idDressing);
                     if (bv) {
                         System.out.println("Le vêtement a été suprimé");
-                    }
-                    else {
+                    } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
                     break;
@@ -326,15 +323,15 @@ public class Initialisation {
         }
     }
 
-    private static boolean estContenuDans(Tenue t, ArrayList<Tenue> tenues) {
+
+    public static boolean estContenuDans(Tenue t, ArrayList<Tenue> tenues) {
         int contenu = 0;
         boolean estDedans = false;
         ArrayList<Integer> idsTenue = idsTenueCorrespondant(t);
         ArrayList<Integer> idsTableau = new ArrayList<Integer>();
         if (tenues.isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             for (Tenue ten : tenues) {
                 idsTableau = idsTenueCorrespondant(ten);
                 if (idsTenue.size() == idsTableau.size()) {
@@ -366,9 +363,7 @@ public class Initialisation {
 
     //séparation de la methode en deux, plus facile pour faire les 2 boucles necessaires
     public static Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
-        int suivant = 0;
         boolean flag;//change si l'exception est levée
-        Scanner sc = new Scanner(System.in);
         Tenue t = new Tenue();
         do {
             try {
@@ -400,8 +395,7 @@ public class Initialisation {
                     Vetement.modifierSalePropre(idVetement, idDressing, mettreAuSale);
                 }
             }
-        }
-        else {
+        } else {
             System.out.println("Pas de vêtements correspondants");
         }
     }
@@ -438,36 +432,34 @@ public class Initialisation {
     }
 
     public static Utilisateur accederDressing(String identifiant, String mdp) throws SQLException, IOException {
-       boolean acces = false;
-       int id;
-       Utilisateur user = new Utilisateur();
-            Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            st.executeQuery("select idpers from personne where identifiant='" + identifiant+"' and mdp='"+mdp+"'");
-            ResultSet res = (st.getResultSet());
-            if (res.first()) {
-                id = res.getInt("idpers");
-                System.out.println(res.getInt("idpers"));
-            }
-            else {
-                return null;  
-            }
-            
-            Statement st2 = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            st2.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
-            ResultSet res2 = (st2.getResultSet());
-            if (res2.first()) {
-                id = res2.getInt("iddressing");
-                acces = true;
-                user = user.trouverUtilisateur(id);
-            }
-            else {
-                acces = false;
-                return null;  
-            }
-            Chaussures.initialiserChaussures(id);
-            Sac.initSacs(id);
-            Vetement.initiVetements(id);
-            //explorerDressing(id);
+        boolean acces = false;
+        int id;
+        Utilisateur user = new Utilisateur();
+        Statement st = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        st.executeQuery("select idpers from personne where identifiant='" + identifiant + "' and mdp='" + mdp + "'");
+        ResultSet res = (st.getResultSet());
+        if (res.first()) {
+            id = res.getInt("idpers");
+            System.out.println(res.getInt("idpers"));
+        } else {
+            return null;
+        }
+
+        Statement st2 = Initialisation.getC().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        st2.executeQuery("select d.iddressing from dressing d where d.idpers=" + id);
+        ResultSet res2 = (st2.getResultSet());
+        if (res2.first()) {
+            id = res2.getInt("iddressing");
+            acces = true;
+            user = user.trouverUtilisateur(id);
+        } else {
+            acces = false;
+            return null;
+        }
+        Chaussures.initialiserChaussures(id);
+        Sac.initSacs(id);
+        Vetement.initiVetements(id);
+        //explorerDressing(id);
         return user;
     }
 
@@ -478,8 +470,8 @@ public class Initialisation {
             //menuGeneral();
             switch (choix) {
                 case 1:
-                  //  Utilisateur user1 = new Utilisateur();
-                  //  boolean buser1 = user1.ajouterUtilisateur();
+                    //  Utilisateur user1 = new Utilisateur();
+                    //  boolean buser1 = user1.ajouterUtilisateur();
                     break;
                 case 2:
                     Utilisateur user2 = new Utilisateur();
@@ -496,8 +488,7 @@ public class Initialisation {
                         if (res.first()) {
                             id = res.getInt("iddressing");
                             lancer = true;
-                        }
-                        else {
+                        } else {
                             lancer = false;
                             throw new IdNonPresentException("L'id saisi n'est pas correct.");
                         }
@@ -526,20 +517,20 @@ public class Initialisation {
 
     public static void main(String[] args) throws IOException {
         //try {
-            //InitFrame initFrame = new InitFrame();
-            //add(initFrame);
-            window = new InitFrame();
-            window.setDefaultCloseOperation(InitFrame.EXIT_ON_CLOSE);
-            window.setVisible(true);
-            // window.getWindow().setVisible(true);
-            //String tab[] = menuConnexion();
-            //String nomBase = tab[1];
-            //String nomUtilisateur = tab[0];
-            //connexion(nomUtilisateur, nomBase);
-            //lancer();
-            //c.close();
+        //InitFrame initFrame = new InitFrame();
+        //add(initFrame);
+        window = new InitFrame();
+        window.setDefaultCloseOperation(InitFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+        // window.getWindow().setVisible(true);
+        //String tab[] = menuConnexion();
+        //String nomBase = tab[1];
+        //String nomUtilisateur = tab[0];
+        //connexion(nomUtilisateur, nomBase);
+        //lancer();
+        //c.close();
         //} catch (SQLException e) {
-            //e.printStackTrace();
+        //e.printStackTrace();
         //}
     }
 }

@@ -21,6 +21,38 @@
         <Property name="text" type="java.lang.String" value="jFormattedTextField1"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+    <Container class="javax.swing.JPanel" name="jPanel3">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel4">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="deconnexion">
@@ -82,7 +114,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="476" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="553" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Component id="MainFrame" alignment="1" max="32767" attributes="0"/>
           </Group>
@@ -90,7 +122,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="468" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="455" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Component id="MainFrame" alignment="1" max="32767" attributes="0"/>
           </Group>
@@ -243,7 +275,7 @@
                       <Component id="ajoutContenu" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="supprimerContenu" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace pref="141" max="32767" attributes="0"/>
+                      <EmptySpace pref="218" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -257,7 +289,7 @@
                                   <Component id="ajoutContenu" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                   <Component id="supprimerContenu" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="403" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="390" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -488,9 +520,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -988,14 +1020,14 @@
                               <Component id="connecter" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="118" max="32767" attributes="0"/>
+                      <EmptySpace pref="195" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="173" max="32767" attributes="0"/>
+                      <EmptySpace pref="160" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nomBase" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1073,7 +1105,7 @@
                                           <Component id="couleurSac" min="-2" pref="107" max="-2" attributes="0"/>
                                           <Component id="parcourirSac" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="27" max="32767" attributes="0"/>
+                                      <EmptySpace pref="104" max="32767" attributes="0"/>
                                       <Component id="photoSac" min="-2" pref="79" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1115,7 +1147,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="validerAjoutSac" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="195" max="32767" attributes="0"/>
+                      <EmptySpace pref="182" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1250,7 +1282,7 @@
                               <Component id="validerAjoutChaussures" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="46" max="32767" attributes="0"/>
+                      <EmptySpace pref="123" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1282,7 +1314,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="validerAjoutChaussures" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="173" max="32767" attributes="0"/>
+                      <EmptySpace pref="160" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1407,7 +1439,7 @@
                               <Component id="creationCompte" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="138" max="32767" attributes="0"/>
+                      <EmptySpace pref="215" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1424,7 +1456,7 @@
                           <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="mdpUtilisateur" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="connection" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="creationCompte" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1493,7 +1525,7 @@
                           <Component id="creerTenue" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="dressing" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
@@ -1561,7 +1593,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="96" max="32767" attributes="0"/>
+                      <EmptySpace pref="83" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="179" max="-2" attributes="0"/>
@@ -1588,6 +1620,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cr&#xe9;er une tenue"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="creerTenueActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="age">
               <Properties>
@@ -1672,7 +1707,7 @@
                                   <Component id="jLabel25" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel24" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="51" max="32767" attributes="0"/>
+                              <EmptySpace pref="128" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
@@ -1735,7 +1770,7 @@
                           <Component id="annulerAjoutVetement" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="validerAjoutVetement" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="82" max="32767" attributes="0"/>
+                      <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1895,7 +1930,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="140" max="32767" attributes="0"/>
+                              <EmptySpace pref="217" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1932,7 +1967,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel34" min="-2" pref="21" max="-2" attributes="0"/>
-                      <EmptySpace pref="131" max="32767" attributes="0"/>
+                      <EmptySpace pref="118" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1963,6 +1998,356 @@
           </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+        </Container>
+        <Container class="javax.swing.JPanel" name="TenueNormale">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="TenueNormale"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="evtTenueNormale" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                              <Component id="formeTenueNormale" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                              <Component id="validerTenueNormale" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="evtTenueNormale" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="formeTenueNormale" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="validerTenueNormale" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="194" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JComboBox" name="evtTenueNormale">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Tous les jours"/>
+                    <StringItem index="1" value="Sport"/>
+                    <StringItem index="2" value="Soir&#xe9;e"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel36">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Evenement:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="formeTenueNormale">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Accord&#xe9;e &#xe0; la forme "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="validerTenueNormale">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valider"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="validerTenueNormaleActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="AffichageTenue">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="AffichageTenue"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+        </Container>
+        <Container class="javax.swing.JPanel" name="TenueAvecTypeParticulier">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="TenueAvecTypeParticulier"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="typeTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                                  <Component id="evtTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="formeTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="validerTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="199" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="evtTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="typeTenueAvecTypeParticulier" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="formeTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="validerTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel37">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Evenement:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="evtTenueAvecTypeParticulier">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Tous les jours"/>
+                    <StringItem index="1" value="Sport"/>
+                    <StringItem index="2" value="Soir&#xe9;e"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel38">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Type de Vetements :"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="typeTenueAvecTypeParticulier">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="12">
+                    <StringItem index="0" value="Tee-shirt"/>
+                    <StringItem index="1" value="Chemisier"/>
+                    <StringItem index="2" value="Pull"/>
+                    <StringItem index="3" value="Veste"/>
+                    <StringItem index="4" value="Manteau"/>
+                    <StringItem index="5" value="Pantalon"/>
+                    <StringItem index="6" value=" Pantacourt"/>
+                    <StringItem index="7" value="Jogging"/>
+                    <StringItem index="8" value="Jupe"/>
+                    <StringItem index="9" value=" Short"/>
+                    <StringItem index="10" value="Robe"/>
+                    <StringItem index="11" value="Combinaison"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="formeTenueAvecTypeParticulier">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Accord&#xe9;e &#xe0; la forme"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="validerTenueAvecTypeParticulier">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valider"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="validerTenueAvecTypeParticulierActionPerformed"/>
+              </Events>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="TenueAvecContenuParticulier">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="TenueAvecContenuParticulier"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                  <BorderConstraints direction="Last"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="validerTenueAvecContenuParticulier" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                                  <Component id="formeTenueAvecContenuParticulier" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                  <Component id="jLabel42" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                  <Component id="evtTenueAvecContenuParticulier" min="-2" pref="154" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="aucunSac" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="aucunesChaussures" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="aucunVetement" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="aucunSac" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="aucunesChaussures" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="aucunVetement" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="34" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel42" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="evtTenueAvecContenuParticulier" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                          <Component id="formeTenueAvecContenuParticulier" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="validerTenueAvecContenuParticulier" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="validerTenueAvecContenuParticulier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Valider"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="validerTenueAvecContenuParticulierActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="formeTenueAvecContenuParticulier">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Accord&#xe9;e &#xe0; la forme"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel42">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Evenement:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="evtTenueAvecContenuParticulier">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Tous les jours"/>
+                        <StringItem index="1" value="Sport"/>
+                        <StringItem index="2" value="Soir&#xe9;e"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="aucunSac">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Aucun sac"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aucunSacActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="aucunesChaussures">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Aucunes chaussures"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aucunesChaussuresActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="aucunVetement">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Aucun v&#xea;tement"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aucunVetementActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>
