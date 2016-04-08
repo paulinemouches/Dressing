@@ -154,7 +154,7 @@ public class InitFrame extends javax.swing.JFrame {
         }
         JLabel lab4 = new JLabel();
         JLabel lab4txt = new JLabel();
-        lab4txt.setText("<html>" + t.getSac().getCouleur().toString() + "<br>" + t.getSac().getTypeS().toString() + "</html>");
+        lab4txt.setText("<html>" + t.getSac().getCouleur().toString() + "<br>" + t.getSac().getTypeS().getNom() + "</html>");
         JPanel pn4 = new JPanel();
         pn4.add(lab4, BorderLayout.CENTER);
         pn4.add(lab4txt, BorderLayout.EAST);
@@ -164,7 +164,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         JLabel lab5 = new JLabel();
         JLabel lab5txt = new JLabel();
-        lab5txt.setText("<html>" + t.getChaussures().getCouleur().toString() + "<br>"+ t.getChaussures().getTypeC().toString() + "</html>");
+        lab5txt.setText("<html>" + t.getChaussures().getCouleur().toString() + "<br>"+ t.getChaussures().getTypeC().getNom() + "</html>");
         JPanel pn5 = new JPanel();
         pn5.add(lab5, BorderLayout.CENTER);
         pn5.add(lab5txt, BorderLayout.EAST);
