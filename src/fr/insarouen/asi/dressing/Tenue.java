@@ -89,12 +89,14 @@ public class Tenue {
      */
     public String determinerSaison() {
         Calendar cal = Calendar.getInstance();
-        if (((cal.get(Calendar.MONTH) >= Calendar.MARCH) && (cal.get(Calendar.DAY_OF_MONTH) >= 21)) && ((cal.get(Calendar.MONTH) <= Calendar.SEPTEMBER) && (cal.get(Calendar.DAY_OF_MONTH) <= 21))) {
+        if ((cal.get(Calendar.MONTH) >= Calendar.APRIL)/* && (cal.get(Calendar.DAY_OF_MONTH) >= 21)) */&& (cal.get(Calendar.MONTH) <= Calendar.SEPTEMBER)/* && (cal.get(Calendar.DAY_OF_MONTH) <= 21))*/) {
             return "Printemps/Ete";
+            
         }
         else {
             return "Automne/Hiver";
         }
+        
     }
 
 // ------------------------------------------------------------------------------------------                    

@@ -25,7 +25,6 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
@@ -41,12 +40,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -123,29 +122,54 @@ public class InitFrame extends javax.swing.JFrame {
         Boutons.add(suiv, BorderLayout.EAST);
 
         JLabel lab1 = new JLabel();
+        JLabel lab1txt = new JLabel();
         lab1.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + t.getVetements().get(0).getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-        Affichage.add(lab1);
+        lab1txt.setText("<html>" + t.getVetements().get(0).getCouleur().toString() + "<br>" + t.getVetements().get(0).getCoupe().toString() + "<br>" + t.getVetements().get(0).getMatiere().toString() + "</html>");
+        JPanel pn1 = new JPanel();
+        pn1.add(lab1, BorderLayout.CENTER);
+        pn1.add(lab1txt, BorderLayout.EAST);
+        Affichage.add(pn1);
         contenus.add(t.getVetements().get(0));
         if (t.getVetements().size() > 1) {
             JLabel lab2 = new JLabel();
+            JLabel lab2txt = new JLabel();
+            lab2txt.setText("<html>" + t.getVetements().get(1).getCouleur().toString() + "<br>" + t.getVetements().get(1).getCoupe().toString() + "<br>" + t.getVetements().get(1).getMatiere().toString() + "</html>");
+            JPanel pn2 = new JPanel();
+            pn2.add(lab2, BorderLayout.CENTER);
+            pn2.add(lab2txt, BorderLayout.EAST);
             lab2.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + t.getVetements().get(1).getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-            Affichage.add(lab2);
+            Affichage.add(pn2);
             contenus.add(t.getVetements().get(1));
             if (t.getVetements().size() > 2) {
                 JLabel lab3 = new JLabel();
+                JLabel lab3txt = new JLabel();
+                lab3txt.setText("<html>" + t.getVetements().get(2).getCouleur().toString() + "<br>" + t.getVetements().get(2).getCoupe().toString() + "<br>" + t.getVetements().get(2).getMatiere().toString() + "</html>");
+                JPanel pn3 = new JPanel();
+                pn3.add(lab3, BorderLayout.CENTER);
+                pn3.add(lab3txt, BorderLayout.EAST);
                 lab3.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + t.getVetements().get(2).getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-                Affichage.add(lab3);
+                Affichage.add(pn3);
                 contenus.add(t.getVetements().get(2));
             }
         }
         JLabel lab4 = new JLabel();
+        JLabel lab4txt = new JLabel();
+        lab4txt.setText("<html>" + t.getSac().getCouleur().toString() + "<br>" + t.getSac().getTypeS().toString() + "</html>");
+        JPanel pn4 = new JPanel();
+        pn4.add(lab4, BorderLayout.CENTER);
+        pn4.add(lab4txt, BorderLayout.EAST);
         lab4.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + t.getSac().getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-        Affichage.add(lab4);
+        Affichage.add(pn4);
         contenus.add(t.getSac());
 
         JLabel lab5 = new JLabel();
+        JLabel lab5txt = new JLabel();
+        lab5txt.setText("<html>" + t.getChaussures().getCouleur().toString() + "<br>"+ t.getChaussures().getTypeC().toString() + "</html>");
+        JPanel pn5 = new JPanel();
+        pn5.add(lab5, BorderLayout.CENTER);
+        pn5.add(lab5txt, BorderLayout.EAST);
         lab5.setIcon(new ImageIcon(new ImageIcon("images/chaussures/" + t.getChaussures().getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
-        Affichage.add(lab5);
+        Affichage.add(pn5);
         contenus.add(t.getChaussures());
 
         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);
@@ -2192,11 +2216,14 @@ public class InitFrame extends javax.swing.JFrame {
                 aucunSac.setSelected(false);
                 aucunesChaussures.setSelected(false);
                 aucunVetement.setSelected(false);
+                sacscb.setEnabled(true);
+                chaussurescb.setEnabled(true);
+                vetementscb.setEnabled(true);
+                
                 panelChoixVetements.removeAll();
                 dcmSac.removeAllElements();
                 dcmChaussures.removeAllElements();
                 dcmVetement.removeAllElements();
-
 
                 if (Sac.getSacs() != null) {
                     for (Sac s : Sac.getSacs().values()) {
