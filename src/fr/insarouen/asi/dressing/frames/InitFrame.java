@@ -8,6 +8,7 @@ package fr.insarouen.asi.dressing.frames;
 import fr.insarouen.asi.dressing.Initialisation;
 import fr.insarouen.asi.dressing.Tenue;
 import fr.insarouen.asi.dressing.TenueImpossibleException;
+import fr.insarouen.asi.dressing.conseil.Conseil;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
@@ -28,11 +29,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -281,7 +284,7 @@ public class InitFrame extends javax.swing.JFrame {
         coulPreferee = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        champConseil = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -295,16 +298,16 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<String>();
+        evtTenueNormale = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
         AffichageTenue = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         TenueAvecContenuParticulier = new javax.swing.JPanel();
@@ -312,7 +315,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
         aucunSac = new javax.swing.JCheckBox();
         aucunesChaussures = new javax.swing.JCheckBox();
         aucunVetement = new javax.swing.JCheckBox();
@@ -1075,9 +1078,9 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Nos Conseils :");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        champConseil.setColumns(20);
+        champConseil.setRows(5);
+        jScrollPane2.setViewportView(champConseil);
 
         jLabel12.setText("age :");
 
@@ -1210,7 +1213,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AffichageObjet, "AffichageObjet");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1262,11 +1265,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1333,7 +1336,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         aucunSac.setText("Aucun sac");
         aucunSac.addActionListener(new java.awt.event.ActionListener() {
@@ -1745,6 +1748,11 @@ public class InitFrame extends javax.swing.JFrame {
         if (connecte) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "Accueilv2");
+            try {
+                Conseil.initialiserConseils();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "Connexion");
@@ -2179,6 +2187,30 @@ public class InitFrame extends javax.swing.JFrame {
                     taille.setText(Integer.toString(user.getTaille()));
                     coulPreferee.setText(user.getCouleurPreferee().toString());
                     coulCheveux.setText((user.getCouleurCheveux().toString()));
+                    ArrayList<Conseil> conseils = new ArrayList<Conseil>();
+                    switch (user.getSigneUtilisateur()) {
+                        case Huit:
+                            conseils = Conseil.getConseilsHuit();
+                            break;
+                        case O:
+                            conseils = Conseil.getConseilsO();
+                            break;
+                        case A:
+                            conseils.addAll(Conseil.getConseilsA());
+                            break;
+                        case V:
+                            conseils = Conseil.getConseilsV();
+                            break;
+                        case X:
+                            conseils = Conseil.getConseilsX();
+                            break;
+                        case H:
+                            conseils = Conseil.getConseilsH();
+                            break;
+                    }
+                    Random rand = new Random();
+                    int alea = rand.nextInt(conseils.size());
+                    champConseil.setText(conseils.get(alea).getDescription());
                 } else {
                     // boite de dialogue :
                     JOptionPane jop = new JOptionPane();
@@ -2604,6 +2636,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel caracteristique2;
     private javax.swing.JLabel caracteristique3;
     private javax.swing.JLabel caracteristique4;
+    private javax.swing.JTextArea champConseil;
     private javax.swing.JButton chaussures;
     private javax.swing.JButton chemisiers;
     private javax.swing.JButton combinaisons;
@@ -2687,7 +2720,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton joggins;
     private javax.swing.JButton jupes;
     private javax.swing.JButton manteaux;
