@@ -9,12 +9,12 @@ import fr.insarouen.asi.dressing.elements.objets.Chaussures;
 import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -29,11 +29,22 @@ public class JListMouseListener implements MouseListener {
     private JList jl;
     private int indexClic;
     JPanel panelAffichage;
+    JDialog jd;
+    JLabel photo, caracteristique1, caracteristique2, caracteristique3, caracteristique4, id;
+    JButton mettreAuSale;
 
-    public JListMouseListener(JList jl, JPanel panelAffichage) {
+    public JListMouseListener(JList jl, JPanel panelAffichage, JDialog jd,JLabel photo,JLabel caracteristique1,JLabel caracteristique2,JLabel caracteristique3,JLabel caracteristique4, JButton mettreAuSale,JLabel id) {
         super();
         this.jl = jl;
         this.panelAffichage = panelAffichage;
+        this.jd= jd;
+        this.photo=photo;
+        this.caracteristique1=caracteristique1;
+        this.caracteristique2=caracteristique2;
+        this.caracteristique3=caracteristique3;
+        this.caracteristique4=caracteristique4;
+        this.mettreAuSale=mettreAuSale;
+        this.id =id;
     }
 
     @Override
@@ -47,18 +58,9 @@ public class JListMouseListener implements MouseListener {
 
     public void affichageObjet(int index) {
 
-        String[] options = {"Supprimer", "Mettre au sale"};
-        JDialog jd = new JDialog();
-
-        JLabel photo = new JLabel();
-        JLabel caracteristique1 = new JLabel();
-        JLabel caracteristique2 = new JLabel();
-        JLabel caracteristique3 = new JLabel();
-        JLabel caracteristique4 = new JLabel();
-        JPanel panel = new JPanel();
-
         Contenu c = (Contenu) (jl.getModel().getElementAt(index));
-
+        Component[] comps = jd.getComponents();
+        
         if (c instanceof Sac) {
             Sac s = (Sac) c;
             photo.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + c.getImage()).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
@@ -66,6 +68,7 @@ public class JListMouseListener implements MouseListener {
             caracteristique2.setText(String.valueOf(s.getCouleur().toString()));
             caracteristique3.setText("");
             caracteristique4.setText("");
+            mettreAuSale.setVisible(false);
         }
         if (c instanceof Chaussures) {
 
@@ -75,6 +78,7 @@ public class JListMouseListener implements MouseListener {
             caracteristique2.setText(String.valueOf(ch.getCouleur().toString()));
             caracteristique3.setText("");
             caracteristique4.setText("");
+            mettreAuSale.setVisible(false);
         }
         if (c instanceof Vetement) {
             Vetement v = (Vetement) c;
@@ -83,21 +87,15 @@ public class JListMouseListener implements MouseListener {
             caracteristique2.setText(String.valueOf(v.getCouleur().toString()));
             caracteristique3.setText(v.getCoupe().toString());
             caracteristique4.setText(v.getMatiere().toString());
-
+            mettreAuSale.setVisible(true);
+            if (v.isSale()){
+                mettreAuSale.setText("Mettre au propre");
+            }
         }
-        panel.setLayout(new GridLayout(5, 1));
-        panel.add(new JLabel("Description :"));
-        panel.add(caracteristique1);
-        panel.add(caracteristique2);
-        panel.add(caracteristique3);
-        panel.add(caracteristique4);
-        jd.getContentPane().add(photo, BorderLayout.CENTER);
-        jd.getContentPane().add(panel, BorderLayout.SOUTH);
+        id.setText(Integer.toString(c.getIdObjet()));
+        id.setVisible(false);
         jd.pack();
         jd.setVisible(true);
-
-        //CardLayout card = (CardLayout) InitFrame.MainFrame.getLayout();
-        //card.show(InitFrame.MainFrame, "AffichageObjet");
     }
 
     @Override

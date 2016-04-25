@@ -141,23 +141,14 @@ public class Chaussures extends Contenu {
      * @return VRAI si les chaussures ont bien été supprimées, FAUX sinon
      */
     
-    public boolean supprimerChaussures(int idDressing) throws SQLException {
-        if(chaussures.isEmpty()){
-            System.out.println("Vous n'avez pas de chaussures ! ");
-            return false;
-        }else{
-        afficherChaussures();
+    public boolean supprimerChaussures(int idDressing, int id) throws SQLException {
         ChaussuresDAO cASupprimer = new ChaussuresDAO();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("entrez l'id des chaussures à supprimer");
-        int id = sc.nextInt();
         if (cASupprimer.find(id, idDressing) != null) {
             cASupprimer.find(id, idDressing).supprimerChaussuresDansListe(id);
             cASupprimer.delete(cASupprimer.find(id, idDressing));
             return true;
         } else {
             return false;
-        }
         }
     }
 

@@ -376,19 +376,16 @@ public class Vetement extends Contenu {
     * @return boolean Vrai si tout s'est bien passé, Faux si une erreur est survenue
     *
     */
-    public boolean supprimerVetement(int idDressing) throws SQLException {
+    public boolean supprimerVetement(int idDressing, int id) throws SQLException {
 
-        if(vetements.isEmpty()){
+        /*if(vetements.isEmpty()){
             System.out.println("Vous n'avez pas de vêtements ! ");
             return false;
         }else{
         afficherHauts();
         afficherBas();
-        afficherHautsBas();
+        afficherHautsBas();*/
         VetementDAO vASupprimer = new VetementDAO();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Entrez l'id du vêtement à supprimer");
-        int id = sc.nextInt();
         if (vASupprimer.find(id,idDressing) != null) {
             vASupprimer.find(id,idDressing).supprimerVetementDansListe(id);
             vASupprimer.delete(vASupprimer.find(id,idDressing));
@@ -396,7 +393,6 @@ public class Vetement extends Contenu {
         }
         else {
             return false;
-        }
         }
     }
 

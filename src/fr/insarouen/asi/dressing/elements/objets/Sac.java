@@ -128,16 +128,8 @@ public class Sac extends Contenu{
      * @return VRAI si le sac a bien été supprimé, FAUX sinon
      */
 
-    public boolean supprimerSac(int idDressing) throws SQLException {
-        if(sacs.isEmpty()){
-            System.out.println("Vous n'avez pas de sacs ! ");
-            return false;
-        }else{
-        afficherSacs();
+    public boolean supprimerSac(int idDressing, int id) throws SQLException {
         SacDAO sacASupprimer = new SacDAO();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("entrez l'id du sac à supprimer");
-        int id = sc.nextInt();
         if (sacASupprimer.find(id, idDressing) != null) {
             sacASupprimer.find(id, idDressing).supprimerSacDansListe(id);
             sacASupprimer.delete(sacASupprimer.find(id, idDressing));
@@ -145,7 +137,6 @@ public class Sac extends Contenu{
         }
         else {
             return false;
-        }
         }
     }
 

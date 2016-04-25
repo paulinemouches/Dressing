@@ -146,32 +146,32 @@ public class Initialisation {
             menuSupprimerDansDressing();
             switch (scSup.nextInt()) {
                 case 1:
-                    Sac sac = new Sac();
+                    /*Sac sac = new Sac();
                     boolean bsac = sac.supprimerSac(idDressing);
                     if (bsac) {
                         System.out.println("Le sac a été suprimé");
                     } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
-                    break;
+                    break;*/
                 case 2:
-                    Chaussures c = new Chaussures();
+                    /*Chaussures c = new Chaussures();
                     boolean bc = c.supprimerChaussures(idDressing);
                     if (bc) {
                         System.out.println("Les chaussures ont été suprimé");
                     } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
-                    break;
+                    break;*/
                 case 3:
-                    Vetement v = new Vetement();
+                    /*Vetement v = new Vetement();
                     boolean bv = v.supprimerVetement(idDressing);
                     if (bv) {
                         System.out.println("Le vêtement a été suprimé");
                     } else {
                         System.out.println("Une erreur est survenue (l'id entré n'est peut être pas le bon)");
                     }
-                    break;
+                    break;*/
                 case 4:
                     exit = true;
                     break;
