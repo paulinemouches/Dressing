@@ -29,6 +29,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -208,6 +210,16 @@ public class InitFrame extends javax.swing.JFrame {
         mettreAuSalePropre = new javax.swing.JButton();
         supprimer = new javax.swing.JButton();
         idobjet = new javax.swing.JLabel();
+        suppressionContenu = new javax.swing.JDialog();
+        javax.swing.JLabel jLabel39 = new javax.swing.JLabel();
+        photoContenu = new javax.swing.JLabel();
+        caract1 = new javax.swing.JLabel();
+        caract2 = new javax.swing.JLabel();
+        caract3 = new javax.swing.JLabel();
+        caract4 = new javax.swing.JLabel();
+        boutonSupprimerContenu = new javax.swing.JButton();
+        bouttonAnnulationSuppression = new javax.swing.JButton();
+        idcontenu = new javax.swing.JLabel();
         MainFrame = new javax.swing.JPanel();
         premiereConnexion = new javax.swing.JButton();
         ConsulterDressing = new javax.swing.JPanel();
@@ -230,6 +242,11 @@ public class InitFrame extends javax.swing.JFrame {
         joggins = new javax.swing.JButton();
         ajoutContenu = new javax.swing.JButton();
         supprimerContenu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        saisonCourante = new javax.swing.JLabel();
+        saisonCourante1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        couleurPreferee = new javax.swing.JLabel();
         AjoutUtilisateur = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         nouveauCoulC = new javax.swing.JComboBox();
@@ -283,12 +300,11 @@ public class InitFrame extends javax.swing.JFrame {
         coulCheveux = new javax.swing.JLabel();
         coulPreferee = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        champConseil = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        champConseil = new javax.swing.JLabel();
         AffichageObjet = new javax.swing.JPanel();
         photoLabel = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -298,16 +314,16 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<>();
+        evtTenueNormale = new javax.swing.JComboBox<String>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
         AffichageTenue = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         TenueAvecContenuParticulier = new javax.swing.JPanel();
@@ -315,7 +331,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
         aucunSac = new javax.swing.JCheckBox();
         aucunesChaussures = new javax.swing.JCheckBox();
         aucunVetement = new javax.swing.JCheckBox();
@@ -348,7 +364,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerAjoutVetement = new javax.swing.JButton();
         annulerAjoutVetement = new javax.swing.JButton();
         jLabel35 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        parcourirVetement = new javax.swing.JButton();
         photoVetement = new javax.swing.JLabel();
         AffichageSuppression = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -453,6 +469,80 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(mettreAuSalePropre)
                     .addComponent(idobjet))
                 .addGap(43, 43, 43))
+        );
+
+        jLabel39.setText("Voulez-vous vraiment supprimer cet élément de votre dressing ?");
+
+        boutonSupprimerContenu.setText("Oui");
+        boutonSupprimerContenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonSupprimerContenuActionPerformed(evt);
+            }
+        });
+
+        bouttonAnnulationSuppression.setText("Non");
+        bouttonAnnulationSuppression.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bouttonAnnulationSuppressionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout suppressionContenuLayout = new javax.swing.GroupLayout(suppressionContenu.getContentPane());
+        suppressionContenu.getContentPane().setLayout(suppressionContenuLayout);
+        suppressionContenuLayout.setHorizontalGroup(
+            suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(suppressionContenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(suppressionContenuLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(photoContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boutonSupprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(suppressionContenuLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(caract1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(caract2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(caract3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(caract4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(suppressionContenuLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bouttonAnnulationSuppression, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 68, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, suppressionContenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(idcontenu)
+                .addGap(97, 97, 97))
+        );
+        suppressionContenuLayout.setVerticalGroup(
+            suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(suppressionContenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel39)
+                .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(suppressionContenuLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(photoContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(suppressionContenuLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(caract1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(caract2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(caract3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(caract4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(suppressionContenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(boutonSupprimerContenu)
+                    .addComponent(bouttonAnnulationSuppression))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(idcontenu)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -643,6 +733,8 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
+        saisonCourante1.setText("Couleur préférée :");
+
         javax.swing.GroupLayout ConsulterDressingLayout = new javax.swing.GroupLayout(ConsulterDressing);
         ConsulterDressing.setLayout(ConsulterDressingLayout);
         ConsulterDressingLayout.setHorizontalGroup(
@@ -651,10 +743,19 @@ public class InitFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ConsulterDressingLayout.createSequentialGroup()
+                        .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saisonCourante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ConsulterDressingLayout.createSequentialGroup()
+                        .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         ConsulterDressingLayout.setVerticalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -662,11 +763,24 @@ public class InitFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ConsulterDressingLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 390, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saisonCourante, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ConsulterDressingLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -935,7 +1049,7 @@ public class InitFrame extends javax.swing.JFrame {
         AjoutSacLayout.setHorizontalGroup(
             AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutSacLayout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutSacLayout.createSequentialGroup()
                         .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -949,12 +1063,12 @@ public class InitFrame extends javax.swing.JFrame {
                                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(parcourirSac, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45)
-                                .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(AjoutSacLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(validerAjoutSac)))
-                .addGap(72, 72, 72))
+                .addGap(52, 52, 52))
         );
         AjoutSacLayout.setVerticalGroup(
             AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -963,22 +1077,22 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(typeSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutSacLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(couleurSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
                         .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
                             .addComponent(parcourirSac)))
                     .addGroup(AjoutSacLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                        .addGap(2, 2, 2)
+                        .addComponent(photoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(validerAjoutSac)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -1078,10 +1192,6 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Nos Conseils :");
 
-        champConseil.setColumns(20);
-        champConseil.setRows(5);
-        jScrollPane2.setViewportView(champConseil);
-
         jLabel12.setText("age :");
 
         jLabel13.setText("couleur Cheveux :");
@@ -1096,38 +1206,33 @@ public class InitFrame extends javax.swing.JFrame {
             AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccueilDressingLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dressing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(creerTenue, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(corebeille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(84, 84, 84))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccueilDressingLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(7, 7, 7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dressing, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(creerTenue, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                            .addComponent(corebeille, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(42, 42, 42)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(AccueilDressingLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(84, 84, 84))
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AccueilDressingLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(7, 7, 7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(taille, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(age, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(coulCheveux, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(coulPreferee, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(165, 165, 165))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilDressingLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39))))))
+                    .addComponent(taille, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(age, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(coulCheveux, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(coulPreferee, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(55, 55, 55))
+            .addGroup(AccueilDressingLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(champConseil, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         AccueilDressingLayout.setVerticalGroup(
             AccueilDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1157,10 +1262,10 @@ public class InitFrame extends javax.swing.JFrame {
                             .addComponent(jLabel15)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel14))))
-                .addGap(37, 37, 37)
+                .addGap(58, 58, 58)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(champConseil, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1213,7 +1318,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AffichageObjet, "AffichageObjet");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1265,11 +1370,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1336,7 +1441,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         aucunSac.setText("Aucun sac");
         aucunSac.addActionListener(new java.awt.event.ActionListener() {
@@ -1521,25 +1626,21 @@ public class InitFrame extends javax.swing.JFrame {
         AjoutChaussuresLayout.setHorizontalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(39, 39, 39)
+                .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19))
+                .addGap(40, 40, 40)
                 .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                        .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19))
-                        .addGap(46, 46, 46)
-                        .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                                .addComponent(parcourirChaussures)
-                                .addGap(37, 37, 37)
-                                .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typeChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                        .addGap(177, 177, 177)
-                        .addComponent(validerAjoutChaussures)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addComponent(parcourirChaussures)
+                        .addGap(18, 18, 18)
+                        .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typeChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(validerAjoutChaussures))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         AjoutChaussuresLayout.setVerticalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1553,17 +1654,18 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(couleurChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutChaussuresLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))
                     .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(37, 37, 37)
                         .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21)
-                            .addComponent(parcourirChaussures)))
-                    .addGroup(AjoutChaussuresLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(photoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(46, 46, 46)
+                            .addComponent(parcourirChaussures)
+                            .addComponent(jLabel21))
+                        .addGap(76, 76, 76)))
                 .addComponent(validerAjoutChaussures)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
@@ -1603,7 +1705,12 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel35.setText("image:");
 
-        jButton1.setText("parcourir...");
+        parcourirVetement.setText("parcourir...");
+        parcourirVetement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parcourirVetementActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout AjoutVetementLayout = new javax.swing.GroupLayout(AjoutVetement);
         AjoutVetement.setLayout(AjoutVetementLayout);
@@ -1611,79 +1718,67 @@ public class InitFrame extends javax.swing.JFrame {
             AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel35)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel24))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(typeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(coupeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(matiereV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
+                    .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(typeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(coupeV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(matiereV, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(AjoutVetementLayout.createSequentialGroup()
-                        .addGap(92, 92, 92)
-                        .addComponent(validerAjoutVetement)
+                        .addComponent(parcourirVetement)
                         .addGap(18, 18, 18)
-                        .addComponent(annulerAjoutVetement)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                        .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(133, 133, 133))
+            .addGroup(AjoutVetementLayout.createSequentialGroup()
+                .addGap(196, 196, 196)
+                .addComponent(validerAjoutVetement)
+                .addGap(18, 18, 18)
+                .addComponent(annulerAjoutVetement)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AjoutVetementLayout.setVerticalGroup(
             AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AjoutVetementLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(typeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(coupeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(matiereV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(15, 15, 15)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(AjoutVetementLayout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(AjoutVetementLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
+                        .addGap(26, 26, 26)
                         .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(typeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(coupeV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(matiereV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel27)
-                            .addComponent(couleurV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel35))
-                        .addGap(18, 18, 18)
-                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(annulerAjoutVetement)
-                            .addComponent(validerAjoutVetement))))
-                .addContainerGap(165, Short.MAX_VALUE))
+                            .addComponent(parcourirVetement)
+                            .addComponent(jLabel35)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(validerAjoutVetement)
+                    .addComponent(annulerAjoutVetement))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
-
-        javax.swing.GroupLayout AffichageSuppressionLayout = new javax.swing.GroupLayout(AffichageSuppression);
-        AffichageSuppression.setLayout(AffichageSuppressionLayout);
-        AffichageSuppressionLayout.setHorizontalGroup(
-            AffichageSuppressionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        AffichageSuppressionLayout.setVerticalGroup(
-            AffichageSuppressionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         MainFrame.add(AffichageSuppression, "AffichageSuppression");
 
         deconnexion.setText("Aller à ...");
@@ -1868,6 +1963,7 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void dressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingActionPerformed
         // TODO add your handling code here:
+        couleurPreferee.setText(coulPreferee.getText());
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "ConsulterDressing");
         oldPanel.add("AccueilDressing");
@@ -1926,7 +2022,6 @@ public class InitFrame extends javax.swing.JFrame {
 
             listeObjets.setCellRenderer(new JListRenderer());
             listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
-            //listeObjets.setVisibleRowCount(i);
 
             oldPanel.add("ConsulterDressing");
             AffichageDressing.add(jsp, BorderLayout.CENTER);
@@ -2026,6 +2121,12 @@ public class InitFrame extends javax.swing.JFrame {
     private void supprimerContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerContenuActionPerformed
         // TODO add your handling code here:
         int nbLignes = 0;
+        ArrayList<Contenu> contenus = null;
+        String chemin = "", message = "";
+        caract1.setText("");
+        caract2.setText("");
+        caract3.setText("");
+        caract4.setText("");
         String[] ajout = {"Vetement", "Sac", "Chaussures"};
         JOptionPane jop = new JOptionPane();
         int rang = jop.showOptionDialog(ConsulterDressing,
@@ -2037,42 +2138,77 @@ public class InitFrame extends javax.swing.JFrame {
                 ajout,
                 ajout[2]);
         CardLayout card = (CardLayout) MainFrame.getLayout();
+        AffichageSuppression.removeAll();
         switch (rang) {
             case 0:
-                System.out.println("OK !");
-                Collection<Vetement> vetements = Vetement.getVetements().values();
-                nbLignes = (int) Math.ceil(vetements.size());
-                System.out.println("lignes :" + nbLignes);
-                GridLayout grid = new GridLayout(nbLignes, 4, 30, 20);
-                JScrollPane jsp = new JScrollPane();
-                jsp.getViewport().setLayout(grid);
-                jsp.setPreferredSize(new Dimension(440, 440));
-                AffichageSuppression.add(jsp, BorderLayout.CENTER);
-                JButton button = null;
-                for (Contenu c : vetements) {
-                    jsp.add(button = new JButton(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT))));
-                }
-                card.show(MainFrame, "AffichageSuppression");
-                AffichageSuppression.repaint();
-                /*AffichageSuppression.setLayout(new GridLayout(nbLignes, 4, 30, 20));
-                JButton button = null;
-                for (Contenu c : vetements) {
-                    AffichageSuppression.add(button = new JButton(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT))));
-                }
-                JScrollPane jsp = new JScrollPane(AffichageSuppression);
-                jsp.setPreferredSize(new Dimension(440, 440));
-                card.show(MainFrame, "AffichageSuppression");
-                AffichageSuppression.repaint();*/
+                contenus = new ArrayList(Vetement.getVetements().values());
+                chemin = "images/vetements/";
+                message = "Vous n'avez pas de vêtements !";
                 break;
             case 1:
-                Collection<Sac> sacs = Sac.getSacs().values();
-                nbLignes = (int) Math.ceil(sacs.size());
+                contenus = new ArrayList(Sac.getSacs().values());
+                chemin = "images/sacs/";
+                message = "Vous n'avez pas de sacs !";
                 break;
             case 2:
-                Collection<Chaussures> chaussures = Chaussures.getChaussures().values();
-                nbLignes = (int) Math.ceil(chaussures.size());
+                contenus = new ArrayList(Chaussures.getChaussures().values());
+                chemin = "images/chaussures/";
+                message = "Vous n'avez pas de chaussures !";
                 break;
         }
+        if (contenus == null || contenus.isEmpty()) {
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(ConsulterDressing, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            nbLignes = (int) Math.ceil(contenus.size() / 5.0);
+            System.out.println("nbVetement" + contenus.size());
+            System.out.println("div/4: " + contenus.size() / 5.0);
+            System.out.println("lignes :" + nbLignes);
+            GridLayout grid = new GridLayout(nbLignes, 5, 30, 20);
+            JPanel jp = new JPanel();
+            jp.setLayout(grid);
+            JButton button = null;
+            for (Contenu c : contenus) {
+                jp.add(button = new JButton(new ImageIcon(new ImageIcon(chemin + c.getImage()).getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT))));
+                button.setPreferredSize(new Dimension(80, 80));
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        idcontenu.setText(Integer.toString(c.getIdObjet())); 
+                        idcontenu.setVisible(false);
+                        if (c instanceof Sac) {
+                            Sac s = (Sac) c;
+                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                            caract1.setText(s.getTypeS().getNom());
+                            caract2.setText(String.valueOf(s.getCouleur().toString()));
+                        }
+                        if (c instanceof Chaussures) {
+                            Chaussures ch = (Chaussures) c;
+                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/chaussures/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                            caract1.setText(ch.getTypeC().getNom());
+                            caract2.setText(String.valueOf(ch.getCouleur().toString()));
+                        }
+                        if (c instanceof Vetement) {
+                            Vetement v = (Vetement) c;
+                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                            caract1.setText(v.getType().toString());
+                            caract2.setText(String.valueOf(v.getCouleur().toString()));
+                            caract3.setText(v.getCoupe().toString());
+                            caract4.setText(v.getMatiere().toString());
+                        }
+                        suppressionContenu.pack();
+                        suppressionContenu.setVisible(true);
+                    }
+                }
+                );
+            }
+            JScrollPane jsp = new JScrollPane(jp);
+            jsp.setPreferredSize(new Dimension(560, 450));
+            AffichageSuppression.add(jsp, BorderLayout.CENTER);
+            card.show(MainFrame, "AffichageSuppression");
+            AffichageSuppression.repaint();
+        }
+        oldPanel.add("ConsulterDressing");
 
     }//GEN-LAST:event_supprimerContenuActionPerformed
 
@@ -2126,7 +2262,8 @@ public class InitFrame extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(AjoutSac);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
             String completeFileName = jFileChooser1.getSelectedFile().getName();
-            photoSac.setText(completeFileName);
+            ImageIcon icon = new ImageIcon(new ImageIcon("images/sacs/" + completeFileName).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            photoSac.setIcon(icon);
         }
     }//GEN-LAST:event_parcourirSacActionPerformed
 
@@ -2136,7 +2273,8 @@ public class InitFrame extends javax.swing.JFrame {
         int returnVal = jFileChooser1.showOpenDialog(AjoutChaussures);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
             String completeFileName = jFileChooser1.getSelectedFile().getName();
-            photoChaussures.setText(completeFileName);
+            ImageIcon icon = new ImageIcon(new ImageIcon("images/chaussures/" + completeFileName).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            photoChaussures.setIcon(icon);
         }
     }//GEN-LAST:event_parcourirChaussuresActionPerformed
 
@@ -2568,6 +2706,34 @@ public class InitFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_supprimerActionPerformed
 
+    private void parcourirVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirVetementActionPerformed
+        // TODO add your handling code here:
+        int returnVal = jFileChooser1.showOpenDialog(AjoutVetement);
+        if (jFileChooser1.APPROVE_OPTION == returnVal) {
+            String completeFileName = jFileChooser1.getSelectedFile().getName();
+            ImageIcon icon = new ImageIcon(new ImageIcon("images/vetements/" + completeFileName).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            photoVetement.setIcon(icon);
+        }
+    }//GEN-LAST:event_parcourirVetementActionPerformed
+
+    private void boutonSupprimerContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSupprimerContenuActionPerformed
+        // TODO add your handling code here:
+        try {
+            Contenu.supprimer(Integer.parseInt(idcontenu.getText()), idDressing);
+            suppressionContenu.setVisible(false);
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "ConsulterDressing");
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(ConsulterDressing, "Suppression effectuée", "Information", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+        }
+    }//GEN-LAST:event_boutonSupprimerContenuActionPerformed
+
+    private void bouttonAnnulationSuppressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouttonAnnulationSuppressionActionPerformed
+        // TODO add your handling code here:
+        suppressionContenu.setVisible(false);
+    }//GEN-LAST:event_bouttonAnnulationSuppressionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2631,12 +2797,18 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox aucunSac;
     private javax.swing.JCheckBox aucunVetement;
     private javax.swing.JCheckBox aucunesChaussures;
+    private javax.swing.JButton boutonSupprimerContenu;
+    private javax.swing.JButton bouttonAnnulationSuppression;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel caract1;
+    private javax.swing.JLabel caract2;
+    private javax.swing.JLabel caract3;
+    private javax.swing.JLabel caract4;
     private javax.swing.JLabel caracteristique1;
     private javax.swing.JLabel caracteristique2;
     private javax.swing.JLabel caracteristique3;
     private javax.swing.JLabel caracteristique4;
-    private javax.swing.JTextArea champConseil;
+    private javax.swing.JLabel champConseil;
     private javax.swing.JButton chaussures;
     private javax.swing.JButton chemisiers;
     private javax.swing.JButton combinaisons;
@@ -2646,6 +2818,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel coulCheveux;
     private javax.swing.JLabel coulPreferee;
     private javax.swing.JComboBox couleurChaussures;
+    private javax.swing.JLabel couleurPreferee;
     private javax.swing.JComboBox couleurSac;
     private javax.swing.JComboBox couleurV;
     private javax.swing.JComboBox coupeV;
@@ -2664,11 +2837,11 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox formeTenueNormale;
     private javax.swing.JTextField idSuppr;
     private javax.swing.JTextField idUtilisateur;
+    private javax.swing.JLabel idcontenu;
     private javax.swing.JLabel identifiant;
     private javax.swing.JTextField identifiantUtilisateur;
     private javax.swing.JLabel idobjet;
     private javax.swing.JLabel imageContenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -2718,6 +2891,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton joggins;
@@ -2741,7 +2915,9 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton pantalons;
     private javax.swing.JButton parcourirChaussures;
     private javax.swing.JButton parcourirSac;
+    private javax.swing.JButton parcourirVetement;
     private javax.swing.JLabel photoChaussures;
+    private javax.swing.JLabel photoContenu;
     private javax.swing.JLabel photoLabel;
     private javax.swing.JLabel photoSac;
     private javax.swing.JLabel photoVetement;
@@ -2751,8 +2927,11 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem retourAccueilItem;
     private javax.swing.JButton robes;
     private javax.swing.JButton sacs;
+    private javax.swing.JLabel saisonCourante;
+    private javax.swing.JLabel saisonCourante1;
     private javax.swing.JButton shorts;
     private javax.swing.JButton supprUtilisateur;
+    private javax.swing.JDialog suppressionContenu;
     private javax.swing.JButton supprimer;
     private javax.swing.JButton supprimerContenu;
     private javax.swing.JLabel taille;

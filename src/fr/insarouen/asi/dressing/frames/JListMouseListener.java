@@ -90,6 +90,8 @@ public class JListMouseListener implements MouseListener {
             mettreAuSale.setVisible(true);
             if (v.isSale()){
                 mettreAuSale.setText("Mettre au propre");
+            }else{
+                mettreAuSale.setText("Mettre au sale");
             }
         }
         id.setText(Integer.toString(c.getIdObjet()));
