@@ -7,12 +7,12 @@
 7-O-Evitez de porter des pantalons taille basse
 8-Huit-Préférez les pantalons coupe droite
 9-A-Préférez les pantalons coupe droite
-10-A-Portez des colliers ras du coup pour attirer l'attention sur votre buste
+10-A-<html>Portez des colliers ras du coup pour <br> attirer l'attention sur votre buste</html>
 11-A-Portez des robes fendues pour amincir vos jambes
 12-A-Trichez avec des compensées afin d'affiner vos jambes
 13-A-Portez des hauts amples pour attirer le regard sur votre buste
 14-H-Portez des robes droites afin d'embellir votre silhouette
-15-H-Evitez les pièces taille haute qui soulignent les parties moins avantageuse de votre allure
+15-H-<html>Evitez les pièces taille haute qui soulignent <br> les parties moins avantageuse de votre allure</html>
 16-X-Evitez les pulls cols roulés moulants
 17-X-Osez la couleurs et les decolletés !
 18-X-N'hésitez pas à souligner votre taille avec une ceinture

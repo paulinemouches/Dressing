@@ -80,6 +80,7 @@ public class InitFrame extends javax.swing.JFrame {
     }
 
     public void consulterVetements(int typeV) {
+        Collection<Vetement> vetements;
         try {
             AffichageDressing.removeAll();
             DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
@@ -87,7 +88,11 @@ public class InitFrame extends javax.swing.JFrame {
             JScrollPane jsp = new JScrollPane(listeObjets);
             jsp.setPreferredSize(new Dimension(200, 440));
 
-            Collection<Vetement> vetements = Vetement.getVetementsType(idDressing, typeV);
+            if (typeV != 0) {
+                vetements = Vetement.getVetementsType(idDressing, typeV);
+            } else {
+                vetements = Vetement.getVetements().values();
+            }
             int i = 0;
             if (vetements == null) {
                 JOptionPane jop1 = new JOptionPane();
@@ -314,16 +319,16 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<String>();
+        evtTenueNormale = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
         AffichageTenue = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         TenueAvecContenuParticulier = new javax.swing.JPanel();
@@ -331,10 +336,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
-        aucunSac = new javax.swing.JCheckBox();
-        aucunesChaussures = new javax.swing.JCheckBox();
-        aucunVetement = new javax.swing.JCheckBox();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
         Accueil = new javax.swing.JPanel();
         accesDressing = new javax.swing.JButton();
         ajoutUtilisateur = new javax.swing.JButton();
@@ -565,6 +567,11 @@ public class InitFrame extends javax.swing.JFrame {
         });
 
         dressingComplet.setText("Dressing complet");
+        dressingComplet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dressingCompletActionPerformed(evt);
+            }
+        });
 
         pantalons.setText("Pantalons");
         pantalons.addActionListener(new java.awt.event.ActionListener() {
@@ -773,9 +780,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(ConsulterDressingLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1318,7 +1323,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AffichageObjet, "AffichageObjet");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1370,11 +1375,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1441,28 +1446,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
-
-        aucunSac.setText("Aucun sac");
-        aucunSac.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aucunSacActionPerformed(evt);
-            }
-        });
-
-        aucunesChaussures.setText("Aucunes chaussures");
-        aucunesChaussures.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aucunesChaussuresActionPerformed(evt);
-            }
-        });
-
-        aucunVetement.setText("Aucun vêtement");
-        aucunVetement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aucunVetementActionPerformed(evt);
-            }
-        });
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1471,42 +1455,29 @@ public class InitFrame extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
-                        .addComponent(validerTenueAvecContenuParticulier))
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
+                        .addComponent(evtTenueAvecContenuParticulier, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
+                        .addGap(164, 164, 164)
                         .addComponent(formeTenueAvecContenuParticulier))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72)
-                        .addComponent(evtTenueAvecContenuParticulier, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(aucunSac)
-                .addGap(60, 60, 60)
-                .addComponent(aucunesChaussures)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aucunVetement)
-                .addGap(49, 49, 49))
+                        .addGap(219, 219, 219)
+                        .addComponent(validerTenueAvecContenuParticulier)))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aucunSac)
-                    .addComponent(aucunesChaussures)
-                    .addComponent(aucunVetement))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(evtTenueAvecContenuParticulier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65)
+                .addGap(27, 27, 27)
                 .addComponent(formeTenueAvecContenuParticulier, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(validerTenueAvecContenuParticulier)
-                .addGap(27, 27, 27))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         TenueAvecContenuParticulier.add(jPanel5, java.awt.BorderLayout.PAGE_END);
@@ -2174,7 +2145,7 @@ public class InitFrame extends javax.swing.JFrame {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        idcontenu.setText(Integer.toString(c.getIdObjet())); 
+                        idcontenu.setText(Integer.toString(c.getIdObjet()));
                         idcontenu.setVisible(false);
                         if (c instanceof Sac) {
                             Sac s = (Sac) c;
@@ -2525,9 +2496,6 @@ public class InitFrame extends javax.swing.JFrame {
                 break;
             case 1:
                 card.show(MainFrame, "TenueAvecContenuParticulier");
-                aucunSac.setSelected(false);
-                aucunesChaussures.setSelected(false);
-                aucunVetement.setSelected(false);
                 sacscb.setEnabled(true);
                 chaussurescb.setEnabled(true);
                 vetementscb.setEnabled(true);
@@ -2538,18 +2506,21 @@ public class InitFrame extends javax.swing.JFrame {
                 dcmVetement.removeAllElements();
 
                 if (Sac.getSacs() != null) {
+                    dcmSac.addElement(null);
                     for (Sac s : Sac.getSacs().values()) {
                         dcmSac.addElement(s);
                     }
                 }
 
                 if (Chaussures.getChaussures() != null) {
+                    dcmChaussures.addElement(null);
                     for (Chaussures c : Chaussures.getChaussures().values()) {
                         dcmChaussures.addElement(c);
                     }
                 }
 
                 if (Vetement.getVetements() != null) {
+                    dcmVetement.addElement(null);
                     for (Vetement v : Vetement.getVetements().values()) {
                         dcmVetement.addElement(v);
                     }
@@ -2558,9 +2529,23 @@ public class InitFrame extends javax.swing.JFrame {
                 sacscb.setRenderer(new JListRenderer());
                 chaussurescb.setRenderer(new JListRenderer());
                 vetementscb.setRenderer(new JListRenderer());
-                panelChoixVetements.add(sacscb, BorderLayout.WEST);
-                panelChoixVetements.add(chaussurescb, BorderLayout.CENTER);
-                panelChoixVetements.add(vetementscb, BorderLayout.EAST);
+                JPanel jp1 = new JPanel();
+                jp1.add(new JLabel("Sacs"), BorderLayout.NORTH);
+                jp1.add(sacscb, BorderLayout.SOUTH);
+
+                panelChoixVetements.add(jp1, BorderLayout.WEST);
+
+                JPanel jp2 = new JPanel();
+                jp2.add(new JLabel("Chaussures"), BorderLayout.NORTH);
+                jp2.add(chaussurescb, BorderLayout.SOUTH);
+
+                panelChoixVetements.add(jp2, BorderLayout.CENTER);
+                JPanel jp3 = new JPanel();
+                jp3.add(new JLabel("Vetements"), BorderLayout.NORTH);
+                jp3.add(vetementscb, BorderLayout.SOUTH);
+
+                panelChoixVetements.add(jp3, BorderLayout.EAST);
+                panelChoixVetements.setPreferredSize(new Dimension(400,400));
                 TenueAvecContenuParticulier.add(panelChoixVetements, BorderLayout.NORTH);
 
                 break;
@@ -2612,18 +2597,20 @@ public class InitFrame extends javax.swing.JFrame {
     private void validerTenueAvecContenuParticulierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerTenueAvecContenuParticulierActionPerformed
         // TODO add your handling code here:
         Tenue t = new Tenue();
-        Contenu c1 = (Contenu) (sacscb.getSelectedItem());
-        Contenu c2 = (Contenu) (chaussurescb.getSelectedItem());
-        Contenu c3 = (Contenu) (vetementscb.getSelectedItem());
-        int[] tableauIdChoisis = {c3.getIdObjet(), c1.getIdObjet(), c2.getIdObjet()};
-        if (aucunSac.isSelected()) {
-            tableauIdChoisis[1] = 0;
+        int[] tableauIdChoisis = {0, 0, 0};
+        if (sacscb.getSelectedItem() != null) {
+            Contenu c1 = (Contenu) (sacscb.getSelectedItem());
+            tableauIdChoisis[1] = c1.getIdObjet();
         }
-        if (aucunVetement.isSelected()) {
-            tableauIdChoisis[0] = 0;
+        if (chaussurescb.getSelectedItem() != null) {
+            Contenu c2 = (Contenu) (chaussurescb.getSelectedItem());
+            tableauIdChoisis[2] = c2.getIdObjet();
+
         }
-        if (aucunesChaussures.isSelected()) {
-            tableauIdChoisis[2] = 0;
+        if (vetementscb.getSelectedItem() != null) {
+            Contenu c3 = (Contenu) (vetementscb.getSelectedItem());
+            tableauIdChoisis[0] = c3.getIdObjet();
+
         }
 
         int avecForme = 2;
@@ -2637,30 +2624,6 @@ public class InitFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_validerTenueAvecContenuParticulierActionPerformed
-
-    private void aucunSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aucunSacActionPerformed
-        if (aucunSac.isSelected()) {
-            sacscb.setEnabled(false);
-        } else {
-            sacscb.setEnabled(true);
-        }
-    }//GEN-LAST:event_aucunSacActionPerformed
-
-    private void aucunesChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aucunesChaussuresActionPerformed
-        if (aucunesChaussures.isSelected()) {
-            chaussurescb.setEnabled(false);
-        } else {
-            chaussurescb.setEnabled(true);
-        }
-    }//GEN-LAST:event_aucunesChaussuresActionPerformed
-
-    private void aucunVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aucunVetementActionPerformed
-        if (aucunVetement.isSelected()) {
-            vetementscb.setEnabled(false);
-        } else {
-            vetementscb.setEnabled(true);
-        }
-    }//GEN-LAST:event_aucunVetementActionPerformed
 
     private void mettreAuSalePropreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mettreAuSalePropreActionPerformed
         // TODO add your handling code here:
@@ -2734,6 +2697,10 @@ public class InitFrame extends javax.swing.JFrame {
         suppressionContenu.setVisible(false);
     }//GEN-LAST:event_bouttonAnnulationSuppressionActionPerformed
 
+    private void dressingCompletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingCompletActionPerformed
+        consulterVetements(0);
+    }//GEN-LAST:event_dressingCompletActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2794,9 +2761,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton ajoutUtilisateur;
     private javax.swing.JButton annulerAjoutUtilisateur;
     private javax.swing.JButton annulerAjoutVetement;
-    private javax.swing.JCheckBox aucunSac;
-    private javax.swing.JCheckBox aucunVetement;
-    private javax.swing.JCheckBox aucunesChaussures;
     private javax.swing.JButton boutonSupprimerContenu;
     private javax.swing.JButton bouttonAnnulationSuppression;
     private javax.swing.ButtonGroup buttonGroup1;

@@ -51,7 +51,10 @@ public class JListRenderer extends JLabel implements ListCellRenderer {
 
         //Set the icon and text.  If icon was null, say so.
         Contenu c = (Contenu)value;
-       
+       if(c == null){
+           icon = new ImageIcon(new ImageIcon("images/aucun.png").getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+           description = "";
+       }
 
         if (c instanceof Vetement) {
             Vetement v = (Vetement) c;
