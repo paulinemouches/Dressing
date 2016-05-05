@@ -45,6 +45,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -54,6 +55,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
 /**
@@ -65,14 +67,38 @@ public class InitFrame extends javax.swing.JFrame {
     int idDressing;
     Boolean connecte = false;
     public static ArrayList<String> oldPanel = new ArrayList<String>();
+
     JButton prec = new JButton("Précédent");
     JButton suiv = new JButton("Suivant");
+    ArrayList<Tenue> tenues = new ArrayList<Tenue>();
+    int indiceCourant = -1;
+    int[] tableauIdChoisis = {0, 0, 0};
+    ArrayList<Vetement> vetementsTypeChoisis = new ArrayList<Vetement>();
+    int typeTenue;
+    int avecForme;
+    int idUser;
+    TypeEvenement evenement;
+    //JPanel Affichage;
 
     /**
      * Creates new form InitFrame
      */
     public InitFrame() {
         initComponents();
+        /*InitFrame.AffichageTenue.setLayout(new BorderLayout());
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+        Affichage = new JPanel();
+        JPanel Boutons = new JPanel();
+        Boutons.setLayout(new BorderLayout());
+        Boutons.add(prec, BorderLayout.WEST);
+        Boutons.add(suiv, BorderLayout.EAST);
+
+        //suivant.setVisible(false);
+        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
+
+        Affichage.setLayout(new GridLayout(3, 3));
+        InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);*/
+
     }
 
     public int getIdDressing() {
@@ -159,14 +185,53 @@ public class InitFrame extends javax.swing.JFrame {
         }
     }
 
-    public Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
+    public Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUser, TypeEvenement evenement) throws SQLException {
+
+        prec.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("precedent" + indiceCourant);
+                if (indiceCourant == 0) {
+                    JOptionPane.showMessageDialog(null, "Vous n'avez pas de tenue précédente", "Information", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    indiceCourant = indiceCourant - 1;
+                    consulterTenue(tenues.get(indiceCourant));
+                }
+            }
+        });
+        suiv.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("suivant");
+                try {
+                    creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
+                } catch (SQLException ex) {
+                    Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        });
+        System.out.println("on est dans creation tenue");
         boolean flag;//change si l'exception est levée
         Tenue t = new Tenue();
         do {
             try {
-                t = new Tenue();
-                t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
-                flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
+                t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement).toString();
+                if (estContenuDans(t, tenues) && tenues.size() < 100) {
+                    flag = true;
+                    System.out.println("coincé dans le if 1");
+                } else if (!estContenuDans(t, tenues) && tenues.size() < 100) {
+                    tenues.add(t);
+                    indiceCourant = indiceCourant + 1;
+                    consulterTenue(t);
+                    System.out.println(t.toString());
+                    flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
+                    System.out.println("coincé dans le if 2");
+                } else {
+                    JOptionPane.showMessageDialog(ConsulterDressing, "Vous n'avez plus de tenue suivante !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    flag = false;
+                    System.out.println("coincé dans le if 3");
+                }
             } catch (TenueImpossibleException e) {
                 flag = true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
             }
@@ -174,109 +239,19 @@ public class InitFrame extends javax.swing.JFrame {
         return t;
     }
 
-    public void precedentSuivant(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
-        InitFrame.AffichageTenue.removeAll();
+    public void consulterTenue(Tenue t) {
+        System.out.println(t.toString());
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
         InitFrame.AffichageTenue.setLayout(new BorderLayout());
+
+        JPanel Affichage = new JPanel();
         JPanel Boutons = new JPanel();
-        JLabel suivant = new JLabel("0");
         Boutons.setLayout(new BorderLayout());
         Boutons.add(prec, BorderLayout.WEST);
         Boutons.add(suiv, BorderLayout.EAST);
-        Boutons.add(suivant);
+
         //suivant.setVisible(false);
         InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
-
-        //Initialisation des variables
-        int plusDeTenueDisponible = 0;
-        ArrayList<Tenue> tenues = new ArrayList<Tenue>();
-        int i = 0;
-        int indiceCourant = 0;
-        Tenue t = new Tenue();
-
-        // Création de la tenue
-        do {
-            prec.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    suivant.setText("1");
-                }
-            });
-            suiv.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    suivant.setText("2");
-                }
-            });
-            System.out.println("i : " + i);
-            if (plusDeTenueDisponible == 100) {
-                // JDialog "Plus de tenue disponible"
-                suivant.setText("1");
-                i = i - 1;
-                t = tenues.get(i);
-            } else {
-                t = creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
-            }
-            // Test de si la tenue n'est pas déjà dans le tableau 
-            if (!estContenuDans(t, tenues) || (plusDeTenueDisponible == 100)) {
-                if (plusDeTenueDisponible != 100) {
-                    plusDeTenueDisponible = 0;
-                    tenues.add(i, t);
-                }
-                // on l'ajoute
-                consulterTenue(t);
-                if (i == 0) {
-                    prec.setEnabled(false);
-                    suiv.setEnabled(true);
-                } else {
-                    if (plusDeTenueDisponible == 100) {
-                        suiv.setEnabled(false);
-                        prec.setEnabled(true);
-                    } else {
-                        prec.setEnabled(true);
-                        suiv.setEnabled(true);
-                    }
-                }
-
-                if (Integer.parseInt(suivant.getText()) == 1) {
-                    indiceCourant = i - 1;
-                    do {
-                        consulterTenue(tenues.get(indiceCourant));
-                        if (indiceCourant == 0) {
-                            prec.setEnabled(false);
-                            suiv.setEnabled(true);
-                        } else {
-                            prec.setEnabled(true);
-                            suiv.setEnabled(true);
-                        }
-                        if (Integer.parseInt(suivant.getText()) == 1) {
-                            indiceCourant = indiceCourant - 1;
-                        } else {
-                            if (Integer.parseInt(suivant.getText()) == 2) {
-                                indiceCourant = indiceCourant + 1;
-                            }
-                        }
-                    } while (indiceCourant <= i);
-                }
-                if (plusDeTenueDisponible != 100) {
-                    i++;
-                    System.out.println("i+ :" + i);
-                }
-            } else {
-                // Si la tenue est déjà dans le tableau, elle a déja été proposée, 
-                // donc on calcule une autre tenue 
-                plusDeTenueDisponible++;
-                suivant.setText("2");
-            }
-        } while (Integer.parseInt(suivant.getText()) == 2);//tant qu'on tape 2, ça calcule la tenue suivante
-        Boutons.repaint();
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AffichageTenue");
-        oldPanel.add("AccueilDressing");
-    }
-
-    public void consulterTenue(Tenue t) {
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-        JPanel Affichage = new JPanel();
 
         Affichage.setLayout(new GridLayout(3, 3));
 
@@ -332,6 +307,10 @@ public class InitFrame extends javax.swing.JFrame {
         contenus.add(t.getChaussures());
 
         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);
+        Affichage.repaint();
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AffichageTenue");
+        oldPanel.add("AccueilDressing");
     }
 
     /**
@@ -2503,6 +2482,7 @@ public class InitFrame extends javax.swing.JFrame {
                     CardLayout card = (CardLayout) MainFrame.getLayout();
                     card.show(MainFrame, "AccueilDressing");
                     idDressing = user.getId();
+                    idUser = user.getId();
                     age.setText(Integer.toString(user.getAge()));
                     taille.setText(Integer.toString(user.getTaille()));
                     coulPreferee.setText(user.getCouleurPreferee().toString());
@@ -2741,19 +2721,24 @@ public class InitFrame extends javax.swing.JFrame {
                 chaussurescb.setRenderer(new JListRenderer());
                 vetementscb.setRenderer(new JListRenderer());
                 JPanel jp1 = new JPanel();
-                jp1.add(new JLabel("Sacs"), BorderLayout.NORTH);
-                jp1.add(sacscb, BorderLayout.SOUTH);
+                GridLayout grid = new GridLayout(2, 1);
+                jp1.setLayout(grid);
+                jp1.add(new JLabel("Sacs"));
+                jp1.add(sacscb);
 
                 panelChoixVetements.add(jp1, BorderLayout.WEST);
 
                 JPanel jp2 = new JPanel();
-                jp2.add(new JLabel("Chaussures"), BorderLayout.NORTH);
-                jp2.add(chaussurescb, BorderLayout.SOUTH);
+                jp2.setLayout(grid);
+                jp2.add(new JLabel("Chaussures"));
+                jp2.add(chaussurescb);
 
                 panelChoixVetements.add(jp2, BorderLayout.CENTER);
+
                 JPanel jp3 = new JPanel();
-                jp3.add(new JLabel("Vetements"), BorderLayout.NORTH);
-                jp3.add(vetementscb, BorderLayout.SOUTH);
+                jp3.setLayout(grid);
+                jp3.add(new JLabel("Vetements"));
+                jp3.add(vetementscb);
 
                 panelChoixVetements.add(jp3, BorderLayout.EAST);
                 panelChoixVetements.setPreferredSize(new Dimension(400, 400));
@@ -2768,16 +2753,21 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_creerTenueActionPerformed
 
     private void validerTenueNormaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerTenueNormaleActionPerformed
-
-        int tab[] = {0, 0, 0};
-        int avecForme = 2;
+        tenues.clear();
+        tableauIdChoisis[0] = 0;
+        tableauIdChoisis[1] = 0;
+        tableauIdChoisis[2] = 0;
+        avecForme = 2;
         if (formeTenueNormale.isSelected()) {
             avecForme = 1;
+        } else {
+            avecForme = 2;
         }
-
+        typeTenue = 1;
+        evenement = TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1);
         try {
             //Tenue t = Initialisation.creationTenue(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
-            precedentSuivant(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
 
         } catch (SQLException e) {
         }
@@ -2785,20 +2775,27 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_validerTenueNormaleActionPerformed
 
     private void validerTenueAvecTypeParticulierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerTenueAvecTypeParticulierActionPerformed
-        int tabIdChoisis[] = {0, 0, 0};
-        int avecForme = 2;
+        tenues.clear();
+        vetementsTypeChoisis.clear();
+
         if (formeTenueNormale.isSelected()) {
             avecForme = 1;
+        } else {
+            avecForme = 2;
         }
         TypeVetement type = TypeVetement.getfromInt(typeTenueAvecTypeParticulier.getSelectedIndex() + 1);
 
         ArrayList<Vetement> tab = new ArrayList<Vetement>(Vetement.getVetements().values());
         Tenue t = new Tenue();
+        typeTenue = 3;
+        vetementsTypeChoisis.addAll(Vetement.getVetements().values());
+
+        evenement = TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1);
 
         try {
-            tab = t.chercherVetementType(tab, type);
-            //t = Initialisation.creationTenue(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
-            precedentSuivant(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
+            vetementsTypeChoisis = t.chercherVetementType(vetementsTypeChoisis, type);
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evenement);
+            //sprecedentSuivant(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
         } catch (SQLException e) {
         } catch (TenueImpossibleException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -2808,8 +2805,8 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void validerTenueAvecContenuParticulierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerTenueAvecContenuParticulierActionPerformed
         // TODO add your handling code here:
+        tenues.clear();
         Tenue t = new Tenue();
-        int[] tableauIdChoisis = {0, 0, 0};
         if (sacscb.getSelectedItem() != null) {
             Contenu c1 = (Contenu) (sacscb.getSelectedItem());
             tableauIdChoisis[1] = c1.getIdObjet();
@@ -2824,14 +2821,16 @@ public class InitFrame extends javax.swing.JFrame {
             tableauIdChoisis[0] = c3.getIdObjet();
 
         }
-
-        int avecForme = 2;
         if (formeTenueNormale.isSelected()) {
             avecForme = 1;
+        } else {
+            avecForme = 2;
         }
+        evenement = TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1);
+        typeTenue = 2;
         try {
             //t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
-            precedentSuivant(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
         } catch (SQLException e) {
         }
 
