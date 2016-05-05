@@ -352,6 +352,8 @@ public class Vetement extends Contenu {
         v.setType(type);
         v.setFils(fils);
         v.setIdDressing(idDressing);
+        v.setImage(image);
+
 
         VetementDAO nouveauVetement = new VetementDAO();
         nouveauVetement.create(v);
@@ -363,8 +365,7 @@ public class Vetement extends Contenu {
         v.setNiveau(niveau);
         v.setCouche(couche);
         v.setSignes(signes);
-        v.setImage(image);
-
+       
         v.ajouterVetementDansListe();
         return true;
     }
@@ -626,6 +627,30 @@ public class Vetement extends Contenu {
             }
         }
         return vetement; 
+    }
+    
+    /**
+    * Permet d'afficher tous les vêtements du dressing étant sale ou propre
+    * 
+    * @param estSale Vrai si on veut afficher les vêtements sales, Faux sinon
+    */
+    public static Collection<Vetement> getVetementsSaleOuPropre(boolean estSale) {
+        HashMap<Integer, Vetement> resultat = new HashMap<Integer, Vetement>();
+        if (estSale) {
+            for (Vetement v : vetements.values()) {
+                if (v.isSale()) {
+                    resultat.put(v.getIdObjet(), v);
+                }
+            }
+        }
+        else {
+            for (Vetement v : vetements.values()) {
+                if (!v.isSale()) {
+                    resultat.put(v.getIdObjet(), v);
+                }
+            }
+        }
+        return resultat.values(); 
     }
 
     /**
