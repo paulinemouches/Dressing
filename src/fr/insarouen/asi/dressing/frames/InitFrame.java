@@ -6,9 +6,11 @@
 package fr.insarouen.asi.dressing.frames;
 
 import fr.insarouen.asi.dressing.Initialisation;
+import static fr.insarouen.asi.dressing.Initialisation.estContenuDans;
 import fr.insarouen.asi.dressing.Tenue;
 import fr.insarouen.asi.dressing.TenueImpossibleException;
 import fr.insarouen.asi.dressing.conseil.Conseil;
+import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -119,18 +122,163 @@ public class InitFrame extends javax.swing.JFrame {
         }
     }
 
-    public void consulterTenue(Tenue t) {
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+    private ArrayList<Integer> idsTenueCorrespondant(Tenue t) {
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ids.add(t.getSac().getIdObjet());
+        ids.add(t.getChaussures().getIdObjet());
+        ArrayList<Vetement> vetements = t.getVetements();
+        for (Vetement v : vetements) {
+            ids.add(v.getIdObjet());
+        }
+        return ids;
+    }
+
+    public boolean estContenuDans(Tenue t, ArrayList<Tenue> tenues) {
+        int contenu = 0;
+        boolean estDedans = false;
+        ArrayList<Integer> idsTenue = idsTenueCorrespondant(t);
+        ArrayList<Integer> idsTableau = new ArrayList<Integer>();
+        if (tenues.isEmpty()) {
+            return false;
+        } else {
+            for (Tenue ten : tenues) {
+                idsTableau = idsTenueCorrespondant(ten);
+                if (idsTenue.size() == idsTableau.size()) {
+                    contenu = 0;
+                    for (int j = 0; j < idsTableau.size(); j++) {
+                        if (idsTableau.contains(idsTenue.get(j))) {
+                            contenu = contenu + 1;
+                        }
+                    }
+                    if (contenu == idsTableau.size()) {
+                        return true;
+                    }
+                }
+            }
+            return estDedans;
+        }
+    }
+
+    public Tenue creationTenue(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
+        boolean flag;//change si l'exception est levée
+        Tenue t = new Tenue();
+        do {
+            try {
+                t = new Tenue();
+                t.creerTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt).toString();
+                flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
+            } catch (TenueImpossibleException e) {
+                flag = true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
+            }
+        } while (flag);//tant que l'exception est levée, on recommence a creer une nouvelle tenue (toujours avec les meme caractéristiques)
+        return t;
+    }
+
+    public void precedentSuivant(int[] tableauIdChoisis, ArrayList<Vetement> vetementsTypeChoisis, int typeTenue, int avecForme, int idUtilisateur, TypeEvenement evt) throws SQLException {
         InitFrame.AffichageTenue.removeAll();
         InitFrame.AffichageTenue.setLayout(new BorderLayout());
-        JPanel Affichage = new JPanel();
         JPanel Boutons = new JPanel();
-        Affichage.setLayout(new GridLayout(3, 3));
+        JLabel suivant = new JLabel("0");
         Boutons.setLayout(new BorderLayout());
-
         Boutons.add(prec, BorderLayout.WEST);
-
         Boutons.add(suiv, BorderLayout.EAST);
+        Boutons.add(suivant);
+        //suivant.setVisible(false);
+        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
+
+        //Initialisation des variables
+        int plusDeTenueDisponible = 0;
+        ArrayList<Tenue> tenues = new ArrayList<Tenue>();
+        int i = 0;
+        int indiceCourant = 0;
+        Tenue t = new Tenue();
+
+        // Création de la tenue
+        do {
+            prec.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    suivant.setText("1");
+                }
+            });
+            suiv.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    suivant.setText("2");
+                }
+            });
+            System.out.println("i : " + i);
+            if (plusDeTenueDisponible == 100) {
+                // JDialog "Plus de tenue disponible"
+                suivant.setText("1");
+                i = i - 1;
+                t = tenues.get(i);
+            } else {
+                t = creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUtilisateur, evt);
+            }
+            // Test de si la tenue n'est pas déjà dans le tableau 
+            if (!estContenuDans(t, tenues) || (plusDeTenueDisponible == 100)) {
+                if (plusDeTenueDisponible != 100) {
+                    plusDeTenueDisponible = 0;
+                    tenues.add(i, t);
+                }
+                // on l'ajoute
+                consulterTenue(t);
+                if (i == 0) {
+                    prec.setEnabled(false);
+                    suiv.setEnabled(true);
+                } else {
+                    if (plusDeTenueDisponible == 100) {
+                        suiv.setEnabled(false);
+                        prec.setEnabled(true);
+                    } else {
+                        prec.setEnabled(true);
+                        suiv.setEnabled(true);
+                    }
+                }
+
+                if (Integer.parseInt(suivant.getText()) == 1) {
+                    indiceCourant = i - 1;
+                    do {
+                        consulterTenue(tenues.get(indiceCourant));
+                        if (indiceCourant == 0) {
+                            prec.setEnabled(false);
+                            suiv.setEnabled(true);
+                        } else {
+                            prec.setEnabled(true);
+                            suiv.setEnabled(true);
+                        }
+                        if (Integer.parseInt(suivant.getText()) == 1) {
+                            indiceCourant = indiceCourant - 1;
+                        } else {
+                            if (Integer.parseInt(suivant.getText()) == 2) {
+                                indiceCourant = indiceCourant + 1;
+                            }
+                        }
+                    } while (indiceCourant <= i);
+                }
+                if (plusDeTenueDisponible != 100) {
+                    i++;
+                    System.out.println("i+ :" + i);
+                }
+            } else {
+                // Si la tenue est déjà dans le tableau, elle a déja été proposée, 
+                // donc on calcule une autre tenue 
+                plusDeTenueDisponible++;
+                suivant.setText("2");
+            }
+        } while (Integer.parseInt(suivant.getText()) == 2);//tant qu'on tape 2, ça calcule la tenue suivante
+        Boutons.repaint();
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, "AffichageTenue");
+        oldPanel.add("AccueilDressing");
+    }
+
+    public void consulterTenue(Tenue t) {
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+        JPanel Affichage = new JPanel();
+
+        Affichage.setLayout(new GridLayout(3, 3));
 
         JLabel lab1 = new JLabel();
         JLabel lab1txt = new JLabel();
@@ -184,11 +332,6 @@ public class InitFrame extends javax.swing.JFrame {
         contenus.add(t.getChaussures());
 
         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);
-        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "AffichageTenue");
-        oldPanel.add("AccueilDressing");
-
     }
 
     /**
@@ -2633,8 +2776,9 @@ public class InitFrame extends javax.swing.JFrame {
         }
 
         try {
-            Tenue t = Initialisation.creationTenue(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
-            consulterTenue(t);
+            //Tenue t = Initialisation.creationTenue(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
+            precedentSuivant(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
+
         } catch (SQLException e) {
         }
 
@@ -2653,8 +2797,8 @@ public class InitFrame extends javax.swing.JFrame {
 
         try {
             tab = t.chercherVetementType(tab, type);
-            t = Initialisation.creationTenue(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
-            consulterTenue(t);
+            //t = Initialisation.creationTenue(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
+            precedentSuivant(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
         } catch (SQLException e) {
         } catch (TenueImpossibleException ex) {
             Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -2686,8 +2830,8 @@ public class InitFrame extends javax.swing.JFrame {
             avecForme = 1;
         }
         try {
-            t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
-            consulterTenue(t);
+            //t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
+            precedentSuivant(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
         } catch (SQLException e) {
         }
 
@@ -2789,7 +2933,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         AffichageCorbeille.removeAll();
         contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(true));
-        
+
         if (contenus == null || contenus.isEmpty()) {
             JLabel j = new JLabel("Vous n'avez pas de vêtements sales");
             AffichageCorbeille.setLayout(new FlowLayout());
@@ -2803,37 +2947,37 @@ public class InitFrame extends javax.swing.JFrame {
             JLabel photo = null;
             for (Vetement v : contenus) {
                 jp.add(photo = new JLabel());
-                photo.setIcon( new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+                photo.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
                 photo.setPreferredSize(new Dimension(80, 80));
                 /*lab.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        idcontenu.setText(Integer.toString(c.getIdObjet()));
-                        idcontenu.setVisible(false);
-                        if (c instanceof Sac) {
-                            Sac s = (Sac) c;
-                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                            caract1.setText(s.getTypeS().getNom());
-                            caract2.setText(String.valueOf(s.getCouleur().toString()));
-                        }
-                        if (c instanceof Chaussures) {
-                            Chaussures ch = (Chaussures) c;
-                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/chaussures/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                            caract1.setText(ch.getTypeC().getNom());
-                            caract2.setText(String.valueOf(ch.getCouleur().toString()));
-                        }
-                        if (c instanceof Vetement) {
-                            Vetement v = (Vetement) c;
-                            photoContenu.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                            caract1.setText(v.getType().toString());
-                            caract2.setText(String.valueOf(v.getCouleur().toString()));
-                            caract3.setText(v.getCoupe().toString());
-                            caract4.setText(v.getMatiere().toString());
-                        }
-                        suppressionContenu.pack();
-                        suppressionContenu.setVisible(true);
-                    }
-                }*/
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                 idcontenu.setText(Integer.toString(c.getIdObjet()));
+                 idcontenu.setVisible(false);
+                 if (c instanceof Sac) {
+                 Sac s = (Sac) c;
+                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                 caract1.setText(s.getTypeS().getNom());
+                 caract2.setText(String.valueOf(s.getCouleur().toString()));
+                 }
+                 if (c instanceof Chaussures) {
+                 Chaussures ch = (Chaussures) c;
+                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/chaussures/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                 caract1.setText(ch.getTypeC().getNom());
+                 caract2.setText(String.valueOf(ch.getCouleur().toString()));
+                 }
+                 if (c instanceof Vetement) {
+                 Vetement v = (Vetement) c;
+                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
+                 caract1.setText(v.getType().toString());
+                 caract2.setText(String.valueOf(v.getCouleur().toString()));
+                 caract3.setText(v.getCoupe().toString());
+                 caract4.setText(v.getMatiere().toString());
+                 }
+                 suppressionContenu.pack();
+                 suppressionContenu.setVisible(true);
+                 }
+                 }*/
             }
             JScrollPane jsp = new JScrollPane(jp);
             jsp.setPreferredSize(new Dimension(500, 350));
