@@ -240,20 +240,21 @@ public class InitFrame extends javax.swing.JFrame {
     }
 
     public void consulterTenue(Tenue t) {
-        System.out.println(t.toString());
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-        InitFrame.AffichageTenue.setLayout(new BorderLayout());
+        if (tenues.size() == 2) {
+            System.out.print("consulter tenue 2");
+        }
 
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+        InitFrame.AffichageTenue.removeAll();
+        InitFrame.AffichageTenue.setLayout(new BorderLayout());
         JPanel Affichage = new JPanel();
         JPanel Boutons = new JPanel();
-        Boutons.setLayout(new BorderLayout());
-        Boutons.add(prec, BorderLayout.WEST);
-        Boutons.add(suiv, BorderLayout.EAST);
-
-        //suivant.setVisible(false);
-        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
-
         Affichage.setLayout(new GridLayout(3, 3));
+        Boutons.setLayout(new BorderLayout());
+
+        Boutons.add(prec, BorderLayout.WEST);
+
+        Boutons.add(suiv, BorderLayout.EAST);
 
         JLabel lab1 = new JLabel();
         JLabel lab1txt = new JLabel();
@@ -307,10 +308,11 @@ public class InitFrame extends javax.swing.JFrame {
         contenus.add(t.getChaussures());
 
         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);
-        Affichage.repaint();
+        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "AffichageTenue");
         oldPanel.add("AccueilDressing");
+
     }
 
     /**
@@ -2794,11 +2796,12 @@ public class InitFrame extends javax.swing.JFrame {
 
         try {
             vetementsTypeChoisis = t.chercherVetementType(vetementsTypeChoisis, type);
+
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evenement);
-            //sprecedentSuivant(tabIdChoisis, tab, 3, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecTypeParticulier.getSelectedIndex() + 1));
+
         } catch (SQLException e) {
         } catch (TenueImpossibleException ex) {
-            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas de vetements de ce type", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_validerTenueAvecTypeParticulierActionPerformed
