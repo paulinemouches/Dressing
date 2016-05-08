@@ -6,11 +6,9 @@
 package fr.insarouen.asi.dressing.frames;
 
 import fr.insarouen.asi.dressing.Initialisation;
-import static fr.insarouen.asi.dressing.Initialisation.estContenuDans;
 import fr.insarouen.asi.dressing.Tenue;
 import fr.insarouen.asi.dressing.TenueImpossibleException;
 import fr.insarouen.asi.dressing.conseil.Conseil;
-import fr.insarouen.asi.dressing.dao.concret.UtilisateurDAO;
 import fr.insarouen.asi.dressing.elements.Couleur;
 import fr.insarouen.asi.dressing.elements.CouleurCheveux;
 import fr.insarouen.asi.dressing.elements.CoupeVetement;
@@ -28,6 +26,7 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -41,21 +40,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
 /**
@@ -86,18 +85,18 @@ public class InitFrame extends javax.swing.JFrame {
     public InitFrame() {
         initComponents();
         /*InitFrame.AffichageTenue.setLayout(new BorderLayout());
-        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-        Affichage = new JPanel();
-        JPanel Boutons = new JPanel();
-        Boutons.setLayout(new BorderLayout());
-        Boutons.add(prec, BorderLayout.WEST);
-        Boutons.add(suiv, BorderLayout.EAST);
+         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
+         Affichage = new JPanel();
+         JPanel Boutons = new JPanel();
+         Boutons.setLayout(new BorderLayout());
+         Boutons.add(prec, BorderLayout.WEST);
+         Boutons.add(suiv, BorderLayout.EAST);
 
-        //suivant.setVisible(false);
-        InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
+         //suivant.setVisible(false);
+         InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
 
-        Affichage.setLayout(new GridLayout(3, 3));
-        InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);*/
+         Affichage.setLayout(new GridLayout(3, 3));
+         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);*/
 
     }
 
@@ -500,7 +499,9 @@ public class InitFrame extends javax.swing.JFrame {
         ConsulterCorbeille = new javax.swing.JPanel();
         AffichageCorbeille = new javax.swing.JPanel();
         mettreAuSale = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        mettreAuPropre = new javax.swing.JButton();
+        ok = new javax.swing.JButton();
+        ko = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         deconnexion = new javax.swing.JMenu();
         retourAccueilItem = new javax.swing.JMenuItem();
@@ -917,7 +918,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1137,7 +1138,7 @@ public class InitFrame extends javax.swing.JFrame {
         ConnexionLayout.setVerticalGroup(
             ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConnexionLayout.createSequentialGroup()
-                .addContainerGap(125, Short.MAX_VALUE)
+                .addContainerGap(128, Short.MAX_VALUE)
                 .addGroup(ConnexionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nomBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1233,7 +1234,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutSacLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cheminPhotoSac, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(validerAjoutSac))
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutSac, "AjoutSac");
@@ -1302,7 +1303,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(Accueilv2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connection)
                     .addComponent(creationCompte))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         MainFrame.add(Accueilv2, "Accueilv2");
@@ -1458,7 +1459,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         MainFrame.add(AffichageObjet, "AffichageObjet");
@@ -1508,7 +1509,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(formeTenueNormale)
                 .addGap(45, 45, 45)
                 .addComponent(validerTenueNormale)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         MainFrame.add(TenueNormale, "TenueNormale");
@@ -1569,7 +1570,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addComponent(formeTenueAvecTypeParticulier)
                 .addGap(42, 42, 42)
                 .addComponent(validerTenueAvecTypeParticulier)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         MainFrame.add(TenueAvecTypeParticulier, "TenueAvecTypeParticulier");
@@ -1702,7 +1703,7 @@ public class InitFrame extends javax.swing.JFrame {
                     .addComponent(idSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(ajoutUtilisateur)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         MainFrame.add(Accueil, "Accueil");
@@ -1786,7 +1787,7 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cheminPhotoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(validerAjoutChaussures))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
@@ -1902,15 +1903,39 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(validerAjoutVetement)
                     .addComponent(annulerAjoutVetement))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
         MainFrame.add(AffichageSuppression, "AffichageSuppression");
 
         mettreAuSale.setText("Ajouter des vêtements au sale");
+        mettreAuSale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mettreAuSaleActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Retirer des vêtements de la corbeille");
+        mettreAuPropre.setText("Retirer des vêtements de la corbeille");
+        mettreAuPropre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mettreAuPropreActionPerformed(evt);
+            }
+        });
+
+        ok.setText("Valider");
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+
+        ko.setText("Annuler");
+        ko.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                koActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout ConsulterCorbeilleLayout = new javax.swing.GroupLayout(ConsulterCorbeille);
         ConsulterCorbeille.setLayout(ConsulterCorbeilleLayout);
@@ -1923,7 +1948,13 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(ConsulterCorbeilleLayout.createSequentialGroup()
                         .addComponent(mettreAuSale, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(mettreAuPropre))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConsulterCorbeilleLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)))
                 .addContainerGap())
         );
         ConsulterCorbeilleLayout.setVerticalGroup(
@@ -1932,10 +1963,14 @@ public class InitFrame extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(ConsulterCorbeilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mettreAuSale)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 381, Short.MAX_VALUE)
-                .addComponent(AffichageCorbeille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(mettreAuPropre))
+                .addGap(18, 18, 18)
+                .addComponent(AffichageCorbeille, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ConsulterCorbeilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ko)
+                    .addComponent(ok))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         AffichageCorbeille.getAccessibleContext().setAccessibleName("AffichageCorbeille");
@@ -1984,7 +2019,7 @@ public class InitFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 455, Short.MAX_VALUE)
+            .addGap(0, 458, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(MainFrame, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -2921,11 +2956,58 @@ public class InitFrame extends javax.swing.JFrame {
         oldPanel.add("AccueilDressing");
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "ConsulterCorbeille");
+        mettreAuSale.setVisible(true);
+        mettreAuPropre.setVisible(true);
+        ok.setVisible(false);
+        ko.setVisible(false);
         affichageCorbeille(1);
-
     }//GEN-LAST:event_corbeilleActionPerformed
 
+    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+        // TODO add your handling code here:
+        Component[] composants = AffichageCorbeille.getComponents();
+        for(Component c : composants){
+            if(((JCheckBox)(c)).isSelected()){
+                System.out.println("blabla");
+            }
+        }
+    }//GEN-LAST:event_okActionPerformed
+
+    private void mettreAuPropreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mettreAuPropreActionPerformed
+        // TODO add your handling code here:
+        ok.setVisible(true);
+        ko.setVisible(true);
+        mettreAuSale.setVisible(false);
+        mettreAuPropre.setVisible(false);
+        affichageCorbeille(2);
+    }//GEN-LAST:event_mettreAuPropreActionPerformed
+
+    private void koActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_koActionPerformed
+        // TODO add your handling code here:
+        JOptionPane jop = new JOptionPane();
+        int option = jop.showConfirmDialog(ConsulterCorbeille, "Voulez-vous vraiment quitter ?", "Corbeille à linge", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (option == JOptionPane.OK_OPTION) {
+            mettreAuSale.setVisible(true);
+            mettreAuPropre.setVisible(true);
+            ok.setVisible(false);
+            ko.setVisible(false);
+            affichageCorbeille(1);
+        }
+    }//GEN-LAST:event_koActionPerformed
+
+    private void mettreAuSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mettreAuSaleActionPerformed
+        // TODO add your handling code here:
+        ok.setVisible(true);
+        ko.setVisible(true);
+        mettreAuSale.setVisible(false);
+        mettreAuPropre.setVisible(false);
+        affichageCorbeille(3);
+    }//GEN-LAST:event_mettreAuSaleActionPerformed
+
     private void affichageCorbeille(int styleDAffichage) {
+        // 1 : affichage corbeille normal
+        // 2 : affichage mettre vetement propre
+        // 3 : affichage corbeille mettre vetement sale
         int nbLignes = 0;
         ArrayList<Vetement> contenus = null;
         caract1.setText("");
@@ -2934,55 +3016,48 @@ public class InitFrame extends javax.swing.JFrame {
         caract4.setText("");
 
         AffichageCorbeille.removeAll();
-        contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(true));
+        if (styleDAffichage != 3) {
+            contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(true));
+        } else {
+            contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(false));
+        }
 
         if (contenus == null || contenus.isEmpty()) {
-            JLabel j = new JLabel("Vous n'avez pas de vêtements sales");
-            AffichageCorbeille.setLayout(new FlowLayout());
-            AffichageCorbeille.add(j);
-            AffichageCorbeille.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            if (styleDAffichage == 1) {
+                JLabel j = new JLabel("Vous n'avez pas de vêtements sales");
+                AffichageCorbeille.setLayout(new FlowLayout());
+                AffichageCorbeille.add(j);
+                AffichageCorbeille.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                mettreAuPropre.setEnabled(false);
+            } else {
+                JOptionPane j = new JOptionPane();
+                j.showMessageDialog(ConsulterCorbeille, "Vous n'avez pas de vêtements propres", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+
         } else {
             nbLignes = (int) Math.ceil(contenus.size() / 5.0);
             GridLayout grid = new GridLayout(nbLignes, 5, 30, 20);
             JPanel jp = new JPanel();
+            jp.removeAll();
             jp.setLayout(grid);
-            JLabel photo = null;
+            JComponent photo = null;
             for (Vetement v : contenus) {
-                jp.add(photo = new JLabel());
-                photo.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
-                photo.setPreferredSize(new Dimension(80, 80));
-                /*lab.addActionListener(new ActionListener() {
-                 @Override
-                 public void actionPerformed(ActionEvent e) {
-                 idcontenu.setText(Integer.toString(c.getIdObjet()));
-                 idcontenu.setVisible(false);
-                 if (c instanceof Sac) {
-                 Sac s = (Sac) c;
-                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/sacs/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                 caract1.setText(s.getTypeS().getNom());
-                 caract2.setText(String.valueOf(s.getCouleur().toString()));
-                 }
-                 if (c instanceof Chaussures) {
-                 Chaussures ch = (Chaussures) c;
-                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/chaussures/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                 caract1.setText(ch.getTypeC().getNom());
-                 caract2.setText(String.valueOf(ch.getCouleur().toString()));
-                 }
-                 if (c instanceof Vetement) {
-                 Vetement v = (Vetement) c;
-                 photoContenu.setIcon(new ImageIcon(new ImageIcon("images/vetements/" + c.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
-                 caract1.setText(v.getType().toString());
-                 caract2.setText(String.valueOf(v.getCouleur().toString()));
-                 caract3.setText(v.getCoupe().toString());
-                 caract4.setText(v.getMatiere().toString());
-                 }
-                 suppressionContenu.pack();
-                 suppressionContenu.setVisible(true);
-                 }
-                 }*/
+                if (styleDAffichage == 1) {
+                    jp.add(photo = new JLabel());
+                    ((JLabel) (photo)).setIcon(new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
+                    photo.setPreferredSize(new Dimension(80, 80));
+                } else {
+                    jp.add(photo = new JCheckBox());
+                    String label = "<html><table cellpadding=0><tr><td><img src=file:"
+                            + "images/vetements/" + v.getImage() + " width="+60+" height="+60+"/></td><td>"
+
+                            + ((JCheckBox)(photo)).getText() + "</td></tr></table></html>";
+                    ((JCheckBox)(photo)).setText(label);
+                    photo.setPreferredSize(new Dimension(80, 80));
+                }
             }
             JScrollPane jsp = new JScrollPane(jp);
-            jsp.setPreferredSize(new Dimension(500, 350));
+            jsp.setPreferredSize(new Dimension(500, 320));
             AffichageCorbeille.add(jsp);
             AffichageCorbeille.repaint();
         }
@@ -3098,7 +3173,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField identifiantUtilisateur;
     private javax.swing.JLabel idobjet;
     private javax.swing.JLabel imageContenu;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -3153,9 +3227,11 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton joggins;
     private javax.swing.JButton jupes;
+    private javax.swing.JButton ko;
     private javax.swing.JButton manteaux;
     private javax.swing.JComboBox matiereV;
     private javax.swing.JPasswordField mdpUtilisateur;
+    private javax.swing.JButton mettreAuPropre;
     private javax.swing.JButton mettreAuSale;
     private javax.swing.JButton mettreAuSalePropre;
     private javax.swing.JTextField nomBase;
@@ -3169,6 +3245,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JTextField nouveauPrenom;
     private javax.swing.JComboBox nouveauSigne;
     private javax.swing.JComboBox nouveauTaille;
+    private javax.swing.JButton ok;
     private javax.swing.JButton pantacourts;
     private javax.swing.JButton pantalons;
     private javax.swing.JButton parcourirChaussures;

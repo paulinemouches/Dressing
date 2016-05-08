@@ -345,7 +345,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="455" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="458" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Component id="MainFrame" alignment="1" max="32767" attributes="0"/>
           </Group>
@@ -430,7 +430,7 @@
                               <Component id="jScrollPane2" min="-2" pref="122" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane4" alignment="0" pref="431" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" alignment="0" pref="434" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1186,7 +1186,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="125" max="32767" attributes="0"/>
+                      <EmptySpace pref="128" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nomBase" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1311,7 +1311,7 @@
                           <Component id="cheminPhotoSac" min="-2" pref="21" max="-2" attributes="0"/>
                           <Component id="validerAjoutSac" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="156" max="32767" attributes="0"/>
+                      <EmptySpace pref="159" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1461,7 +1461,7 @@
                           <Component id="connection" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="creationCompte" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="179" max="32767" attributes="0"/>
+                      <EmptySpace pref="182" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1727,7 +1727,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel34" min="-2" pref="21" max="-2" attributes="0"/>
-                      <EmptySpace pref="118" max="32767" attributes="0"/>
+                      <EmptySpace pref="121" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1803,7 +1803,7 @@
                       <Component id="formeTenueNormale" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="validerTenueNormale" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="194" max="32767" attributes="0"/>
+                      <EmptySpace pref="197" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1909,7 +1909,7 @@
                       <Component id="formeTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="validerTenueAvecTypeParticulier" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace pref="97" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2128,7 +2128,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="ajoutUtilisateur" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="166" max="32767" attributes="0"/>
+                      <EmptySpace pref="169" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2258,7 +2258,7 @@
                           <Component id="cheminPhotoChaussures" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="validerAjoutChaussures" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="118" max="32767" attributes="0"/>
+                      <EmptySpace pref="143" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2446,7 +2446,7 @@
                           <Component id="validerAjoutVetement" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="annulerAjoutVetement" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="84" max="32767" attributes="0"/>
+                      <EmptySpace pref="87" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2620,7 +2620,14 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="mettreAuSale" pref="272" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="mettreAuPropre" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="ko" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ok" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2633,11 +2640,16 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="mettreAuSale" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mettreAuPropre" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="381" max="32767" attributes="0"/>
-                      <Component id="AffichageCorbeille" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="AffichageCorbeille" min="-2" pref="333" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="ko" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ok" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -2654,11 +2666,33 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter des v&#xea;tements au sale"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mettreAuSaleActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="mettreAuPropre">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Retirer des v&#xea;tements de la corbeille"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mettreAuPropreActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="ok">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valider"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="ko">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Annuler"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="koActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
