@@ -29,6 +29,13 @@ public class Tenue {
     public Tenue() {
     }
 
+    
+    public void viderTenue(){
+        sac = null;
+        chaussures = null;
+        vetements.clear();
+        couleurs.clear();     
+    }
     // Setters 
     
      /**
@@ -302,6 +309,7 @@ public class Tenue {
                     this.setVetements(v1);
         // On choisi un v2 en fonction du niveau du v1 : 
         switch (v1.getNiveau()) {
+            
             case Bas:
                 // Si le vetement choisi est un bas on va chercher un haut
                 //System.out.println("cas bas");
