@@ -69,7 +69,7 @@ public class InitFrame extends javax.swing.JFrame {
     JButton prec = new JButton("Précédent");
     JButton suiv = new JButton("Suivant");
     ArrayList<Tenue> tenues = new ArrayList<Tenue>();
-    int indiceCourant = -1;
+    int indiceCourant;
     int[] tableauIdChoisis = {0, 0, 0};
     ArrayList<Vetement> vetementsTypeChoisis = new ArrayList<Vetement>();
     int typeTenue;
@@ -193,7 +193,7 @@ public class InitFrame extends javax.swing.JFrame {
                 }
             } catch (TenueImpossibleException e) {
                 i++;
-                System.out.println("i"+i);
+                System.out.println("i" + i);
                 flag = true;//si l'exception est levée, le flag passe a true, on va refaire la boucle
                 if (i == 10) {
                     throw new TenueImpossibleException();
@@ -207,6 +207,11 @@ public class InitFrame extends javax.swing.JFrame {
     public void initSuivantPrecedent() {
         retour.setVisible(true);
         JPanel Boutons = new JPanel();
+        Boutons.removeAll();
+        Boutons.revalidate();
+        Boutons.repaint();
+        tenues.clear();
+        indiceCourant = -1;
         Boutons.setLayout(new BorderLayout());
 
         Boutons.add(prec, BorderLayout.WEST);
@@ -2859,7 +2864,7 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
-        if(oldPanel.get(oldPanel.size() - 1).equals("AccueilDressing")){
+        if (oldPanel.get(oldPanel.size() - 1).equals("AccueilDressing")) {
             retour.setVisible(false);
         }
         oldPanel.remove(oldPanel.size() - 1);
@@ -2964,8 +2969,9 @@ public class InitFrame extends javax.swing.JFrame {
         evenement = TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1);
         try {
             //Tenue t = Initialisation.creationTenue(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
-            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
             initSuivantPrecedent();
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
+
             oldPanel.add("AccueilDressing");
         } catch (SQLException | TenueImpossibleException e) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -2995,9 +3001,9 @@ public class InitFrame extends javax.swing.JFrame {
 
         try {
             vetementsTypeChoisis = t.chercherVetementType(vetementsTypeChoisis, type);
-
-            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evenement);
             initSuivantPrecedent();
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evenement);
+
             oldPanel.add("AccueilDressing");
         } catch (SQLException e) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -3036,8 +3042,9 @@ public class InitFrame extends javax.swing.JFrame {
         typeTenue = 2;
         try {
             //t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
-            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
             initSuivantPrecedent();
+            creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
+
             oldPanel.add("AccueilDressing");
         } catch (SQLException | TenueImpossibleException e) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -3122,7 +3129,7 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_bouttonAnnulationSuppressionActionPerformed
 
     private void dressingCompletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingCompletActionPerformed
-        consulterVetements(0);  
+        consulterVetements(0);
     }//GEN-LAST:event_dressingCompletActionPerformed
 
     private void corbeilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corbeilleActionPerformed
