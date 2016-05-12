@@ -530,6 +530,18 @@ public class Vetement extends Contenu {
         }
     }
     
+        /**
+    * Permet d'obtenir tous les vêtements du dressing correspondant à la saison courante 
+    * 
+    * @param idDressing Id du dressing
+    */
+    public static Collection<Vetement> getVetementsSaison(int idDressing) throws SQLException {
+        Collection<Vetement> vetements = VetementDAO.recupererVetementsSaison(idDressing).values();
+return vetements;
+    }
+    
+    
+    
     /**
     * Permet d'afficher tous les vêtements du dressing correspondant à la couleur préférée de l'utilisateur
     * 
@@ -544,6 +556,16 @@ public class Vetement extends Contenu {
            System.out.println(v.toString());
        }
         }
+    }
+    
+        /**
+    * Permet d'obtenir tous les vêtements du dressing correspondant à la couleur préférée de l'utilisateur
+    * 
+    * @param idDressing Id du dressing
+    */
+    public static Collection<Vetement> getVetementsCouleurPreferee(int idDressing) throws SQLException {
+       Collection<Vetement> vetements = VetementDAO.recupererVetementsCouleurPreferee(idDressing).values();
+       return vetements;
     }
     
     /**
