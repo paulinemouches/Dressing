@@ -87,7 +87,7 @@ public class Tenue {
     /**
      * Permet de determiner la saison courante.
      */
-    public String determinerSaison() {
+    public static String determinerSaison() {
         Calendar cal = Calendar.getInstance();
         if ((cal.get(Calendar.MONTH) >= Calendar.APRIL)/* && (cal.get(Calendar.DAY_OF_MONTH) >= 21)) */&& (cal.get(Calendar.MONTH) <= Calendar.SEPTEMBER)/* && (cal.get(Calendar.DAY_OF_MONTH) <= 21))*/) {
             return "Printemps/Ete";

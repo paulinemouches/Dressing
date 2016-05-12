@@ -26,7 +26,6 @@ import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -38,9 +37,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -84,20 +83,8 @@ public class InitFrame extends javax.swing.JFrame {
      */
     public InitFrame() {
         initComponents();
-        /*InitFrame.AffichageTenue.setLayout(new BorderLayout());
-         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
-         Affichage = new JPanel();
-         JPanel Boutons = new JPanel();
-         Boutons.setLayout(new BorderLayout());
-         Boutons.add(prec, BorderLayout.WEST);
-         Boutons.add(suiv, BorderLayout.EAST);
-
-         //suivant.setVisible(false);
-         InitFrame.AffichageTenue.add(Boutons, BorderLayout.SOUTH);
-
-         Affichage.setLayout(new GridLayout(3, 3));
-         InitFrame.AffichageTenue.add(Affichage, BorderLayout.CENTER);*/
-
+        retour.setVisible(false);
+        jMenuBar1.setVisible(false);
     }
 
     public int getIdDressing() {
@@ -371,11 +358,11 @@ public class InitFrame extends javax.swing.JFrame {
         joggins = new javax.swing.JButton();
         ajoutContenu = new javax.swing.JButton();
         supprimerContenu = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
         saisonCourante = new javax.swing.JLabel();
         saisonCourante1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
         couleurPreferee = new javax.swing.JLabel();
+        AffichageVetementSaison = new javax.swing.JPanel();
+        AffichageVetementCouleurPreferee = new javax.swing.JPanel();
         AjoutUtilisateur = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         nouveauCoulC = new javax.swing.JComboBox();
@@ -500,8 +487,8 @@ public class InitFrame extends javax.swing.JFrame {
         AffichageCorbeille = new javax.swing.JPanel();
         mettreAuSale = new javax.swing.JButton();
         mettreAuPropre = new javax.swing.JButton();
-        ok = new javax.swing.JButton();
         ko = new javax.swing.JButton();
+        ok = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         deconnexion = new javax.swing.JMenu();
         retourAccueilItem = new javax.swing.JMenuItem();
@@ -875,6 +862,28 @@ public class InitFrame extends javax.swing.JFrame {
 
         saisonCourante1.setText("Couleur préférée :");
 
+        javax.swing.GroupLayout AffichageVetementSaisonLayout = new javax.swing.GroupLayout(AffichageVetementSaison);
+        AffichageVetementSaison.setLayout(AffichageVetementSaisonLayout);
+        AffichageVetementSaisonLayout.setHorizontalGroup(
+            AffichageVetementSaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        AffichageVetementSaisonLayout.setVerticalGroup(
+            AffichageVetementSaisonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 146, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout AffichageVetementCouleurPrefereeLayout = new javax.swing.GroupLayout(AffichageVetementCouleurPreferee);
+        AffichageVetementCouleurPreferee.setLayout(AffichageVetementCouleurPrefereeLayout);
+        AffichageVetementCouleurPrefereeLayout.setHorizontalGroup(
+            AffichageVetementCouleurPrefereeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        AffichageVetementCouleurPrefereeLayout.setVerticalGroup(
+            AffichageVetementCouleurPrefereeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout ConsulterDressingLayout = new javax.swing.GroupLayout(ConsulterDressing);
         ConsulterDressing.setLayout(ConsulterDressingLayout);
         ConsulterDressingLayout.setHorizontalGroup(
@@ -883,19 +892,19 @@ public class InitFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(ConsulterDressingLayout.createSequentialGroup()
                         .addComponent(ajoutContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(saisonCourante, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(ConsulterDressingLayout.createSequentialGroup()
                         .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AffichageVetementSaison, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AffichageVetementCouleurPreferee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         ConsulterDressingLayout.setVerticalGroup(
             ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -909,15 +918,14 @@ public class InitFrame extends javax.swing.JFrame {
                             .addComponent(supprimerContenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(saisonCourante, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AffichageVetementSaison, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(ConsulterDressingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(saisonCourante1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(couleurPreferee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(AffichageVetementCouleurPreferee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1923,19 +1931,14 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
 
-        ok.setText("Valider");
-        ok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okActionPerformed(evt);
-            }
-        });
-
         ko.setText("Annuler");
         ko.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 koActionPerformed(evt);
             }
         });
+
+        ok.setText("Valider");
 
         javax.swing.GroupLayout ConsulterCorbeilleLayout = new javax.swing.GroupLayout(ConsulterCorbeille);
         ConsulterCorbeille.setLayout(ConsulterCorbeilleLayout);
@@ -1953,8 +1956,8 @@ public class InitFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)))
+                        .addComponent(ok, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
                 .addContainerGap())
         );
         ConsulterCorbeilleLayout.setVerticalGroup(
@@ -2159,10 +2162,58 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void dressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingActionPerformed
         // TODO add your handling code here:
-        couleurPreferee.setText(coulPreferee.getText());
-        CardLayout card = (CardLayout) MainFrame.getLayout();
-        card.show(MainFrame, "ConsulterDressing");
-        oldPanel.add("AccueilDressing");
+        try {
+            int nbLignes;
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
+            couleurPreferee.setText(coulPreferee.getText());
+            CardLayout card = (CardLayout) MainFrame.getLayout();
+            card.show(MainFrame, "ConsulterDressing");
+            oldPanel.add("AccueilDressing");
+            saisonCourante.setText(Tenue.determinerSaison());
+            ArrayList<Vetement> vetementsCouleurs = new ArrayList(Vetement.getVetementsCouleurPreferee(idDressing));
+            ArrayList<Vetement> vetementsSaison = new ArrayList(Vetement.getVetementsSaison(idDressing));
+            nbLignes = (int) Math.ceil(vetementsCouleurs.size() / 3.0);
+            if (vetementsCouleurs.isEmpty()) {
+                JLabel j = new JLabel("Vous n'avez pas de vêtements pour cette saison");
+                AffichageCorbeille.add(j);
+            } else {
+                GridLayout grid = new GridLayout(nbLignes, 3, 30, 20);
+                JPanel jp = new JPanel();
+                jp.removeAll();
+                jp.setLayout(grid);
+                JComponent photo = null;
+                for (Vetement v : vetementsCouleurs) {
+                    jp.add(photo = new JLabel());
+                    ((JLabel) (photo)).setIcon(new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+                    photo.setPreferredSize(new Dimension(40, 40));
+                }
+                JScrollPane jsp = new JScrollPane(jp);
+                jsp.setPreferredSize(new Dimension(500, 320));
+                AffichageVetementCouleurPreferee.add(jsp);
+                AffichageVetementCouleurPreferee.repaint();
+            }
+
+            if (vetementsSaison.isEmpty()) {
+                JLabel j = new JLabel("Vous n'avez pas de vêtements de votre couleur préférée");
+                AffichageCorbeille.add(j);
+            }
+            GridLayout grid1 = new GridLayout(nbLignes, 3, 30, 20);
+            JPanel jp1 = new JPanel();
+            jp1.removeAll();
+            jp1.setLayout(grid1);
+            JComponent photo1 = null;
+            for (Vetement v : vetementsSaison) {
+                jp1.add(photo1 = new JLabel());
+                ((JLabel) (photo1)).setIcon(new ImageIcon(new ImageIcon("images/vetements/" + v.getImage()).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+                photo1.setPreferredSize(new Dimension(40, 40));
+            }
+            JScrollPane jsp1 = new JScrollPane(jp1);
+            jsp1.setPreferredSize(new Dimension(500, 320));
+            AffichageVetementSaison.add(jsp1);
+            AffichageVetementSaison.repaint();
+        } catch (SQLException e) {
+        }
     }//GEN-LAST:event_dressingActionPerformed
 
     private void sacsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacsActionPerformed
@@ -2357,9 +2408,6 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(ConsulterDressing, message, "Information", JOptionPane.INFORMATION_MESSAGE);
         } else {
             nbLignes = (int) Math.ceil(contenus.size() / 5.0);
-            System.out.println("nbVetement" + contenus.size());
-            System.out.println("div/4: " + contenus.size() / 5.0);
-            System.out.println("lignes :" + nbLignes);
             GridLayout grid = new GridLayout(nbLignes, 5, 30, 20);
             JPanel jp = new JPanel();
             jp.setLayout(grid);
@@ -2369,7 +2417,7 @@ public class InitFrame extends javax.swing.JFrame {
                 button.setPreferredSize(new Dimension(80, 80));
                 button.addActionListener(new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) {
                         idcontenu.setText(Integer.toString(c.getIdObjet()));
                         idcontenu.setVisible(false);
                         if (c instanceof Sac) {
@@ -2425,8 +2473,12 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(AjoutSac, "Sac ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
-        } catch (SQLException ex) {
-            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class  
+
+.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_validerAjoutSacActionPerformed
 
@@ -2447,8 +2499,12 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(AjoutChaussures, "Chaussures ajoutées ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
-        } catch (SQLException ex) {
-            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class  
+
+.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_validerAjoutChaussuresActionPerformed
 
@@ -2501,6 +2557,7 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void connectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectionActionPerformed
         // TODO add your handling code here:
+        jMenuBar1.setVisible(true);
         identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
         mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
         if (identifiantUtilisateur.getText().equals("") || mdpUtilisateur.getPassword().equals("")) {
@@ -2661,8 +2718,12 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
-        } catch (SQLException ex) {
-            Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (SQLException ex) {
+            Logger.getLogger(InitFrame.class  
+
+.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_validerAjoutVetementActionPerformed
 
@@ -2695,14 +2756,10 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void retourMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_retourMousePressed
         JOptionPane jop = new JOptionPane();
-        if (oldPanel.isEmpty() || !connecte) {
-            jop.showMessageDialog(null, "Vous ne pouvez pas revenir en arrière", "Erreur", JOptionPane.ERROR_MESSAGE);
-        } else {
-            System.out.println(oldPanel);
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
-            oldPanel.remove(oldPanel.size() - 1);
-        }
+        System.out.println(oldPanel);
+        CardLayout card = (CardLayout) MainFrame.getLayout();
+        card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
+        oldPanel.remove(oldPanel.size() - 1);
     }//GEN-LAST:event_retourMousePressed
 
     private void creerTenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerTenueActionPerformed
@@ -2807,6 +2864,7 @@ public class InitFrame extends javax.swing.JFrame {
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
 
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_validerTenueNormaleActionPerformed
@@ -2835,6 +2893,7 @@ public class InitFrame extends javax.swing.JFrame {
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idDressing, evenement);
 
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         } catch (TenueImpossibleException ex) {
             JOptionPane.showMessageDialog(null, "Vous n'avez pas de vetements de ce type", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
@@ -2870,6 +2929,7 @@ public class InitFrame extends javax.swing.JFrame {
             //t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_validerTenueAvecContenuParticulierActionPerformed
@@ -2953,6 +3013,7 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void corbeilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corbeilleActionPerformed
         // TODO add your handling code here:
+        retour.setEnabled(true);
         oldPanel.add("AccueilDressing");
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "ConsulterCorbeille");
@@ -2963,22 +3024,13 @@ public class InitFrame extends javax.swing.JFrame {
         affichageCorbeille(1);
     }//GEN-LAST:event_corbeilleActionPerformed
 
-    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
-        // TODO add your handling code here:
-        Component[] composants = AffichageCorbeille.getComponents();
-        for(Component c : composants){
-            if(((JCheckBox)(c)).isSelected()){
-                System.out.println("blabla");
-            }
-        }
-    }//GEN-LAST:event_okActionPerformed
-
     private void mettreAuPropreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mettreAuPropreActionPerformed
         // TODO add your handling code here:
         ok.setVisible(true);
         ko.setVisible(true);
         mettreAuSale.setVisible(false);
         mettreAuPropre.setVisible(false);
+        retour.setEnabled(false);
         affichageCorbeille(2);
     }//GEN-LAST:event_mettreAuPropreActionPerformed
 
@@ -3001,6 +3053,7 @@ public class InitFrame extends javax.swing.JFrame {
         ko.setVisible(true);
         mettreAuSale.setVisible(false);
         mettreAuPropre.setVisible(false);
+        retour.setEnabled(false);
         affichageCorbeille(3);
     }//GEN-LAST:event_mettreAuSaleActionPerformed
 
@@ -3009,17 +3062,19 @@ public class InitFrame extends javax.swing.JFrame {
         // 2 : affichage mettre vetement propre
         // 3 : affichage corbeille mettre vetement sale
         int nbLignes = 0;
+        Integer i = 0;
+        Boolean salePropre;
         ArrayList<Vetement> contenus = null;
-        caract1.setText("");
-        caract2.setText("");
-        caract3.setText("");
-        caract4.setText("");
+        HashMap<Integer, Vetement> vets = new HashMap<Integer, Vetement>();
+        HashMap<Integer, JCheckBox> boxes = new HashMap<Integer, JCheckBox>();
 
         AffichageCorbeille.removeAll();
         if (styleDAffichage != 3) {
             contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(true));
+            salePropre = true;
         } else {
             contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(false));
+            salePropre = false;
         }
 
         if (contenus == null || contenus.isEmpty()) {
@@ -3035,8 +3090,8 @@ public class InitFrame extends javax.swing.JFrame {
             }
 
         } else {
-            nbLignes = (int) Math.ceil(contenus.size() / 5.0);
-            GridLayout grid = new GridLayout(nbLignes, 5, 30, 20);
+            nbLignes = (int) Math.ceil(contenus.size() / 4.0);
+            GridLayout grid = new GridLayout(nbLignes, 4, 30, 20);
             JPanel jp = new JPanel();
             jp.removeAll();
             jp.setLayout(grid);
@@ -3048,18 +3103,40 @@ public class InitFrame extends javax.swing.JFrame {
                     photo.setPreferredSize(new Dimension(80, 80));
                 } else {
                     jp.add(photo = new JCheckBox());
-                    String label = "<html><table cellpadding=0><tr><td><img src=file:"
-                            + "images/vetements/" + v.getImage() + " width="+60+" height="+60+"/></td><td>"
-
-                            + ((JCheckBox)(photo)).getText() + "</td></tr></table></html>";
-                    ((JCheckBox)(photo)).setText(label);
-                    photo.setPreferredSize(new Dimension(80, 80));
+                    String label = "<html><img src=\"file:images/vetements/" + v.getImage() + "\" width=\"60\" height=\"60\"/></html>";
+                    ((JCheckBox) (photo)).setText(label);
+                    boxes.put(i, (JCheckBox) photo);
+                    vets.put(i, v);
+                    i++;
                 }
             }
             JScrollPane jsp = new JScrollPane(jp);
             jsp.setPreferredSize(new Dimension(500, 320));
             AffichageCorbeille.add(jsp);
             AffichageCorbeille.repaint();
+            ok.addActionListener(new ActionListener() {
+                @Override
+        public void actionPerformed(ActionEvent e) {
+                    for (Integer indice = 0; indice < boxes.size(); indice++) {
+                        if ((boxes.get(indice)).isSelected()) {
+                            Vetement vet = vets.get(indice);
+                            Vetement.modifierSalePropre(vet.getIdObjet(), idDressing, !salePropre);
+                            System.out.println(vet.toString() + "\n" + !salePropre + "\n\n");
+                        }
+                    }
+                    oldPanel.add("AccueilDressing");
+                    CardLayout card = (CardLayout) MainFrame.getLayout();
+                    card.show(MainFrame, "ConsulterCorbeille");
+                    mettreAuSale.setVisible(true);
+                    mettreAuPropre.setVisible(true);
+                    ok.setVisible(false);
+                    ko.setVisible(false);
+                    affichageCorbeille(1);
+                    vets.clear();
+                    boxes.clear();
+                }
+            }
+            );
         }
     }
 
@@ -3077,16 +3154,32 @@ public class InitFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InitFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InitFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InitFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InitFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InitFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InitFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InitFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InitFrame.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -3108,6 +3201,8 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel AffichageObjet;
     private javax.swing.JPanel AffichageSuppression;
     public static javax.swing.JPanel AffichageTenue;
+    private javax.swing.JPanel AffichageVetementCouleurPreferee;
+    private javax.swing.JPanel AffichageVetementSaison;
     private javax.swing.JPanel AjoutChaussures;
     private javax.swing.JPanel AjoutSac;
     private javax.swing.JPanel AjoutUtilisateur;
@@ -3222,8 +3317,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton joggins;
     private javax.swing.JButton jupes;

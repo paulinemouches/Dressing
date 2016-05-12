@@ -387,22 +387,22 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="202" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="ajoutContenu" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="supprimerContenu" min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" min="-2" pref="291" max="-2" attributes="0"/>
                           <Component id="saisonCourante" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" alignment="0" min="-2" pref="291" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="saisonCourante1" min="-2" pref="140" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="couleurPreferee" min="-2" pref="120" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="AffichageVetementSaison" max="32767" attributes="0"/>
+                          <Component id="AffichageVetementCouleurPreferee" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                      <EmptySpace pref="61" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -419,16 +419,15 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="saisonCourante" min="-2" pref="24" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="122" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="AffichageVetementSaison" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="saisonCourante1" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="couleurPreferee" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="122" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="AffichageVetementCouleurPreferee" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" alignment="0" pref="434" max="32767" attributes="0"/>
                       </Group>
@@ -649,10 +648,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="supprimerContenuActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-            </Container>
             <Component class="javax.swing.JLabel" name="saisonCourante">
             </Component>
             <Component class="javax.swing.JLabel" name="saisonCourante1">
@@ -660,12 +655,38 @@
                 <Property name="text" type="java.lang.String" value="Couleur pr&#xe9;f&#xe9;r&#xe9;e :"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-            </Container>
             <Component class="javax.swing.JLabel" name="couleurPreferee">
             </Component>
+            <Container class="javax.swing.JPanel" name="AffichageVetementSaison">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="146" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="AffichageVetementCouleurPreferee">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="AjoutUtilisateur">
@@ -2626,8 +2647,8 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="ko" min="-2" pref="98" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ok" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="ok" min="-2" pref="98" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2678,20 +2699,20 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mettreAuPropreActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="ok">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valider"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="ko">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Annuler"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="koActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="ok">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Valider"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
