@@ -120,7 +120,7 @@ public class InitFrame extends javax.swing.JFrame {
                 }
 
                 listeObjets.setCellRenderer(new JListRenderer());
-                listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
+                listeObjets.addMouseListener(new JListMouseListener(listeObjets, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
                 //listeObjets.setVisibleRowCount(i);
 
                 oldPanel.add("ConsulterDressing");
@@ -205,7 +205,10 @@ public class InitFrame extends javax.swing.JFrame {
     }
 
     public void initSuivantPrecedent() {
+        prec.revalidate();
+        suiv.revalidate();
         retour.setVisible(true);
+        jMenuBar1.setVisible(true);
         JPanel Boutons = new JPanel();
         Boutons.removeAll();
         Boutons.revalidate();
@@ -467,16 +470,9 @@ public class InitFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         champConseil = new javax.swing.JLabel();
-        AffichageObjet = new javax.swing.JPanel();
-        photoLabel = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<>();
+        evtTenueNormale = new javax.swing.JComboBox<String>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
@@ -485,9 +481,9 @@ public class InitFrame extends javax.swing.JFrame {
         Affichage = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         annuleTenueAvecTypePartculier = new javax.swing.JButton();
@@ -496,7 +492,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
         annuleTenueAvecContenuParticulier = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
         accesDressing = new javax.swing.JButton();
@@ -1475,55 +1471,9 @@ public class InitFrame extends javax.swing.JFrame {
         );
 
         MainFrame.add(AccueilDressing, "AccueilDressing");
-
-        jLabel30.setText("Description :");
-
-        javax.swing.GroupLayout AffichageObjetLayout = new javax.swing.GroupLayout(AffichageObjet);
-        AffichageObjet.setLayout(AffichageObjetLayout);
-        AffichageObjetLayout.setHorizontalGroup(
-            AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AffichageObjetLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AffichageObjetLayout.createSequentialGroup()
-                        .addComponent(jLabel30)
-                        .addContainerGap(217, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AffichageObjetLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(77, 77, 77))))
-        );
-        AffichageObjetLayout.setVerticalGroup(
-            AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AffichageObjetLayout.createSequentialGroup()
-                .addGroup(AffichageObjetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AffichageObjetLayout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jLabel30)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(AffichageObjetLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(photoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
-        );
-
-        MainFrame.add(AffichageObjet, "AffichageObjet");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1591,11 +1541,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1673,7 +1623,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         annuleTenueAvecContenuParticulier.setText("Annuler");
         annuleTenueAvecContenuParticulier.addActionListener(new java.awt.event.ActionListener() {
@@ -2038,11 +1988,6 @@ public class InitFrame extends javax.swing.JFrame {
         });
 
         validerCorbeille.setText("Valider");
-        validerCorbeille.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validerCorbeilleActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout ConsulterCorbeilleLayout = new javax.swing.GroupLayout(ConsulterCorbeille);
         ConsulterCorbeille.setLayout(ConsulterCorbeilleLayout);
@@ -2299,6 +2244,7 @@ public class InitFrame extends javax.swing.JFrame {
                 JScrollPane jsp = new JScrollPane(jp);
                 jsp.setPreferredSize(new Dimension(300, 130));
                 AffichageVetementCouleurPreferee.add(jsp);
+                AffichageVetementCouleurPreferee.revalidate();
                 AffichageVetementCouleurPreferee.repaint();
             }
 
@@ -2319,6 +2265,7 @@ public class InitFrame extends javax.swing.JFrame {
                 JScrollPane jsp1 = new JScrollPane(jp1);
                 jsp1.setPreferredSize(new Dimension(300, 150));
                 AffichageVetementSaison.add(jsp1);
+                AffichageVetementSaison.revalidate();
                 AffichageVetementSaison.repaint();
                 ConsulterDressing.repaint();
             }
@@ -2346,7 +2293,7 @@ public class InitFrame extends javax.swing.JFrame {
             }
 
             listeObjets.setCellRenderer(new JListRenderer());
-            listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets,  detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
             //listeObjets.setVisibleRowCount(i);
 
             oldPanel.add("ConsulterDressing");
@@ -2378,7 +2325,7 @@ public class InitFrame extends javax.swing.JFrame {
             }
 
             listeObjets.setCellRenderer(new JListRenderer());
-            listeObjets.addMouseListener(new JListMouseListener(listeObjets, AffichageObjet, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets,detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
 
             oldPanel.add("ConsulterDressing");
             AffichageDressing.add(jsp, BorderLayout.CENTER);
@@ -2826,6 +2773,7 @@ public class InitFrame extends javax.swing.JFrame {
             card.show(MainFrame, "ConsulterDressing");
             cheminPhotoVetement.setText("");
             photoVetement.setText("");
+            this.dressingActionPerformed(evt);
 
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class
@@ -2866,6 +2814,7 @@ public class InitFrame extends javax.swing.JFrame {
         card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
         if (oldPanel.get(oldPanel.size() - 1).equals("AccueilDressing")) {
             retour.setVisible(false);
+            jMenuBar1.setVisible(false);
         }
         oldPanel.remove(oldPanel.size() - 1);
     }//GEN-LAST:event_retourMousePressed
@@ -3093,8 +3042,9 @@ public class InitFrame extends javax.swing.JFrame {
                 card.show(MainFrame, "ConsulterDressing");
                 JOptionPane jop1 = new JOptionPane();
                 jop1.showMessageDialog(ConsulterDressing, "Suppression effectuée", "Information", JOptionPane.INFORMATION_MESSAGE);
-
+                this.dressingActionPerformed(evt);
             }
+            
         } catch (SQLException e) {
         }
     }//GEN-LAST:event_supprimerActionPerformed
@@ -3119,6 +3069,7 @@ public class InitFrame extends javax.swing.JFrame {
             card.show(MainFrame, "ConsulterDressing");
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(ConsulterDressing, "Suppression effectuée", "Information", JOptionPane.INFORMATION_MESSAGE);
+            this.dressingActionPerformed(evt);
         } catch (SQLException e) {
         }
     }//GEN-LAST:event_boutonSupprimerContenuActionPerformed
@@ -3135,6 +3086,7 @@ public class InitFrame extends javax.swing.JFrame {
     private void corbeilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corbeilleActionPerformed
         // TODO add your handling code here:
         retour.setVisible(true);
+        jMenuBar1.setVisible(true);
         oldPanel.add("AccueilDressing");
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "ConsulterCorbeille");
@@ -3152,6 +3104,7 @@ public class InitFrame extends javax.swing.JFrame {
         mettreAuSale.setVisible(false);
         mettreAuPropre.setVisible(false);
         retour.setVisible(false);
+        jMenuBar1.setVisible(false);
         affichageCorbeille(2);
     }//GEN-LAST:event_mettreAuPropreActionPerformed
 
@@ -3164,6 +3117,8 @@ public class InitFrame extends javax.swing.JFrame {
             mettreAuPropre.setVisible(true);
             validerCorbeille.setVisible(false);
             ko.setVisible(false);
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
             affichageCorbeille(1);
         }
     }//GEN-LAST:event_koActionPerformed
@@ -3175,12 +3130,9 @@ public class InitFrame extends javax.swing.JFrame {
         mettreAuSale.setVisible(false);
         mettreAuPropre.setVisible(false);
         retour.setVisible(false);
+        jMenuBar1.setVisible(false);
         affichageCorbeille(3);
     }//GEN-LAST:event_mettreAuSaleActionPerformed
-
-    private void validerCorbeilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerCorbeilleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_validerCorbeilleActionPerformed
 
     private void annulerAjoutSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutSacActionPerformed
         JOptionPane jop = new JOptionPane();
@@ -3248,6 +3200,7 @@ public class InitFrame extends javax.swing.JFrame {
         } else {
             contenus = new ArrayList(Vetement.getVetementsSaleOuPropre(false));
             salePropre = false;
+            mettreAuPropre.setEnabled(true);
         }
 
         if (contenus == null || contenus.isEmpty()) {
@@ -3302,6 +3255,8 @@ public class InitFrame extends javax.swing.JFrame {
                     mettreAuSale.setVisible(true);
                     mettreAuPropre.setVisible(true);
                     validerCorbeille.setVisible(false);
+                    retour.setVisible(true);
+                    jMenuBar1.setVisible(true);
                     ko.setVisible(false);
                     affichageCorbeille(1);
                     vets.clear();
@@ -3363,7 +3318,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JPanel Affichage;
     private javax.swing.JPanel AffichageCorbeille;
     private javax.swing.JPanel AffichageDressing;
-    private javax.swing.JPanel AffichageObjet;
     private javax.swing.JPanel AffichageSuppression;
     public static javax.swing.JPanel AffichageTenue;
     private javax.swing.JPanel AffichageVetementCouleurPreferee;
@@ -3464,11 +3418,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
@@ -3516,7 +3465,6 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton parcourirVetement;
     private javax.swing.JLabel photoChaussures;
     private javax.swing.JLabel photoContenu;
-    private javax.swing.JLabel photoLabel;
     private javax.swing.JLabel photoSac;
     private javax.swing.JLabel photoVetement;
     private javax.swing.JButton premiereConnexion;

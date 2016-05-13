@@ -28,15 +28,13 @@ public class JListMouseListener implements MouseListener {
 
     private JList jl;
     private int indexClic;
-    JPanel panelAffichage;
     JDialog jd;
     JLabel photo, caracteristique1, caracteristique2, caracteristique3, caracteristique4, id;
     JButton mettreAuSale;
 
-    public JListMouseListener(JList jl, JPanel panelAffichage, JDialog jd,JLabel photo,JLabel caracteristique1,JLabel caracteristique2,JLabel caracteristique3,JLabel caracteristique4, JButton mettreAuSale,JLabel id) {
+    public JListMouseListener(JList jl, JDialog jd,JLabel photo,JLabel caracteristique1,JLabel caracteristique2,JLabel caracteristique3,JLabel caracteristique4, JButton mettreAuSale,JLabel id) {
         super();
         this.jl = jl;
-        this.panelAffichage = panelAffichage;
         this.jd= jd;
         this.photo=photo;
         this.caracteristique1=caracteristique1;

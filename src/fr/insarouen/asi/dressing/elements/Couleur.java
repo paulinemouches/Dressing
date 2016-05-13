@@ -49,85 +49,6 @@ public class Couleur {
         this.couleur = couleur;
     }
 
-    /*  public void InitTableauxAssociations() {
-     for (int i = 1; i < couleurs.length; i++) { // on parcours toutes les lignes du tableau
-     for (int j = 1; j < couleurs.length; j++) {
-     if (j <= i) {            //on parcours que la partie inferieure de la matrice (diagonale + sous la diagonale) car elle est symétrique
-     // => temps de parcouirs réduit et redondance dans nos tableaux t1,t2,... évitée.      
-     List<Integer> l = new ArrayList<Integer>(); // SOUS LISTE A METTRE DANS NOS LISTES
-     l.add(couleurs[0][j]); // on ajoute a la premiere case de la sous liste la valeur corresdant a l'abscisse de la valeur parcourue 
-     l.add(couleurs[i][0]);// on ajoute a la seconde case de la sous liste la valeur corresdant a l'ordonnée de la valeur parcourue
-     switch (couleurs[i][j]) { // selon la valeur parcourue (=note de 1 à 5 corresponadant à si les couleurs sont bien assorties) on remplit le bon tableau
-     case 1:
-     t1.add(l);
-     break;
-     case 2:
-     t2.add(l);
-     break;
-     case 3:
-     t3.add(l);
-     break;
-     case 4:
-     t4.add(l);
-     break;
-     case 5:
-     t5.add(l);
-     break;
-     }
-     }
-     }
-      
-     }
-     }
-
-     public List<List<Integer>> obtenirTableau(int valeurDuTableau) {
-     switch (valeurDuTableau) {
-     case 1:
-     return t1;
-     case 2:
-     return t2;
-     case 3:
-     return t3;
-     case 4:
-     return t4;
-     case 5:
-     return t5;
-     default:
-     return null;
-     }
-     }
-
-     public int recupererValeurAssociee(int valeurDuTableau, int couleurDesiree) {
-     InitTableauxAssociations();
-     // on entre une couleur et on voudrait savoir qu'elle couleur est associée à celle ci par un notre de valeurDuTableau
-     List<List<Integer>> t = new ArrayList<List<Integer>>();
-     t = obtenirTableau(valeurDuTableau);
-     for (int a = 0; a < t.size(); a++) { // on parcours le tableau correspondant à la valeurDuTableau entrée par l'utilisateur
-     if (t.get(a).get(0) == couleurDesiree){// on regarde dans le sous tableau de la case 1: si cette valeur correspond à lacouleur désiréé alors
-     return t.get(a).get(1);// on retourne la couleur associée : cas2 du sous tableau
-     }
-     else {
-     if (t.get(a).get(1) == couleurDesiree) {// on regarde la case 2 du sous tableau : si cette valeur correspond à lacouleur désiréé alors
-     return t.get(a).get(0);// on retourne la couleur associée : cas2 du sous tableau
-     }
-     }
-
-     }
-     return 0;// si la couleur désirée n'est pas dans le tableau on retourne 0
-     }
-    public ArrayList<Integer> recupererValeurAssociee(int note) {
-        ArrayList<Integer> t = new ArrayList<Integer>();
-        for (int i = 1; i < couleurs.length; i++) {
-            if (couleurs[this.getCouleur()][i] == note) {
-                t.add(i);
-            }
-        }
-        return t;
-    }
-
-    public Integer obtenirNote(Couleur c) {
-        return couleurs[this.getCouleur()][c.getCouleur()];
-    }*/
 
     @Override//utile pour pouvoir utiliser le hashSet qui utilise la methode equals
     public boolean equals(Object o) {
@@ -178,7 +99,7 @@ public class Couleur {
             case 3: return "Bleu marine"; 
             case 4: return "Turquoise"; 
             case 5: return "Gris clair"; 
-            case 6: return "Agenté"; 
+            case 6: return "Argenté"; 
             case 7: return "gris foncé"; 
             case 8: return "Marron Clair"; 
             case 9: return "Marron Foncé"; 
