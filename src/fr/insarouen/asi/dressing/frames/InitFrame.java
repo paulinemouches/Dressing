@@ -23,6 +23,7 @@ import fr.insarouen.asi.dressing.elements.objets.Contenu;
 import fr.insarouen.asi.dressing.elements.objets.Sac;
 import fr.insarouen.asi.dressing.elements.objets.Vetement;
 import fr.insarouen.asi.dressing.elements.utilisateurs.Utilisateur;
+import fr.insarouen.asi.dressing.notice.Notice;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -50,6 +51,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -205,14 +207,12 @@ public class InitFrame extends javax.swing.JFrame {
     }
 
     public void initSuivantPrecedent() {
-        prec.revalidate();
-        suiv.revalidate();
+
         retour.setVisible(true);
         jMenuBar1.setVisible(true);
         JPanel Boutons = new JPanel();
         Boutons.removeAll();
-        Boutons.revalidate();
-        Boutons.repaint();
+
         tenues.clear();
         indiceCourant = -1;
         Boutons.setLayout(new BorderLayout());
@@ -220,6 +220,16 @@ public class InitFrame extends javax.swing.JFrame {
         Boutons.add(prec, BorderLayout.WEST);
 
         Boutons.add(suiv, BorderLayout.EAST);
+
+        Boutons.revalidate();
+        Boutons.repaint();
+
+        prec.setVisible(true);
+        suiv.setVisible(true);
+        prec.validate();
+        suiv.validate();
+        prec.repaint();
+        suiv.repaint();
 
         prec.addActionListener(new ActionListener() {
             @Override
@@ -249,6 +259,8 @@ public class InitFrame extends javax.swing.JFrame {
 
         });
         AffichageTenue.add(Boutons, BorderLayout.SOUTH);
+        AffichageTenue.revalidate();
+        AffichageTenue.repaint();
 
     }
 
@@ -472,7 +484,7 @@ public class InitFrame extends javax.swing.JFrame {
         champConseil = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<String>();
+        evtTenueNormale = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
@@ -481,9 +493,9 @@ public class InitFrame extends javax.swing.JFrame {
         Affichage = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         annuleTenueAvecTypePartculier = new javax.swing.JButton();
@@ -492,7 +504,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
         annuleTenueAvecContenuParticulier = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
         accesDressing = new javax.swing.JButton();
@@ -538,6 +550,7 @@ public class InitFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         deconnexion = new javax.swing.JMenu();
         retourAccueilItem = new javax.swing.JMenuItem();
+        notice = new javax.swing.JMenuItem();
         deconnexionItem = new javax.swing.JMenuItem();
         retour = new javax.swing.JMenu();
 
@@ -1473,7 +1486,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AccueilDressing, "AccueilDressing");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1541,11 +1554,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1623,7 +1636,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         annuleTenueAvecContenuParticulier.setText("Annuler");
         annuleTenueAvecContenuParticulier.addActionListener(new java.awt.event.ActionListener() {
@@ -1813,7 +1826,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addComponent(validerAjoutChaussures)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cheminPhotoChaussures, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         AjoutChaussuresLayout.setVerticalGroup(
             AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1844,7 +1857,7 @@ public class InitFrame extends javax.swing.JFrame {
                         .addGroup(AjoutChaussuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(validerAjoutChaussures)
                             .addComponent(annulerAjoutChaussures))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutChaussures, "AjoutChaussures");
@@ -1895,12 +1908,6 @@ public class InitFrame extends javax.swing.JFrame {
         AjoutVetement.setLayout(AjoutVetementLayout);
         AjoutVetementLayout.setHorizontalGroup(
             AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AjoutVetementLayout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(validerAjoutVetement)
-                .addGap(18, 18, 18)
-                .addComponent(annulerAjoutVetement)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1921,8 +1928,12 @@ public class InitFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(133, 133, 133))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
+            .addGroup(AjoutVetementLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(annulerAjoutVetement)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(validerAjoutVetement)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cheminPhotoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(95, 95, 95))
         );
@@ -1954,13 +1965,16 @@ public class InitFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AjoutVetementLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(photoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cheminPhotoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(validerAjoutVetement)
-                    .addComponent(annulerAjoutVetement))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AjoutVetementLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cheminPhotoVetement, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AjoutVetementLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(AjoutVetementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(annulerAjoutVetement)
+                            .addComponent(validerAjoutVetement))))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         MainFrame.add(AjoutVetement, "AjoutVetement");
@@ -2040,6 +2054,14 @@ public class InitFrame extends javax.swing.JFrame {
             }
         });
         deconnexion.add(retourAccueilItem);
+
+        notice.setText("Notice d'Utilisation");
+        notice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noticeActionPerformed(evt);
+            }
+        });
+        deconnexion.add(notice);
 
         deconnexionItem.setText("Deconnexion");
         deconnexionItem.addActionListener(new java.awt.event.ActionListener() {
@@ -2293,7 +2315,7 @@ public class InitFrame extends javax.swing.JFrame {
             }
 
             listeObjets.setCellRenderer(new JListRenderer());
-            listeObjets.addMouseListener(new JListMouseListener(listeObjets,  detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
             //listeObjets.setVisibleRowCount(i);
 
             oldPanel.add("ConsulterDressing");
@@ -2325,7 +2347,7 @@ public class InitFrame extends javax.swing.JFrame {
             }
 
             listeObjets.setCellRenderer(new JListRenderer());
-            listeObjets.addMouseListener(new JListMouseListener(listeObjets,detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
+            listeObjets.addMouseListener(new JListMouseListener(listeObjets, detailContenu, imageContenu, caracteristique1, caracteristique2, caracteristique3, caracteristique4, mettreAuSalePropre, idobjet));
 
             oldPanel.add("ConsulterDressing");
             AffichageDressing.add(jsp, BorderLayout.CENTER);
@@ -2409,6 +2431,7 @@ public class InitFrame extends javax.swing.JFrame {
                 ajout[2]);
 
         CardLayout card = (CardLayout) MainFrame.getLayout();
+        jMenuBar1.setVisible(false);
         switch (rang) {
             case 0:
                 card.show(MainFrame, "AjoutVetement");
@@ -2425,7 +2448,7 @@ public class InitFrame extends javax.swing.JFrame {
     private void supprimerContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerContenuActionPerformed
         // TODO add your handling code here:
         int nbLignes = 0;
-        ArrayList<Contenu> contenus = null;
+        ArrayList<Contenu> contenus = new ArrayList<Contenu>();
         String chemin = "", message = "";
         caract1.setText("");
         caract2.setText("");
@@ -2460,10 +2483,10 @@ public class InitFrame extends javax.swing.JFrame {
                 message = "Vous n'avez pas de chaussures !";
                 break;
         }
-        if (contenus == null || contenus.isEmpty()) {
+        if (contenus.isEmpty() && !message.equals("")) {
             JOptionPane jop1 = new JOptionPane();
             jop1.showMessageDialog(ConsulterDressing, message, "Information", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        } else if (!contenus.isEmpty()) {
             nbLignes = (int) Math.ceil(contenus.size() / 5.0);
             GridLayout grid = new GridLayout(nbLignes, 5, 30, 20);
             JPanel jp = new JPanel();
@@ -2530,6 +2553,8 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(AjoutSac, "Sac ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
+            jMenuBar1.setVisible(true);
+            retour.setVisible(true);
 
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class
@@ -2554,6 +2579,8 @@ public class InitFrame extends javax.swing.JFrame {
             jop1.showMessageDialog(AjoutChaussures, "Chaussures ajoutées ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
+            jMenuBar1.setVisible(true);
+            retour.setVisible(true);
 
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class
@@ -2724,56 +2751,62 @@ public class InitFrame extends javax.swing.JFrame {
         String cheminImage = "";
 
         try {
-            if (cheminPhotoVetement.getText().length() > 0) {
-                cheminImage = cheminPhotoVetement.getText();
-            } else {
-                switch (TypeVetement.getfromInt(typeV.getSelectedIndex() + 1)) {
-                    case Teeshirt:
-                        cheminImage = "teeshirt-icone.png";
-                        break;
-                    case Chemisier:
-                        cheminImage = "chemisier-icone.png";
-                        break;
-                    case Pull:
-                        cheminImage = "pull-icone.png";
-                        break;
-                    case Veste:
-                        cheminImage = "veste-icone.png";
-                        break;
-                    case Manteau:
-                        cheminImage = "manteau-icone.png";
-                        break;
-                    case Jogging:
-                        cheminImage = "jogging-icone.jpeg";
-                        break;
-                    case Pantalon:
-                        cheminImage = "pantalon-icone.png";
-                        break;
-                    case Pantacourt:
-                        cheminImage = "pantacourt-icone.jpeg";
-                        break;
-                    case Jupe:
-                        cheminImage = "jupe-icone.png";
-                        break;
-                    case Robe:
-                        cheminImage = "robe-icone.png";
-                        break;
-                    case Combinaison:
-                        cheminImage = "combinaison-icone.jpeg";
-                        break;
-                    case Short:
-                        cheminImage = "short-icone.png";
-                        break;
+            if (coupeV.getSelectedItem() != null) {
+                if (cheminPhotoVetement.getText().length() > 0) {
+                    cheminImage = cheminPhotoVetement.getText();
+                } else {
+                    switch (TypeVetement.getfromInt(typeV.getSelectedIndex() + 1)) {
+                        case Teeshirt:
+                            cheminImage = "teeshirt-icone.png";
+                            break;
+                        case Chemisier:
+                            cheminImage = "chemisier-icone.png";
+                            break;
+                        case Pull:
+                            cheminImage = "pull-icone.png";
+                            break;
+                        case Veste:
+                            cheminImage = "veste-icone.png";
+                            break;
+                        case Manteau:
+                            cheminImage = "manteau-icone.png";
+                            break;
+                        case Jogging:
+                            cheminImage = "jogging-icone.jpeg";
+                            break;
+                        case Pantalon:
+                            cheminImage = "pantalon-icone.png";
+                            break;
+                        case Pantacourt:
+                            cheminImage = "pantacourt-icone.jpeg";
+                            break;
+                        case Jupe:
+                            cheminImage = "jupe-icone.png";
+                            break;
+                        case Robe:
+                            cheminImage = "robe-icone.png";
+                            break;
+                        case Combinaison:
+                            cheminImage = "combinaison-icone.jpeg";
+                            break;
+                        case Short:
+                            cheminImage = "short-icone.png";
+                            break;
+                    }
                 }
+                boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1), cheminImage);
+                JOptionPane jop1 = new JOptionPane();
+                jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
+                CardLayout card = (CardLayout) MainFrame.getLayout();
+                card.show(MainFrame, "ConsulterDressing");
+                jMenuBar1.setVisible(true);
+                retour.setVisible(true);
+                cheminPhotoVetement.setText("");
+                photoVetement.setText("");
+                this.dressingActionPerformed(evt);
+            } else {
+                JOptionPane.showMessageDialog(AjoutVetement, "Veuillez remplir tous les champs ", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
-            boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1), cheminImage);
-            JOptionPane jop1 = new JOptionPane();
-            jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
-            CardLayout card = (CardLayout) MainFrame.getLayout();
-            card.show(MainFrame, "ConsulterDressing");
-            cheminPhotoVetement.setText("");
-            photoVetement.setText("");
-            this.dressingActionPerformed(evt);
 
         } catch (SQLException ex) {
             Logger.getLogger(InitFrame.class
@@ -2814,7 +2847,11 @@ public class InitFrame extends javax.swing.JFrame {
         card.show(MainFrame, oldPanel.get(oldPanel.size() - 1));
         if (oldPanel.get(oldPanel.size() - 1).equals("AccueilDressing")) {
             retour.setVisible(false);
-            jMenuBar1.setVisible(false);
+            jMenuBar1.setVisible(true);
+        }
+        if (oldPanel.get(oldPanel.size() - 1).equals("ConsulterDressing")) {
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
         }
         oldPanel.remove(oldPanel.size() - 1);
     }//GEN-LAST:event_retourMousePressed
@@ -2823,7 +2860,7 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String[] tenue = {"Normale", "Avec un contenu particulier", "Avec un type particulier"};
         JOptionPane jop = new JOptionPane();
-        int rang = jop.showOptionDialog(ConsulterDressing,
+        int rang = jop.showOptionDialog(AccueilDressing,
                 "Quel type de tenue voulez-vous créer ?",
                 "Création",
                 JOptionPane.YES_NO_CANCEL_OPTION,
@@ -3044,7 +3081,7 @@ public class InitFrame extends javax.swing.JFrame {
                 jop1.showMessageDialog(ConsulterDressing, "Suppression effectuée", "Information", JOptionPane.INFORMATION_MESSAGE);
                 this.dressingActionPerformed(evt);
             }
-            
+
         } catch (SQLException e) {
         }
     }//GEN-LAST:event_supprimerActionPerformed
@@ -3154,7 +3191,7 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void annuleTenueNormaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annuleTenueNormaleActionPerformed
         JOptionPane jop = new JOptionPane();
-        int option = jop.showConfirmDialog(AjoutChaussures, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int option = jop.showConfirmDialog(TenueNormale, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
@@ -3164,7 +3201,7 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void annuleTenueAvecTypePartculierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annuleTenueAvecTypePartculierActionPerformed
         JOptionPane jop = new JOptionPane();
-        int option = jop.showConfirmDialog(AjoutChaussures, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int option = jop.showConfirmDialog(TenueAvecTypeParticulier, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
@@ -3174,13 +3211,27 @@ public class InitFrame extends javax.swing.JFrame {
 
     private void annuleTenueAvecContenuParticulierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annuleTenueAvecContenuParticulierActionPerformed
         JOptionPane jop = new JOptionPane();
-        int option = jop.showConfirmDialog(AjoutChaussures, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int option = jop.showConfirmDialog(TenueAvecContenuParticulier, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
         }
 
     }//GEN-LAST:event_annuleTenueAvecContenuParticulierActionPerformed
+
+    private void noticeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noticeActionPerformed
+        JDialog jd = new JDialog();
+        Notice not = new Notice("notice.txt");
+
+        JPanel jp = new JPanel();
+        jp.add(new JLabel(not.getNotice()));
+        JScrollPane jsp = new JScrollPane(jp);
+        jsp.setPreferredSize(new Dimension(650, 500));
+        jsp.repaint();
+        jd.add(jsp);
+        jd.pack();
+        jd.setVisible(true);
+    }//GEN-LAST:event_noticeActionPerformed
 
     private void affichageCorbeille(int styleDAffichage) {
         // 1 : affichage corbeille normal
@@ -3449,6 +3500,7 @@ public class InitFrame extends javax.swing.JFrame {
     private javax.swing.JButton mettreAuSalePropre;
     private javax.swing.JTextField nomBase;
     private javax.swing.JTextField nomUtilisateur;
+    private javax.swing.JMenuItem notice;
     private javax.swing.JComboBox nouveauAge;
     private javax.swing.JComboBox nouveauCoulC;
     private javax.swing.JComboBox nouveauCoulP;

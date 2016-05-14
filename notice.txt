@@ -1,0 +1,43 @@
+------------------------------------------------------------------------
+Notice d'utilisation
+------------------------------------------------------------------------
+Afficher son dressing : 
+</br></br>
+Cliquez sur le bouton dressing. Sur la page principale vous
+pouvez voir vos vêtements de la saison et vos vêtements de 
+votre couleur préférée. 
+Pour affiner votre recherche, il vous suffit de cliquer sur un des boutons situés
+sur le bandeau de gauche afin d'afficher un type d'élément particulier.
+</br></br>
+Afficher des caractéristiques d'un élément :
+</br></br>
+Cliquez sur la photo d'un élément pour afficher 
+toutes les caractéristiques de l'élément.
+</br></br>
+Ajouter un élément :
+</br></br>
+Cliquez sur le plus situé en haut de la fenêtre d'affichage.
+Une pop-up s'ouvre et vous demande quel type d'élément vous voulez ajouter. 
+Il vous suffit ensuite de remplir le formulaire d'ajout d'un élément.
+</br></br>
+Supprimer un élément :
+</br></br>
+Cliquez sur le moins situé en haut de la fenêtre d'affichage.
+Vous pouvez également afficher les éléments d'un type et cliquer 
+sur le bouton "Supprimer" d'un élément pour supprimer un élément particulier.
+</br></br>
+Mettre un vêtement au sale :
+</br></br>
+Lors de l'affichage des vêtements d'un type, 
+cliquez sur le bouton "mettre au sale" en bas de la photo 
+d'un vêtement pour le mettre au sale.
+Vous pouvez également cliquer directement sur le bouton corbeille à linge depuis 
+le menu principal. Vous pouvez ainsi consulter vos vêtements sales et sortir 
+ou ajouter des vêtements à la corbeille.
+</br></br>
+Créer une tenue :
+</br></br>
+Cliquez sur le bouton créer une tenue. Il vous suffit ensuite 
+de sélectionner les différents critères avec lesquels vous voulez 
+créer votre tenue puis de cliquer sur valider. La tenue créée s'affiche.
+
