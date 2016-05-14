@@ -94,8 +94,8 @@ public class Initialisation {
         return tab;
     }
 
-    public static boolean connexion(String nomUtilisateur, String nomBase) {
-        String password = nomUtilisateur;
+    public static boolean connexion(String nomUtilisateur, String password, String nomBase) {
+        
         Boolean connecte;
         try {
             Class.forName("org.postgresql.Driver");
