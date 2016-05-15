@@ -114,8 +114,14 @@ public class InitFrame extends javax.swing.JFrame {
             }
             int i = 0;
             if (vetements.isEmpty()) {
-                JOptionPane jop1 = new JOptionPane();
-                jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de vêtements de ce type !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                if(typeV!=0){
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de vêtements de ce type !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(ConsulterDressing, "Vous n'avez pas de vêtements !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
+                
             } else {
                 for (Vetement v : vetements) {
                     dlmSac.add(i, v);
@@ -188,7 +194,7 @@ public class InitFrame extends javax.swing.JFrame {
                     t.viderTenue();
                     k++;
                     if (k == 100) { // Si on retombe toujours sur les meme tenues, on sort
-                        JOptionPane.showMessageDialog(AffichageTenue, "Vous n'avez plus de tenue suivante !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                        suiv.setVisible(false);
                         flag = false;
                         indiceFinal = tenues.size() - 1;
                     }
@@ -198,7 +204,7 @@ public class InitFrame extends javax.swing.JFrame {
                     consulterTenue(t);
                     flag = false;//l'exception n'est pas levée, le flag est faux, on sort de la boucle
                 } else {
-                    JOptionPane.showMessageDialog(AffichageTenue, "Vous n'avez plus de tenue suivante !", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    suiv.setVisible(false);
                     flag = false;
                     indiceFinal = tenues.size() - 1;
                 }
@@ -209,9 +215,9 @@ public class InitFrame extends javax.swing.JFrame {
                 t.viderTenue();
                 if (i == 100) {
                     flag = false;
-                    JOptionPane.showMessageDialog(AffichageTenue, "Vous n'avez plus de tenue suivante !", "Information", JOptionPane.INFORMATION_MESSAGE);
-                    //throw new TenueImpossibleException();
+                    suiv.setVisible(false);
                     indiceFinal = tenues.size() - 1;
+                    throw new TenueImpossibleException();
                 }
             }
         } while (flag);//tant que l'exception est levée, on recommence a creer une nouvelle tenue (toujours avec les meme caractéristiques)
@@ -247,9 +253,10 @@ public class InitFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (indiceCourant == 0) {
-                    JOptionPane.showMessageDialog(AffichageTenue, "Vous n'avez pas de tenue précédente", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    prec.setVisible(false);
                 } else {
                     indiceCourant = indiceCourant - 1;
+                    suiv.setVisible(true);
                     consulterTenue(tenues.get(indiceCourant));
                 }
             }
@@ -258,13 +265,15 @@ public class InitFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (indiceCourant < (tenues.size() - 1) && indiceCourant < indiceFinal) {
+                    prec.setVisible(true);
                     indiceCourant = indiceCourant + 1;
                     consulterTenue(tenues.get(indiceCourant));
                 } else if (indiceCourant >= indiceFinal) {
-                    JOptionPane.showMessageDialog(AffichageTenue, "Vous n'avez pas de tenue suivante", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    suiv.setVisible(false);
 
                 } else {
                     try {
+                        prec.setVisible(true);
                         creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
                     } catch (SQLException | TenueImpossibleException ex) {
                         Logger.getLogger(InitFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -501,7 +510,7 @@ public class InitFrame extends javax.swing.JFrame {
         champConseil = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<>();
+        evtTenueNormale = new javax.swing.JComboBox<String>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
@@ -510,9 +519,9 @@ public class InitFrame extends javax.swing.JFrame {
         Affichage = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         annuleTenueAvecTypePartculier = new javax.swing.JButton();
@@ -521,7 +530,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
         annuleTenueAvecContenuParticulier = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
         accesDressing = new javax.swing.JButton();
@@ -1246,7 +1255,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel17.setText("couleur du sac :");
 
-        typeSac.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sac à dos", "sac à main", "pochette", " " }));
+        typeSac.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sac à dos", "sac à main", "pochette" }));
 
         couleurSac.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bleu", "Bleu clair", "Bleu marine", "Turquoise", "Gris clair", "Argenté", "Gris foncé", "Marron clair", "Marron foncé", "Corail", "Orange", "Bordeau", "Brique", "Rouge", "Rose pale", "Rose fushia", "Rose foncé", "Mauve", "Violet", "Prune", "Blanc", "Jaune moutarde ", "Jaune", "Doré", "Noir", "Kaki", "Vert pale", "Vert", "Jean clair", "Jean marine", "Beige" }));
         couleurSac.addActionListener(new java.awt.event.ActionListener() {
@@ -1516,7 +1525,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AccueilDressing, "AccueilDressing");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1584,11 +1593,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1666,7 +1675,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         annuleTenueAvecContenuParticulier.setText("Annuler");
         annuleTenueAvecContenuParticulier.addActionListener(new java.awt.event.ActionListener() {
@@ -2464,12 +2473,28 @@ public class InitFrame extends javax.swing.JFrame {
         jMenuBar1.setVisible(false);
         switch (rang) {
             case 0:
+                cheminPhotoVetement.setText("");
+                photoVetement.setIcon(null);
+                if (coupeV.getSelectedItem() != null) {
+                    coupeV.setSelectedIndex(0);
+                }
+                typeV.setSelectedIndex(0);
+                couleurV.setSelectedIndex(0);
+                matiereV.setSelectedIndex(0);
                 card.show(MainFrame, "AjoutVetement");
                 break;
             case 1:
+                typeSac.setSelectedIndex(0);
+                couleurSac.setSelectedIndex(0);
+                photoSac.setIcon(null);
+                cheminPhotoSac.setText("");
                 card.show(MainFrame, "AjoutSac");
                 break;
             case 2:
+                typeChaussures.setSelectedIndex(0);
+                couleurChaussures.setSelectedIndex(0);
+                photoChaussures.setIcon(null);
+                cheminPhotoChaussures.setText("");
                 card.show(MainFrame, "AjoutChaussures");
                 break;
         }
@@ -2772,6 +2797,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutVetement, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
         }
@@ -2781,7 +2808,6 @@ public class InitFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Vetement v = new Vetement();
         String cheminImage = "";
-
         try {
             if (coupeV.getSelectedItem() != null) {
                 if (cheminPhotoVetement.getText().length() > 0) {
@@ -2826,15 +2852,14 @@ public class InitFrame extends javax.swing.JFrame {
                             break;
                     }
                 }
-                boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurChaussures.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1), cheminImage);
+                boolean bv = v.ajouterVetement(this.getIdDressing(), new Couleur(couleurV.getSelectedIndex() + 1), CoupeVetement.get((String) coupeV.getSelectedItem()), Matiere.getfromInt(matiereV.getSelectedIndex() + 1), TypeVetement.getfromInt(typeV.getSelectedIndex() + 1), cheminImage);
                 JOptionPane jop1 = new JOptionPane();
                 jop1.showMessageDialog(AjoutVetement, "Vetement ajouté ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
                 CardLayout card = (CardLayout) MainFrame.getLayout();
                 card.show(MainFrame, "ConsulterDressing");
                 jMenuBar1.setVisible(true);
                 retour.setVisible(true);
-                cheminPhotoVetement.setText("");
-                photoVetement.setText("");
+
                 this.dressingActionPerformed(evt);
             } else {
                 JOptionPane.showMessageDialog(AjoutVetement, "Veuillez remplir tous les champs ", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -2851,6 +2876,8 @@ public class InitFrame extends javax.swing.JFrame {
         if (connecte) {
             int option = jop.showConfirmDialog(AccueilDressing, "Voulez-vous vraiment vous déconnecter ?", "Deconnexion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
+                retour.setVisible(false);
+                jMenuBar1.setVisible(false);
                 identifiantUtilisateur.setText("");
                 mdpUtilisateur.setText("");
                 CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -2903,9 +2930,13 @@ public class InitFrame extends javax.swing.JFrame {
         CardLayout card = (CardLayout) MainFrame.getLayout();
         switch (rang) {
             case 0:
+                jMenuBar1.setVisible(false);
+                retour.setVisible(false);
                 card.show(MainFrame, "TenueNormale");
                 break;
             case 1:
+                jMenuBar1.setVisible(false);
+                retour.setVisible(false);
                 card.show(MainFrame, "TenueAvecContenuParticulier");
                 sacscb.setEnabled(true);
                 chaussurescb.setEnabled(true);
@@ -2966,6 +2997,8 @@ public class InitFrame extends javax.swing.JFrame {
 
                 break;
             case 2:
+                jMenuBar1.setVisible(false);
+                retour.setVisible(false);
                 card.show(MainFrame, "TenueAvecTypeParticulier");
                 break;
         }
@@ -2995,6 +3028,8 @@ public class InitFrame extends javax.swing.JFrame {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+            jMenuBar1.setVisible(false);
+            retour.setVisible(false);
         }
 
     }//GEN-LAST:event_validerTenueNormaleActionPerformed
@@ -3030,7 +3065,9 @@ public class InitFrame extends javax.swing.JFrame {
             card.show(MainFrame, "AccueilDressing");
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         } catch (TenueImpossibleException ex) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas de vetements de ce type", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
+            jMenuBar1.setVisible(false);
+            retour.setVisible(false);
         }
 
     }//GEN-LAST:event_validerTenueAvecTypeParticulierActionPerformed
@@ -3070,7 +3107,8 @@ public class InitFrame extends javax.swing.JFrame {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
-
+            jMenuBar1.setVisible(false);
+            retour.setVisible(false);
         }
 
     }//GEN-LAST:event_validerTenueAvecContenuParticulierActionPerformed
@@ -3209,6 +3247,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutSac, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
         }
@@ -3218,6 +3258,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutChaussures, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            retour.setVisible(true);
+            jMenuBar1.setVisible(true);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "ConsulterDressing");
         }
@@ -3227,6 +3269,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(TenueNormale, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            jMenuBar1.setVisible(true);
+            retour.setVisible(false);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
         }
@@ -3237,6 +3281,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(TenueAvecTypeParticulier, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            jMenuBar1.setVisible(true);
+            retour.setVisible(false);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
         }
@@ -3247,6 +3293,8 @@ public class InitFrame extends javax.swing.JFrame {
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(TenueAvecContenuParticulier, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
+            jMenuBar1.setVisible(true);
+            retour.setVisible(false);
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
         }
