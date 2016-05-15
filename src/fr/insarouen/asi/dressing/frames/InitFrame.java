@@ -1443,7 +1443,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         coulPreferee.setText("couleur Préférée");
 
-        jLabel1.setText("Nos Conseils :");
+        jLabel1.setText("<h2>Nos Conseils :</h2>");
 
         jLabel12.setText("age :");
 
