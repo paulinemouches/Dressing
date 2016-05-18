@@ -1694,7 +1694,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;h2&gt;Nos Conseils :&lt;/h2&gt;"/>
+                <Property name="text" type="java.lang.String" value="Nos Conseils :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">

@@ -72,7 +72,7 @@ public class InitFrame extends javax.swing.JFrame {
     JButton suiv = new JButton("Suivant");
     ArrayList<Tenue> tenues = new ArrayList<Tenue>();
     int indiceCourant;
-    int indiceFinal = 100;
+    int indiceFinal;
     int[] tableauIdChoisis = {0, 0, 0};
     ArrayList<Vetement> vetementsTypeChoisis = new ArrayList<Vetement>();
     int typeTenue;
@@ -232,6 +232,7 @@ public class InitFrame extends javax.swing.JFrame {
         Boutons.removeAll();
 
         tenues.clear();
+        indiceFinal = 100;
         indiceCourant = -1;
         Boutons.setLayout(new BorderLayout());
 
@@ -510,7 +511,7 @@ public class InitFrame extends javax.swing.JFrame {
         champConseil = new javax.swing.JLabel();
         AffichageDressing = new javax.swing.JPanel();
         TenueNormale = new javax.swing.JPanel();
-        evtTenueNormale = new javax.swing.JComboBox<String>();
+        evtTenueNormale = new javax.swing.JComboBox<>();
         jLabel36 = new javax.swing.JLabel();
         formeTenueNormale = new javax.swing.JCheckBox();
         validerTenueNormale = new javax.swing.JButton();
@@ -519,9 +520,9 @@ public class InitFrame extends javax.swing.JFrame {
         Affichage = new javax.swing.JPanel();
         TenueAvecTypeParticulier = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         jLabel38 = new javax.swing.JLabel();
-        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<String>();
+        typeTenueAvecTypeParticulier = new javax.swing.JComboBox<>();
         formeTenueAvecTypeParticulier = new javax.swing.JCheckBox();
         validerTenueAvecTypeParticulier = new javax.swing.JButton();
         annuleTenueAvecTypePartculier = new javax.swing.JButton();
@@ -530,7 +531,7 @@ public class InitFrame extends javax.swing.JFrame {
         validerTenueAvecContenuParticulier = new javax.swing.JButton();
         formeTenueAvecContenuParticulier = new javax.swing.JCheckBox();
         jLabel42 = new javax.swing.JLabel();
-        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<String>();
+        evtTenueAvecContenuParticulier = new javax.swing.JComboBox<>();
         annuleTenueAvecContenuParticulier = new javax.swing.JButton();
         Accueil = new javax.swing.JPanel();
         accesDressing = new javax.swing.JButton();
@@ -1443,7 +1444,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         coulPreferee.setText("couleur Préférée");
 
-        jLabel1.setText("<h2>Nos Conseils :</h2>");
+        jLabel1.setText("Nos Conseils :");
 
         jLabel12.setText("age :");
 
@@ -1525,7 +1526,7 @@ public class InitFrame extends javax.swing.JFrame {
         MainFrame.add(AccueilDressing, "AccueilDressing");
         MainFrame.add(AffichageDressing, "AffichageDressing");
 
-        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueNormale.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel36.setText("Evenement:");
 
@@ -1593,11 +1594,11 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel37.setText("Evenement:");
 
-        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         jLabel38.setText("Type de Vetements :");
 
-        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
+        typeTenueAvecTypeParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tee-shirt", "Chemisier", "Pull", "Veste", "Manteau", "Pantalon", " Pantacourt", "Jogging", "Jupe", " Short", "Robe", "Combinaison" }));
 
         formeTenueAvecTypeParticulier.setText("Accordée à la forme");
 
@@ -1675,7 +1676,7 @@ public class InitFrame extends javax.swing.JFrame {
 
         jLabel42.setText("Evenement:");
 
-        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tous les jours", "Sport", "Soirée" }));
+        evtTenueAvecContenuParticulier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tous les jours", "Sport", "Soirée" }));
 
         annuleTenueAvecContenuParticulier.setText("Annuler");
         annuleTenueAvecContenuParticulier.addActionListener(new java.awt.event.ActionListener() {
@@ -2141,13 +2142,11 @@ public class InitFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void premiereConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_premiereConnexionActionPerformed
-        // TODO add your handling code here:
         CardLayout card = (CardLayout) MainFrame.getLayout();
         card.show(MainFrame, "Connexion");
     }//GEN-LAST:event_premiereConnexionActionPerformed
 
     private void connecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connecterActionPerformed
-        // TODO add your handling code here:
         connecte = Initialisation.connexion(nomUtilisateur1.getText(), mdp.getText(), nomBase.getText());
         if (connecte) {
             CardLayout card = (CardLayout) MainFrame.getLayout();
@@ -2196,7 +2195,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_accesDressingActionPerformed
 
     private void supprUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprUtilisateurActionPerformed
-        // TODO add your handling code here:
         Utilisateur user = new Utilisateur();
         try {
             boolean buser = user.supprimerUtilisateur(Integer.parseInt(idSuppr.getText()));
@@ -2215,7 +2213,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_nouveauCoulPActionPerformed
 
     private void validerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutUtilisateurActionPerformed
-        // TODO add your handling code here:
         nouveauIdentifiant.setBorder(BorderFactory.createLineBorder(Color.gray));
         nouveauNom.setBorder(BorderFactory.createLineBorder(Color.gray));
         nouveauMdp.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -2271,7 +2268,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutUtilisateurActionPerformed
 
     private void dressingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dressingActionPerformed
-        // TODO add your handling code here:
         try {
             AffichageVetementCouleurPreferee.removeAll();
             AffichageVetementSaison.removeAll();
@@ -2335,7 +2331,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_dressingActionPerformed
 
     private void sacsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sacsActionPerformed
-        // TODO add your handling code here:
 
         AffichageDressing.removeAll();
         DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
@@ -2368,7 +2363,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sacsActionPerformed
 
     private void chaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chaussuresActionPerformed
-        // TODO add your handling code here:
         AffichageDressing.removeAll();
         DefaultListModel<Contenu> dlmSac = new DefaultListModel<Contenu>();
         JList listeObjets = new JList(dlmSac);
@@ -2457,7 +2451,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_vestesActionPerformed
 
     private void ajoutContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutContenuActionPerformed
-        // TODO add your handling code here:
         String[] ajout = {"Vetement", "Sac", "Chaussures"};
         JOptionPane jop = new JOptionPane();
         int rang = jop.showOptionDialog(ConsulterDressing,
@@ -2501,7 +2494,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutContenuActionPerformed
 
     private void supprimerContenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerContenuActionPerformed
-        // TODO add your handling code here:
         int nbLignes = 0;
         ArrayList<Contenu> contenus = new ArrayList<Contenu>();
         String chemin = "", message = "";
@@ -2598,7 +2590,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_mdpActionPerformed
 
     private void validerAjoutSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutSacActionPerformed
-        // TODO add your handling code here:
         Sac sac = new Sac();
         String cheminImage = "sac-icone.jpg";
         try {
@@ -2624,7 +2615,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_couleurSacActionPerformed
 
     private void validerAjoutChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutChaussuresActionPerformed
-        // TODO add your handling code here:
         Chaussures c = new Chaussures();
         String cheminImage = "chaussures-icone.jpeg";
         try {
@@ -2647,7 +2637,6 @@ public class InitFrame extends javax.swing.JFrame {
 
 
     private void parcourirSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirSacActionPerformed
-        // TODO add your handling code here:
         int returnVal = jFileChooser1.showOpenDialog(AjoutSac);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
             String completeFileName = jFileChooser1.getSelectedFile().getName();
@@ -2658,7 +2647,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_parcourirSacActionPerformed
 
     private void parcourirChaussuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parcourirChaussuresActionPerformed
-        // TODO add your handling code here:
 
         int returnVal = jFileChooser1.showOpenDialog(AjoutChaussures);
         if (jFileChooser1.APPROVE_OPTION == returnVal) {
@@ -2670,7 +2658,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_parcourirChaussuresActionPerformed
 
     private void annulerAjoutUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutUtilisateurActionPerformed
-        // TODO add your handling code here:
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutUtilisateur, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
@@ -2684,7 +2671,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_idUtilisateurActionPerformed
 
     private void idUtilisateurMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idUtilisateurMouseReleased
-        // TODO add your handling code here:
         idUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
     }//GEN-LAST:event_idUtilisateurMouseReleased
 
@@ -2693,7 +2679,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_identifiantUtilisateurActionPerformed
 
     private void connectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectionActionPerformed
-        // TODO add your handling code here:
         jMenuBar1.setVisible(true);
         identifiantUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
         mdpUtilisateur.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -2759,7 +2744,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_connectionActionPerformed
 
     private void creationCompteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationCompteActionPerformed
-        // TODO add your handling code here:
         nouveauNom.setText("");
         nouveauPrenom.setText("");
         nouveauAge.setSelectedIndex(0);
@@ -2774,7 +2758,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_creationCompteActionPerformed
 
     private void typeVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeVActionPerformed
-        // TODO add your handling code here:
         final List<String> values = new ArrayList<String>();
         if (typeV.getSelectedIndex() == 0 || typeV.getSelectedIndex() == 1 || typeV.getSelectedIndex() == 2 || typeV.getSelectedIndex() == 3 || typeV.getSelectedIndex() == 4) {
             values.add("Cintre");
@@ -2793,7 +2776,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_typeVActionPerformed
 
     private void annulerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerAjoutVetementActionPerformed
-        // TODO add your handling code here:
         JOptionPane jop = new JOptionPane();
         int option = jop.showConfirmDialog(AjoutVetement, "Voulez-vous vraiment annuler ?", "Annulation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (option == JOptionPane.OK_OPTION) {
@@ -2805,7 +2787,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_annulerAjoutVetementActionPerformed
 
     private void validerAjoutVetementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerAjoutVetementActionPerformed
-        // TODO add your handling code here:
         Vetement v = new Vetement();
         String cheminImage = "";
         try {
@@ -2916,7 +2897,6 @@ public class InitFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_retourMousePressed
 
     private void creerTenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creerTenueActionPerformed
-        // TODO add your handling code here:
         String[] tenue = {"Normale", "Avec un contenu particulier", "Avec un type particulier"};
         JOptionPane jop = new JOptionPane();
         int rang = jop.showOptionDialog(AccueilDressing,
@@ -3019,7 +2999,6 @@ public class InitFrame extends javax.swing.JFrame {
         typeTenue = 1;
         evenement = TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1);
         try {
-            //Tenue t = Initialisation.creationTenue(tab, new ArrayList(), 1, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueNormale.getSelectedIndex() + 1));
             initSuivantPrecedent();
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
 
@@ -3028,8 +3007,7 @@ public class InitFrame extends javax.swing.JFrame {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
-            jMenuBar1.setVisible(false);
-            retour.setVisible(false);
+
         }
 
     }//GEN-LAST:event_validerTenueNormaleActionPerformed
@@ -3066,16 +3044,17 @@ public class InitFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
         } catch (TenueImpossibleException ex) {
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
-            jMenuBar1.setVisible(false);
-            retour.setVisible(false);
+
         }
 
     }//GEN-LAST:event_validerTenueAvecTypeParticulierActionPerformed
 
     private void validerTenueAvecContenuParticulierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerTenueAvecContenuParticulierActionPerformed
-        // TODO add your handling code here:
         tenues.clear();
         Tenue t = new Tenue();
+        tableauIdChoisis[0] = 0;
+        tableauIdChoisis[1] = 0;
+        tableauIdChoisis[2] = 0;
         if (sacscb.getSelectedItem() != null) {
             Contenu c1 = (Contenu) (sacscb.getSelectedItem());
             tableauIdChoisis[1] = c1.getIdObjet();
@@ -3098,7 +3077,6 @@ public class InitFrame extends javax.swing.JFrame {
         evenement = TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1);
         typeTenue = 2;
         try {
-            //t = Initialisation.creationTenue(tableauIdChoisis, new ArrayList(), 2, avecForme, idDressing, TypeEvenement.getfromInt(evtTenueAvecContenuParticulier.getSelectedIndex() + 1));
             initSuivantPrecedent();
             creationTenue(tableauIdChoisis, vetementsTypeChoisis, typeTenue, avecForme, idUser, evenement);
 
@@ -3107,8 +3085,7 @@ public class InitFrame extends javax.swing.JFrame {
             CardLayout card = (CardLayout) MainFrame.getLayout();
             card.show(MainFrame, "AccueilDressing");
             JOptionPane.showMessageDialog(AccueilDressing, "Vous n'avez pas assez de vêtements pour créer une tenue", "Erreur", JOptionPane.ERROR_MESSAGE);
-            jMenuBar1.setVisible(false);
-            retour.setVisible(false);
+
         }
 
     }//GEN-LAST:event_validerTenueAvecContenuParticulierActionPerformed
